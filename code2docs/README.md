@@ -1,7 +1,7 @@
 <!-- code2docs:start --># code2docs
 
 ![version](https://img.shields.io/badge/version-0.1.0-blue) ![python](https://img.shields.io/badge/python-%3E%3D3.9-blue) ![coverage](https://img.shields.io/badge/coverage-unknown-lightgrey) ![functions](https://img.shields.io/badge/functions-219-green)
-> **219** functions | **49** classes | **37** files | CC̄ = 3.8
+> **219** functions | **50** classes | **37** files | CC̄ = 4.0
 
 
 ## How It Works
@@ -77,23 +77,23 @@ generate_docs("./my-project", config=config)
 | Class | Description |
 |-------|-------------|
 | `GeneratorRegistry` | Registry of documentation generators. |
+| `LLMHelper` | Thin wrapper around litellm for documentation generation. |
 | `Updater` | Apply selective documentation updates based on detected changes. |
 | `ChangeInfo` | Describes a detected change. |
 | `Differ` | Detect changes between current source and previous state. |
 | `MarkdownFormatter` | Helper for constructing Markdown documents. |
 | `ReadmeGenerator` | Generate README.md from AnalysisResult. |
-| `CoverageGenerator` | Generate docs/coverage.md — docstring coverage report. |
 | `GenerateContext` | Shared context passed to all generators during a run. |
 | `BaseGenerator` | Abstract base for all documentation generators. |
-| `DepGraphGenerator` | Generate docs/dependency-graph.md with Mermaid diagrams. |
+| `CoverageGenerator` | Generate docs/coverage.md — docstring coverage report. |
 | `GettingStartedGenerator` | Generate docs/getting-started.md from entry points and dependencies. |
+| `DepGraphGenerator` | Generate docs/dependency-graph.md with Mermaid diagrams. |
 | `ConfigDocsGenerator` | Generate docs/configuration.md from Code2DocsConfig dataclass. |
 | `ChangelogEntry` | A single changelog entry. |
 | `ChangelogGenerator` | Generate CHANGELOG.md from git log and analysis diff. |
-| `ApiReferenceGenerator` | Generate docs/api/ — per-module API reference from signatures. |
-| `ModuleDocsGenerator` | Generate docs/modules/ — detailed per-module documentation. |
+| `ApiReferenceGenerator` | Generate docs/api.md — consolidated API reference. |
+| `ModuleDocsGenerator` | Generate docs/modules.md — consolidated module documentation. |
 | `MkDocsGenerator` | Generate mkdocs.yml from the docs/ directory structure. |
-| `ExamplesGenerator` | Generate examples/ — usage examples from public API signatures. |
 | `ReadmeGeneratorAdapter` | — |
 | `ApiReferenceAdapter` | — |
 | `ModuleDocsAdapter` | — |
@@ -106,6 +106,7 @@ generate_docs("./my-project", config=config)
 | `GettingStartedAdapter` | — |
 | `ConfigDocsAdapter` | — |
 | `ContributingAdapter` | — |
+| `ExamplesGenerator` | Generate examples/ — usage examples from public API signatures. |
 | `ApiChange` | A single API change between two analysis snapshots. |
 | `ApiChangelogGenerator` | Generate API changelog by diffing current analysis with a saved snapshot. |
 | `ContributingGenerator` | Generate CONTRIBUTING.md by detecting dev tools from pyproject.toml. |
@@ -118,11 +119,11 @@ generate_docs("./my-project", config=config)
 | `LLMConfig` | Configuration for optional LLM-assisted documentation generation. |
 | `Code2DocsConfig` | Main configuration for code2docs. |
 | `ProjectScanner` | Wraps code2llm's ProjectAnalyzer with code2docs-specific defaults. |
-| `DocstringInfo` | Parsed docstring with sections. |
-| `DocstringExtractor` | Extract and parse docstrings from AnalysisResult. |
 | `DependencyInfo` | Information about a project dependency. |
 | `ProjectDependencies` | All detected project dependencies. |
 | `DependencyScanner` | Scan and parse project dependency files. |
+| `DocstringInfo` | Parsed docstring with sections. |
+| `DocstringExtractor` | Extract and parse docstrings from AnalysisResult. |
 | `Endpoint` | Represents a detected web endpoint. |
 | `EndpointDetector` | Detects web endpoints from decorator patterns in source code. |
 
@@ -158,9 +159,8 @@ generate_docs("./my-project", config=config)
 📄 `cli` (14 functions, 1 classes)
 📦 `code2docs` (1 functions)
 📄 `config` (3 functions, 6 classes)
-📄 `examples.basic_usage`
-📄 `examples.class_examples`
-📄 `examples.entry_points`
+📄 `examples.advanced_usage`
+📄 `examples.quickstart`
 📦 `formatters`
 📄 `formatters.badges` (2 functions)
 📄 `formatters.markdown` (13 functions, 1 classes)
@@ -168,18 +168,19 @@ generate_docs("./my-project", config=config)
 📦 `generators` (1 functions)
 📄 `generators._registry_adapters` (24 functions, 12 classes)
 📄 `generators.api_changelog_gen` (9 functions, 2 classes)
-📄 `generators.api_reference_gen` (11 functions, 1 classes)
-📄 `generators.architecture_gen` (9 functions, 1 classes)
+📄 `generators.api_reference_gen` (7 functions, 1 classes)
+📄 `generators.architecture_gen` (10 functions, 1 classes)
 📄 `generators.changelog_gen` (6 functions, 2 classes)
 📄 `generators.config_docs_gen` (4 functions, 1 classes)
 📄 `generators.contributing_gen` (8 functions, 1 classes)
 📄 `generators.coverage_gen` (7 functions, 1 classes)
 📄 `generators.depgraph_gen` (9 functions, 1 classes)
-📄 `generators.examples_gen` (12 functions, 1 classes)
-📄 `generators.getting_started_gen` (7 functions, 1 classes)
+📄 `generators.examples_gen` (14 functions, 1 classes)
+📄 `generators.getting_started_gen` (8 functions, 1 classes)
 📄 `generators.mkdocs_gen` (4 functions, 1 classes)
-📄 `generators.module_docs_gen` (17 functions, 1 classes)
-📄 `generators.readme_gen` (15 functions, 1 classes)
+📄 `generators.module_docs_gen` (9 functions, 1 classes)
+📄 `generators.readme_gen` (16 functions, 1 classes)
+📄 `llm_helper` (7 functions, 1 classes)
 📄 `registry` (4 functions, 1 classes)
 📦 `sync`
 📄 `sync.differ` (7 functions, 2 classes)
@@ -194,8 +195,8 @@ When you run `code2docs`, the following files are produced:
 | Output | Description |
 |--------|-------------|
 | `README.md` | Project overview with badges, stats, and API summary |
-| `docs/api/` | Per-module API reference with signatures and complexity |
-| `docs/modules/` | Detailed module documentation with metrics |
+| `docs/api.md` | Consolidated API reference with signatures and complexity |
+| `docs/modules.md` | Module reference with metrics and class/function details |
 | `docs/architecture.md` | Architecture overview with Mermaid diagrams |
 | `docs/dependency-graph.md` | Module dependency graph and coupling matrix |
 | `docs/coverage.md` | Docstring coverage report |

@@ -149,7 +149,7 @@ class GettingStartedGenerator:
         """Render next steps with links to other docs."""
         lines = [
             "## What's Next\n",
-            "- 📖 [API Reference](api/index.md) — Full function and class documentation",
+            "- 📖 [API Reference](api.md) — Full function and class documentation",
             "- 🏗️ [Architecture](architecture.md) — System design and module relationships",
             "- 📊 [Coverage Report](coverage.md) — Docstring coverage analysis",
             "- 🔗 [Dependency Graph](dependency-graph.md) — Module dependency visualization",

@@ -48,22 +48,13 @@ class MkDocsGenerator:
         if self.config.docs.architecture:
             nav.append({"Architecture": "architecture.md"})
 
-        # API reference
+        # API reference (single file)
         if self.config.docs.api_reference:
-            api_items = [{"Overview": "api/index.md"}]
-            for mod_name in sorted(self.result.modules.keys()):
-                safe = mod_name.replace(".", "_").replace("/", "_")
-                api_items.append({mod_name: f"api/module_{safe}.md"})
-            nav.append({"API Reference": api_items})
+            nav.append({"API Reference": "api.md"})
 
-        # Module docs
+        # Module docs (single file)
         if self.config.docs.module_docs:
-            mod_items = []
-            for mod_name in sorted(self.result.modules.keys()):
-                safe = mod_name.replace(".", "_").replace("/", "_")
-                mod_items.append({mod_name: f"modules/{safe}.md"})
-            if mod_items:
-                nav.append({"Modules": mod_items})
+            nav.append({"Modules": "modules.md"})
 
         # Extra pages
         nav.append({"Dependency Graph": "dependency-graph.md"})

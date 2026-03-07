@@ -5,8 +5,13 @@ from pathlib import Path
 from typing import Optional
 
 import click
+from rich.console import Console
+from rich.table import Table
+from rich.panel import Panel
 
 from .config import Code2DocsConfig
+
+console = Console()
 
 
 class DefaultGroup(click.Group):
@@ -33,7 +38,10 @@ def main():
 @click.option("--output", "-o", default=None, help="Output directory for docs")
 @click.option("--verbose", "-v", is_flag=True, help="Verbose output")
 @click.option("--dry-run", is_flag=True, help="Show what would be generated without writing")
-def generate(project_path, config_path, readme_only, sections, output, verbose, dry_run):
+@click.option("--llm", "llm_model", default=None,
+              help="Enable LLM-assisted generation (e.g. openai/gpt-4o-mini, ollama/llama3)")
+def generate(project_path, config_path, readme_only, sections, output, verbose, dry_run,
+             llm_model):
     """Generate documentation (default command)."""
     config = _load_config(project_path, config_path)
     if verbose:
@@ -42,6 +50,9 @@ def generate(project_path, config_path, readme_only, sections, output, verbose, 
         config.output = output
     if sections:
         config.readme.sections = [s.strip() for s in sections.split(",")]
+    if llm_model:
+        config.llm.enabled = True
+        config.llm.model = llm_model
 
     _run_generate(project_path, config, readme_only=readme_only, dry_run=dry_run)
 
@@ -134,16 +145,23 @@ def _run_generate(project_path: str, config: Code2DocsConfig,
     from .generators._registry_adapters import ALL_ADAPTERS
 
     project = Path(project_path).resolve()
-    click.echo(f"📖 code2docs: analyzing {project.name}...")
+    console.print(f"[bold blue]📖 code2docs[/] analyzing [bold]{project.name}[/]...")
+    if config.llm.enabled:
+        console.print(f"  [cyan]🤖 LLM enabled:[/] {config.llm.model}")
+    elif config.verbose:
+        console.print("  [dim]ℹ️  LLM disabled — using algorithm-based generation[/]")
 
     # Step 1: Analyze
-    scanner = ProjectScanner(config)
-    result = scanner.analyze(str(project))
+    with console.status("[bold green]Analyzing source code...") as status:
+        scanner = ProjectScanner(config)
+        result = scanner.analyze(str(project))
 
     if config.verbose:
-        click.echo(f"  Functions: {len(result.functions)}")
-        click.echo(f"  Classes: {len(result.classes)}")
-        click.echo(f"  Modules: {len(result.modules)}")
+        table = Table(show_header=False, box=None, padding=(0, 2))
+        table.add_row("Functions", f"[green]{len(result.functions)}[/]")
+        table.add_row("Classes", f"[green]{len(result.classes)}[/]")
+        table.add_row("Modules", f"[green]{len(result.modules)}[/]")
+        console.print(table)
 
     # Step 2: Build context and registry
     docs_dir = project / config.output
@@ -162,7 +180,7 @@ def _run_generate(project_path: str, config: Code2DocsConfig,
     # Step 3: Run all generators
     registry.run_all(ctx, readme_only=readme_only)
 
-    click.echo("📖 Done!")
+    console.print("[bold green]✨ Done![/]")
 
 
 def _run_sync(project_path: str, config: Code2DocsConfig, dry_run: bool = False):
@@ -171,25 +189,25 @@ def _run_sync(project_path: str, config: Code2DocsConfig, dry_run: bool = False)
     from .sync.updater import Updater
 
     project = Path(project_path).resolve()
-    click.echo(f"🔄 code2docs sync: {project.name}...")
+    console.print(f"[bold blue]🔄 code2docs sync:[/] {project.name}...")
 
     differ = Differ(config)
     changes = differ.detect_changes(str(project))
 
     if not changes:
-        click.echo("  No changes detected.")
+        console.print("  [green]No changes detected.[/]")
         return
 
-    click.echo(f"  Changes detected in {len(changes)} modules")
+    console.print(f"  [yellow]Changes detected in {len(changes)} modules[/]")
 
     if dry_run:
         for change in changes:
-            click.echo(f"    - {change}")
+            console.print(f"    [dim]-[/] {change}")
         return
 
     updater = Updater(config)
     updater.apply(str(project), changes)
-    click.echo("🔄 Sync complete!")
+    console.print("[bold green]🔄 Sync complete![/]")
 
 
 def _run_watch(project_path: str, config: Code2DocsConfig):
@@ -197,11 +215,11 @@ def _run_watch(project_path: str, config: Code2DocsConfig):
     try:
         from .sync.watcher import start_watcher
     except ImportError:
-        click.echo("Error: watchdog not installed. Install with: pip install code2docs[watch]")
+        console.print(r"[red]Error:[/] watchdog not installed. Install with: [bold]pip install code2docs\[watch][/]")
         sys.exit(1)
 
     project = Path(project_path).resolve()
-    click.echo(f"👁 Watching {project.name} for changes... (Ctrl+C to stop)")
+    console.print(f"[bold blue]👁 Watching[/] {project.name} for changes... [dim](Ctrl+C to stop)[/]")
     start_watcher(str(project), config)
 
 
@@ -211,10 +229,16 @@ def _run_check(project_path: str, config: Code2DocsConfig, target: int = 80):
     from .analyzers.docstring_extractor import DocstringExtractor
 
     project = Path(project_path).resolve()
-    click.echo(f"🩺 code2docs check: {project.name}\n")
+    console.print(f"[bold blue]🩺 code2docs check:[/] {project.name}\n")
 
-    scanner = ProjectScanner(config)
-    result = scanner.analyze(str(project))
+    with console.status("[bold green]Analyzing..."):
+        scanner = ProjectScanner(config)
+        result = scanner.analyze(str(project))
+
+    table = Table(title="Documentation Health", show_lines=True)
+    table.add_column("Check", style="bold")
+    table.add_column("Status")
+    table.add_column("Details", style="dim")
 
     score = 0
     total = 0
@@ -223,45 +247,50 @@ def _run_check(project_path: str, config: Code2DocsConfig, target: int = 80):
     total += 1
     readme = project / config.readme_output
     if readme.exists():
-        click.echo("  ✅ README.md exists")
+        table.add_row("README.md", "[green]✅ exists[/]", f"{readme.stat().st_size} bytes")
         score += 1
     else:
-        click.echo("  ❌ README.md missing")
+        table.add_row("README.md", "[red]❌ missing[/]", "")
 
     # Check docs/
     docs_dir = project / config.output
-    for subdir, label in [("api", "API reference"), ("modules", "Module docs")]:
+    for name, label in [("api.md", "API reference"), ("modules.md", "Module docs")]:
         total += 1
-        d = docs_dir / subdir
-        if d.exists() and any(d.iterdir()):
-            count = sum(1 for f in d.glob("*.md"))
-            click.echo(f"  ✅ {label}: {count} files")
+        f = docs_dir / name
+        if f.exists():
+            lines = len(f.read_text(encoding="utf-8").splitlines())
+            table.add_row(label, "[green]✅ exists[/]", f"{lines} lines")
             score += 1
         else:
-            click.echo(f"  ❌ {label}: missing or empty")
+            table.add_row(label, "[red]❌ missing[/]", "")
 
     # Check examples/
     total += 1
     ex_dir = project / "examples"
     if ex_dir.exists() and any(ex_dir.iterdir()):
         count = sum(1 for f in ex_dir.glob("*.py"))
-        click.echo(f"  ✅ examples/: {count} files")
+        table.add_row("examples/", "[green]✅ exists[/]", f"{count} files")
         score += 1
     else:
-        click.echo(f"  ❌ examples/: missing or empty")
+        table.add_row("examples/", "[red]❌ missing[/]", "")
 
     # Docstring coverage
     total += 1
     extractor = DocstringExtractor()
     report = extractor.coverage_report(result)
     coverage = report.get("overall_coverage", 0)
+    style = "green" if coverage >= target else "yellow"
+    icon = "✅" if coverage >= target else "⚠️"
+    table.add_row(
+        "Docstring coverage",
+        f"[{style}]{icon} {coverage:.0f}%[/]",
+        f"target: {target}%",
+    )
     if coverage >= target:
-        click.echo(f"  ✅ Docstring coverage: {coverage:.0f}% (target: {target}%)")
         score += 1
-    else:
-        click.echo(f"  ⚠️  Docstring coverage: {coverage:.0f}% (target: {target}%)")
 
-    click.echo(f"\n  Score: {score}/{total}")
+    console.print(table)
+    console.print(f"\n  [bold]Score: {score}/{total}[/]")
 
 
 def _run_diff(project_path: str, config: Code2DocsConfig):
@@ -272,7 +301,7 @@ def _run_diff(project_path: str, config: Code2DocsConfig):
     from .generators._registry_adapters import ALL_ADAPTERS
 
     project = Path(project_path).resolve()
-    click.echo(f"🔍 code2docs diff: {project.name}\n")
+    console.print(f"[bold blue]🔍 code2docs diff:[/] {project.name}\n")
 
     scanner = ProjectScanner(config)
     result = scanner.analyze(str(project))

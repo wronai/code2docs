@@ -149,178 +149,137 @@ class TestReadmeGenerator:
 # --------------- ApiReferenceGenerator ---------------
 
 class TestApiReferenceGenerator:
-    def test_generate_all_produces_files(self):
+    def test_generate_produces_single_file(self):
         from code2docs.generators.api_reference_gen import ApiReferenceGenerator
         config = _make_config()
         result = _make_result()
         gen = ApiReferenceGenerator(config, result)
-        files = gen.generate_all()
-        assert "index.md" in files
-        assert len(files) >= 3  # index + 2 modules
+        content = gen.generate()
+        assert "API Reference" in content
+        assert isinstance(content, str)
 
-    def test_index_lists_modules(self):
+    def test_contains_modules(self):
         from code2docs.generators.api_reference_gen import ApiReferenceGenerator
         config = _make_config()
         result = _make_result()
         gen = ApiReferenceGenerator(config, result)
-        files = gen.generate_all()
-        index = files["index.md"]
-        assert "mylib.core" in index
-        assert "mylib.utils" in index
+        content = gen.generate()
+        assert "mylib.core" in content
+        assert "mylib.utils" in content
 
-    def test_module_api_contains_class(self):
+    def test_contains_classes(self):
         from code2docs.generators.api_reference_gen import ApiReferenceGenerator
         config = _make_config()
         result = _make_result()
         gen = ApiReferenceGenerator(config, result)
-        content = gen._generate_module_api(
-            "mylib.core", result.modules["mylib.core"]
-        )
+        content = gen.generate()
         assert "Engine" in content
-        assert "## Classes" in content
 
-    def test_module_api_contains_functions(self):
+    def test_contains_functions(self):
         from code2docs.generators.api_reference_gen import ApiReferenceGenerator
         config = _make_config()
         result = _make_result()
         gen = ApiReferenceGenerator(config, result)
-        content = gen._generate_module_api(
-            "mylib.core", result.modules["mylib.core"]
-        )
+        content = gen.generate()
         assert "process" in content
         assert "validate" in content
 
-    def test_render_api_imports(self):
+    def test_skips_trivial_modules(self):
         from code2docs.generators.api_reference_gen import ApiReferenceGenerator
         config = _make_config()
         result = _make_result()
         gen = ApiReferenceGenerator(config, result)
-        content = gen._render_api_imports(result.modules["mylib.core"])
-        assert "## Imports" in content
-        assert "`os`" in content
-
-    def test_write_all(self):
-        from code2docs.generators.api_reference_gen import ApiReferenceGenerator
-        config = _make_config()
-        result = _make_result()
-        gen = ApiReferenceGenerator(config, result)
-        files = gen.generate_all()
-        with tempfile.TemporaryDirectory() as tmpdir:
-            gen.write_all(tmpdir, files)
-            written = list(Path(tmpdir).glob("*.md"))
-            assert len(written) == len(files)
+        assert not gen._has_content("nonexistent.module")
 
 
 # --------------- ModuleDocsGenerator ---------------
 
 class TestModuleDocsGenerator:
-    def test_generate_all_produces_files(self):
+    def test_generate_produces_single_file(self):
         from code2docs.generators.module_docs_gen import ModuleDocsGenerator
         config = _make_config()
         result = _make_result()
         gen = ModuleDocsGenerator(config, result)
-        files = gen.generate_all()
-        assert len(files) == 2
+        content = gen.generate()
+        assert "Module Reference" in content
+        assert isinstance(content, str)
 
-    def test_render_header(self):
+    def test_contains_modules(self):
         from code2docs.generators.module_docs_gen import ModuleDocsGenerator
         config = _make_config()
         result = _make_result()
         gen = ModuleDocsGenerator(config, result)
-        header = gen._render_header("mylib.core", result.modules["mylib.core"])
-        assert "# mylib.core" in header
-        assert "Source:" in header
+        content = gen.generate()
+        assert "mylib.core" in content
+        assert "mylib.utils" in content
 
-    def test_render_classes_section(self):
+    def test_contains_classes(self):
         from code2docs.generators.module_docs_gen import ModuleDocsGenerator
         config = _make_config()
         result = _make_result()
         gen = ModuleDocsGenerator(config, result)
-        section = gen._render_classes_section("mylib.core")
-        assert "## Classes" in section
-        assert "Engine" in section
+        content = gen.generate()
+        assert "Engine" in content
 
-    def test_render_functions_section(self):
+    def test_contains_functions(self):
         from code2docs.generators.module_docs_gen import ModuleDocsGenerator
         config = _make_config()
         result = _make_result()
         gen = ModuleDocsGenerator(config, result)
-        section = gen._render_functions_section("mylib.core")
-        assert "## Functions" in section
-        assert "process" in section
-        assert "validate" in section
+        content = gen.generate()
+        assert "process" in content
 
-    def test_render_dependencies_section(self):
+    def test_skips_trivial_modules(self):
         from code2docs.generators.module_docs_gen import ModuleDocsGenerator
         config = _make_config()
         result = _make_result()
         gen = ModuleDocsGenerator(config, result)
-        section = gen._render_dependencies_section(result.modules["mylib.core"])
-        assert "## Dependencies" in section
-        assert "mylib.utils" in section
-
-    def test_render_metrics_section(self):
-        from code2docs.generators.module_docs_gen import ModuleDocsGenerator
-        config = _make_config()
-        result = _make_result()
-        gen = ModuleDocsGenerator(config, result)
-        section = gen._render_metrics_section("mylib.core", result.modules["mylib.core"])
-        assert "## Metrics" in section
-
-    def test_empty_module(self):
-        from code2docs.generators.module_docs_gen import ModuleDocsGenerator
-        config = _make_config()
-        result = _make_result()
-        gen = ModuleDocsGenerator(config, result)
-        section = gen._render_classes_section("nonexistent.module")
-        assert section == ""
+        assert not gen._has_content("nonexistent.module")
 
 
 # --------------- ExamplesGenerator ---------------
 
 class TestExamplesGenerator:
-    def test_generate_all_produces_basic_usage(self):
+    def test_generate_all_produces_quickstart(self):
         from code2docs.generators.examples_gen import ExamplesGenerator
         config = _make_config()
         result = _make_result()
         gen = ExamplesGenerator(config, result)
         files = gen.generate_all()
-        assert "basic_usage.py" in files
+        assert "quickstart.py" in files
+        assert "advanced_usage.py" in files
 
-    def test_basic_usage_contains_imports(self):
+    def test_quickstart_contains_imports(self):
         from code2docs.generators.examples_gen import ExamplesGenerator
         config = _make_config()
         result = _make_result()
         gen = ExamplesGenerator(config, result)
-        content = gen._generate_basic_usage()
+        content = gen._generate_quickstart()
+        assert "import" in content
+        assert "from pathlib" in content
+
+    def test_quickstart_has_docstring(self):
+        from code2docs.generators.examples_gen import ExamplesGenerator
+        config = _make_config()
+        result = _make_result()
+        gen = ExamplesGenerator(config, result)
+        content = gen._generate_quickstart()
+        assert "Quickstart" in content
+
+    def test_advanced_contains_imports(self):
+        from code2docs.generators.examples_gen import ExamplesGenerator
+        config = _make_config()
+        result = _make_result()
+        gen = ExamplesGenerator(config, result)
+        content = gen._generate_advanced()
         assert "import" in content
 
-    def test_basic_usage_contains_class_example(self):
+    def test_detect_package_name(self):
         from code2docs.generators.examples_gen import ExamplesGenerator
         config = _make_config()
         result = _make_result()
         gen = ExamplesGenerator(config, result)
-        content = gen._generate_basic_usage()
-        assert "Engine" in content
-
-    def test_entry_point_examples(self):
-        from code2docs.generators.examples_gen import ExamplesGenerator
-        config = _make_config()
-        config.examples.from_entry_points = True
-        result = _make_result()
-        gen = ExamplesGenerator(config, result)
-        files = gen.generate_all()
-        assert "entry_points.py" in files
-        assert "process" in files["entry_points.py"]
-
-    def test_class_examples(self):
-        from code2docs.generators.examples_gen import ExamplesGenerator
-        config = _make_config()
-        result = _make_result()
-        gen = ExamplesGenerator(config, result)
-        files = gen.generate_all()
-        assert "class_examples.py" in files
-        assert "Engine" in files["class_examples.py"]
+        assert gen._pkg == "mylib"
 
 
 # --------------- ArchitectureGenerator ---------------
@@ -456,14 +415,15 @@ class TestMkDocsGenerator:
         assert "site_name" in content
         assert "nav" in content
 
-    def test_nav_contains_modules(self):
+    def test_nav_contains_single_files(self):
         from code2docs.generators.mkdocs_gen import MkDocsGenerator
         config = _make_config()
         result = _make_result()
         gen = MkDocsGenerator(config, result)
         content = gen.generate()
-        assert "mylib.core" in content
-        assert "mylib.utils" in content
+        assert "api.md" in content
+        assert "modules.md" in content
+        assert "architecture.md" in content
 
     def test_write(self):
         from code2docs.generators.mkdocs_gen import MkDocsGenerator

@@ -45,10 +45,10 @@ def generate_docs(project_path: str, config=None):
     docs["readme"] = ReadmeGenerator(config, result).generate()
 
     if config.docs.api_reference:
-        docs["api"] = ApiReferenceGenerator(config, result).generate_all()
+        docs["api"] = ApiReferenceGenerator(config, result).generate()
 
     if config.docs.module_docs:
-        docs["modules"] = ModuleDocsGenerator(config, result).generate_all()
+        docs["modules"] = ModuleDocsGenerator(config, result).generate()
 
     if config.docs.architecture:
         docs["architecture"] = ArchitectureGenerator(config, result).generate()

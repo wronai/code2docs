@@ -62,9 +62,9 @@ class TestCLI:
     def test_verbose(self):
         result = self.runner.invoke(main, [".", "--verbose", "--dry-run"])
         assert result.exit_code == 0
-        assert "Functions:" in result.output
-        assert "Classes:" in result.output
-        assert "Modules:" in result.output
+        assert "Functions" in result.output
+        assert "Classes" in result.output
+        assert "Modules" in result.output
 
     def test_check_help(self):
         result = self.runner.invoke(main, ["check", "--help"])

@@ -39,11 +39,12 @@ class ApiReferenceAdapter(BaseGenerator):
     def run(self, ctx: GenerateContext) -> Optional[str]:
         from .api_reference_gen import ApiReferenceGenerator
         gen = ApiReferenceGenerator(self.config, self.result)
-        files = gen.generate_all()
+        content = gen.generate()
         if ctx.dry_run:
-            return f"[dry-run] docs/api/ ({len(files)} files)"
-        gen.write_all(str(ctx.docs_dir / "api"), files)
-        return f"✅ docs/api/ ({len(files)} files)"
+            return "[dry-run] docs/api.md"
+        ctx.docs_dir.mkdir(parents=True, exist_ok=True)
+        (ctx.docs_dir / "api.md").write_text(content, encoding="utf-8")
+        return "✅ docs/api.md"
 
 
 class ModuleDocsAdapter(BaseGenerator):
@@ -55,11 +56,12 @@ class ModuleDocsAdapter(BaseGenerator):
     def run(self, ctx: GenerateContext) -> Optional[str]:
         from .module_docs_gen import ModuleDocsGenerator
         gen = ModuleDocsGenerator(self.config, self.result)
-        files = gen.generate_all()
+        content = gen.generate()
         if ctx.dry_run:
-            return f"[dry-run] docs/modules/ ({len(files)} files)"
-        gen.write_all(str(ctx.docs_dir / "modules"), files)
-        return f"✅ docs/modules/ ({len(files)} files)"
+            return "[dry-run] docs/modules.md"
+        ctx.docs_dir.mkdir(parents=True, exist_ok=True)
+        (ctx.docs_dir / "modules.md").write_text(content, encoding="utf-8")
+        return "✅ docs/modules.md"
 
 
 class ArchitectureAdapter(BaseGenerator):
