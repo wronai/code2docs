@@ -4,7 +4,7 @@
 
 | Category | Documented | Total | Coverage |
 |----------|-----------|-------|----------|
-| Functions | 181 | 228 | 79.4% |
+| Functions | 182 | 229 | 79.5% |
 | Classes | 39 | 51 | 76.5% |
 
 ## Per-Module Breakdown

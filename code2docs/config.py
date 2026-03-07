@@ -21,7 +21,7 @@ class ReadmeConfig:
     """Configuration for README generation."""
     sections: List[str] = field(default_factory=lambda: [
         "overview", "install", "quickstart", "generated_output", "config",
-        "api", "structure", "requirements", "contributing", "docs_nav",
+        "sync_markers", "architecture", "api", "structure", "requirements", "contributing", "docs_nav",
     ])
     badges: List[str] = field(default_factory=lambda: [
         "version", "python", "coverage", "complexity",

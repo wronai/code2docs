@@ -1,6 +1,6 @@
 # code2docs — Architecture
 
-> 38 modules | 228 functions | 51 classes
+> 38 modules | 229 functions | 51 classes
 
 ## How It Works
 
@@ -127,7 +127,7 @@ classDiagram
         -_generate_description(self, project_name, entry_points) None
         -_extract_project_description(self, project_name) None
         -_extract_project_metadata(self) None
-        ... +8 more
+        ... +9 more
     }
     class ExamplesGenerator {
         -__init__(self, config, result) None
@@ -295,9 +295,9 @@ classDiagram
 | Metric | Value |
 |--------|-------|
 | Modules | 38 |
-| Functions | 228 |
+| Functions | 229 |
 | Classes | 51 |
-| CFG Nodes | 1341 |
+| CFG Nodes | 1344 |
 | Patterns | 2 |
 | Avg Complexity | 4.0 |
-| Analysis Time | 1.11s |
+| Analysis Time | 1.31s |

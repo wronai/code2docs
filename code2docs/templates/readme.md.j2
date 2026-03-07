@@ -151,6 +151,31 @@ sync:
 ```
 {% endif %}
 
+{% if "sync_markers" in sections %}
+## Sync Markers
+
+{{ project_name }} can update only specific sections of an existing README using HTML comment markers:
+
+```markdown
+<!-- {{ project_name }}:start -->
+# Project Title
+... auto-generated content ...
+<!-- {{ project_name }}:end -->
+```
+
+Content outside the markers is preserved when regenerating. Enable this with `sync_markers: true` in your configuration.
+{% endif %}
+
+{% if "architecture" in sections and module_tree %}
+## Architecture
+
+```
+{{ project_name }}/
+{% for mod_name, mod in modules.items()|list %}{% if not mod_name.startswith('_') %}{% set parts = mod_name.split('.') %}{{ '    ' * (parts|length - 1) }}├── {{ parts[-1] }}{% if mod.is_package %}/{% endif %}
+{% endif %}{% endfor %}
+```
+{% endif %}
+
 {% if "api" in sections %}
 ## API Overview
 
@@ -188,7 +213,7 @@ sync:
 {% if dependencies.python_version %}
 - Python >= {{ dependencies.python_version }}
 {% endif %}
-{% if dependencies.dependencies %}
+{% if dependencies and dependencies.dependencies %}
 {% for dep in dependencies.dependencies %}
 - {{ dep.name }}{% if dep.version_spec %} {{ dep.version_spec }}{% endif %}
 {% endfor %}
