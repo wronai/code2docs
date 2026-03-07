@@ -65,3 +65,26 @@ class TestCLI:
         assert "Functions:" in result.output
         assert "Classes:" in result.output
         assert "Modules:" in result.output
+
+    def test_check_help(self):
+        result = self.runner.invoke(main, ["check", "--help"])
+        assert result.exit_code == 0
+        assert "Health check" in result.output
+        assert "--target" in result.output
+
+    def test_check_runs(self):
+        result = self.runner.invoke(main, ["check", "."])
+        assert result.exit_code == 0
+        assert "check" in result.output
+        assert "Score:" in result.output
+
+    def test_diff_help(self):
+        result = self.runner.invoke(main, ["diff", "--help"])
+        assert result.exit_code == 0
+        assert "Preview" in result.output
+
+    def test_diff_runs(self):
+        result = self.runner.invoke(main, ["diff", "."])
+        assert result.exit_code == 0
+        assert "diff" in result.output
+        assert "dry-run" in result.output

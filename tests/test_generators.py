@@ -548,3 +548,119 @@ class TestApiChangelogGenerator:
             gen2 = ApiChangelogGenerator(config, result2)
             content = gen2.generate(tmpdir)
             assert "Changed" in content
+
+
+# --------------- GettingStartedGenerator ---------------
+
+class TestGettingStartedGenerator:
+    def test_generate_produces_content(self):
+        from code2docs.generators.getting_started_gen import GettingStartedGenerator
+        config = _make_config()
+        result = _make_result()
+        gen = GettingStartedGenerator(config, result)
+        content = gen.generate()
+        assert "Getting Started" in content
+
+    def test_contains_prerequisites(self):
+        from code2docs.generators.getting_started_gen import GettingStartedGenerator
+        config = _make_config()
+        result = _make_result()
+        gen = GettingStartedGenerator(config, result)
+        content = gen.generate()
+        assert "Prerequisites" in content
+        assert "Python" in content
+
+    def test_contains_installation(self):
+        from code2docs.generators.getting_started_gen import GettingStartedGenerator
+        config = _make_config()
+        result = _make_result()
+        gen = GettingStartedGenerator(config, result)
+        content = gen.generate()
+        assert "Installation" in content
+        assert "pip install" in content
+
+    def test_contains_next_steps(self):
+        from code2docs.generators.getting_started_gen import GettingStartedGenerator
+        config = _make_config()
+        result = _make_result()
+        gen = GettingStartedGenerator(config, result)
+        content = gen.generate()
+        assert "What's Next" in content
+        assert "API Reference" in content
+
+
+# --------------- ConfigDocsGenerator ---------------
+
+class TestConfigDocsGenerator:
+    def test_generate_produces_content(self):
+        from code2docs.generators.config_docs_gen import ConfigDocsGenerator
+        config = _make_config()
+        result = _make_result()
+        gen = ConfigDocsGenerator(config, result)
+        content = gen.generate()
+        assert "Configuration Reference" in content
+
+    def test_contains_top_level_options(self):
+        from code2docs.generators.config_docs_gen import ConfigDocsGenerator
+        config = _make_config()
+        result = _make_result()
+        gen = ConfigDocsGenerator(config, result)
+        content = gen.generate()
+        assert "project_name" in content
+        assert "source" in content
+        assert "output" in content
+
+    def test_contains_nested_sections(self):
+        from code2docs.generators.config_docs_gen import ConfigDocsGenerator
+        config = _make_config()
+        result = _make_result()
+        gen = ConfigDocsGenerator(config, result)
+        content = gen.generate()
+        assert "readme" in content
+        assert "docs" in content
+
+    def test_contains_example_yaml(self):
+        from code2docs.generators.config_docs_gen import ConfigDocsGenerator
+        config = _make_config()
+        result = _make_result()
+        gen = ConfigDocsGenerator(config, result)
+        content = gen.generate()
+        assert "```yaml" in content
+        assert "code2docs.yaml" in content
+
+
+# --------------- ContributingGenerator ---------------
+
+class TestContributingGenerator:
+    def test_generate_produces_content(self):
+        from code2docs.generators.contributing_gen import ContributingGenerator
+        config = _make_config()
+        result = _make_result()
+        gen = ContributingGenerator(config, result)
+        content = gen.generate()
+        assert "Contributing" in content
+
+    def test_contains_setup(self):
+        from code2docs.generators.contributing_gen import ContributingGenerator
+        config = _make_config()
+        result = _make_result()
+        gen = ContributingGenerator(config, result)
+        content = gen.generate()
+        assert "Development Setup" in content
+        assert "pip install" in content
+
+    def test_contains_testing(self):
+        from code2docs.generators.contributing_gen import ContributingGenerator
+        config = _make_config()
+        result = _make_result()
+        gen = ContributingGenerator(config, result)
+        content = gen.generate()
+        assert "Testing" in content
+
+    def test_contains_pull_request(self):
+        from code2docs.generators.contributing_gen import ContributingGenerator
+        config = _make_config()
+        result = _make_result()
+        gen = ContributingGenerator(config, result)
+        content = gen.generate()
+        assert "Pull Request" in content

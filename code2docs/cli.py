@@ -88,6 +88,25 @@ def init(project_path, output):
     click.echo(f"Created {out_path}")
 
 
+@main.command()
+@click.argument("project_path", default=".", type=click.Path(exists=True))
+@click.option("--config", "-c", "config_path", default=None, help="Path to code2docs.yaml")
+@click.option("--target", "-t", default=80, type=int, help="Docstring coverage target (%)")
+def check(project_path, config_path, target):
+    """Health check — verify documentation completeness."""
+    config = _load_config(project_path, config_path)
+    _run_check(project_path, config, target)
+
+
+@main.command()
+@click.argument("project_path", default=".", type=click.Path(exists=True))
+@click.option("--config", "-c", "config_path", default=None, help="Path to code2docs.yaml")
+def diff(project_path, config_path):
+    """Preview what would change without writing anything."""
+    config = _load_config(project_path, config_path)
+    _run_diff(project_path, config)
+
+
 def _load_config(project_path: str, config_path: Optional[str] = None) -> Code2DocsConfig:
     """Load configuration, auto-detecting code2docs.yaml if present."""
     project = Path(project_path).resolve()
@@ -184,3 +203,85 @@ def _run_watch(project_path: str, config: Code2DocsConfig):
     project = Path(project_path).resolve()
     click.echo(f"👁 Watching {project.name} for changes... (Ctrl+C to stop)")
     start_watcher(str(project), config)
+
+
+def _run_check(project_path: str, config: Code2DocsConfig, target: int = 80):
+    """Run documentation health check."""
+    from .analyzers.project_scanner import ProjectScanner
+    from .analyzers.docstring_extractor import DocstringExtractor
+
+    project = Path(project_path).resolve()
+    click.echo(f"🩺 code2docs check: {project.name}\n")
+
+    scanner = ProjectScanner(config)
+    result = scanner.analyze(str(project))
+
+    score = 0
+    total = 0
+
+    # Check README
+    total += 1
+    readme = project / config.readme_output
+    if readme.exists():
+        click.echo("  ✅ README.md exists")
+        score += 1
+    else:
+        click.echo("  ❌ README.md missing")
+
+    # Check docs/
+    docs_dir = project / config.output
+    for subdir, label in [("api", "API reference"), ("modules", "Module docs")]:
+        total += 1
+        d = docs_dir / subdir
+        if d.exists() and any(d.iterdir()):
+            count = sum(1 for f in d.glob("*.md"))
+            click.echo(f"  ✅ {label}: {count} files")
+            score += 1
+        else:
+            click.echo(f"  ❌ {label}: missing or empty")
+
+    # Check examples/
+    total += 1
+    ex_dir = project / "examples"
+    if ex_dir.exists() and any(ex_dir.iterdir()):
+        count = sum(1 for f in ex_dir.glob("*.py"))
+        click.echo(f"  ✅ examples/: {count} files")
+        score += 1
+    else:
+        click.echo(f"  ❌ examples/: missing or empty")
+
+    # Docstring coverage
+    total += 1
+    extractor = DocstringExtractor()
+    report = extractor.coverage_report(result)
+    coverage = report.get("overall_coverage", 0)
+    if coverage >= target:
+        click.echo(f"  ✅ Docstring coverage: {coverage:.0f}% (target: {target}%)")
+        score += 1
+    else:
+        click.echo(f"  ⚠️  Docstring coverage: {coverage:.0f}% (target: {target}%)")
+
+    click.echo(f"\n  Score: {score}/{total}")
+
+
+def _run_diff(project_path: str, config: Code2DocsConfig):
+    """Preview documentation changes without writing."""
+    from .analyzers.project_scanner import ProjectScanner
+    from .base import GenerateContext
+    from .registry import GeneratorRegistry
+    from .generators._registry_adapters import ALL_ADAPTERS
+
+    project = Path(project_path).resolve()
+    click.echo(f"🔍 code2docs diff: {project.name}\n")
+
+    scanner = ProjectScanner(config)
+    result = scanner.analyze(str(project))
+
+    docs_dir = project / config.output
+    ctx = GenerateContext(project=project, docs_dir=docs_dir, dry_run=True)
+
+    registry = GeneratorRegistry()
+    for adapter_cls in ALL_ADAPTERS:
+        registry.add(adapter_cls(config, result))
+
+    registry.run_all(ctx)

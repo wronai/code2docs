@@ -10,6 +10,9 @@ from .depgraph_gen import DepGraphGenerator
 from .coverage_gen import CoverageGenerator
 from .mkdocs_gen import MkDocsGenerator
 from .api_changelog_gen import ApiChangelogGenerator
+from .getting_started_gen import GettingStartedGenerator
+from .config_docs_gen import ConfigDocsGenerator
+from .contributing_gen import ContributingGenerator
 
 __all__ = [
     "ReadmeGenerator",
@@ -22,6 +25,9 @@ __all__ = [
     "CoverageGenerator",
     "MkDocsGenerator",
     "ApiChangelogGenerator",
+    "GettingStartedGenerator",
+    "ConfigDocsGenerator",
+    "ContributingGenerator",
     "generate_docs",
 ]
 

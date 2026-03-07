@@ -160,6 +160,54 @@ class MkDocsAdapter(BaseGenerator):
         return "✅ mkdocs.yml"
 
 
+class GettingStartedAdapter(BaseGenerator):
+    name = "getting_started"
+
+    def should_run(self, *, readme_only: bool = False) -> bool:
+        return not readme_only
+
+    def run(self, ctx: GenerateContext) -> Optional[str]:
+        from .getting_started_gen import GettingStartedGenerator
+        gen = GettingStartedGenerator(self.config, self.result)
+        content = gen.generate()
+        if ctx.dry_run:
+            return "[dry-run] docs/getting-started.md"
+        (ctx.docs_dir / "getting-started.md").write_text(content, encoding="utf-8")
+        return "✅ docs/getting-started.md"
+
+
+class ConfigDocsAdapter(BaseGenerator):
+    name = "config_docs"
+
+    def should_run(self, *, readme_only: bool = False) -> bool:
+        return not readme_only
+
+    def run(self, ctx: GenerateContext) -> Optional[str]:
+        from .config_docs_gen import ConfigDocsGenerator
+        gen = ConfigDocsGenerator(self.config, self.result)
+        content = gen.generate()
+        if ctx.dry_run:
+            return "[dry-run] docs/configuration.md"
+        (ctx.docs_dir / "configuration.md").write_text(content, encoding="utf-8")
+        return "✅ docs/configuration.md"
+
+
+class ContributingAdapter(BaseGenerator):
+    name = "contributing"
+
+    def should_run(self, *, readme_only: bool = False) -> bool:
+        return not readme_only
+
+    def run(self, ctx: GenerateContext) -> Optional[str]:
+        from .contributing_gen import ContributingGenerator
+        gen = ContributingGenerator(self.config, self.result)
+        content = gen.generate()
+        if ctx.dry_run:
+            return "[dry-run] CONTRIBUTING.md"
+        (ctx.project / "CONTRIBUTING.md").write_text(content, encoding="utf-8")
+        return "✅ CONTRIBUTING.md"
+
+
 ALL_ADAPTERS = [
     ReadmeGeneratorAdapter,
     ApiReferenceAdapter,
@@ -169,5 +217,8 @@ ALL_ADAPTERS = [
     CoverageAdapter,
     ApiChangelogAdapter,
     ExamplesAdapter,
+    GettingStartedAdapter,
+    ConfigDocsAdapter,
+    ContributingAdapter,
     MkDocsAdapter,
 ]
