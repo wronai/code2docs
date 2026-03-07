@@ -1,6 +1,7 @@
 """Configuration for code2docs documentation generation."""
 
 import os
+import subprocess
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, List, Optional
@@ -84,6 +85,7 @@ class Code2DocsConfig:
     source: str = "./"
     output: str = "./docs/"
     readme_output: str = "./README.md"
+    repo_url: str = ""  # GitHub/GitLab URL for source links (auto-detected from git)
 
     readme: ReadmeConfig = field(default_factory=ReadmeConfig)
     docs: DocsConfig = field(default_factory=DocsConfig)
@@ -95,6 +97,27 @@ class Code2DocsConfig:
     verbose: bool = False
     exclude_tests: bool = True
     skip_private: bool = False
+
+    def __post_init__(self):
+        """Auto-detect repo_url from git remote if not set."""
+        if not self.repo_url:
+            self.repo_url = self._detect_repo_url()
+
+    @staticmethod
+    def _detect_repo_url() -> str:
+        """Try to detect repository URL from git remote origin."""
+        try:
+            url = subprocess.check_output(
+                ["git", "remote", "get-url", "origin"],
+                stderr=subprocess.DEVNULL, text=True,
+            ).strip()
+            # Convert SSH to HTTPS: git@github.com:user/repo.git -> https://github.com/user/repo
+            if url.startswith("git@"):
+                url = url.replace(":", "/", 1).replace("git@", "https://", 1)
+            url = url.removesuffix(".git")
+            return url
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            return ""
 
     @classmethod
     def from_yaml(cls, path: str) -> "Code2DocsConfig":
@@ -117,6 +140,8 @@ class Code2DocsConfig:
         config.verbose = project.get("verbose", False)
         config.exclude_tests = project.get("exclude_tests", True)
         config.skip_private = project.get("skip_private", False)
+        if project.get("repo_url"):
+            config.repo_url = project["repo_url"]
 
         # Readme config
         readme_data = data.get("readme", {})
@@ -177,6 +202,7 @@ class Code2DocsConfig:
                 "source": self.source,
                 "output": self.output,
                 "readme_output": self.readme_output,
+                "repo_url": self.repo_url,
                 "verbose": self.verbose,
                 "exclude_tests": self.exclude_tests,
                 "skip_private": self.skip_private,

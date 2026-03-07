@@ -1,7 +1,7 @@
 <!-- code2docs:start --># code2docs
 
-![version](https://img.shields.io/badge/version-0.1.0-blue) ![python](https://img.shields.io/badge/python-%3E%3D3.9-blue) ![coverage](https://img.shields.io/badge/coverage-unknown-lightgrey) ![functions](https://img.shields.io/badge/functions-219-green)
-> **219** functions | **50** classes | **37** files | CC̄ = 4.0
+![version](https://img.shields.io/badge/version-0.1.0-blue) ![python](https://img.shields.io/badge/python-%3E%3D3.9-blue) ![coverage](https://img.shields.io/badge/coverage-unknown-lightgrey) ![functions](https://img.shields.io/badge/functions-227-green)
+> **227** functions | **51** classes | **38** files | CC̄ = 3.9
 
 
 ## How It Works
@@ -86,8 +86,9 @@ generate_docs("./my-project", config=config)
 | `GenerateContext` | Shared context passed to all generators during a run. |
 | `BaseGenerator` | Abstract base for all documentation generators. |
 | `CoverageGenerator` | Generate docs/coverage.md — docstring coverage report. |
-| `GettingStartedGenerator` | Generate docs/getting-started.md from entry points and dependencies. |
+| `SourceLinker` | Build source-code links (relative paths + optional GitHub/GitLab URLs). |
 | `DepGraphGenerator` | Generate docs/dependency-graph.md with Mermaid diagrams. |
+| `GettingStartedGenerator` | Generate docs/getting-started.md from entry points and dependencies. |
 | `ConfigDocsGenerator` | Generate docs/configuration.md from Code2DocsConfig dataclass. |
 | `ChangelogEntry` | A single changelog entry. |
 | `ChangelogGenerator` | Generate CHANGELOG.md from git log and analysis diff. |
@@ -119,11 +120,11 @@ generate_docs("./my-project", config=config)
 | `LLMConfig` | Configuration for optional LLM-assisted documentation generation. |
 | `Code2DocsConfig` | Main configuration for code2docs. |
 | `ProjectScanner` | Wraps code2llm's ProjectAnalyzer with code2docs-specific defaults. |
+| `DocstringInfo` | Parsed docstring with sections. |
+| `DocstringExtractor` | Extract and parse docstrings from AnalysisResult. |
 | `DependencyInfo` | Information about a project dependency. |
 | `ProjectDependencies` | All detected project dependencies. |
 | `DependencyScanner` | Scan and parse project dependency files. |
-| `DocstringInfo` | Parsed docstring with sections. |
-| `DocstringExtractor` | Extract and parse docstrings from AnalysisResult. |
 | `Endpoint` | Represents a detected web endpoint. |
 | `EndpointDetector` | Detects web endpoints from decorator patterns in source code. |
 
@@ -158,7 +159,7 @@ generate_docs("./my-project", config=config)
 📄 `base` (3 functions, 2 classes)
 📄 `cli` (14 functions, 1 classes)
 📦 `code2docs` (1 functions)
-📄 `config` (3 functions, 6 classes)
+📄 `config` (5 functions, 6 classes)
 📄 `examples.advanced_usage`
 📄 `examples.quickstart`
 📦 `formatters`
@@ -167,6 +168,7 @@ generate_docs("./my-project", config=config)
 📄 `formatters.toc` (3 functions)
 📦 `generators` (1 functions)
 📄 `generators._registry_adapters` (24 functions, 12 classes)
+📄 `generators._source_links` (6 functions, 1 classes)
 📄 `generators.api_changelog_gen` (9 functions, 2 classes)
 📄 `generators.api_reference_gen` (7 functions, 1 classes)
 📄 `generators.architecture_gen` (10 functions, 1 classes)

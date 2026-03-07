@@ -8,6 +8,7 @@ from typing import Dict, List
 from code2llm.api import AnalysisResult, FunctionInfo, ClassInfo, ModuleInfo
 
 from ..config import Code2DocsConfig
+from ._source_links import SourceLinker
 
 
 class ModuleDocsGenerator:
@@ -16,6 +17,7 @@ class ModuleDocsGenerator:
     def __init__(self, config: Code2DocsConfig, result: AnalysisResult):
         self.config = config
         self.result = result
+        self._linker = SourceLinker(config, result)
 
     def generate(self) -> str:
         """Generate a single modules.md with all modules grouped by package."""
@@ -30,8 +32,8 @@ class ModuleDocsGenerator:
 
         # Overview table of all modules
         lines.append("## Module Overview\n")
-        lines.append("| Module | Lines | Functions | Classes | CC avg | Description |")
-        lines.append("|--------|-------|-----------|---------|--------|-------------|")
+        lines.append("| Module | Lines | Functions | Classes | CC avg | Description | Source |")
+        lines.append("|--------|-------|-----------|---------|--------|-------------|--------|")
         for mod_name, mod_info in sorted(self.result.modules.items()):
             if mod_name.startswith("_"):
                 continue
@@ -50,9 +52,10 @@ class ModuleDocsGenerator:
             cc_str = str(avg_cc) if avg_cc else "—"
             doc = self._get_module_docstring(mod_info)
             doc_short = doc.splitlines()[0][:60] if doc else "—"
+            src = self._linker.file_link(mod_info.file)
             lines.append(
                 f"| `{mod_name}` | {file_lines} | {func_count} | "
-                f"{class_count} | {cc_str} | {doc_short} |"
+                f"{class_count} | {cc_str} | {doc_short} | {src} |"
             )
         lines.append("")
 
@@ -96,7 +99,9 @@ class ModuleDocsGenerator:
 
     def _render_module_detail(self, mod_name: str, mod_info: ModuleInfo) -> str:
         """Render a single module's detail section."""
-        lines = [f"### `{mod_name}`\n"]
+        src = self._linker.file_link(mod_info.file)
+        heading = f"### `{mod_name}` {src}" if src else f"### `{mod_name}`"
+        lines = [f"{heading}\n"]
 
         # One-line description from docstring
         doc = self._get_module_docstring(mod_info)
@@ -111,7 +116,8 @@ class ModuleDocsGenerator:
         if module_classes:
             for cls_name, cls_info in sorted(module_classes.items()):
                 bases = f" ({', '.join(cls_info.bases)})" if cls_info.bases else ""
-                lines.append(f"**`{cls_info.name}`**{bases}")
+                src = self._linker.source_link(cls_info.file, cls_info.line)
+                lines.append(f"**`{cls_info.name}`**{bases} {src}")
                 if cls_info.docstring:
                     lines.append(f": {cls_info.docstring.splitlines()[0]}")
                 lines.append("")
@@ -139,7 +145,8 @@ class ModuleDocsGenerator:
                 doc_line = ""
                 if func_info.docstring:
                     doc_line = f" — {func_info.docstring.splitlines()[0]}"
-                lines.append(f"- `{func_info.name}({args}){ret}`{doc_line}")
+                src = self._linker.source_link(func_info.file, func_info.line)
+                lines.append(f"- `{func_info.name}({args}){ret}`{doc_line} {src}")
             lines.append("")
 
         return "\n".join(lines)

@@ -7,6 +7,7 @@ from typing import Dict, List, Optional
 from code2llm.api import AnalysisResult, FunctionInfo, ClassInfo, ModuleInfo
 
 from ..config import Code2DocsConfig
+from ._source_links import SourceLinker
 
 
 class ApiReferenceGenerator:
@@ -15,6 +16,7 @@ class ApiReferenceGenerator:
     def __init__(self, config: Code2DocsConfig, result: AnalysisResult):
         self.config = config
         self.result = result
+        self._linker = SourceLinker(config, result)
 
     def generate(self) -> str:
         """Generate a single api.md with all public API grouped by package."""
@@ -82,7 +84,9 @@ class ApiReferenceGenerator:
 
     def _render_module_section(self, mod_name: str, mod_info: ModuleInfo) -> str:
         """Render a module as a subsection within the consolidated doc."""
-        lines = [f"### `{mod_name}`\n"]
+        src = self._linker.file_link(mod_info.file)
+        heading = f"### `{mod_name}` {src}" if src else f"### `{mod_name}`"
+        lines = [f"{heading}\n"]
 
         # Classes table
         module_classes = {
@@ -91,13 +95,14 @@ class ApiReferenceGenerator:
             and not v.name.startswith("_")
         }
         if module_classes:
-            lines.append("| Class | Methods | Description |")
-            lines.append("|-------|---------|-------------|")
+            lines.append("| Class | Methods | Description | Source |")
+            lines.append("|-------|---------|-------------|--------|")
             for cls_name, cls_info in sorted(module_classes.items()):
                 doc = cls_info.docstring.splitlines()[0] if cls_info.docstring else "—"
                 public_methods = [m for m in cls_info.methods
                                   if not m.split(".")[-1].startswith("_")]
-                lines.append(f"| `{cls_info.name}` | {len(public_methods)} | {doc} |")
+                src = self._linker.source_link(cls_info.file, cls_info.line)
+                lines.append(f"| `{cls_info.name}` | {len(public_methods)} | {doc} | {src} |")
             lines.append("")
 
             # Expand methods for important classes (>2 public methods)
@@ -118,8 +123,8 @@ class ApiReferenceGenerator:
             and not v.is_method and not v.name.startswith("_")
         }
         if module_functions:
-            lines.append("| Function | Signature | CC | Description |")
-            lines.append("|----------|-----------|----|-----------  |")
+            lines.append("| Function | Signature | CC | Description | Source |")
+            lines.append("|----------|-----------|----|-----------  |--------|")
             for func_name, func_info in sorted(module_functions.items()):
                 sig = self._format_signature(func_info)
                 cc = func_info.complexity.get(
@@ -128,7 +133,8 @@ class ApiReferenceGenerator:
                 )
                 doc = func_info.docstring.splitlines()[0] if func_info.docstring else "—"
                 warn = " ⚠️" if isinstance(cc, (int, float)) and cc > 10 else ""
-                lines.append(f"| `{func_info.name}` | `{sig}` | {cc}{warn} | {doc} |")
+                src = self._linker.source_link(func_info.file, func_info.line)
+                lines.append(f"| `{func_info.name}` | `{sig}` | {cc}{warn} | {doc} | {src} |")
             lines.append("")
 
         return "\n".join(lines)
