@@ -1,17 +1,26 @@
 """Configuration for code2docs documentation generation."""
 
+import os
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, List, Optional
 
 import yaml
 
+# Load .env if python-dotenv is installed (optional dependency)
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
 
 @dataclass
 class ReadmeConfig:
     """Configuration for README generation."""
     sections: List[str] = field(default_factory=lambda: [
-        "overview", "install", "quickstart", "api", "structure", "endpoints",
+        "overview", "how_it_works", "install", "quickstart", "api",
+        "structure", "endpoints", "generated_docs",
     ])
     badges: List[str] = field(default_factory=lambda: [
         "version", "python", "coverage", "complexity",
@@ -44,6 +53,31 @@ class SyncConfig:
 
 
 @dataclass
+class LLMConfig:
+    """Configuration for optional LLM-assisted documentation generation."""
+    enabled: bool = False
+    model: str = ""  # litellm format: openai/gpt-4o-mini, anthropic/claude-3-haiku, ollama/llama3
+    api_key: str = ""  # provider API key (not needed for local models)
+    api_base: str = ""  # optional: custom endpoint URL
+    max_tokens: int = 1024
+    temperature: float = 0.3  # low for factual documentation
+
+    @classmethod
+    def from_env(cls) -> "LLMConfig":
+        """Build LLMConfig from environment variables."""
+        model = os.environ.get("CODE2DOCS_LLM_MODEL", "")
+        api_key = os.environ.get("CODE2DOCS_LLM_API_KEY", "")
+        api_base = os.environ.get("CODE2DOCS_LLM_API_BASE", "")
+        max_tokens = int(os.environ.get("CODE2DOCS_LLM_MAX_TOKENS", "1024"))
+        temperature = float(os.environ.get("CODE2DOCS_LLM_TEMPERATURE", "0.3"))
+        enabled = bool(model)
+        return cls(
+            enabled=enabled, model=model, api_key=api_key,
+            api_base=api_base, max_tokens=max_tokens, temperature=temperature,
+        )
+
+
+@dataclass
 class Code2DocsConfig:
     """Main configuration for code2docs."""
     project_name: str = ""
@@ -55,6 +89,7 @@ class Code2DocsConfig:
     docs: DocsConfig = field(default_factory=DocsConfig)
     examples: ExamplesConfig = field(default_factory=ExamplesConfig)
     sync: SyncConfig = field(default_factory=SyncConfig)
+    llm: LLMConfig = field(default_factory=LLMConfig.from_env)
 
     # code2llm analysis options
     verbose: bool = False
@@ -119,6 +154,19 @@ class Code2DocsConfig:
                 ignore=sync_data.get("ignore", ["tests/", "__pycache__"]),
             )
 
+        # LLM config (YAML overrides env)
+        llm_data = data.get("llm", {})
+        if llm_data:
+            env_llm = config.llm  # already loaded from env
+            config.llm = LLMConfig(
+                enabled=llm_data.get("enabled", env_llm.enabled),
+                model=llm_data.get("model", env_llm.model),
+                api_key=llm_data.get("api_key", env_llm.api_key),
+                api_base=llm_data.get("api_base", env_llm.api_base),
+                max_tokens=llm_data.get("max_tokens", env_llm.max_tokens),
+                temperature=llm_data.get("temperature", env_llm.temperature),
+            )
+
         return config
 
     def to_yaml(self, path: str) -> None:
@@ -152,6 +200,14 @@ class Code2DocsConfig:
                 "strategy": self.sync.strategy,
                 "watch": self.sync.watch,
                 "ignore": self.sync.ignore,
+            },
+            "llm": {
+                "enabled": self.llm.enabled,
+                "model": self.llm.model,
+                "api_base": self.llm.api_base,
+                "max_tokens": self.llm.max_tokens,
+                "temperature": self.llm.temperature,
+                # Note: api_key is intentionally excluded from YAML serialization
             },
         }
         with open(path, "w", encoding="utf-8") as f:

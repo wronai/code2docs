@@ -1,30 +1,41 @@
 """Entry point examples for code2docs."""
 
-from registry import __init__
+from formatters.toc import generate_toc
 
-# Call entry point: __init__
-result = __init__(self=...)
+# Generate a table of contents from Markdown headings.
+result = generate_toc(markdown_content=..., max_depth=...)
 
-from registry import add
+from generators.readme_gen import generate_readme
 
-# Call entry point: add
-# Add a generator instance to the registry.
-result = add(self=..., generator=...)
+# Convenience function to generate a README.
+result = generate_readme(project_path=..., output=..., sections=..., sync_markers=...)
 
-from registry import run_all
+from generators import generate_docs
 
-# Call entry point: run_all
-# Run every registered generator that should execute.
-result = run_all(self=..., ctx=...)
+# High-level function to generate all documentation.
+result = generate_docs(project_path=..., config=...)
 
-from registry import run_only
+from cli import main
 
-# Call entry point: run_only
-# Run a single generator by name.
-result = run_only(self=..., name=..., ctx=...)
+# code2docs — Auto-generate project documentation from source code.
+result = main()
 
-from code2docs import __getattr__
+from cli import generate
 
-# Call entry point: __getattr__
-# Lazy import heavy modules on first access.
-result = __getattr__(name=...)
+# Generate documentation (default command).
+result = generate(project_path=..., config_path=..., readme_only=..., sections=...)
+
+from cli import sync
+
+# Synchronize documentation with source code changes.
+result = sync(project_path=..., config_path=..., verbose=..., dry_run=...)
+
+from cli import watch
+
+# Watch for file changes and auto-regenerate docs.
+result = watch(project_path=..., config_path=..., verbose=...)
+
+from cli import init
+
+# Initialize code2docs.yaml configuration file.
+result = init(project_path=..., output=...)

@@ -1,10 +1,10 @@
 """Class usage examples for code2docs."""
 
 from generators.module_docs_gen import ModuleDocsGenerator
-from formatters.markdown import MarkdownFormatter
 from generators.readme_gen import ReadmeGenerator
 from generators.examples_gen import ExamplesGenerator
 from generators.api_reference_gen import ApiReferenceGenerator
+from analyzers.docstring_extractor import DocstringExtractor
 
 
 # --- ModuleDocsGenerator ---
@@ -12,13 +12,6 @@ from generators.api_reference_gen import ApiReferenceGenerator
 instance = ModuleDocsGenerator(config=..., result=...)
 instance.generate_all()
 instance.write_all(output_dir=..., files=...)
-
-# --- MarkdownFormatter ---
-# Helper for constructing Markdown documents.
-instance = MarkdownFormatter()
-instance.heading(text=..., level=...)
-instance.paragraph(text=...)
-instance.blockquote(text=...)
 
 # --- ReadmeGenerator ---
 # Generate README.md from AnalysisResult.
@@ -37,3 +30,10 @@ instance.write_all(output_dir=..., files=...)
 instance = ApiReferenceGenerator(config=..., result=...)
 instance.generate_all()
 instance.write_all(output_dir=..., files=...)
+
+# --- DocstringExtractor ---
+# Extract and parse docstrings from AnalysisResult.
+instance = DocstringExtractor()
+instance.extract_all(result=...)
+instance.parse(docstring=...)
+instance.coverage_report(result=...)

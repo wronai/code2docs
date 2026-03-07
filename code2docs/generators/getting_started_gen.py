@@ -65,30 +65,54 @@ class GettingStartedGenerator:
         return "\n".join(lines)
 
     def _render_first_usage(self) -> str:
-        """Render first usage example from entry points."""
-        lines = ["## Your First Usage\n"]
-        entry_points = self.result.entry_points or []
+        """Render first usage example — CLI + Python API."""
+        project = self.config.project_name or "project"
+        lines = [
+            "## Quick Start\n",
+            "### Command Line\n",
+            "```bash",
+            f"# Generate full documentation for your project",
+            f"{project} ./path/to/your/project",
+            "",
+            f"# Preview what would be generated (no file writes)",
+            f"{project} ./path/to/your/project --dry-run",
+            "",
+            f"# Only regenerate README",
+            f"{project} ./path/to/your/project --readme-only",
+            "```\n",
+            "### Python API\n",
+            "```python",
+        ]
 
-        if entry_points:
-            lines.append("```python")
-            for ep in entry_points[:3]:
-                lines.append(f"from {ep.rsplit('.', 1)[0]} import {ep.rsplit('.', 1)[-1]}")
+        # Find user-facing public functions, prioritize by name
+        public_funcs = [
+            f for f in self.result.functions.values()
+            if not f.is_private and not f.is_method
+            and not f.name.startswith("_")
+        ]
+        # Prefer functions whose name suggests a user-facing API
+        priority_prefixes = ("generate", "analyze", "create", "build", "run", "process")
+        public_funcs.sort(
+            key=lambda f: (
+                0 if any(f.name.startswith(p) for p in priority_prefixes) else 1,
+                f.name,
+            )
+        )
+        if public_funcs:
+            func = public_funcs[0]
+            mod = func.module or project
+            args = [a for a in func.args if a != "self"]
+            args_str = ", ".join(f'"{a}"' if i == 0 else f"{a}=..."
+                                 for i, a in enumerate(args[:3]))
+            lines.append(f"from {mod} import {func.name}")
             lines.append("")
-            lines.append(f"# Call the main entry point")
-            lines.append(f"result = {entry_points[0].rsplit('.', 1)[-1]}()")
-            lines.append("```")
+            if func.docstring:
+                lines.append(f"# {func.docstring.splitlines()[0]}")
+            lines.append(f"result = {func.name}({args_str})")
         else:
-            # Fallback: show module import
-            top_modules = self._get_top_level_modules()
-            if top_modules:
-                lines.append("```python")
-                lines.append(f"import {top_modules[0]}")
-                lines.append("```")
-            else:
-                lines.append("```python")
-                lines.append(f"import {self.config.project_name or 'project'}")
-                lines.append("```")
+            lines.append(f"import {project}")
 
+        lines.append("```")
         return "\n".join(lines)
 
     def _render_next_steps(self) -> str:

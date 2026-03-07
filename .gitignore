@@ -212,3 +212,6 @@ __marimo__/
 .code2docs.state
 .code2docs.api_snapshot.json
 mkdocs.yml
+
+# Environment / secrets
+.env

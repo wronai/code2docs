@@ -172,6 +172,7 @@ class GettingStartedAdapter(BaseGenerator):
         content = gen.generate()
         if ctx.dry_run:
             return "[dry-run] docs/getting-started.md"
+        ctx.docs_dir.mkdir(parents=True, exist_ok=True)
         (ctx.docs_dir / "getting-started.md").write_text(content, encoding="utf-8")
         return "✅ docs/getting-started.md"
 
@@ -188,6 +189,7 @@ class ConfigDocsAdapter(BaseGenerator):
         content = gen.generate()
         if ctx.dry_run:
             return "[dry-run] docs/configuration.md"
+        ctx.docs_dir.mkdir(parents=True, exist_ok=True)
         (ctx.docs_dir / "configuration.md").write_text(content, encoding="utf-8")
         return "✅ docs/configuration.md"
 

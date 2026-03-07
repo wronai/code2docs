@@ -33,23 +33,58 @@ class ConfigDocsGenerator:
         lines.append(self._render_example())
         return "\n".join(lines)
 
-    @staticmethod
-    def _render_section(title: str, cls: type) -> str:
+    # Human-readable descriptions for known config fields
+    _FIELD_DOCS = {
+        "project_name": "Name of the project (used in headings and badges)",
+        "source": "Root directory to analyze",
+        "output": "Output directory for generated docs",
+        "readme_output": "Path for the generated README file",
+        "verbose": "Print detailed analysis info during generation",
+        "exclude_tests": "Exclude test files from analysis",
+        "skip_private": "Skip private functions/classes in output",
+        "sections": "README sections to include",
+        "badges": "Badge types to show in README header",
+        "sync_markers": "Wrap generated content in `<!-- code2docs:start/end -->` markers",
+        "api_reference": "Generate per-module API reference docs",
+        "module_docs": "Generate detailed module documentation",
+        "architecture": "Generate architecture overview with Mermaid diagrams",
+        "changelog": "Generate changelog from git history",
+        "auto_generate": "Auto-generate usage example files",
+        "from_entry_points": "Generate examples from detected entry points",
+        "strategy": "Sync strategy: `markers`, `full`, or `git-diff`",
+        "watch": "Enable file watcher for auto-resync",
+        "ignore": "Glob patterns to ignore during sync",
+    }
+
+    def _render_section(self, title: str, cls: type) -> str:
         """Render a dataclass as a Markdown table."""
         lines = [
             f"## {title}\n",
             "| Option | Type | Default | Description |",
             "|--------|------|---------|-------------|",
         ]
+        # Get actual defaults from current config instance
         for f in fields(cls):
             type_str = getattr(f.type, "__name__", str(f.type))
-            default = f.default if f.default is not MISSING else ""
-            if f.default_factory is not MISSING:
-                default = f"`{f.default_factory.__name__}()`"
-            doc = ""
-            if f.metadata and "help" in f.metadata:
-                doc = f.metadata["help"]
-            lines.append(f"| `{f.name}` | `{type_str}` | `{default}` | {doc} |")
+            # Clean up type display
+            type_str = type_str.replace("typing.", "")
+            # Resolve actual default value
+            if f.default is not MISSING:
+                default = f.default
+            elif f.default_factory is not MISSING:
+                default = f.default_factory()
+            else:
+                default = "—"
+            # Format default for display
+            if isinstance(default, list):
+                default = ", ".join(str(x) for x in default) if default else "[]"
+            elif isinstance(default, bool):
+                default = str(default).lower()
+            elif hasattr(default, "__dataclass_fields__"):
+                default = f"*see `{f.name}` section*"
+            default_str = str(default) if default != "" else '""'
+            doc = self._FIELD_DOCS.get(f.name, "")
+            lines.append(f"| `{f.name}` | `{type_str}` | {default_str} | {doc} |")
         return "\n".join(lines)
 
     def _render_example(self) -> str:

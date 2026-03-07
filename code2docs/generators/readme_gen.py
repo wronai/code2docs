@@ -13,6 +13,7 @@ from ..analyzers.dependency_scanner import DependencyScanner
 from ..analyzers.endpoint_detector import EndpointDetector
 from ..formatters.badges import generate_badges
 from ..formatters.toc import generate_toc
+from ..llm_helper import LLMHelper
 
 
 MARKER_START = "<!-- code2docs:start -->"
@@ -25,6 +26,7 @@ class ReadmeGenerator:
     def __init__(self, config: Code2DocsConfig, result: AnalysisResult):
         self.config = config
         self.result = result
+        self.llm = LLMHelper(config.llm)
         self.env = Environment(
             loader=PackageLoader("code2docs", "templates"),
             autoescape=select_autoescape([]),
@@ -65,8 +67,15 @@ class ReadmeGenerator:
             k: v for k, v in self.result.classes.items()
         }
 
-        # Entry points
-        entry_points = self.result.entry_points or []
+        # Entry points — keep only module-level public functions,
+        # exclude class methods (Capitalized segments) and dunder/private names
+        entry_points = [
+            ep for ep in (self.result.entry_points or [])
+            if not any(
+                seg.startswith("_") or (seg[0].isupper() if seg else False)
+                for seg in ep.split(".")
+            )
+        ]
 
         # Metrics
         stats = self.result.stats or {}
@@ -75,9 +84,13 @@ class ReadmeGenerator:
         # Module tree
         module_tree = self._build_module_tree()
 
+        # Project description: LLM if available, else package docstring
+        project_description = self._generate_description(project_name, entry_points)
+
         return {
             "project_name": project_name,
             "project_path": self.result.project_path,
+            "project_description": project_description,
             "badges": generate_badges(project_name, self.config.readme.badges, stats, deps),
             "stats": stats,
             "avg_complexity": avg_complexity,
@@ -122,6 +135,35 @@ class ReadmeGenerator:
             lines.append(f"{prefix} `{mod_name}`{detail_str}")
 
         return "\n".join(lines)
+
+    def _generate_description(self, project_name: str, entry_points: List[str]) -> str:
+        """Generate project description: LLM if available, else package docstring."""
+        # Try LLM first
+        if self.llm.available:
+            modules_summary = ", ".join(sorted(self.result.modules.keys())[:15])
+            eps_str = ", ".join(entry_points[:10])
+            llm_desc = self.llm.generate_project_description(
+                project_name, modules_summary, eps_str
+            )
+            if llm_desc:
+                return llm_desc
+        # Fallback: extract from package docstring
+        return self._extract_project_description(project_name)
+
+    def _extract_project_description(self, project_name: str) -> str:
+        """Extract project description from top-level package docstring."""
+        # Try top-level package module (e.g. "mylib" or "mylib.__init__")
+        for mod_name, mod_info in self.result.modules.items():
+            if mod_info.is_package and mod_name == project_name:
+                doc = getattr(mod_info, "docstring", None)
+                if doc:
+                    return doc.strip()
+        # Fallback: first package with a docstring
+        for mod_info in self.result.modules.values():
+            doc = getattr(mod_info, "docstring", None)
+            if mod_info.is_package and doc:
+                return doc.strip()
+        return ""
 
     def _build_manual(self, project_name: str, sections: List[str], context: Dict) -> str:
         """Fallback manual README builder (orchestrator)."""

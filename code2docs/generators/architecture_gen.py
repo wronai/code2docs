@@ -6,6 +6,7 @@ from typing import Dict, List, Set
 from code2llm.api import AnalysisResult, ModuleInfo
 
 from ..config import Code2DocsConfig
+from ..llm_helper import LLMHelper
 
 
 class ArchitectureGenerator:
@@ -14,6 +15,7 @@ class ArchitectureGenerator:
     def __init__(self, config: Code2DocsConfig, result: AnalysisResult):
         self.config = config
         self.result = result
+        self.llm = LLMHelper(config.llm)
 
     def generate(self) -> str:
         """Generate architecture documentation."""
@@ -21,27 +23,42 @@ class ArchitectureGenerator:
 
         lines = [
             f"# {project_name} — Architecture\n",
-            f"> Auto-generated from {len(self.result.modules)} modules, "
-            f"{len(self.result.functions)} functions, "
+            f"> {len(self.result.modules)} modules | "
+            f"{len(self.result.functions)} functions | "
             f"{len(self.result.classes)} classes\n",
         ]
+
+        # Data flow / pipeline overview (LLM-enhanced if available)
+        lines.append(self._generate_pipeline_overview(project_name))
+        llm_summary = self._generate_llm_summary(project_name)
+        if llm_summary:
+            lines.append("")
+            lines.append(llm_summary)
+        lines.append("")
+
+        # Layered architecture with descriptions
+        layers = self._detect_layers()
+        if layers:
+            lines.append("## Architecture Layers\n")
+            lines.append(self._generate_layer_diagram(layers))
+            lines.append("")
+            for layer_name, modules in layers.items():
+                lines.append(f"### {layer_name}\n")
+                for mod in modules:
+                    mod_info = self.result.modules.get(mod)
+                    doc = ""
+                    mod_doc = getattr(mod_info, "docstring", None) if mod_info else None
+                    if mod_doc:
+                        doc = f" — {mod_doc.splitlines()[0]}"
+                    lines.append(f"- `{mod}`{doc}")
+                lines.append("")
 
         # Module dependency graph
         lines.append("## Module Dependency Graph\n")
         lines.append(self._generate_module_graph())
         lines.append("")
 
-        # Layered architecture
-        layers = self._detect_layers()
-        if layers:
-            lines.append("## Architecture Layers\n")
-            for layer_name, modules in layers.items():
-                lines.append(f"### {layer_name}\n")
-                for mod in modules:
-                    lines.append(f"- `{mod}`")
-                lines.append("")
-
-        # Key classes
+        # Key classes (top 10 by method count)
         lines.append("## Key Classes\n")
         lines.append(self._generate_class_diagram())
         lines.append("")
@@ -57,16 +74,12 @@ class ArchitectureGenerator:
                 )
             lines.append("")
 
-        # Entry points
-        if self.result.entry_points:
-            lines.append("## Entry Points\n")
-            for ep in self.result.entry_points:
-                func = self.result.functions.get(ep)
-                if func:
-                    doc = f" — {func.docstring.splitlines()[0]}" if func.docstring else ""
-                    lines.append(f"- `{ep}`{doc}")
-                else:
-                    lines.append(f"- `{ep}`")
+        # Public entry points only (filter out dunders and class methods)
+        public_eps = self._get_public_entry_points()
+        if public_eps:
+            lines.append("## Public Entry Points\n")
+            for ep, doc in public_eps:
+                lines.append(f"- `{ep}`{doc}")
             lines.append("")
 
         # Metrics summary
@@ -74,6 +87,95 @@ class ArchitectureGenerator:
         lines.append(self._generate_metrics_table())
 
         return "\n".join(lines)
+
+    def _generate_pipeline_overview(self, project_name: str) -> str:
+        """Generate a data-flow pipeline overview."""
+        lines = [
+            "## How It Works\n",
+            f"`{project_name}` analyzes source code via a multi-stage pipeline:\n",
+            "```",
+            "Source files  ──►  code2llm (tree-sitter + AST)  ──►  AnalysisResult",
+            "                                                          │",
+            "              ┌───────────────────────────────────────────┘",
+            "              ▼",
+            "    ┌─────────────────────┐",
+            "    │   12 Generators     │",
+            "    │  ─────────────────  │",
+            "    │  README.md          │",
+            "    │  docs/api/          │",
+            "    │  docs/modules/      │",
+            "    │  docs/architecture   │",
+            "    │  docs/coverage      │",
+            "    │  examples/          │",
+            "    │  mkdocs.yml         │",
+            "    │  CONTRIBUTING.md    │",
+            "    └─────────────────────┘",
+            "```\n",
+            "**Analysis algorithms:**\n",
+            "1. **AST parsing** — language-specific parsers (tree-sitter) extract syntax trees",
+            "2. **Cyclomatic complexity** — counts independent code paths per function",
+            "3. **Fan-in / fan-out** — measures module coupling (how many modules import/are imported by each)",
+            "4. **Docstring extraction** — parses Google/NumPy/Sphinx-style docstrings into structured data",
+            "5. **Pattern detection** — identifies design patterns (Factory, Singleton, Observer, etc.)",
+            "6. **Dependency scanning** — reads pyproject.toml / requirements.txt / setup.py",
+        ]
+        return "\n".join(lines)
+
+    @staticmethod
+    def _generate_layer_diagram(layers: Dict[str, List[str]]) -> str:
+        """Generate Mermaid layer diagram."""
+        lines = ["```mermaid", "graph TD"]
+        for i, (layer, modules) in enumerate(layers.items()):
+            safe_id = layer.replace(" ", "_").replace("/", "_")
+            count = len(modules)
+            lines.append(f"    {safe_id}[\"{layer}<br/>{count} modules\"]")
+        # Connect layers top-down
+        layer_ids = [l.replace(" ", "_").replace("/", "_") for l in layers]
+        for i in range(len(layer_ids) - 1):
+            lines.append(f"    {layer_ids[i]} --> {layer_ids[i+1]}")
+        lines.append("```")
+        return "\n".join(lines)
+
+    def _get_public_entry_points(self) -> List[tuple]:
+        """Get filtered public entry points with descriptions."""
+        results = []
+        for ep in (self.result.entry_points or []):
+            parts = ep.split(".")
+            # Skip dunders, private, and class methods
+            if any(seg.startswith("_") or (seg[0].isupper() if seg else False) for seg in parts):
+                continue
+            func = self.result.functions.get(ep)
+            doc = ""
+            if func and func.docstring:
+                doc = f" — {func.docstring.splitlines()[0]}"
+            results.append((ep, doc))
+        return results
+
+    def _generate_llm_summary(self, project_name: str) -> str:
+        """Generate LLM-enhanced architecture summary. Returns '' if unavailable."""
+        if not self.llm.available:
+            return ""
+        layers = self._detect_layers()
+        layers_str = "\n".join(
+            f"- {name}: {len(mods)} modules" for name, mods in layers.items()
+        )
+        patterns_str = "\n".join(
+            f"- {p.name} ({p.type}, confidence={p.confidence:.0%})"
+            for p in self.result.patterns
+        ) or "None detected"
+        stats = self.result.stats or {}
+        metrics_str = (
+            f"Modules: {len(self.result.modules)}, "
+            f"Functions: {len(self.result.functions)}, "
+            f"Classes: {len(self.result.classes)}, "
+            f"Patterns: {len(self.result.patterns)}"
+        )
+        result = self.llm.generate_architecture_summary(
+            project_name, layers_str, patterns_str, metrics_str
+        )
+        if result:
+            return f"### Architecture Overview\n\n{result}"
+        return ""
 
     def _generate_module_graph(self) -> str:
         """Generate Mermaid module dependency graph."""

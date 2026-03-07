@@ -36,7 +36,10 @@ class ExamplesGenerator:
     def _generate_basic_usage(self) -> str:
         """Generate basic_usage.py example (orchestrator)."""
         project_name = self.config.project_name or Path(self.result.project_path).name
-        public_classes = [c for c in self.result.classes.values() if not c.name.startswith("_")]
+        public_classes = [
+            c for c in self.result.classes.values()
+            if not c.name.startswith("_")
+        ]
         public_functions = [
             f for f in self.result.functions.values()
             if not f.is_private and not f.is_method and not f.name.startswith("_")
@@ -59,15 +62,19 @@ class ExamplesGenerator:
         """Generate import statements for the example."""
         lines: List[str] = []
         imported = set()
+        # Prefer classes/functions whose module looks like a public API
         for cls in public_classes[:5]:
+            if cls.name in imported:
+                continue
             mod = cls.module or project_name
             lines.append(f"from {mod} import {cls.name}")
             imported.add(cls.name)
         for func in public_functions[:5]:
-            if func.name not in imported:
-                mod = func.module or project_name
-                lines.append(f"from {mod} import {func.name}")
-                imported.add(func.name)
+            if func.name in imported:
+                continue
+            mod = func.module or project_name
+            lines.append(f"from {mod} import {func.name}")
+            imported.add(func.name)
         if not imported:
             lines.append(f"import {project_name}")
         return "\n".join(lines)
@@ -112,18 +119,28 @@ class ExamplesGenerator:
             "",
         ]
 
-        for ep in self.result.entry_points[:5]:
+        # Filter to public module-level functions only
+        for ep in (self.result.entry_points or []):
+            parts = ep.split(".")
+            # Skip dunders, private, class methods (Capitalized segments)
+            if any(seg.startswith("_") or (seg[0].isupper() if seg else False)
+                   for seg in parts):
+                continue
             func = self.result.functions.get(ep)
-            if func:
-                mod = func.module or project_name
-                lines.append(f"from {mod} import {func.name}")
-                lines.append("")
-                args_str = ", ".join(f"{a}=..." for a in func.args[:4])
-                lines.append(f"# Call entry point: {func.name}")
-                if func.docstring:
-                    lines.append(f"# {func.docstring.splitlines()[0]}")
-                lines.append(f"result = {func.name}({args_str})")
-                lines.append("")
+            if not func:
+                continue
+            mod = func.module or project_name
+            lines.append(f"from {mod} import {func.name}")
+            lines.append("")
+            # Generate meaningful args (skip 'self')
+            args = [a for a in func.args if a != "self"]
+            args_str = ", ".join(f"{a}=..." for a in args[:4])
+            if func.docstring:
+                lines.append(f"# {func.docstring.splitlines()[0]}")
+            lines.append(f"result = {func.name}({args_str})")
+            lines.append("")
+            if len(lines) > 40:
+                break
 
         return "\n".join(lines)
 
@@ -167,7 +184,14 @@ class ExamplesGenerator:
     def _get_major_classes(self) -> List[ClassInfo]:
         """Get classes with most methods (likely most important)."""
         classes = [c for c in self.result.classes.values() if not c.name.startswith("_")]
-        return sorted(classes, key=lambda c: len(c.methods), reverse=True)[:5]
+        # Prefer user-facing classes: Config, Generator, Scanner over internal Adapter/Info
+        priority_suffixes = ("Config", "Generator", "Scanner", "Detector", "Extractor")
+        depriority_suffixes = ("Info", "Adapter", "Formatter")
+        return sorted(classes, key=lambda c: (
+            0 if any(c.name.endswith(s) for s in priority_suffixes) else
+            2 if any(c.name.endswith(s) for s in depriority_suffixes) else 1,
+            -len(c.methods),
+        ))[:5]
 
     def _get_init_args(self, cls: ClassInfo) -> List[str]:
         """Get __init__ args for a class."""

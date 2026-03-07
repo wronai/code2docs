@@ -6,7 +6,38 @@
 {% if "overview" in sections %}
 > **{{ stats.get('functions_found', 0) }}** functions | **{{ stats.get('classes_found', 0) }}** classes | **{{ stats.get('files_processed', 0) }}** files | CC̄ = {{ avg_complexity }}
 
+{% if project_description %}
+{{ project_description }}
 {% endif %}
+{% endif %}
+
+{% if "how_it_works" in sections %}
+## How It Works
+
+{{ project_name }} uses static code analysis to automatically generate human-readable documentation from your source code.
+
+```
+Source Code  →  code2llm (AST + tree-sitter)  →  AnalysisResult  →  code2docs generators  →  Docs
+```
+
+**Analysis pipeline:**
+
+1. **Parsing** — source files are parsed using language-specific AST parsers (tree-sitter) to extract functions, classes, modules, and their relationships
+2. **Metric collection** — cyclomatic complexity, fan-in/fan-out coupling, and dependency graphs are computed per function and module
+3. **Docstring extraction** — existing docstrings are parsed into structured sections (params, returns, raises, examples)
+4. **Documentation generation** — 12 specialized generators transform the analysis into Markdown, YAML, and Python examples
+
+### Supported Languages & Frameworks
+
+| Category | Languages / Frameworks |
+|----------|----------------------|
+| **Backend** | Python, Java, Go, Rust, C#, Ruby, PHP, Node.js |
+| **Frontend** | JavaScript, TypeScript, React, Vue, Angular |
+| **Firmware** | C, C++, Embedded C |
+| **Frameworks** | Django, Flask, FastAPI, Express, Spring, Rails |
+
+{% endif %}
+
 {% if "install" in sections and dependencies and dependencies.install_command %}
 ## Installation
 
@@ -29,40 +60,67 @@ Requires Python {{ dependencies.python_version }}
 {% if "quickstart" in sections %}
 ## Quick Start
 
-{% if entry_points %}
-```python
-{% for ep in entry_points[:3] %}
-# Entry point: {{ ep }}
-{% endfor %}
+### CLI Usage
+
+```bash
+# Generate full documentation for your project
+{{ project_name }} ./my-project
+
+# Only regenerate README
+{{ project_name }} ./my-project --readme-only
+
+# Preview what would be generated (no file writes)
+{{ project_name }} ./my-project --dry-run
+
+# Check documentation health
+{{ project_name }} check ./my-project
+
+# Sync — regenerate only changed modules
+{{ project_name }} sync ./my-project
 ```
-{% else %}
+
+### Python API
+
 ```python
-import {{ project_name }}
+from {{ project_name }} import generate_readme, generate_docs, Code2DocsConfig
+
+# Quick: generate README
+generate_readme("./my-project")
+
+# Full: generate all documentation
+config = Code2DocsConfig(project_name="mylib", verbose=True)
+generate_docs("./my-project", config=config)
 ```
-{% endif %}
 {% endif %}
 
 {% if "api" in sections %}
 ## API Overview
 
 {% if public_classes %}
-### Classes
+### Key Classes
 
+| Class | Description |
+|-------|-------------|
 {% for name, cls in public_classes.items()|list %}
-- **`{{ cls.name }}`**{% if cls.docstring %} — {{ cls.docstring.split('\n')[0] }}{% endif %}
-
-{% endfor %}
+{% if not cls.name.startswith('_') %}
+| `{{ cls.name }}` | {{ cls.docstring.split('\n')[0] if cls.docstring else '—' }} |
 {% endif %}
-
-{% if public_functions %}
-### Functions
-
-{% for name, func in public_functions.items()|list %}
-{% set args = func.args|join(', ') %}
-{% set ret = ' → ' ~ func.returns if func.returns else '' %}
-- `{{ func.name }}({{ args }}){{ ret }}`{% if func.docstring %} — {{ func.docstring.split('\n')[0] }}{% endif %}
-
 {% endfor %}
+
+{% endif %}
+{% if public_functions %}
+### Public Functions
+
+| Function | Signature | Description |
+|----------|-----------|-------------|
+{% for name, func in public_functions.items()|list %}
+{% if not func.name.startswith('_') %}
+{% set args = func.args[:4]|join(', ') %}
+{% set ret = ' → ' ~ func.returns if func.returns else '' %}
+| `{{ func.name }}` | `({{ args }}){{ ret }}` | {{ func.docstring.split('\n')[0] if func.docstring else '—' }} |
+{% endif %}
+{% endfor %}
+
 {% endif %}
 {% endif %}
 
@@ -73,13 +131,34 @@ import {{ project_name }}
 {% endif %}
 
 {% if "endpoints" in sections and endpoints %}
-## Endpoints
+## API Endpoints
 
-| Method | Path | Function | Framework |
-|--------|------|----------|-----------|
+| Method | Path | Handler | Framework |
+|--------|------|---------|-----------|
 {% for ep in endpoints %}
-| {{ ep.method }} | `{{ ep.path }}` | `{{ ep.function_name }}` | {{ ep.framework }} |
+| `{{ ep.method }}` | `{{ ep.path }}` | `{{ ep.function_name }}` | {{ ep.framework }} |
 {% endfor %}
+{% endif %}
+
+{% if "generated_docs" in sections %}
+## Generated Documentation
+
+When you run `{{ project_name }}`, the following files are produced:
+
+| Output | Description |
+|--------|-------------|
+| `README.md` | Project overview with badges, stats, and API summary |
+| `docs/api/` | Per-module API reference with signatures and complexity |
+| `docs/modules/` | Detailed module documentation with metrics |
+| `docs/architecture.md` | Architecture overview with Mermaid diagrams |
+| `docs/dependency-graph.md` | Module dependency graph and coupling matrix |
+| `docs/coverage.md` | Docstring coverage report |
+| `docs/getting-started.md` | Getting started guide |
+| `docs/configuration.md` | Configuration reference |
+| `docs/api-changelog.md` | API change tracking between runs |
+| `CONTRIBUTING.md` | Contribution guidelines |
+| `examples/` | Auto-generated usage examples |
+| `mkdocs.yml` | MkDocs site configuration |
 {% endif %}
 
 {% if sync_markers %}<!-- code2docs:end -->{% endif %}
