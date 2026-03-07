@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.4] - 2026-03-07
+
+### Other
+- Update code2docs/generators/coverage_gen.py
+- Update code2docs/generators/depgraph_gen.py
+- Update code2docs/generators/mkdocs_gen.py
+
 ## [0.1.3] - 2026-03-07
 
 ### Docs
