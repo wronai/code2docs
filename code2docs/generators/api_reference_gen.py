@@ -5,7 +5,7 @@ from typing import Dict, List, Optional
 
 from jinja2 import Environment, PackageLoader, select_autoescape
 
-from code2llm.core.models import AnalysisResult, FunctionInfo, ClassInfo, ModuleInfo
+from code2llm.api import AnalysisResult, FunctionInfo, ClassInfo, ModuleInfo
 
 from ..config import Code2DocsConfig
 
@@ -61,67 +61,79 @@ class ApiReferenceGenerator:
         return "\n".join(lines) + "\n"
 
     def _generate_module_api(self, mod_name: str, mod_info: ModuleInfo) -> str:
-        """Generate API reference for a single module."""
-        lines = [f"# `{mod_name}`\n"]
+        """Generate API reference for a single module (orchestrator)."""
+        parts: List[str] = [
+            self._render_api_header(mod_name, mod_info),
+            self._render_api_classes(mod_name),
+            self._render_api_functions(mod_name),
+            self._render_api_imports(mod_info),
+        ]
+        return "\n".join(p for p in parts if p)
 
-        # Source info
-        lines.append(f"> Source: `{mod_info.file}`\n")
+    def _render_api_header(self, mod_name: str, mod_info: ModuleInfo) -> str:
+        """Render module header with source info."""
+        return f"# `{mod_name}`\n\n> Source: `{mod_info.file}`\n"
 
-        # Classes in this module
+    def _render_api_classes(self, mod_name: str) -> str:
+        """Render classes with their method signatures."""
         module_classes = {
             k: v for k, v in self.result.classes.items()
             if v.module == mod_name or k.startswith(mod_name + ".")
         }
-        if module_classes:
-            lines.append("## Classes\n")
-            for cls_name, cls_info in sorted(module_classes.items()):
-                lines.append(f"### `{cls_info.name}`\n")
-                if cls_info.bases:
-                    lines.append(f"Inherits from: {', '.join(f'`{b}`' for b in cls_info.bases)}\n")
-                if cls_info.docstring:
-                    lines.append(f"{cls_info.docstring.strip()}\n")
+        if not module_classes:
+            return ""
+        lines = ["## Classes\n"]
+        for cls_name, cls_info in sorted(module_classes.items()):
+            lines.append(f"### `{cls_info.name}`\n")
+            if cls_info.bases:
+                lines.append(f"Inherits from: {', '.join(f'`{b}`' for b in cls_info.bases)}\n")
+            if cls_info.docstring:
+                lines.append(f"{cls_info.docstring.strip()}\n")
+            methods = self._get_class_methods(cls_info)
+            if methods:
+                lines.append("#### Methods\n")
+                for method in methods:
+                    sig = self._format_signature(method)
+                    doc_line = ""
+                    if method.docstring:
+                        doc_line = f" — {method.docstring.splitlines()[0]}"
+                    cc = method.complexity.get("cyclomatic", 0)
+                    cc_badge = f" ⚠️ CC={cc}" if cc > 10 else ""
+                    lines.append(f"- `{sig}`{doc_line}{cc_badge}")
+                lines.append("")
+        return "\n".join(lines)
 
-                # Methods of this class
-                methods = self._get_class_methods(cls_info)
-                if methods:
-                    lines.append("#### Methods\n")
-                    for method in methods:
-                        sig = self._format_signature(method)
-                        doc_line = ""
-                        if method.docstring:
-                            doc_line = f" — {method.docstring.splitlines()[0]}"
-                        cc = method.complexity.get("cyclomatic", 0)
-                        cc_badge = f" ⚠️ CC={cc}" if cc > 10 else ""
-                        lines.append(f"- `{sig}`{doc_line}{cc_badge}")
-                    lines.append("")
-
-        # Standalone functions in this module
+    def _render_api_functions(self, mod_name: str) -> str:
+        """Render standalone functions with signatures and complexity."""
         module_functions = {
             k: v for k, v in self.result.functions.items()
             if (v.module == mod_name or k.startswith(mod_name + "."))
             and not v.is_method
         }
-        if module_functions:
-            lines.append("## Functions\n")
-            for func_name, func_info in sorted(module_functions.items()):
-                sig = self._format_signature(func_info)
-                lines.append(f"### `{sig}`\n")
-                if func_info.docstring:
-                    lines.append(f"{func_info.docstring.strip()}\n")
-                cc = func_info.complexity.get("cyclomatic", 0)
-                if cc:
-                    lines.append(f"- Complexity: {cc}")
-                if func_info.calls:
-                    lines.append(f"- Calls: {', '.join(f'`{c}`' for c in func_info.calls[:10])}")
-                lines.append("")
-
-        # Imports
-        if mod_info.imports:
-            lines.append("## Imports\n")
-            for imp in sorted(mod_info.imports):
-                lines.append(f"- `{imp}`")
+        if not module_functions:
+            return ""
+        lines = ["## Functions\n"]
+        for func_name, func_info in sorted(module_functions.items()):
+            sig = self._format_signature(func_info)
+            lines.append(f"### `{sig}`\n")
+            if func_info.docstring:
+                lines.append(f"{func_info.docstring.strip()}\n")
+            cc = func_info.complexity.get("cyclomatic", 0)
+            if cc:
+                lines.append(f"- Complexity: {cc}")
+            if func_info.calls:
+                lines.append(f"- Calls: {', '.join(f'`{c}`' for c in func_info.calls[:10])}")
             lines.append("")
+        return "\n".join(lines)
 
+    def _render_api_imports(self, mod_info: ModuleInfo) -> str:
+        """Render module imports list."""
+        if not mod_info.imports:
+            return ""
+        lines = ["## Imports\n"]
+        for imp in sorted(mod_info.imports):
+            lines.append(f"- `{imp}`")
+        lines.append("")
         return "\n".join(lines)
 
     def _get_class_methods(self, cls_info: ClassInfo) -> List[FunctionInfo]:

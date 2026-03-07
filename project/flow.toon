@@ -1,6 +1,14 @@
-# code2docs/flow | 103 func | 11 pipelines | 2 hub-types | 2026-03-07
+# code2docs/flow | 127 func | 12 pipelines | 3 hub-types | 2026-03-07
 
-PIPELINES[11] (Analysis:2, Core:2, Export:2, IO:1, Unknown:4):
+PIPELINES[12] (Analysis:3, Core:2, Export:3, IO:2, Unknown:2):
+  Code2docs [Analysis]: ? → float
+              → generate_all() → Dict[str, str]         CC=2    pure ▶
+              → _generate_module(mod_name:str, mod_info:ModuleInfo) → str CC=3    pure
+              → _render_metrics_section(mod_name:str, mod_info:ModuleInfo) → str CC=3    mutation
+              → _get_module_metrics(mod_name:str, mod_info:ModuleInfo) → Dict[str, str] CC=7    pure
+              → _calc_module_avg_cc(mod_name:str) → float CC=5    mutation ■
+              PURITY: 3/5 pure  BOTTLENECK: _get_module_metrics(CC=7)
+
   Code2docs [IO]: ? → Optional[str]
               → generate() → str                        CC=3    pure ▶
               → _build_context(project_name:str) → Dict CC=7    pure
@@ -8,12 +16,26 @@ PIPELINES[11] (Analysis:2, Core:2, Export:2, IO:1, Unknown:4):
               → _make_badge(badge_type:str, project_name:str, stats:Dict, deps) → Optional[str] CC=11   pure ■
               PURITY: 3/4 pure  BOTTLENECK: _make_badge(CC=11)
 
-  Code2docs [Analysis]: ? → float
+  Code2docs [Export]: ? → str
               → generate_all() → Dict[str, str]         CC=2    pure ▶
-              → _generate_module(mod_name:str, mod_info:ModuleInfo) → str CC=34   mutation  !!
-              → _get_module_metrics(mod_name:str, mod_info:ModuleInfo) → Dict[str, str] CC=7    pure
-              → _calc_module_avg_cc(mod_name:str) → float CC=5    mutation ■
-              PURITY: 2/4 pure  BOTTLENECK: _generate_module(CC=34)
+              → _generate_module_api(mod_name:str, mod_info:ModuleInfo) → str CC=3    pure
+              → _render_api_functions(mod_name:str) → str CC=11   mutation
+              → _format_signature(func:FunctionInfo) → str CC=2    pure ■
+              PURITY: 3/4 pure  BOTTLENECK: _render_api_functions(CC=11)
+
+  Code2docs [IO]: ? → List[FunctionInfo]
+              → generate_all() → Dict[str, str]         CC=4    pure ▶
+              → _generate_basic_usage() → str           CC=10   pure
+              → _generate_class_usage_section(public_classes:List[ClassInfo]) → str CC=8    mutation
+              → _get_public_methods(cls:ClassInfo) → List[FunctionInfo] CC=6    mutation ■
+              PURITY: 2/4 pure  BOTTLENECK: _generate_basic_usage(CC=10)
+
+  Code2docs [Analysis]: AnalysisResult → Optional[str]
+              → extract_all(result:AnalysisResult) → Dict[str, DocstringInfo] CC=5    pure ▶
+              → parse(docstring:str) → DocstringInfo    CC=2    pure
+              → _parse_sections(lines:List[str], info:DocstringInfo) → None CC=15   mutation  !!
+              → _classify_section(line:str) → Optional[str] CC=5    pure ■
+              PURITY: 3/4 pure  BOTTLENECK: _parse_sections(CC=15)
 
   Code2docs [Analysis]: str → DependencyInfo
               → scan(project_path:str) → ProjectDependencies CC=4    pure ▶
@@ -22,8 +44,27 @@ PIPELINES[11] (Analysis:2, Core:2, Export:2, IO:1, Unknown:4):
               → _parse_dep_string(dep_str:str) → DependencyInfo CC=2    pure ■
               PURITY: 2/4 pure  BOTTLENECK: _parse_pyproject(CC=8)
 
-  Code2docs [Core]: ctx → Code2DocsConfig
-              → main(ctx, project_path, config_path, readme_only, sections, output, verbose, dry_run) CC=6    pure ▶
+  Code2docs [Export]: ? → List[FunctionInfo]
+              → generate_all() → Dict[str, str]         CC=2    pure ▶
+              → _generate_module_api(mod_name:str, mod_info:ModuleInfo) → str CC=3    pure
+              → _render_api_classes(mod_name:str) → str CC=13   mutation
+              → _get_class_methods(cls_info:ClassInfo) → List[FunctionInfo] CC=4    mutation ■
+              PURITY: 2/4 pure  BOTTLENECK: _render_api_classes(CC=13)
+
+  Code2docs [Export]: str → str
+              → generate_toc(markdown_content:str, max_depth:int) → str CC=3    mutation ▶
+              → extract_headings(content:str, max_depth:int) → List[Tuple[int, str, str]] CC=6    mutation
+              → _slugify(text:str) → str                CC=1    pure ■
+              PURITY: 1/3 pure  BOTTLENECK: extract_headings(CC=6)
+
+  Code2docs [Unknown]: Optional[str] → str
+              → generate(project_path:Optional[str], max_entries:int) → str CC=3    pure ▶
+              → _get_git_log(project_path:Path, max_entries:int) → List[ChangelogEntry] CC=5    mutation
+              → _classify_message(message:str) → str    CC=4    pure ■
+              PURITY: 2/3 pure  BOTTLENECK: _get_git_log(CC=5)
+
+  Code2docs [Core]: project_path → Code2DocsConfig
+              → generate(project_path, config_path, readme_only, sections, output, verbose, dry_run) CC=5    pure ▶
               → _load_config(project_path:str, config_path:Optional[str]) → Code2DocsConfig CC=4    pure
               → from_yaml(cls, path:str) → Code2DocsConfig CC=7    IO ■
               PURITY: 2/3 pure  BOTTLENECK: from_yaml(CC=7)
@@ -40,52 +81,43 @@ PIPELINES[11] (Analysis:2, Core:2, Export:2, IO:1, Unknown:4):
               → start_watcher(project_path:str, config:Optional[Code2DocsConfig]) → None CC=5    IO ■
               PURITY: 2/3 pure  BOTTLENECK: start_watcher(CC=5)
 
-  Code2docs [Export]: str → str
-              → generate_toc(markdown_content:str, max_depth:int) → str CC=3    mutation ▶
-              → extract_headings(content:str, max_depth:int) → List[Tuple[int, str, str]] CC=6    mutation
-              → _slugify(text:str) → str                CC=1    pure ■
-              PURITY: 1/3 pure  BOTTLENECK: extract_headings(CC=6)
-
-  Code2docs [Export]: ? → str
-              → generate_all() → Dict[str, str]         CC=2    pure ▶
-              → _generate_module_api(mod_name:str, mod_info:ModuleInfo) → str CC=25   mutation  !!
-              → _format_signature(func:FunctionInfo) → str CC=2    pure ■
-              PURITY: 2/3 pure  BOTTLENECK: _generate_module_api(CC=25)
-
-  Code2docs [Unknown]: Optional[str] → str
-              → generate(project_path:Optional[str], max_entries:int) → str CC=3    pure ▶
-              → _get_git_log(project_path:Path, max_entries:int) → List[ChangelogEntry] CC=5    mutation
-              → _classify_message(message:str) → str    CC=4    pure ■
-              PURITY: 2/3 pure  BOTTLENECK: _get_git_log(CC=5)
-
-  Code2docs [Unknown]: ? → List[FunctionInfo]
-              → generate_all() → Dict[str, str]         CC=4    pure ▶
-              → _generate_class_examples(classes:List[ClassInfo]) → str CC=12   mutation
-              → _get_public_methods(cls:ClassInfo) → List[FunctionInfo] CC=6    mutation ■
-              PURITY: 1/3 pure  BOTTLENECK: _generate_class_examples(CC=12)
-
-  Code2docs [Unknown]: ? → List[str]
-              → generate_all() → Dict[str, str]         CC=4    pure ▶
-              → _generate_basic_usage() → str           CC=25   mutation  !!
-              → _get_init_args(cls:ClassInfo) → List[str] CC=7    pure ■
-              PURITY: 2/3 pure  BOTTLENECK: _generate_basic_usage(CC=25)
-
 
 TRANSFORMS (fan-out ≥10):
   _run_generate(project_path:str, config:Code2DocsConfig, readme_only:bool, dry_run:bool) fan=24   !! side-effects
   start_watcher(project_path:str, config:Optional[Code2DocsConfig]) → None fan=22   !! side-effects
   apply(project_path:str, changes:List[ChangeInfo]) → None fan=20   !! side-effects
-  _generate_module(mod_name:str, mod_info:ModuleInfo) → str fan=20   !! side-effects
-  _generate_module_api(mod_name:str, mod_info:ModuleInfo) → str fan=15   PIPELINE:ApiReferenceGenerator.entry
   from_yaml(cls, path:str) → Code2DocsConfig              fan=15   PIPELINE:Code2DocsConfig.entry
-  parse(docstring:str) → DocstringInfo                    fan=15   PIPELINE:DocstringExtractor.entry
-  _generate_basic_usage() → str                           fan=11   PIPELINE:ExamplesGenerator.entry
+  _render_api_classes(mod_name:str) → str                 fan=11   PIPELINE:ApiReferenceGenerator.entry
   generate() → str                                        fan=11   PIPELINE:ArchitectureGenerator.entry
-  init(project_path, output)                              fan=10   fan=10
+  _parse_sections(lines:List[str], info:DocstringInfo) → None fan=11   PIPELINE:DocstringExtractor.entry
   detect_changes(project_path:str) → List[ChangeInfo]     fan=10   PIPELINE:Differ.entry
+  init(project_path, output)                              fan=10   fan=10
   _scan_django_urls(project_path:str) → List[Endpoint]    fan=10   PIPELINE:EndpointDetector.entry
 
 CONTRACTS:
+  Pipeline: Code2docs
+    generate_all() → Dict[str, str]
+      IN:  ()
+      OUT: Dict[str, str]
+
+    _generate_module(mod_name:str, mod_info:ModuleInfo) → str
+      IN:  mod_name:str, mod_info:ModuleInfo
+      OUT: str
+
+    _render_metrics_section(mod_name:str, mod_info:ModuleInfo) → str
+      IN:  mod_name:str, mod_info:ModuleInfo
+      OUT: str
+      SIDE-EFFECT: pure
+
+    _get_module_metrics(mod_name:str, mod_info:ModuleInfo) → Dict[str, str]
+      IN:  mod_name:str, mod_info:ModuleInfo
+      OUT: Dict[str, str]
+
+    _calc_module_avg_cc(mod_name:str) → float
+      IN:  mod_name:str
+      OUT: float
+      SIDE-EFFECT: pure
+
   Pipeline: Code2docs
     generate() → str
       IN:  ()
@@ -109,20 +141,56 @@ CONTRACTS:
       IN:  ()
       OUT: Dict[str, str]
 
-    _generate_module(mod_name:str, mod_info:ModuleInfo) → str
+    _generate_module_api(mod_name:str, mod_info:ModuleInfo) → str
       IN:  mod_name:str, mod_info:ModuleInfo
       OUT: str
-      SIDE-EFFECT: pure
-      SMELL: CC=34 → split
 
-    _get_module_metrics(mod_name:str, mod_info:ModuleInfo) → Dict[str, str]
-      IN:  mod_name:str, mod_info:ModuleInfo
+    _render_api_functions(mod_name:str) → str
+      IN:  mod_name:str
+      OUT: str
+      SIDE-EFFECT: pure
+
+    _format_signature(func:FunctionInfo) → str
+      IN:  func:FunctionInfo
+      OUT: str
+
+  Pipeline: Code2docs
+    generate_all() → Dict[str, str]
+      IN:  ()
       OUT: Dict[str, str]
 
-    _calc_module_avg_cc(mod_name:str) → float
-      IN:  mod_name:str
-      OUT: float
+    _generate_basic_usage() → str
+      IN:  ()
+      OUT: str
+
+    _generate_class_usage_section(public_classes:List[ClassInfo]) → str
+      IN:  public_classes:List[ClassInfo]
+      OUT: str
       SIDE-EFFECT: pure
+
+    _get_public_methods(cls:ClassInfo) → List[FunctionInfo]
+      IN:  cls:ClassInfo
+      OUT: List[FunctionInfo]
+      SIDE-EFFECT: pure
+
+  Pipeline: Code2docs
+    extract_all(result:AnalysisResult) → Dict[str, DocstringInfo]
+      IN:  result:AnalysisResult
+      OUT: Dict[str, DocstringInfo]
+
+    parse(docstring:str) → DocstringInfo
+      IN:  docstring:str
+      OUT: DocstringInfo
+
+    _parse_sections(lines:List[str], info:DocstringInfo) → None
+      IN:  lines:List[str], info:DocstringInfo
+      OUT: None
+      SIDE-EFFECT: pure
+      SMELL: CC=15 → split
+
+    _classify_section(line:str) → Optional[str]
+      IN:  line:str
+      OUT: Optional[str]
 
   Pipeline: Code2docs
     scan(project_path:str) → ProjectDependencies
@@ -144,8 +212,56 @@ CONTRACTS:
       OUT: DependencyInfo
 
   Pipeline: Code2docs
-    main(ctx, project_path, config_path, readme_only, sections, output, verbose, dry_run)
-      IN:  ctx, project_path, config_path, readme_only, sections, output, verbose, dry_run
+    generate_all() → Dict[str, str]
+      IN:  ()
+      OUT: Dict[str, str]
+
+    _generate_module_api(mod_name:str, mod_info:ModuleInfo) → str
+      IN:  mod_name:str, mod_info:ModuleInfo
+      OUT: str
+
+    _render_api_classes(mod_name:str) → str
+      IN:  mod_name:str
+      OUT: str
+      SIDE-EFFECT: pure
+
+    _get_class_methods(cls_info:ClassInfo) → List[FunctionInfo]
+      IN:  cls_info:ClassInfo
+      OUT: List[FunctionInfo]
+      SIDE-EFFECT: pure
+
+  Pipeline: Code2docs
+    generate_toc(markdown_content:str, max_depth:int) → str
+      IN:  markdown_content:str, max_depth:int
+      OUT: str
+      SIDE-EFFECT: pure
+
+    extract_headings(content:str, max_depth:int) → List[Tuple[int, str, str]]
+      IN:  content:str, max_depth:int
+      OUT: List[Tuple[int, str, str]]
+      SIDE-EFFECT: pure
+
+    _slugify(text:str) → str
+      IN:  text:str
+      OUT: str
+
+  Pipeline: Code2docs
+    generate(project_path:Optional[str], max_entries:int) → str
+      IN:  project_path:Optional[str], max_entries:int
+      OUT: str
+
+    _get_git_log(project_path:Path, max_entries:int) → List[ChangelogEntry]
+      IN:  project_path:Path, max_entries:int
+      OUT: List[ChangelogEntry]
+      SIDE-EFFECT: pure
+
+    _classify_message(message:str) → str
+      IN:  message:str
+      OUT: str
+
+  Pipeline: Code2docs
+    generate(project_path, config_path, readme_only, sections, output, verbose, dry_run)
+      IN:  project_path, config_path, readme_only, sections, output, verbose, dry_run
       OUT: None
 
     _load_config(project_path:str, config_path:Optional[str]) → Code2DocsConfig
@@ -185,123 +301,52 @@ CONTRACTS:
       OUT: None
       SIDE-EFFECT: IO(print, print, print); mutates self._last_trigger, self._debounce_seconds, self._last_trigger
 
-  Pipeline: Code2docs
-    generate_toc(markdown_content:str, max_depth:int) → str
-      IN:  markdown_content:str, max_depth:int
-      OUT: str
-      SIDE-EFFECT: pure
 
-    extract_headings(content:str, max_depth:int) → List[Tuple[int, str, str]]
-      IN:  content:str, max_depth:int
-      OUT: List[Tuple[int, str, str]]
-      SIDE-EFFECT: pure
-
-    _slugify(text:str) → str
-      IN:  text:str
-      OUT: str
-
-  Pipeline: Code2docs
-    generate_all() → Dict[str, str]
-      IN:  ()
-      OUT: Dict[str, str]
-
-    _generate_module_api(mod_name:str, mod_info:ModuleInfo) → str
-      IN:  mod_name:str, mod_info:ModuleInfo
-      OUT: str
-      SIDE-EFFECT: pure
-      SMELL: CC=25 → split
-
-    _format_signature(func:FunctionInfo) → str
-      IN:  func:FunctionInfo
-      OUT: str
-
-  Pipeline: Code2docs
-    generate(project_path:Optional[str], max_entries:int) → str
-      IN:  project_path:Optional[str], max_entries:int
-      OUT: str
-
-    _get_git_log(project_path:Path, max_entries:int) → List[ChangelogEntry]
-      IN:  project_path:Path, max_entries:int
-      OUT: List[ChangelogEntry]
-      SIDE-EFFECT: pure
-
-    _classify_message(message:str) → str
-      IN:  message:str
-      OUT: str
-
-  Pipeline: Code2docs
-    generate_all() → Dict[str, str]
-      IN:  ()
-      OUT: Dict[str, str]
-
-    _generate_class_examples(classes:List[ClassInfo]) → str
-      IN:  classes:List[ClassInfo]
-      OUT: str
-      SIDE-EFFECT: pure
-
-    _get_public_methods(cls:ClassInfo) → List[FunctionInfo]
-      IN:  cls:ClassInfo
-      OUT: List[FunctionInfo]
-      SIDE-EFFECT: pure
-
-  Pipeline: Code2docs
-    generate_all() → Dict[str, str]
-      IN:  ()
-      OUT: Dict[str, str]
-
-    _generate_basic_usage() → str
-      IN:  ()
-      OUT: str
-      SIDE-EFFECT: pure
-      SMELL: CC=25 → split
-
-    _get_init_args(cls:ClassInfo) → List[str]
-      IN:  cls:ClassInfo
-      OUT: List[str]
-
-
-DATA_TYPES (by cross-function usage) [102 annotated, 0 inferred / 103 functions]:
-  str                  consumed:59  produced:30   !! HUB-TYPE → split interface
+DATA_TYPES (by cross-function usage) [124 annotated, 0 inferred / 127 functions]:
+  str                  consumed:76  produced:51   !! HUB-TYPE → split interface
   Code2DocsConfig      consumed:15  produced:2    !! HUB-TYPE → split interface
   AnalysisResult       consumed:9   produced:2  
+  ModuleInfo           consumed:10  produced:0    !! HUB-TYPE → split interface
+  Dict                 consumed:9   produced:1    input-heavy (read-only flow)
   str, str             consumed:3   produced:6  
+  ClassInfo            consumed:7   produced:1    input-heavy (read-only flow)
   MarkdownFormatter    consumed:0   produced:8    output-heavy
   Path                 consumed:8   produced:0    input-heavy (read-only flow)
+  FunctionInfo         consumed:4   produced:3  
   int                  consumed:6   produced:1    input-heavy (read-only flow)
-  ClassInfo            consumed:5   produced:1    input-heavy (read-only flow)
   ProjectDependencies  consumed:0   produced:5    output-heavy
-  FunctionInfo         consumed:2   produced:3  
-  Dict                 consumed:3   produced:1    narrow scope
   bool                 consumed:4   produced:0    narrow scope
-  ModuleInfo           consumed:4   produced:0    narrow scope
   Endpoint             consumed:0   produced:3    narrow scope
+  ChangelogEntry       consumed:1   produced:1    narrow scope
   str, List[ChangelogEntry] consumed:1   produced:1    narrow scope
   float                consumed:0   produced:2    narrow scope
   ChangeInfo           consumed:1   produced:1    narrow scope
-  ChangelogEntry       consumed:1   produced:1    narrow scope
-  str, ClassInfo       consumed:0   produced:1    narrow scope
-  DependencyInfo       consumed:0   produced:1    narrow scope
+  DocstringInfo        consumed:1   produced:1    narrow scope
+  str, float           consumed:0   produced:1    narrow scope
 
   HUB TYPES (consumed ≥10):
-    str → 59 consumers → split into:
+    str → 76 consumers → split into:
       - (analyze consumers to suggest sub-interfaces)
     Code2DocsConfig → 15 consumers → split into:
       - (analyze consumers to suggest sub-interfaces)
+    ModuleInfo → 10 consumers → split into:
+      - (analyze consumers to suggest sub-interfaces)
 
 SIDE_EFFECTS:
-  IO:        Updater.apply, start_watcher, _run_generate, ReadmeGenerator.write, generate_readme, Differ.save_state, Differ._load_state, Differ._compute_state, ModuleDocsGenerator._count_file_lines, ModuleDocsGenerator._get_module_docstring
+  IO:        Updater.apply, start_watcher, ReadmeGenerator.write, generate_readme, Differ.save_state, Differ._load_state, Differ._compute_state, ModuleDocsGenerator._count_file_lines, ModuleDocsGenerator._get_module_docstring, ModuleDocsGenerator.write_all
   Mutation:  Updater.__init__, MarkdownFormatter.__init__, MarkdownFormatter.heading, MarkdownFormatter.paragraph, MarkdownFormatter.blockquote, MarkdownFormatter.code_block, MarkdownFormatter.list_item, MarkdownFormatter.table, MarkdownFormatter.separator, MarkdownFormatter.blank
-  Pure:      __getattr__, MarkdownFormatter.inline_code, MarkdownFormatter.bold, MarkdownFormatter.link, MarkdownFormatter.render, _make_badge, main, sync, watch, init
+  Pure:      __getattr__, MarkdownFormatter.inline_code, MarkdownFormatter.bold, MarkdownFormatter.link, MarkdownFormatter.render, _make_badge, _slugify, ReadmeGenerator.generate, ReadmeGenerator._build_context, ReadmeGenerator._build_structure_section
 
   PIPELINE PURITY:
+    Code2docs       ██░░ 60% pure
+    Code2docs       ███░ 75% pure
+    Code2docs       ███░ 75% pure
+    Code2docs       ██░░ 50% pure
     Code2docs       ███░ 75% pure
     Code2docs       ██░░ 50% pure
     Code2docs       ██░░ 50% pure
-    Code2docs       ██░░ 66% pure
-    Code2docs       ██░░ 66% pure
-    Code2docs       ██░░ 66% pure
     Code2docs       █░░░ 33% pure
     Code2docs       ██░░ 66% pure
     Code2docs       ██░░ 66% pure
-    Code2docs       █░░░ 33% pure
+    Code2docs       ██░░ 66% pure
     Code2docs       ██░░ 66% pure

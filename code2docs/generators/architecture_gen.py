@@ -3,7 +3,7 @@
 from pathlib import Path
 from typing import Dict, List, Set
 
-from code2llm.core.models import AnalysisResult, ModuleInfo
+from code2llm.api import AnalysisResult, ModuleInfo
 
 from ..config import Code2DocsConfig
 

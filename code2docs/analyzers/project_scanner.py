@@ -3,9 +3,7 @@
 from pathlib import Path
 from typing import Optional
 
-from code2llm import Config, FAST_CONFIG
-from code2llm.core.analyzer import ProjectAnalyzer
-from code2llm.core.models import AnalysisResult
+from code2llm.api import Config, FAST_CONFIG, AnalysisResult, analyze
 
 from ..config import Code2DocsConfig
 
@@ -35,8 +33,7 @@ class ProjectScanner:
 
     def analyze(self, project_path: str) -> AnalysisResult:
         """Analyze a project and return AnalysisResult for doc generation."""
-        analyzer = ProjectAnalyzer(self._llm_config)
-        return analyzer.analyze_project(project_path)
+        return analyze(project_path, self._llm_config)
 
 
 def analyze_and_document(project_path: str, config: Optional[Code2DocsConfig] = None) -> AnalysisResult:

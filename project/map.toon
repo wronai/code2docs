@@ -1,51 +1,43 @@
-# code2docs | 24f 2473L | python:24
+# code2docs | 24f 2544L | python:24
 # Keys: M=modules, D=details, i=imports, c=classes, f=functions, m=methods
 M[24]:
   code2docs/__init__.py,32
   code2docs/__main__.py,6
   code2docs/analyzers/__init__.py,13
   code2docs/analyzers/dependency_scanner.py,159
-  code2docs/analyzers/docstring_extractor.py,111
+  code2docs/analyzers/docstring_extractor.py,119
   code2docs/analyzers/endpoint_detector.py,113
-  code2docs/analyzers/project_scanner.py,45
-  code2docs/cli.py,226
+  code2docs/analyzers/project_scanner.py,42
+  code2docs/cli.py,229
   code2docs/config.py,158
   code2docs/formatters/__init__.py,7
   code2docs/formatters/badges.py,52
   code2docs/formatters/markdown.py,73
   code2docs/formatters/toc.py,63
   code2docs/generators/__init__.py,42
-  code2docs/generators/api_reference_gen.py,150
+  code2docs/generators/api_reference_gen.py,162
   code2docs/generators/architecture_gen.py,192
   code2docs/generators/changelog_gen.py,121
-  code2docs/generators/examples_gen.py,194
-  code2docs/generators/module_docs_gen.py,204
-  code2docs/generators/readme_gen.py,229
+  code2docs/generators/examples_gen.py,198
+  code2docs/generators/module_docs_gen.py,220
+  code2docs/generators/readme_gen.py,260
   code2docs/sync/__init__.py,6
   code2docs/sync/differ.py,125
   code2docs/sync/updater.py,77
   code2docs/sync/watcher.py,75
 D:
-  code2docs/generators/module_docs_gen.py:
-    e: ModuleDocsGenerator
-    ModuleDocsGenerator: __init__(2),generate_all(0),_generate_module(2),_count_file_lines(1),_calc_module_avg_cc(1),_get_module_docstring(1),_get_module_classes(1),_get_module_functions(1),_get_class_methods(1),_get_module_metrics(2),write_all(2)  # Generate docs/modules/ — detailed per-module documentation...
-  code2docs/generators/api_reference_gen.py:
-    e: ApiReferenceGenerator
-    ApiReferenceGenerator: __init__(2),generate_all(0),_generate_index(0),_generate_module_api(2),_get_class_methods(1),_format_signature(0),write_all(2)  # Generate docs/api/ — per-module API reference from signature...
-  code2docs/generators/examples_gen.py:
-    e: ExamplesGenerator
-    ExamplesGenerator: __init__(2),generate_all(0),_generate_basic_usage(0),_generate_entry_point_examples(0),_generate_class_examples(1),_get_major_classes(0),_get_init_args(1),_get_public_methods(1),write_all(2)  # Generate examples/ — usage examples from public API signatur...
-  code2docs/generators/readme_gen.py:
-    e: ReadmeGenerator,generate_readme
-    ReadmeGenerator: __init__(2),generate(0),_build_context(1),_calc_avg_complexity(0),_build_module_tree(0),_build_manual(3),write(2)  # Generate README.md from AnalysisResult...
-    generate_readme(project_path;output;sections;sync_markers;config)
   code2docs/analyzers/docstring_extractor.py:
     e: DocstringInfo,DocstringExtractor
     DocstringInfo:  # Parsed docstring with sections...
-    DocstringExtractor: extract_all(1),parse(1),coverage_report(1)  # Extract and parse docstrings from AnalysisResult...
+    DocstringExtractor: extract_all(1),parse(1),_extract_summary(0),_classify_section(0),_parse_sections(2),coverage_report(1)  # Extract and parse docstrings from AnalysisResult...
+  code2docs/generators/api_reference_gen.py:
+    e: ApiReferenceGenerator
+    ApiReferenceGenerator: __init__(2),generate_all(0),_generate_index(0),_generate_module_api(2),_render_api_header(2),_render_api_classes(1),_render_api_functions(1),_render_api_imports(1),_get_class_methods(1),_format_signature(0),write_all(2)  # Generate docs/api/ — per-module API reference from signature...
   code2docs/cli.py:
-    e: main,sync,watch,init,_load_config,_run_generate,_run_sync,_run_watch
-    main(ctx;project_path;config_path;readme_only;sections;output;verbose;dry_run)
+    e: DefaultGroup,main,generate,sync,watch,init,_load_config,_run_generate,_run_sync,_run_watch
+    DefaultGroup(click.Group): parse_args(2)  # Click Group that routes unknown subcommands to 'generate'...
+    main()
+    generate(project_path;config_path;readme_only;sections;output;verbose;dry_run)
     sync(project_path;config_path;verbose;dry_run)
     watch(project_path;config_path;verbose)
     init(project_path;output)
@@ -56,6 +48,12 @@ D:
   code2docs/sync/updater.py:
     e: Updater
     Updater: __init__(1),apply(2)  # Apply selective documentation updates based on detected chan...
+  code2docs/generators/module_docs_gen.py:
+    e: ModuleDocsGenerator
+    ModuleDocsGenerator: __init__(2),generate_all(0),_generate_module(2),_render_header(2),_render_overview(1),_render_classes_section(1),_render_functions_section(1),_render_dependencies_section(1),_render_metrics_section(2),_count_file_lines(1),_calc_module_avg_cc(1),_get_module_docstring(1),_get_module_classes(1),_get_module_functions(1),_get_class_methods(1),_get_module_metrics(2),write_all(2)  # Generate docs/modules/ — detailed per-module documentation...
+  code2docs/generators/examples_gen.py:
+    e: ExamplesGenerator
+    ExamplesGenerator: __init__(2),generate_all(0),_generate_basic_usage(0),_generate_import_section(3),_generate_class_usage_section(1),_generate_function_usage_section(1),_generate_entry_point_examples(0),_generate_class_examples(1),_get_major_classes(0),_get_init_args(1),_get_public_methods(1),write_all(2)  # Generate examples/ — usage examples from public API signatur...
   code2docs/generators/architecture_gen.py:
     e: ArchitectureGenerator
     ArchitectureGenerator: __init__(2),generate(0),_generate_module_graph(0),_generate_class_diagram(0),_detect_layers(0),_generate_metrics_table(0)  # Generate docs/architecture.md — architecture overview with d...
@@ -68,6 +66,10 @@ D:
     DependencyInfo:  # Information about a project dependency...
     ProjectDependencies:  # All detected project dependencies...
     DependencyScanner: scan(1),_parse_pyproject(1),_parse_pyproject_regex(1),_parse_setup_py(1),_parse_requirements_txt(1),_parse_dep_string(0)  # Scan and parse project dependency files...
+  code2docs/generators/readme_gen.py:
+    e: ReadmeGenerator,generate_readme
+    ReadmeGenerator: __init__(2),generate(0),_build_context(1),_calc_avg_complexity(0),_build_module_tree(0),_build_manual(3),_build_overview_section(1),_build_install_section(1),_build_quickstart_section(1),_build_api_section(1),_build_structure_section(1),_build_endpoints_section(1),write(2)  # Generate README.md from AnalysisResult...
+    generate_readme(project_path;output;sections;sync_markers;config)
   code2docs/config.py:
     e: ReadmeConfig,DocsConfig,ExamplesConfig,SyncConfig,Code2DocsConfig
     ReadmeConfig:  # Configuration for README generation...

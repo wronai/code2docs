@@ -60,23 +60,23 @@
 </p>
 
 <div class="grid">
-  <div class="card"><div class="value">4.9</div><div class="label">Avg CC</div></div>
-  <div class="card"><div class="value">11</div><div class="label">Critical (CC≥10)</div></div>
-  <div class="card"><div class="value">103</div><div class="label">Functions</div></div>
-  <div class="card"><div class="value">24</div><div class="label">Classes</div></div>
+  <div class="card"><div class="value">4.2</div><div class="label">Avg CC</div></div>
+  <div class="card"><div class="value">12</div><div class="label">Critical (CC≥10)</div></div>
+  <div class="card"><div class="value">127</div><div class="label">Functions</div></div>
+  <div class="card"><div class="value">25</div><div class="label">Classes</div></div>
   <div class="card"><div class="value">20</div><div class="label">Files</div></div>
-  <div class="card"><div class="value">2844</div><div class="label">Lines</div></div>
+  <div class="card"><div class="value">3281</div><div class="label">Lines</div></div>
   <div class="card"><div class="value">0</div><div class="label">Duplicates</div></div>
-  <div class="card"><div class="value">0</div><div class="label">Cycles</div></div>
+  <div class="card"><div class="value">1</div><div class="label">Cycles</div></div>
 </div>
 
 <div class="two-col">
   <div class="chart-container">
     <h2 style="border:none;margin:0 0 .5rem;">Evolution (2026-03-07)</h2>
     <div class="evo-cards">
-      <div class="card"><div class="value">4.9</div><div class="label">CC̄ →</div></div>
-      <div class="card"><div class="value">11</div><div class="label">Critical →</div></div>
-      <div class="card"><div class="value">2844</div><div class="label">Lines</div></div>
+      <div class="card"><div class="value">4.2</div><div class="label">CC̄ →</div></div>
+      <div class="card"><div class="value">12</div><div class="label">Critical →</div></div>
+      <div class="card"><div class="value">3281</div><div class="label">Lines</div></div>
     </div>
     <p class="trend" style="margin-top:.5rem;">Run analysis multiple times to build a trend chart (≥3 data points needed).</p>
   </div>
@@ -86,32 +86,11 @@
   </div>
 </div>
 
-<h2>Alerts (17)</h2>
+<h2>Alerts (11)</h2>
 <div class="card"><div class="table-wrap">
 <table>
   <thead><tr><th>Severity</th><th>Target</th><th>Type</th><th>Value</th><th>Limit</th></tr></thead>
   <tbody>
-            <tr class="critical">
-                <td><span class="badge critical">critical</span></td>
-                <td>ModuleDocsGenerator._generate_module</td>
-                <td>cc_exceeded</td>
-                <td>34</td>
-                <td>15</td>
-            </tr>
-            <tr class="critical">
-                <td><span class="badge critical">critical</span></td>
-                <td>ApiReferenceGenerator._generate_module_api</td>
-                <td>cc_exceeded</td>
-                <td>25</td>
-                <td>15</td>
-            </tr>
-            <tr class="critical">
-                <td><span class="badge critical">critical</span></td>
-                <td>ExamplesGenerator._generate_basic_usage</td>
-                <td>cc_exceeded</td>
-                <td>25</td>
-                <td>15</td>
-            </tr>
             <tr class="critical">
                 <td><span class="badge critical">critical</span></td>
                 <td>_run_generate</td>
@@ -133,27 +112,6 @@
                 <td>20</td>
                 <td>10</td>
             </tr>
-            <tr class="critical">
-                <td><span class="badge critical">critical</span></td>
-                <td>ModuleDocsGenerator._generate_module</td>
-                <td>high_fan_out</td>
-                <td>20</td>
-                <td>10</td>
-            </tr>
-            <tr class="error">
-                <td><span class="badge error">error</span></td>
-                <td>ReadmeGenerator._build_manual</td>
-                <td>cc_exceeded</td>
-                <td>22</td>
-                <td>15</td>
-            </tr>
-            <tr class="error">
-                <td><span class="badge error">error</span></td>
-                <td>ApiReferenceGenerator._generate_module_api</td>
-                <td>high_fan_out</td>
-                <td>15</td>
-                <td>10</td>
-            </tr>
             <tr class="error">
                 <td><span class="badge error">error</span></td>
                 <td>Code2DocsConfig.from_yaml</td>
@@ -161,23 +119,16 @@
                 <td>15</td>
                 <td>10</td>
             </tr>
-            <tr class="error">
-                <td><span class="badge error">error</span></td>
-                <td>DocstringExtractor.parse</td>
-                <td>high_fan_out</td>
-                <td>15</td>
-                <td>10</td>
-            </tr>
             <tr class="warning">
                 <td><span class="badge warning">warning</span></td>
-                <td>DocstringExtractor.parse</td>
+                <td>DocstringExtractor._parse_sections</td>
                 <td>cc_exceeded</td>
-                <td>19</td>
+                <td>15</td>
                 <td>15</td>
             </tr>
             <tr class="warning">
                 <td><span class="badge warning">warning</span></td>
-                <td>ExamplesGenerator._generate_basic_usage</td>
+                <td>ApiReferenceGenerator._render_api_classes</td>
                 <td>high_fan_out</td>
                 <td>11</td>
                 <td>10</td>
@@ -191,7 +142,28 @@
             </tr>
             <tr class="warning">
                 <td><span class="badge warning">warning</span></td>
+                <td>DocstringExtractor._parse_sections</td>
+                <td>high_fan_out</td>
+                <td>11</td>
+                <td>10</td>
+            </tr>
+            <tr class="warning">
+                <td><span class="badge warning">warning</span></td>
+                <td>Differ.detect_changes</td>
+                <td>high_fan_out</td>
+                <td>10</td>
+                <td>10</td>
+            </tr>
+            <tr class="warning">
+                <td><span class="badge warning">warning</span></td>
                 <td>init</td>
+                <td>high_fan_out</td>
+                <td>10</td>
+                <td>10</td>
+            </tr>
+            <tr class="warning">
+                <td><span class="badge warning">warning</span></td>
+                <td>EndpointDetector._scan_django_urls</td>
                 <td>high_fan_out</td>
                 <td>10</td>
                 <td>10</td>
@@ -224,29 +196,14 @@ Requires watchdog</td>
                 <td>Regenerate documentation for changed modules.</td>
             </tr>
             <tr>
-                <td><strong>ModuleDocsGenerator._generate_module</strong></td>
-                <td>20</td>
-                <td>Generate detailed documentation for a single module.</td>
-            </tr>
-            <tr>
-                <td><strong>ApiReferenceGenerator._generate_module_api</strong></td>
-                <td>15</td>
-                <td>Generate API reference for a single module.</td>
-            </tr>
-            <tr>
                 <td><strong>Code2DocsConfig.from_yaml</strong></td>
                 <td>15</td>
                 <td>Load configuration from code2docs.yaml.</td>
             </tr>
             <tr>
-                <td><strong>DocstringExtractor.parse</strong></td>
-                <td>15</td>
-                <td>Parse a docstring into structured sections.</td>
-            </tr>
-            <tr>
-                <td><strong>ExamplesGenerator._generate_basic_usage</strong></td>
+                <td><strong>ApiReferenceGenerator._render_api_classes</strong></td>
                 <td>11</td>
-                <td>Generate basic_usage.py example.</td>
+                <td>Render classes with their method signatures.</td>
             </tr>
             <tr>
                 <td><strong>ArchitectureGenerator.generate</strong></td>
@@ -254,64 +211,61 @@ Requires watchdog</td>
                 <td>Generate architecture documentation.</td>
             </tr>
             <tr>
+                <td><strong>DocstringExtractor._parse_sections</strong></td>
+                <td>11</td>
+                <td>Walk remaining lines, dispatching content to the right section.</td>
+            </tr>
+            <tr>
+                <td><strong>Differ.detect_changes</strong></td>
+                <td>10</td>
+                <td>Compare current file hashes with saved state. Return list of changes.</td>
+            </tr>
+            <tr>
                 <td><strong>init</strong></td>
                 <td>10</td>
                 <td>Initialize code2docs.yaml configuration file.</td>
+            </tr>
+            <tr>
+                <td><strong>EndpointDetector._scan_django_urls</strong></td>
+                <td>10</td>
+                <td>Scan urls.py files for Django URL patterns.</td>
             </tr></tbody>
 </table>
 </div></div>
 </div>
 
 <div>
-<h2>Refactoring Priorities (8)</h2>
+<h2>Refactoring Priorities (5)</h2>
 <div class="card"><div class="table-wrap">
 <table>
   <thead><tr><th>#</th><th>Action</th><th>Impact</th><th>Effort</th></tr></thead>
   <tbody>
             <tr>
                 <td>1</td>
-                <td>Split ModuleDocsGenerator._generate_module (CC=34 → target CC<10)</td>
-                <td><span class="badge high">high</span></td>
+                <td>Split DocstringExtractor._parse_sections (CC=15 → target CC<10)</td>
+                <td><span class="badge medium">medium</span></td>
                 <td>low</td>
             </tr>
             <tr>
                 <td>2</td>
-                <td>Split ApiReferenceGenerator._generate_module_api (CC=25 → target CC<10)</td>
-                <td><span class="badge high">high</span></td>
+                <td>Break circular dependency: code2docs.analyzers.project_scanner.ProjectScanner.analyze</td>
+                <td><span class="badge medium">medium</span></td>
                 <td>low</td>
             </tr>
             <tr>
                 <td>3</td>
-                <td>Split ExamplesGenerator._generate_basic_usage (CC=25 → target CC<10)</td>
-                <td><span class="badge high">high</span></td>
-                <td>low</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>Split ReadmeGenerator._build_manual (CC=22 → target CC<10)</td>
-                <td><span class="badge medium">medium</span></td>
-                <td>low</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>Split DocstringExtractor.parse (CC=19 → target CC<10)</td>
-                <td><span class="badge medium">medium</span></td>
-                <td>low</td>
-            </tr>
-            <tr>
-                <td>6</td>
                 <td>Reduce _run_generate fan-out (currently 24)</td>
                 <td><span class="badge medium">medium</span></td>
                 <td>medium</td>
             </tr>
             <tr>
-                <td>7</td>
+                <td>4</td>
                 <td>Reduce start_watcher fan-out (currently 22)</td>
                 <td><span class="badge medium">medium</span></td>
                 <td>medium</td>
             </tr>
             <tr>
-                <td>8</td>
+                <td>5</td>
                 <td>Reduce Updater.apply fan-out (currently 20)</td>
                 <td><span class="badge medium">medium</span></td>
                 <td>medium</td>
@@ -321,7 +275,7 @@ Requires watchdog</td>
 </div>
 </div>
 
-<footer>Generated by code2llm on 2026-03-07 19:16</footer>
+<footer>Generated by code2llm on 2026-03-07 19:29</footer>
 
 <script>
 // Evolution chart disabled — fewer than 3 data points
@@ -330,9 +284,9 @@ const modCtx = document.getElementById('modChart').getContext('2d');
 new Chart(modCtx, {
   type: 'bar',
   data: {
-    labels: ['module_docs_gen.py', 'api_reference_gen.py', 'examples_gen.py', 'readme_gen.py', 'docstring_extractor.py', 'cli.py', 'architecture_gen.py', 'updater.py', 'badges.py', 'dependency_scanner.py', 'config.py', 'toc.py', 'changelog_gen.py', 'differ.py', 'endpoint_detector.py'],
-    datasets: [{ label: 'Max CC', data: [34, 25, 25, 22, 19, 13, 12, 12, 11, 8, 7, 6, 6, 6, 5],
-      backgroundColor: [34, 25, 25, 22, 19, 13, 12, 12, 11, 8, 7, 6, 6, 6, 5].map(v => v >= 15 ? '#ef4444' : v >= 10 ? '#eab308' : '#22c55e')
+    labels: ['docstring_extractor.py', 'cli.py', 'api_reference_gen.py', 'architecture_gen.py', 'examples_gen.py', 'module_docs_gen.py', 'updater.py', 'badges.py', 'dependency_scanner.py', 'config.py', 'readme_gen.py', 'toc.py', 'changelog_gen.py', 'differ.py', 'endpoint_detector.py'],
+    datasets: [{ label: 'Max CC', data: [15, 13, 13, 12, 12, 12, 12, 11, 8, 7, 7, 6, 6, 6, 5],
+      backgroundColor: [15, 13, 13, 12, 12, 12, 12, 11, 8, 7, 7, 6, 6, 6, 5].map(v => v >= 15 ? '#ef4444' : v >= 10 ? '#eab308' : '#22c55e')
     }]
   },
   options: {

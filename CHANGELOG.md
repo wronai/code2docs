@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-03-07
+
+### Docs
+- Update project/README.md
+- Update project/context.md
+
+### Test
+- Update tests/test_generators.py
+
+### Other
+- Update code2docs/analyzers/docstring_extractor.py
+- Update code2docs/analyzers/endpoint_detector.py
+- Update code2docs/analyzers/project_scanner.py
+- Update code2docs/cli.py
+- Update code2docs/generators/api_reference_gen.py
+- Update code2docs/generators/architecture_gen.py
+- Update code2docs/generators/changelog_gen.py
+- Update code2docs/generators/examples_gen.py
+- Update code2docs/generators/module_docs_gen.py
+- Update code2docs/generators/readme_gen.py
+- ... and 14 more files
+
 ## [0.1.2] - 2026-03-07
 
 ### Docs

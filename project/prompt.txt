@@ -5,9 +5,9 @@ we are in project path: .
 
 Files for analysis:
 - project/analysis.toon  (Health diagnostics - complexity metrics, god modules, coupling issues, refactoring priorities) [11KB]
-- project/context.md  (LLM narrative - architecture summary, key entry points, process flows, public API surface) [24KB]
-- project/evolution.toon  (Refactoring queue - ranked actions by impact/effort, risks, metrics targets, history) [968B]
-- project/project.toon  (Project logic - compact module view from code2logic, file sizes, dependencies overview) [10KB]
+- project/context.md  (LLM narrative - architecture summary, key entry points, process flows, public API surface) [25KB]
+- project/evolution.toon  (Refactoring queue - ranked actions by impact/effort, risks, metrics targets, history) [428B]
+- project/project.toon  (Project logic - compact module view from code2logic, file sizes, dependencies overview) [11KB]
 - project/README.md  (Documentation - complete guide to all generated files, usage examples, interpretation) [9KB]
 
 Task:

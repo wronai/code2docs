@@ -3,7 +3,7 @@
 from pathlib import Path
 from typing import Dict, List
 
-from code2llm.core.models import AnalysisResult, ModuleInfo, FunctionInfo, ClassInfo
+from code2llm.api import AnalysisResult, FunctionInfo, ClassInfo, ModuleInfo
 
 from ..config import Code2DocsConfig
 
@@ -27,13 +27,20 @@ class ModuleDocsGenerator:
         return files
 
     def _generate_module(self, mod_name: str, mod_info: ModuleInfo) -> str:
-        """Generate detailed documentation for a single module."""
-        lines: List[str] = []
+        """Generate detailed documentation for a single module (orchestrator)."""
+        parts: List[str] = [
+            self._render_header(mod_name, mod_info),
+            self._render_overview(mod_info),
+            self._render_classes_section(mod_name),
+            self._render_functions_section(mod_name),
+            self._render_dependencies_section(mod_info),
+            self._render_metrics_section(mod_name, mod_info),
+        ]
+        return "\n".join(p for p in parts if p)
 
-        # Header
-        lines.append(f"# {mod_name}\n")
-
-        # Source metadata
+    def _render_header(self, mod_name: str, mod_info: ModuleInfo) -> str:
+        """Render module title and source metadata."""
+        lines = [f"# {mod_name}\n"]
         file_lines = self._count_file_lines(mod_info.file)
         avg_cc = self._calc_module_avg_cc(mod_name)
         meta_parts = [f"Source: `{mod_info.file}`"]
@@ -42,80 +49,89 @@ class ModuleDocsGenerator:
         if avg_cc:
             meta_parts.append(f"CC avg: {avg_cc}")
         lines.append(f"> {' | '.join(meta_parts)}\n")
+        return "\n".join(lines)
 
-        # Overview (module docstring)
+    def _render_overview(self, mod_info: ModuleInfo) -> str:
+        """Render module overview from docstring."""
         module_doc = self._get_module_docstring(mod_info)
-        if module_doc:
-            lines.append("## Overview\n")
-            lines.append(f"{module_doc}\n")
+        if not module_doc:
+            return ""
+        return f"## Overview\n\n{module_doc}\n"
 
-        # Classes
+    def _render_classes_section(self, mod_name: str) -> str:
+        """Render classes and their method tables."""
         module_classes = self._get_module_classes(mod_name)
-        if module_classes:
-            lines.append("## Classes\n")
-            for cls_name, cls_info in module_classes.items():
-                lines.append(f"### {cls_info.name}\n")
-                if cls_info.bases:
-                    lines.append(f"*Bases:* {', '.join(f'`{b}`' for b in cls_info.bases)}\n")
-                if cls_info.docstring:
-                    lines.append(f"{cls_info.docstring.strip()}\n")
+        if not module_classes:
+            return ""
+        lines = ["## Classes\n"]
+        for cls_name, cls_info in module_classes.items():
+            lines.append(f"### {cls_info.name}\n")
+            if cls_info.bases:
+                lines.append(f"*Bases:* {', '.join(f'`{b}`' for b in cls_info.bases)}\n")
+            if cls_info.docstring:
+                lines.append(f"{cls_info.docstring.strip()}\n")
+            methods = self._get_class_methods(cls_info)
+            if methods:
+                lines.append("#### Methods\n")
+                lines.append("| Method | Args | Returns | CC |")
+                lines.append("|--------|------|---------|----|")
+                for m in methods:
+                    args = ", ".join(m.args[:4])
+                    if len(m.args) > 4:
+                        args += ", ..."
+                    ret = m.returns or "—"
+                    cc = m.complexity.get("cyclomatic", "—")
+                    warn = " ⚠️" if isinstance(cc, (int, float)) and cc > 10 else ""
+                    lines.append(f"| `{m.name}` | `{args}` | `{ret}` | {cc}{warn} |")
+                lines.append("")
+        return "\n".join(lines)
 
-                methods = self._get_class_methods(cls_info)
-                if methods:
-                    lines.append("#### Methods\n")
-                    lines.append("| Method | Args | Returns | CC |")
-                    lines.append("|--------|------|---------|----|")
-                    for m in methods:
-                        args = ", ".join(m.args[:4])
-                        if len(m.args) > 4:
-                            args += ", ..."
-                        ret = m.returns or "—"
-                        cc = m.complexity.get("cyclomatic", "—")
-                        warn = " ⚠️" if isinstance(cc, (int, float)) and cc > 10 else ""
-                        lines.append(f"| `{m.name}` | `{args}` | `{ret}` | {cc}{warn} |")
-                    lines.append("")
-
-        # Functions
+    def _render_functions_section(self, mod_name: str) -> str:
+        """Render standalone functions with signatures and call info."""
         module_functions = self._get_module_functions(mod_name)
-        if module_functions:
-            lines.append("## Functions\n")
-            for func_name, func_info in module_functions.items():
-                args_str = ", ".join(func_info.args)
-                ret = f" → {func_info.returns}" if func_info.returns else ""
-                lines.append(f"### `{func_info.name}({args_str}){ret}`\n")
-                if func_info.docstring:
-                    lines.append(f"{func_info.docstring.strip()}\n")
-                if func_info.calls:
-                    lines.append(f"**Calls:** {', '.join(f'`{c}`' for c in func_info.calls[:10])}\n")
-                if func_info.called_by:
-                    lines.append(f"**Called by:** {', '.join(f'`{c}`' for c in func_info.called_by[:10])}\n")
+        if not module_functions:
+            return ""
+        lines = ["## Functions\n"]
+        for func_name, func_info in module_functions.items():
+            args_str = ", ".join(func_info.args)
+            ret = f" → {func_info.returns}" if func_info.returns else ""
+            lines.append(f"### `{func_info.name}({args_str}){ret}`\n")
+            if func_info.docstring:
+                lines.append(f"{func_info.docstring.strip()}\n")
+            if func_info.calls:
+                lines.append(f"**Calls:** {', '.join(f'`{c}`' for c in func_info.calls[:10])}\n")
+            if func_info.called_by:
+                lines.append(f"**Called by:** {', '.join(f'`{c}`' for c in func_info.called_by[:10])}\n")
+        return "\n".join(lines)
 
-        # Dependencies
-        if mod_info.imports:
-            lines.append("## Dependencies\n")
-            internal = [i for i in mod_info.imports if not i.startswith(("os", "sys", "re", "json", "typing"))]
-            external = [i for i in mod_info.imports if i.startswith(("os", "sys", "re", "json", "typing"))]
-            if internal:
-                lines.append("**Internal imports:**")
-                for imp in sorted(internal):
-                    lines.append(f"- `{imp}`")
-                lines.append("")
-            if external:
-                lines.append("**Standard library:**")
-                for imp in sorted(external):
-                    lines.append(f"- `{imp}`")
-                lines.append("")
-
-        # Metrics table
-        metrics = self._get_module_metrics(mod_name, mod_info)
-        if metrics:
-            lines.append("## Metrics\n")
-            lines.append("| Metric | Value |")
-            lines.append("|--------|-------|")
-            for k, v in metrics.items():
-                lines.append(f"| {k} | {v} |")
+    def _render_dependencies_section(self, mod_info: ModuleInfo) -> str:
+        """Render imports split into internal and stdlib."""
+        if not mod_info.imports:
+            return ""
+        lines = ["## Dependencies\n"]
+        internal = [i for i in mod_info.imports if not i.startswith(("os", "sys", "re", "json", "typing"))]
+        external = [i for i in mod_info.imports if i.startswith(("os", "sys", "re", "json", "typing"))]
+        if internal:
+            lines.append("**Internal imports:**")
+            for imp in sorted(internal):
+                lines.append(f"- `{imp}`")
             lines.append("")
+        if external:
+            lines.append("**Standard library:**")
+            for imp in sorted(external):
+                lines.append(f"- `{imp}`")
+            lines.append("")
+        return "\n".join(lines)
 
+    def _render_metrics_section(self, mod_name: str, mod_info: ModuleInfo) -> str:
+        """Render metrics summary table."""
+        metrics = self._get_module_metrics(mod_name, mod_info)
+        if not metrics:
+            return ""
+        lines = ["## Metrics\n", "| Metric | Value |", "|--------|-------|"]
+        for k, v in metrics.items():
+            lines.append(f"| {k} | {v} |")
+        lines.append("")
         return "\n".join(lines)
 
     def _count_file_lines(self, file_path: str) -> int:

@@ -3,7 +3,7 @@
 from pathlib import Path
 from typing import Dict, List
 
-from code2llm.core.models import AnalysisResult, FunctionInfo, ClassInfo
+from code2llm.api import AnalysisResult, FunctionInfo, ClassInfo
 
 from ..config import Code2DocsConfig
 
@@ -34,70 +34,74 @@ class ExamplesGenerator:
         return files
 
     def _generate_basic_usage(self) -> str:
-        """Generate basic_usage.py example."""
+        """Generate basic_usage.py example (orchestrator)."""
         project_name = self.config.project_name or Path(self.result.project_path).name
-        lines: List[str] = [
-            f'"""Basic usage of {project_name}."""',
-            "",
-        ]
-
-        # Find importable public classes and functions
-        public_classes = [
-            c for c in self.result.classes.values()
-            if not c.name.startswith("_")
-        ]
+        public_classes = [c for c in self.result.classes.values() if not c.name.startswith("_")]
         public_functions = [
             f for f in self.result.functions.values()
             if not f.is_private and not f.is_method and not f.name.startswith("_")
         ]
 
-        # Generate import statements
+        sections = [
+            f'"""Basic usage of {project_name}."""',
+            "",
+            self._generate_import_section(project_name, public_classes, public_functions),
+            "",
+            self._generate_class_usage_section(public_classes),
+            self._generate_function_usage_section(public_functions),
+            "",
+        ]
+        return "\n".join(s for s in sections if s is not None)
+
+    def _generate_import_section(self, project_name: str,
+                                 public_classes: List[ClassInfo],
+                                 public_functions: List[FunctionInfo]) -> str:
+        """Generate import statements for the example."""
+        lines: List[str] = []
         imported = set()
         for cls in public_classes[:5]:
             mod = cls.module or project_name
             lines.append(f"from {mod} import {cls.name}")
             imported.add(cls.name)
-
         for func in public_functions[:5]:
             if func.name not in imported:
                 mod = func.module or project_name
                 lines.append(f"from {mod} import {func.name}")
                 imported.add(func.name)
-
         if not imported:
             lines.append(f"import {project_name}")
+        return "\n".join(lines)
 
+    def _generate_class_usage_section(self, public_classes: List[ClassInfo]) -> str:
+        """Generate class instantiation and method call examples."""
+        if not public_classes:
+            return ""
+        lines: List[str] = []
+        cls = public_classes[0]
+        lines.append(f"# Create {cls.name} instance")
+        init_args = self._get_init_args(cls)
+        if init_args:
+            args_str = ", ".join(f"{a}=..." for a in init_args[:3])
+            lines.append(f"obj = {cls.name}({args_str})")
+        else:
+            lines.append(f"obj = {cls.name}()")
         lines.append("")
-        lines.append("")
+        methods = self._get_public_methods(cls)
+        for method in methods[:3]:
+            args_str = ", ".join(f"{a}=..." for a in method.args if a != "self")
+            ret_comment = f"  # → {method.returns}" if method.returns else ""
+            lines.append(f"result = obj.{method.name}({args_str}){ret_comment}")
+        return "\n".join(lines)
 
-        # Generate usage examples
-        if public_classes:
-            cls = public_classes[0]
-            lines.append(f"# Create {cls.name} instance")
-            init_args = self._get_init_args(cls)
-            if init_args:
-                args_str = ", ".join(f"{a}=..." for a in init_args[:3])
-                lines.append(f"obj = {cls.name}({args_str})")
-            else:
-                lines.append(f"obj = {cls.name}()")
-            lines.append("")
-
-            # Show method calls
-            methods = self._get_public_methods(cls)
-            for method in methods[:3]:
-                args_str = ", ".join(f"{a}=..." for a in method.args if a != "self")
-                ret_comment = f"  # → {method.returns}" if method.returns else ""
-                lines.append(f"result = obj.{method.name}({args_str}){ret_comment}")
-
-        if public_functions:
-            lines.append("")
-            lines.append("# Standalone functions")
-            for func in public_functions[:5]:
-                args_str = ", ".join(f"{a}=..." for a in func.args[:4])
-                ret_comment = f"  # → {func.returns}" if func.returns else ""
-                lines.append(f"result = {func.name}({args_str}){ret_comment}")
-
-        lines.append("")
+    def _generate_function_usage_section(self, public_functions: List[FunctionInfo]) -> str:
+        """Generate standalone function call examples."""
+        if not public_functions:
+            return ""
+        lines = ["", "# Standalone functions"]
+        for func in public_functions[:5]:
+            args_str = ", ".join(f"{a}=..." for a in func.args[:4])
+            ret_comment = f"  # → {func.returns}" if func.returns else ""
+            lines.append(f"result = {func.name}({args_str}){ret_comment}")
         return "\n".join(lines)
 
     def _generate_entry_point_examples(self) -> str:

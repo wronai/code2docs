@@ -9,7 +9,23 @@ import click
 from .config import Code2DocsConfig
 
 
-@click.group(invoke_without_command=True)
+class DefaultGroup(click.Group):
+    """Click Group that routes unknown subcommands to 'generate'."""
+
+    def parse_args(self, ctx, args):
+        if not args:
+            args = ["generate"]
+        elif args[0] not in self.commands and args[0] not in ("--help", "-h"):
+            args = ["generate"] + args
+        return super().parse_args(ctx, args)
+
+
+@click.group(cls=DefaultGroup)
+def main():
+    """code2docs — Auto-generate project documentation from source code."""
+
+
+@main.command()
 @click.argument("project_path", default=".", type=click.Path(exists=True))
 @click.option("--config", "-c", "config_path", default=None, help="Path to code2docs.yaml")
 @click.option("--readme-only", is_flag=True, help="Generate only README.md")
@@ -17,21 +33,8 @@ from .config import Code2DocsConfig
 @click.option("--output", "-o", default=None, help="Output directory for docs")
 @click.option("--verbose", "-v", is_flag=True, help="Verbose output")
 @click.option("--dry-run", is_flag=True, help="Show what would be generated without writing")
-@click.pass_context
-def main(ctx, project_path, config_path, readme_only, sections, output, verbose, dry_run):
-    """code2docs — Auto-generate project documentation from source code.
-
-    Analyzes PROJECT_PATH using code2llm and generates human-readable documentation.
-    """
-    if ctx.invoked_subcommand is not None:
-        ctx.ensure_object(dict)
-        ctx.obj["project_path"] = project_path
-        ctx.obj["config_path"] = config_path
-        ctx.obj["verbose"] = verbose
-        ctx.obj["dry_run"] = dry_run
-        return
-
-    # Default action: full generation
+def generate(project_path, config_path, readme_only, sections, output, verbose, dry_run):
+    """Generate documentation (default command)."""
     config = _load_config(project_path, config_path)
     if verbose:
         config.verbose = True

@@ -1,15 +1,12 @@
-# code2llm | 24f 2473L | py:24 | 2026-03-07
-# CC̄=4.9 | critical:11/103 | dups:0 | cycles:0
+# code2llm | 24f 2544L | py:24 | 2026-03-07
+# CC̄=4.2 | critical:12/127 | dups:0 | cycles:1
 
-HEALTH[5]:
-  🟡 CC    _build_manual CC=22 (limit:15)
-  🟡 CC    _generate_module CC=34 (limit:15)
-  🟡 CC    _generate_module_api CC=25 (limit:15)
-  🟡 CC    _generate_basic_usage CC=25 (limit:15)
-  🟡 CC    parse CC=19 (limit:15)
+HEALTH[1]:
+  🟡 CC    _parse_sections CC=15 (limit:15)
 
-REFACTOR[1]:
-  1. split 5 high-CC methods  (CC>15)
+REFACTOR[2]:
+  1. split 1 high-CC methods  (CC>15)
+  2. break 1 circular dependencies
 
 COUPLING:
                                    code2docs  code2docs.formatters  code2docs.generators        code2docs.sync
@@ -17,29 +14,29 @@ COUPLING:
   code2docs.formatters                                          ──                    ←1                      
   code2docs.generators                                           1                    ──                      
         code2docs.sync                    ←1                                                                ──
-  CYCLES: none
+  CYCLES: 1
 
 LAYERS:
-  code2docs/                      CC̄=4.9    ←in:0  →out:1
-  │ !! readme_gen                 229L  1C    8m  CC=22     ←0
-  │ !  cli                        226L  0C    8m  CC=13     ←0
-  │ !! module_docs_gen            204L  1C   11m  CC=34     ←0
-  │ !! examples_gen               194L  1C    9m  CC=25     ←0
+  code2docs/                      CC̄=4.2    ←in:0  →out:1
+  │ readme_gen                 260L  1C   14m  CC=7      ←0
+  │ !  cli                        229L  1C   10m  CC=13     ←0
+  │ !  module_docs_gen            220L  1C   17m  CC=12     ←0
+  │ !  examples_gen               198L  1C   12m  CC=12     ←0
   │ !  architecture_gen           192L  1C    6m  CC=12     ←0
+  │ !  api_reference_gen          162L  1C   11m  CC=13     ←0
   │ dependency_scanner         159L  3C    6m  CC=8      ←0
   │ config                     158L  5C    2m  CC=7      ←1
-  │ !! api_reference_gen          150L  1C    7m  CC=25     ←0
   │ differ                     125L  2C    7m  CC=6      ←0
   │ changelog_gen              121L  2C    6m  CC=6      ←0
+  │ !! docstring_extractor        119L  2C    6m  CC=15     ←0
   │ endpoint_detector          113L  2C    3m  CC=5      ←0
-  │ !! docstring_extractor        111L  2C    3m  CC=19     ←0
   │ !  updater                     77L  1C    2m  CC=12     ←0
   │ watcher                     75L  0C    1m  CC=5      ←1
   │ markdown                    73L  1C   13m  CC=4      ←0
   │ toc                         63L  0C    3m  CC=6      ←0
   │ !  badges                      52L  0C    2m  CC=11     ←1
-  │ project_scanner             45L  1C    4m  CC=2      ←0
   │ __init__                    42L  0C    1m  CC=5      ←0
+  │ project_scanner             42L  1C    4m  CC=2      ←0
   │ __init__                    32L  0C    1m  CC=4      ←0
   │ __init__                    13L  0C    0m  CC=0.0    ←0
   │ __init__                     7L  0C    0m  CC=0.0    ←0
@@ -49,88 +46,84 @@ LAYERS:
 
 DUPLICATES[0]: none
 
-FUNCTIONS (CC≥10, 11 of 103):
-   34.0  ModuleDocsGenerator._generate_module       39n   2exit  loops+cond+ret  !! split
-   25.0  ApiReferenceGenerator._generate_module_api   25n   2exit  loops+cond+ret  !! split
-   25.0  ExamplesGenerator._generate_basic_usage    17n   2exit  loops+cond+ret  !! split
-   22.0  ReadmeGenerator._build_manual              36n   2exit  loops+cond+ret  !! split
-   19.0  DocstringExtractor.parse                   23n   3exit  loops+cond+ret  !! split
+FUNCTIONS (CC≥10, 12 of 127):
+   15.0  DocstringExtractor._parse_sections         15n   1exit  loops+cond  !! split
+   13.0  ApiReferenceGenerator._render_api_classes   14n   3exit  loops+cond+ret
    13.0  _run_generate                              25n   2exit  cond+ret
    12.0  Updater.apply                              14n   1exit  loops+cond
+   12.0  ModuleDocsGenerator._render_classes_section   14n   3exit  loops+cond+ret
    12.0  ExamplesGenerator._generate_class_examples   10n   2exit  loops+cond+ret
    12.0  ArchitectureGenerator.generate             15n   2exit  loops+cond+ret
    11.0  _make_badge                                21n   6exit  cond+ret
+   11.0  ApiReferenceGenerator._render_api_functions   13n   3exit  loops+cond+ret
    11.0  ArchitectureGenerator._generate_class_diagram   12n   2exit  loops+cond+ret
+   10.0  ModuleDocsGenerator._render_dependencies_section   12n   3exit  loops+cond+ret
+   10.0  ExamplesGenerator._generate_basic_usage     3n   2exit  ret
 
   summary:
-    critical(≥10): 11 | high(5-10): 26 | medium(2-5): 40 | low(<2): 26
-    11% CC≥10  36% CC≥5
+    critical(≥10): 12 | high(5-10): 33 | medium(2-5): 54 | low(<2): 28
+    9% CC≥10  35% CC≥5
 
 HOTSPOTS:
   #1  _run_generate                        fan=24   "calls 24 functions"
   #2  start_watcher                        fan=22   "calls 22 functions"
   #3  Updater.apply                        fan=20   "Updater method, fan-out=20"
-  #4  ModuleDocsGenerator._generate_module  fan=20   "ModuleDocsGenerator method, fan-out=20"
-  #5  ApiReferenceGenerator._generate_module_api  fan=15   "ApiReferenceGenerator method, fan-out=15"
-  #6  Code2DocsConfig.from_yaml            fan=15   "Code2DocsConfig method, fan-out=15"
-  #7  DocstringExtractor.parse             fan=15   "DocstringExtractor method, fan-out=15"
-  #8  ExamplesGenerator._generate_basic_usage  fan=11   "ExamplesGenerator method, fan-out=11"
-  #9  ArchitectureGenerator.generate       fan=11   "ArchitectureGenerator method, fan-out=11"
-  #10 init                                 fan=10   "calls 10 functions"
+  #4  Code2DocsConfig.from_yaml            fan=15   "Code2DocsConfig method, fan-out=15"
+  #5  ApiReferenceGenerator._render_api_classes  fan=11   "ApiReferenceGenerator method, fan-out=11"
+  #6  ArchitectureGenerator.generate       fan=11   "ArchitectureGenerator method, fan-out=11"
+  #7  DocstringExtractor._parse_sections   fan=11   "DocstringExtractor method, fan-out=11"
+  #8  Differ.detect_changes                fan=10   "Differ method, fan-out=10"
+  #9  init                                 fan=10   "calls 10 functions"
+  #10 EndpointDetector._scan_django_urls   fan=10   "EndpointDetector method, fan-out=10"
 
 CLASSES:
-  MarkdownFormatter              ████████████████████████  13m  CC̄=1.2   max=4   
-  ModuleDocsGenerator            ████████████████████      11m  CC̄=6.5   max=34    !!
-  ExamplesGenerator              ████████████████           9m  CC̄=7.4   max=25    !!
-  ReadmeGenerator                ████████████               7m  CC̄=6.9   max=22    !!
-  ApiReferenceGenerator          ████████████               7m  CC̄=5.4   max=25    !!
-  Differ                         ███████████                6m  CC̄=4.0   max=6   
-  ChangelogGenerator             ███████████                6m  CC̄=3.5   max=6   
-  ArchitectureGenerator          ███████████                6m  CC̄=7.8   max=12  
-  DependencyScanner              ███████████                6m  CC̄=4.5   max=8   
-  EndpointDetector               █████                      3m  CC̄=4.0   max=5   
-  ProjectScanner                 █████                      3m  CC̄=1.3   max=2   
-  DocstringExtractor             █████                      3m  CC̄=10.7  max=19    !!
-  Updater                        ███                        2m  CC̄=7.0   max=12  
-  Code2DocsConfig                ███                        2m  CC̄=4.0   max=7   
+  ModuleDocsGenerator            ████████████████████████  17m  CC̄=4.6   max=12  
+  MarkdownFormatter              ██████████████████        13m  CC̄=1.2   max=4   
+  ReadmeGenerator                ██████████████████        13m  CC̄=3.9   max=7   
+  ExamplesGenerator              ████████████████          12m  CC̄=6.0   max=12  
+  ApiReferenceGenerator          ███████████████           11m  CC̄=4.0   max=13  
+  Differ                         ████████                   6m  CC̄=4.0   max=6   
+  ChangelogGenerator             ████████                   6m  CC̄=3.5   max=6   
+  ArchitectureGenerator          ████████                   6m  CC̄=7.8   max=12  
+  DocstringExtractor             ████████                   6m  CC̄=6.2   max=15    !!
+  DependencyScanner              ████████                   6m  CC̄=4.5   max=8   
+  ProjectScanner                 ████                       3m  CC̄=1.3   max=2   
+  EndpointDetector               ████                       3m  CC̄=4.0   max=5   
+  Updater                        ██                         2m  CC̄=7.0   max=12  
+  Code2DocsConfig                ██                         2m  CC̄=4.0   max=7   
   ChangeInfo                     █                          1m  CC̄=1.0   max=1   
+  DefaultGroup                   █                          1m  CC̄=4.0   max=4   
   ChangelogEntry                                            0m  CC̄=0.0   max=0.0 
   ReadmeConfig                                              0m  CC̄=0.0   max=0.0 
   DocsConfig                                                0m  CC̄=0.0   max=0.0 
   ExamplesConfig                                            0m  CC̄=0.0   max=0.0 
   SyncConfig                                                0m  CC̄=0.0   max=0.0 
+  DocstringInfo                                             0m  CC̄=0.0   max=0.0 
   DependencyInfo                                            0m  CC̄=0.0   max=0.0 
   ProjectDependencies                                       0m  CC̄=0.0   max=0.0 
   Endpoint                                                  0m  CC̄=0.0   max=0.0 
-  DocstringInfo                                             0m  CC̄=0.0   max=0.0 
 
 D:
-  code2docs/generators/module_docs_gen.py:
-    e: ModuleDocsGenerator
-    ModuleDocsGenerator  # Generate docs/modules/ — detailed per-module documentation....
-      __init__(2)  CC=1.0
-  code2docs/generators/api_reference_gen.py:
-    e: ApiReferenceGenerator
-    ApiReferenceGenerator  # Generate docs/api/ — per-module API reference from signature...
-      __init__(2)  CC=1.0
-  code2docs/generators/examples_gen.py:
-    e: ExamplesGenerator
-    ExamplesGenerator  # Generate examples/ — usage examples from public API signatur...
-      __init__(2)  CC=1.0
-  code2docs/generators/readme_gen.py:
-    e: ReadmeGenerator,generate_readme
-    ReadmeGenerator  # Generate README.md from AnalysisResult....
-      __init__(2)  CC=1.0
-    generate_readme(project_path,output,sections,sync_markers,config)
   code2docs/analyzers/docstring_extractor.py:
     e: DocstringInfo,DocstringExtractor
     DocstringInfo  # Parsed docstring with sections....
     DocstringExtractor  # Extract and parse docstrings from AnalysisResult....
       extract_all(1)  CC=5.0
-        → parse(1)  CC=19.0  !
+        → parse(1)  CC=2.0
+        → _extract_summary(0)  CC=2.0
+        → _parse_sections(2)  CC=15.0  !
+        → _classify_section(0)  CC=5.0
+  code2docs/generators/api_reference_gen.py:
+    e: ApiReferenceGenerator
+    ApiReferenceGenerator  # Generate docs/api/ — per-module API reference from signature...
+      __init__(2)  CC=1.0
   code2docs/cli.py:
-    e: main,sync,watch,init,_load_config,_run_generate,_run_sync,_run_watch
-    main(ctx,project_path,config_path,readme_only,sections,output,verbose,dry_run)
+    e: DefaultGroup,main,generate,sync,watch,init,_load_config,_run_generate,_run_sync,_run_watch
+    DefaultGroup  # Click Group that routes unknown subcommands to 'generate'....
+      parse_args(2)  CC=4.0
+        → parse_args(2)  CC=4.0
+    main()
+    generate(project_path,config_path,readme_only,sections,output,verbose,dry_run)
     sync(project_path,config_path,verbose,dry_run)
     watch(project_path,config_path,verbose)
     init(project_path,output)
@@ -142,6 +135,14 @@ D:
     e: Updater
     Updater  # Apply selective documentation updates based on detected chan...
       __init__(1)  CC=2.0
+  code2docs/generators/module_docs_gen.py:
+    e: ModuleDocsGenerator
+    ModuleDocsGenerator  # Generate docs/modules/ — detailed per-module documentation....
+      __init__(2)  CC=1.0
+  code2docs/generators/examples_gen.py:
+    e: ExamplesGenerator
+    ExamplesGenerator  # Generate examples/ — usage examples from public API signatur...
+      __init__(2)  CC=1.0
   code2docs/generators/architecture_gen.py:
     e: ArchitectureGenerator
     ArchitectureGenerator  # Generate docs/architecture.md — architecture overview with d...
@@ -161,6 +162,11 @@ D:
         → _parse_dep_string(0)  CC=2.0
         → _parse_setup_py(1)  CC=4.0
         → _parse_requirements_txt(1)  CC=5.0
+  code2docs/generators/readme_gen.py:
+    e: ReadmeGenerator,generate_readme
+    ReadmeGenerator  # Generate README.md from AnalysisResult....
+      __init__(2)  CC=1.0
+    generate_readme(project_path,output,sections,sync_markers,config)
   code2docs/config.py:
     e: ReadmeConfig,DocsConfig,ExamplesConfig,SyncConfig,Code2DocsConfig
     ReadmeConfig  # Configuration for README generation....

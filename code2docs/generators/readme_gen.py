@@ -6,7 +6,7 @@ from typing import Dict, List, Optional
 
 from jinja2 import Environment, PackageLoader, select_autoescape
 
-from code2llm.core.models import AnalysisResult, FunctionInfo, ClassInfo
+from code2llm.api import AnalysisResult, FunctionInfo, ClassInfo
 
 from ..config import Code2DocsConfig
 from ..analyzers.dependency_scanner import DependencyScanner
@@ -123,72 +123,103 @@ class ReadmeGenerator:
         return "\n".join(lines)
 
     def _build_manual(self, project_name: str, sections: List[str], context: Dict) -> str:
-        """Fallback manual README builder."""
+        """Fallback manual README builder (orchestrator)."""
+        section_builders = {
+            "overview": self._build_overview_section,
+            "install": self._build_install_section,
+            "quickstart": self._build_quickstart_section,
+            "api": self._build_api_section,
+            "structure": self._build_structure_section,
+            "endpoints": self._build_endpoints_section,
+        }
         parts: List[str] = []
-
         if context.get("sync_markers"):
             parts.append(MARKER_START)
-
-        if "overview" in sections:
-            parts.append(f"# {project_name}\n")
-            if context.get("badges"):
-                parts.append(context["badges"] + "\n")
-            stats = context.get("stats", {})
-            if stats:
-                parts.append(
-                    f"> **{stats.get('functions_found', 0)}** functions | "
-                    f"**{stats.get('classes_found', 0)}** classes | "
-                    f"**{stats.get('files_processed', 0)}** files | "
-                    f"CC̄ = {context.get('avg_complexity', 0)}\n"
-                )
-
-        if "install" in sections:
-            deps = context.get("dependencies")
-            if deps and deps.install_command:
-                parts.append("## Installation\n")
-                parts.append(f"```bash\n{deps.install_command}\n```\n")
-                if deps.python_version:
-                    parts.append(f"Requires Python {deps.python_version}\n")
-
-        if "quickstart" in sections:
-            parts.append("## Quick Start\n")
-            entry_points = context.get("entry_points", [])
-            if entry_points:
-                parts.append("```python")
-                parts.append(f"# Entry points: {', '.join(entry_points[:3])}")
-                parts.append("```\n")
-
-        if "api" in sections:
-            parts.append("## API Overview\n")
-            for name, cls in list(context.get("public_classes", {}).items())[:20]:
-                doc = f" — {cls.docstring.splitlines()[0]}" if cls.docstring else ""
-                parts.append(f"- **`{cls.name}`**{doc}")
-            parts.append("")
-            for name, func in list(context.get("public_functions", {}).items())[:30]:
-                args_str = ", ".join(func.args[:5])
-                ret = f" → {func.returns}" if func.returns else ""
-                parts.append(f"- `{func.name}({args_str}){ret}`")
-            parts.append("")
-
-        if "structure" in sections:
-            tree = context.get("module_tree", "")
-            if tree:
-                parts.append("## Project Structure\n")
-                parts.append(tree + "\n")
-
-        if "endpoints" in sections:
-            endpoints = context.get("endpoints", [])
-            if endpoints:
-                parts.append("## Endpoints\n")
-                parts.append("| Method | Path | Function | Framework |")
-                parts.append("|--------|------|----------|-----------|")
-                for ep in endpoints:
-                    parts.append(f"| {ep.method} | `{ep.path}` | `{ep.function_name}` | {ep.framework} |")
-                parts.append("")
-
+        for section in sections:
+            builder = section_builders.get(section)
+            if builder:
+                content = builder(project_name, context)
+                if content:
+                    parts.append(content)
         if context.get("sync_markers"):
             parts.append(MARKER_END)
+        return "\n".join(parts)
 
+    @staticmethod
+    def _build_overview_section(project_name: str, context: Dict) -> str:
+        """Build overview section with badges and stats."""
+        parts = [f"# {project_name}\n"]
+        if context.get("badges"):
+            parts.append(context["badges"] + "\n")
+        stats = context.get("stats", {})
+        if stats:
+            parts.append(
+                f"> **{stats.get('functions_found', 0)}** functions | "
+                f"**{stats.get('classes_found', 0)}** classes | "
+                f"**{stats.get('files_processed', 0)}** files | "
+                f"CC̄ = {context.get('avg_complexity', 0)}\n"
+            )
+        return "\n".join(parts)
+
+    @staticmethod
+    def _build_install_section(_project_name: str, context: Dict) -> str:
+        """Build installation section from dependencies."""
+        deps = context.get("dependencies")
+        if not deps or not deps.install_command:
+            return ""
+        parts = ["## Installation\n", f"```bash\n{deps.install_command}\n```\n"]
+        if deps.python_version:
+            parts.append(f"Requires Python {deps.python_version}\n")
+        return "\n".join(parts)
+
+    @staticmethod
+    def _build_quickstart_section(_project_name: str, context: Dict) -> str:
+        """Build quick start section from entry points."""
+        parts = ["## Quick Start\n"]
+        entry_points = context.get("entry_points", [])
+        if entry_points:
+            parts.append("```python")
+            parts.append(f"# Entry points: {', '.join(entry_points[:3])}")
+            parts.append("```\n")
+        return "\n".join(parts)
+
+    @staticmethod
+    def _build_api_section(_project_name: str, context: Dict) -> str:
+        """Build API overview section with classes and functions."""
+        parts = ["## API Overview\n"]
+        for name, cls in list(context.get("public_classes", {}).items())[:20]:
+            doc = f" — {cls.docstring.splitlines()[0]}" if cls.docstring else ""
+            parts.append(f"- **`{cls.name}`**{doc}")
+        parts.append("")
+        for name, func in list(context.get("public_functions", {}).items())[:30]:
+            args_str = ", ".join(func.args[:5])
+            ret = f" → {func.returns}" if func.returns else ""
+            parts.append(f"- `{func.name}({args_str}){ret}`")
+        parts.append("")
+        return "\n".join(parts)
+
+    @staticmethod
+    def _build_structure_section(_project_name: str, context: Dict) -> str:
+        """Build project structure section from module tree."""
+        tree = context.get("module_tree", "")
+        if not tree:
+            return ""
+        return f"## Project Structure\n\n{tree}\n"
+
+    @staticmethod
+    def _build_endpoints_section(_project_name: str, context: Dict) -> str:
+        """Build endpoints section from detected routes."""
+        endpoints = context.get("endpoints", [])
+        if not endpoints:
+            return ""
+        parts = [
+            "## Endpoints\n",
+            "| Method | Path | Function | Framework |",
+            "|--------|------|----------|-----------|",
+        ]
+        for ep in endpoints:
+            parts.append(f"| {ep.method} | `{ep.path}` | `{ep.function_name}` | {ep.framework} |")
+        parts.append("")
         return "\n".join(parts)
 
     def write(self, path: str, content: str) -> None:

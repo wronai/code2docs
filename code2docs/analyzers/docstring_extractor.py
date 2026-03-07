@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
-from code2llm.core.models import AnalysisResult, FunctionInfo, ClassInfo
+from code2llm.api import AnalysisResult, FunctionInfo, ClassInfo
 
 
 @dataclass
@@ -38,44 +38,53 @@ class DocstringExtractor:
         return docs
 
     def parse(self, docstring: str) -> DocstringInfo:
-        """Parse a docstring into structured sections."""
+        """Parse a docstring into structured sections (orchestrator)."""
         if not docstring:
             return DocstringInfo(raw="")
 
         lines = docstring.strip().splitlines()
         info = DocstringInfo(raw=docstring)
+        info.summary = self._extract_summary(lines)
+        self._parse_sections(lines[1:], info)
+        return info
 
-        if lines:
-            info.summary = lines[0].strip()
+    @staticmethod
+    def _extract_summary(lines: List[str]) -> str:
+        """Extract the first-line summary."""
+        return lines[0].strip() if lines else ""
 
-        # Simple parser for Google/Numpy/Sphinx styles
+    @staticmethod
+    def _classify_section(line: str) -> Optional[str]:
+        """Classify a line as a section header, or return None."""
+        lower = line.strip().lower()
+        if lower.startswith(("args:", "parameters:", "params:")):
+            return "params"
+        if lower.startswith(("returns:", "return:")):
+            return "returns"
+        if lower.startswith(("raises:", "raise:")):
+            return "raises"
+        if lower.startswith(("example:", "examples:", ">>>")):
+            return "examples"
+        return None
+
+    def _parse_sections(self, lines: List[str], info: DocstringInfo) -> None:
+        """Walk remaining lines, dispatching content to the right section."""
         current_section = "description"
         desc_lines: List[str] = []
-        param_lines: List[Tuple[str, str]] = []
 
-        for line in lines[1:]:
+        for line in lines:
             stripped = line.strip()
-            lower = stripped.lower()
 
-            if lower.startswith(("args:", "parameters:", "params:")):
-                current_section = "params"
-                continue
-            elif lower.startswith(("returns:", "return:")):
-                current_section = "returns"
-                continue
-            elif lower.startswith(("raises:", "raise:")):
-                current_section = "raises"
-                continue
-            elif lower.startswith(("example:", "examples:", ">>>")):
-                current_section = "examples"
-                if stripped.startswith(">>>"):
+            new_section = self._classify_section(stripped)
+            if new_section is not None:
+                current_section = new_section
+                if current_section == "examples" and stripped.startswith(">>>"):
                     info.examples.append(stripped)
                 continue
 
             if current_section == "description":
                 desc_lines.append(stripped)
             elif current_section == "params" and stripped:
-                # Parse "name: description" or "name (type): description"
                 if ":" in stripped:
                     pname, pdesc = stripped.split(":", 1)
                     info.params[pname.strip()] = pdesc.strip()
@@ -87,7 +96,6 @@ class DocstringExtractor:
                 info.examples.append(stripped)
 
         info.description = "\n".join(desc_lines).strip()
-        return info
 
     def coverage_report(self, result: AnalysisResult) -> Dict[str, float]:
         """Calculate docstring coverage statistics."""
