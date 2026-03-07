@@ -1,0 +1,45 @@
+# {{ project_name }} — Architecture
+
+> Auto-generated from {{ module_count }} modules, {{ function_count }} functions, {{ class_count }} classes
+
+## Module Dependency Graph
+
+{{ module_graph }}
+
+{% if layers %}
+## Architecture Layers
+
+{% for layer_name, modules in layers.items() %}
+### {{ layer_name }}
+
+{% for mod in modules %}
+- `{{ mod }}`
+{% endfor %}
+
+{% endfor %}
+{% endif %}
+
+## Key Classes
+
+{{ class_diagram }}
+
+{% if patterns %}
+## Detected Patterns
+
+{% for pattern in patterns %}
+- **{{ pattern.name }}** ({{ pattern.type }}) — confidence: {{ "%.0f%%"|format(pattern.confidence * 100) }}, functions: {% for f in pattern.functions[:5] %}`{{ f }}`{% if not loop.last %}, {% endif %}{% endfor %}
+
+{% endfor %}
+{% endif %}
+
+{% if entry_points %}
+## Entry Points
+
+{% for ep in entry_points %}
+- `{{ ep }}`
+{% endfor %}
+{% endif %}
+
+## Metrics Summary
+
+{{ metrics_table }}

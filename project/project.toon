@@ -1,0 +1,87 @@
+# code2docs | 15f 1711L | python:15
+# Keys: M=modules, D=details, i=imports, c=classes, f=functions, m=methods
+M[15]:
+  code2docs/generators/api_reference_gen.py,118
+  code2docs/generators/examples_gen.py,151
+  code2docs/generators/module_docs_gen.py,167
+  code2docs/generators/readme_gen.py,180
+  code2docs/__init__.py,26
+  code2docs/__main__.py,4
+  code2docs/analyzers/__init__.py,11
+  code2docs/analyzers/dependency_scanner.py,117
+  code2docs/analyzers/docstring_extractor.py,89
+  code2docs/analyzers/endpoint_detector.py,94
+  code2docs/analyzers/project_scanner.py,33
+  code2docs/cli.py,173
+  code2docs/config.py,128
+  code2docs/generators/__init__.py,32
+  tests/test_code2docs.py,7
+D:
+  code2docs/generators/api_reference_gen.py:
+    i: code2llm.core.models.{AnalysisResult,ClassInfo,FunctionInfo},jinja2.{Environment,PackageLoader,select_autoescape},pathlib.Path,typing.{Dict,List,Optional}
+    e: ApiReferenceGenerator
+    ApiReferenceGenerator: __init__(2),generate_all(0),_generate_index(0),_generate_module_api(2),_get_class_methods(1)  # Generate docs/api/ — per-module API r...
+  code2docs/generators/examples_gen.py:
+    i: code2llm.core.models.{AnalysisResult,ClassInfo,FunctionInfo},config.Code2DocsConfig,pathlib.Path,typing.{Dict,List}
+    e: ExamplesGenerator
+    ExamplesGenerator: __init__(2),generate_all(0),_generate_basic_usage(0),_generate_entry_point_examples(0),_generate_class_examples(1)  # Generate examples/ — usage examples f...
+  code2docs/generators/module_docs_gen.py:
+    i: code2llm.core.models.{AnalysisResult,ClassInfo,FunctionInfo,ModuleInfo},config.Code2DocsConfig,pathlib.Path,typing.{Dict,List}
+    e: ModuleDocsGenerator
+    ModuleDocsGenerator: __init__(2),generate_all(0),_generate_module(2),_count_file_lines(1),_calc_module_avg_cc(1)  # Generate docs/modules/ — detailed per...
+  code2docs/generators/readme_gen.py:
+    i: re,code2llm.core.models.{AnalysisResult,FunctionInfo},jinja2.{Environment,PackageLoader,select_autoescape},pathlib.Path,typing.{Dict,List,Optional}
+    e: MARKER_START,MARKER_END,ReadmeGenerator,generate_readme
+    ReadmeGenerator: __init__(2),generate(0),_build_context(1),_calc_avg_complexity(0),_build_module_tree(0)  # Generate README.md from AnalysisResult.
+    generate_readme(project_path:str='./';output:str='README.md';sections:Optional[List[str]]=None;sync_markers:bool=True;config:Optional[Code2DocsConfig]=None)->str
+  code2docs/__init__.py:
+    i: config.Code2DocsConfig
+    __getattr__(name)
+  code2docs/analyzers/dependency_scanner.py:
+    i: re,tomllib,dataclasses.{dataclass,field},pathlib.Path,typing.{Dict,List,Optional}
+    e: DependencyInfo,ProjectDependencies,DependencyScanner
+    DependencyInfo:   # Information about a project dependency.
+    ProjectDependencies:   # All detected project dependencies.
+    DependencyScanner: scan(1),_parse_pyproject(1),_parse_pyproject_regex(1),_parse_setup_py(1),_parse_requirements_txt(1)  # Scan and parse project dependency files.
+  code2docs/analyzers/docstring_extractor.py:
+    i: ast,code2llm.core.models.{AnalysisResult,FunctionInfo},dataclasses.{dataclass,field},pathlib.Path,typing.{Dict,List,Optional,Tuple}
+    e: DocstringInfo,DocstringExtractor
+    DocstringInfo:   # Parsed docstring with sections.
+    DocstringExtractor: extract_all(1),parse(1),coverage_report(1)  # Extract and parse docstrings from Ana...
+  code2docs/analyzers/endpoint_detector.py:
+    i: ast,re,code2llm.core.models.{AnalysisResult,FunctionInfo},dataclasses.{dataclass,field},pathlib.Path,typing.{Dict,List,Optional}
+    e: Endpoint,EndpointDetector
+    Endpoint:   # Represents a detected web endpoint.
+    EndpointDetector: detect(2),_parse_decorator(2),_scan_django_urls(1)  # Detects web endpoints from decorator...
+  code2docs/analyzers/project_scanner.py:
+    i: code2llm.{Config,FAST_CONFIG},code2llm.core.analyzer.ProjectAnalyzer,code2llm.core.models.AnalysisResult,config.Code2DocsConfig,pathlib.Path,typing.Optional
+    e: ProjectScanner,analyze_and_document
+    ProjectScanner: __init__(1),_build_llm_config(0),analyze(1)  # Wraps code2llm's ProjectAnalyzer with...
+    analyze_and_document(project_path:str;config:Optional[Code2DocsConfig]=None)->AnalysisResult
+  code2docs/cli.py:
+    i: sys,click,config.Code2DocsConfig,pathlib.Path,typing.Optional
+    e: main,sync,watch,init
+    main(ctx;project_path;config_path;readme_only;sections;output;...+1)
+    sync(project_path;config_path;verbose;dry_run)
+    watch(project_path;config_path;verbose)
+    init(project_path;output)
+    _load_config(project_path:str;config_path:Optional[str]=None)->Code2DocsConfig
+    _run_generate(project_path:str;config:Code2DocsConfig;readme_only:bool=False;dry_run:bool=False)
+    _run_sync(project_path:str;config:Code2DocsConfig;dry_run:bool=False)
+    _run_watch(project_path:str;config:Code2DocsConfig)
+  code2docs/config.py:
+    i: yaml,dataclasses.{dataclass,field},pathlib.Path,typing.{Dict,List,Optional}
+    e: ReadmeConfig,DocsConfig,ExamplesConfig,SyncConfig,Code2DocsConfig
+    ReadmeConfig:   # Configuration for README generation.
+    DocsConfig:   # Configuration for docs/ generation.
+    ExamplesConfig:   # Configuration for examples/ generation.
+    SyncConfig:   # Configuration for synchronization.
+    Code2DocsConfig: from_yaml(1),to_yaml(1)  # Main configuration for code2docs.
+  code2docs/generators/__init__.py:
+    i: api_reference_gen.ApiReferenceGenerator,architecture_gen.ArchitectureGenerator,changelog_gen.ChangelogGenerator,examples_gen.ExamplesGenerator,module_docs_gen.ModuleDocsGenerator,readme_gen.ReadmeGenerator
+    e: generate_docs
+    generate_docs(project_path:str;config=None)
+  tests/test_code2docs.py:
+    e: test_placeholder,test_import
+    test_placeholder()
+    test_import()

@@ -1,0 +1,208 @@
+# code2docs/flow | 54 func | 7 pipelines | 1 hub-types | 2026-03-07
+
+PIPELINES[7] (Analysis:2, Core:3, Export:1, IO:1):
+  Code2docs [Analysis]: ? → float
+              → generate_all() → Dict[str, str]         CC=2    pure ▶
+              → _generate_module(mod_name:str, mod_info:ModuleInfo) → str CC=34   mutation  !!
+              → _get_module_metrics(mod_name:str, mod_info:ModuleInfo) → Dict[str, str] CC=7    pure
+              → _calc_module_avg_cc(mod_name:str) → float CC=5    mutation ■
+              PURITY: 2/4 pure  BOTTLENECK: _generate_module(CC=34)
+
+  Code2docs [Analysis]: str → DependencyInfo
+              → scan(project_path:str) → ProjectDependencies CC=4    pure ▶
+              → _parse_pyproject(path:Path) → ProjectDependencies CC=8    IO
+              → _parse_pyproject_regex(path:Path) → ProjectDependencies CC=4    IO
+              → _parse_dep_string(dep_str:str) → DependencyInfo CC=2    pure ■
+              PURITY: 2/4 pure  BOTTLENECK: _parse_pyproject(CC=8)
+
+  Code2docs [IO]: ? → str
+              → generate() → str                        CC=3    pure ▶
+              → _build_context(project_name:str) → Dict CC=7    pure
+              → _build_module_tree() → str              CC=7    mutation ■
+              PURITY: 2/3 pure  BOTTLENECK: _build_context(CC=7)
+
+  Code2docs [Core]: ctx → Code2DocsConfig
+              → main(ctx, project_path, config_path, readme_only, sections, output, verbose, dry_run) CC=6    pure ▶
+              → _load_config(project_path:str, config_path:Optional[str]) → Code2DocsConfig CC=4    pure
+              → from_yaml(cls, path:str) → Code2DocsConfig CC=7    IO ■
+              PURITY: 2/3 pure  BOTTLENECK: from_yaml(CC=7)
+
+  Code2docs [Core]: project_path → Code2DocsConfig
+              → sync(project_path, config_path, verbose, dry_run) CC=2    pure ▶
+              → _load_config(project_path:str, config_path:Optional[str]) → Code2DocsConfig CC=4    pure
+              → from_yaml(cls, path:str) → Code2DocsConfig CC=7    IO ■
+              PURITY: 2/3 pure  BOTTLENECK: from_yaml(CC=7)
+
+  Code2docs [Core]: project_path → Code2DocsConfig
+              → watch(project_path, config_path, verbose) CC=2    pure ▶
+              → _load_config(project_path:str, config_path:Optional[str]) → Code2DocsConfig CC=4    pure
+              → from_yaml(cls, path:str) → Code2DocsConfig CC=7    IO ■
+              PURITY: 2/3 pure  BOTTLENECK: from_yaml(CC=7)
+
+  Code2docs [Export]: ? → str
+              → generate_all() → Dict[str, str]         CC=2    pure ▶
+              → _generate_module_api(mod_name:str, mod_info:ModuleInfo) → str CC=25   mutation  !!
+              → _format_signature(func:FunctionInfo) → str CC=2    pure ■
+              PURITY: 2/3 pure  BOTTLENECK: _generate_module_api(CC=25)
+
+
+TRANSFORMS (fan-out ≥10):
+  _run_generate(project_path:str, config:Code2DocsConfig, readme_only:bool, dry_run:bool) fan=24   !! side-effects
+  _generate_module(mod_name:str, mod_info:ModuleInfo) → str fan=20   !! side-effects
+  _generate_module_api(mod_name:str, mod_info:ModuleInfo) → str fan=15   PIPELINE:ApiReferenceGenerator.entry
+  from_yaml(cls, path:str) → Code2DocsConfig              fan=15   PIPELINE:Code2DocsConfig.entry
+  parse(docstring:str) → DocstringInfo                    fan=15   PIPELINE:DocstringExtractor.entry
+  init(project_path, output)                              fan=10   fan=10
+  _scan_django_urls(project_path:str) → List[Endpoint]    fan=10   PIPELINE:EndpointDetector.entry
+
+CONTRACTS:
+  Pipeline: Code2docs
+    generate_all() → Dict[str, str]
+      IN:  ()
+      OUT: Dict[str, str]
+
+    _generate_module(mod_name:str, mod_info:ModuleInfo) → str
+      IN:  mod_name:str, mod_info:ModuleInfo
+      OUT: str
+      SIDE-EFFECT: pure
+      SMELL: CC=34 → split
+
+    _get_module_metrics(mod_name:str, mod_info:ModuleInfo) → Dict[str, str]
+      IN:  mod_name:str, mod_info:ModuleInfo
+      OUT: Dict[str, str]
+
+    _calc_module_avg_cc(mod_name:str) → float
+      IN:  mod_name:str
+      OUT: float
+      SIDE-EFFECT: pure
+
+  Pipeline: Code2docs
+    scan(project_path:str) → ProjectDependencies
+      IN:  project_path:str
+      OUT: ProjectDependencies
+
+    _parse_pyproject(path:Path) → ProjectDependencies
+      IN:  path:Path
+      OUT: ProjectDependencies
+      SIDE-EFFECT: IO(open, load)
+
+    _parse_pyproject_regex(path:Path) → ProjectDependencies
+      IN:  path:Path
+      OUT: ProjectDependencies
+      SIDE-EFFECT: IO(read_text)
+
+    _parse_dep_string(dep_str:str) → DependencyInfo
+      IN:  dep_str:str
+      OUT: DependencyInfo
+
+  Pipeline: Code2docs
+    generate() → str
+      IN:  ()
+      OUT: str
+
+    _build_context(project_name:str) → Dict
+      IN:  project_name:str
+      OUT: Dict
+
+    _build_module_tree() → str
+      IN:  ()
+      OUT: str
+      SIDE-EFFECT: pure
+
+  Pipeline: Code2docs
+    main(ctx, project_path, config_path, readme_only, sections, output, verbose, dry_run)
+      IN:  ctx, project_path, config_path, readme_only, sections, output, verbose, dry_run
+      OUT: None
+
+    _load_config(project_path:str, config_path:Optional[str]) → Code2DocsConfig
+      IN:  project_path:str, config_path:Optional[str]
+      OUT: Code2DocsConfig
+
+    from_yaml(cls, path:str) → Code2DocsConfig
+      IN:  cls, path:str
+      OUT: Code2DocsConfig
+      SIDE-EFFECT: IO(open)
+
+  Pipeline: Code2docs
+    sync(project_path, config_path, verbose, dry_run)
+      IN:  project_path, config_path, verbose, dry_run
+      OUT: None
+
+    _load_config(project_path:str, config_path:Optional[str]) → Code2DocsConfig
+      IN:  project_path:str, config_path:Optional[str]
+      OUT: Code2DocsConfig
+
+    from_yaml(cls, path:str) → Code2DocsConfig
+      IN:  cls, path:str
+      OUT: Code2DocsConfig
+      SIDE-EFFECT: IO(open)
+
+  Pipeline: Code2docs
+    watch(project_path, config_path, verbose)
+      IN:  project_path, config_path, verbose
+      OUT: None
+
+    _load_config(project_path:str, config_path:Optional[str]) → Code2DocsConfig
+      IN:  project_path:str, config_path:Optional[str]
+      OUT: Code2DocsConfig
+
+    from_yaml(cls, path:str) → Code2DocsConfig
+      IN:  cls, path:str
+      OUT: Code2DocsConfig
+      SIDE-EFFECT: IO(open)
+
+  Pipeline: Code2docs
+    generate_all() → Dict[str, str]
+      IN:  ()
+      OUT: Dict[str, str]
+
+    _generate_module_api(mod_name:str, mod_info:ModuleInfo) → str
+      IN:  mod_name:str, mod_info:ModuleInfo
+      OUT: str
+      SIDE-EFFECT: pure
+      SMELL: CC=25 → split
+
+    _format_signature(func:FunctionInfo) → str
+      IN:  func:FunctionInfo
+      OUT: str
+
+
+DATA_TYPES (by cross-function usage) [54 annotated, 0 inferred / 54 functions]:
+  str                  consumed:33  produced:9    !! HUB-TYPE → split interface
+  Code2DocsConfig      consumed:9   produced:2  
+  AnalysisResult       consumed:6   produced:2  
+  ProjectDependencies  consumed:0   produced:5    output-heavy
+  str, str             consumed:2   produced:3  
+  bool                 consumed:4   produced:0    narrow scope
+  ModuleInfo           consumed:4   produced:0    narrow scope
+  Path                 consumed:4   produced:0    narrow scope
+  FunctionInfo         consumed:2   produced:2    narrow scope
+  Endpoint             consumed:0   produced:3    narrow scope
+  float                consumed:0   produced:2    narrow scope
+  Dict                 consumed:1   produced:1    narrow scope
+  ClassInfo            consumed:2   produced:0    narrow scope
+  str, float           consumed:0   produced:1    narrow scope
+  str, ClassInfo       consumed:0   produced:1    narrow scope
+  Config               consumed:0   produced:1    narrow scope
+  DependencyInfo       consumed:0   produced:1    narrow scope
+  int                  consumed:0   produced:1    narrow scope
+  str, FunctionInfo    consumed:0   produced:1    narrow scope
+  str, DocstringInfo   consumed:0   produced:1    narrow scope
+
+  HUB TYPES (consumed ≥10):
+    str → 33 consumers → split into:
+      - (analyze consumers to suggest sub-interfaces)
+
+SIDE_EFFECTS:
+  IO:        ReadmeGenerator.write, generate_readme, _run_generate, ApiReferenceGenerator.write_all, ModuleDocsGenerator._count_file_lines, ModuleDocsGenerator._get_module_docstring, ModuleDocsGenerator.write_all, Code2DocsConfig.from_yaml, Code2DocsConfig.to_yaml, EndpointDetector._scan_django_urls
+  Mutation:  ReadmeGenerator.__init__, ReadmeGenerator._calc_avg_complexity, ReadmeGenerator._build_module_tree, ReadmeGenerator._build_manual, ApiReferenceGenerator.__init__, ApiReferenceGenerator._generate_index, ApiReferenceGenerator._generate_module_api, ApiReferenceGenerator._get_class_methods, ModuleDocsGenerator.__init__, ModuleDocsGenerator._generate_module
+  Pure:      __getattr__, generate_docs, ReadmeGenerator.generate, ReadmeGenerator._build_context, main, sync, watch, init, _load_config, _run_sync
+
+  PIPELINE PURITY:
+    Code2docs       ██░░ 50% pure
+    Code2docs       ██░░ 50% pure
+    Code2docs       ██░░ 66% pure
+    Code2docs       ██░░ 66% pure
+    Code2docs       ██░░ 66% pure
+    Code2docs       ██░░ 66% pure
+    Code2docs       ██░░ 66% pure

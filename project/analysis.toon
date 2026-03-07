@@ -1,0 +1,144 @@
+# code2llm | 13f 1491L | py:13 | 2026-03-07
+# CC̄=5.3 | critical:5/54 | dups:0 | cycles:0
+
+HEALTH[4]:
+  🟡 CC    _build_manual CC=22 (limit:15)
+  🟡 CC    _generate_module_api CC=25 (limit:15)
+  🟡 CC    _generate_module CC=34 (limit:15)
+  🟡 CC    parse CC=19 (limit:15)
+
+REFACTOR[1]:
+  1. split 4 high-CC methods  (CC>15)
+
+COUPLING: no cross-package imports detected
+
+LAYERS:
+  code2docs/                      CC̄=5.3    ←in:0  →out:0
+  │ !! readme_gen                 229L  1C    8m  CC=22     ←0
+  │ !  cli                        226L  0C    8m  CC=13     ←0
+  │ !! module_docs_gen            204L  1C   11m  CC=34     ←0
+  │ dependency_scanner         159L  3C    6m  CC=8      ←0
+  │ config                     158L  5C    2m  CC=7      ←1
+  │ !! api_reference_gen          150L  1C    7m  CC=25     ←0
+  │ endpoint_detector          116L  2C    3m  CC=5      ←0
+  │ !! docstring_extractor        111L  2C    3m  CC=19     ←0
+  │ project_scanner             45L  1C    4m  CC=2      ←0
+  │ __init__                    42L  0C    1m  CC=5      ←0
+  │ __init__                    32L  0C    1m  CC=4      ←0
+  │ __init__                    13L  0C    0m  CC=0.0    ←0
+  │ __main__                     6L  0C    0m  CC=0.0    ←0
+  │
+
+DUPLICATES[0]: none
+
+FUNCTIONS (CC≥10, 5 of 54):
+   34.0  ModuleDocsGenerator._generate_module       39n   2exit  loops+cond+ret  !! split
+   25.0  ApiReferenceGenerator._generate_module_api   25n   2exit  loops+cond+ret  !! split
+   22.0  ReadmeGenerator._build_manual              36n   2exit  loops+cond+ret  !! split
+   19.0  DocstringExtractor.parse                   23n   3exit  loops+cond+ret  !! split
+   13.0  _run_generate                              25n   2exit  cond+ret
+
+  summary:
+    critical(≥10): 5 | high(5-10): 13 | medium(2-5): 28 | low(<2): 8
+    9% CC≥10  33% CC≥5
+
+HOTSPOTS:
+  #1  _run_generate                        fan=24   "calls 24 functions"
+  #2  ModuleDocsGenerator._generate_module  fan=20   "ModuleDocsGenerator method, fan-out=20"
+  #3  ApiReferenceGenerator._generate_module_api  fan=15   "ApiReferenceGenerator method, fan-out=15"
+  #4  Code2DocsConfig.from_yaml            fan=15   "Code2DocsConfig method, fan-out=15"
+  #5  DocstringExtractor.parse             fan=15   "DocstringExtractor method, fan-out=15"
+  #6  init                                 fan=10   "calls 10 functions"
+  #7  EndpointDetector._scan_django_urls   fan=10   "EndpointDetector method, fan-out=10"
+  #8  generate_docs                        fan=9    "calls 9 functions"
+  #9  ReadmeGenerator._build_context       fan=9    "ReadmeGenerator method, fan-out=9"
+  #10 main                                 fan=9    "calls 9 functions"
+
+CLASSES:
+  ModuleDocsGenerator            ████████████████████████  11m  CC̄=6.5   max=34    !!
+  ReadmeGenerator                ███████████████            7m  CC̄=6.9   max=22    !!
+  ApiReferenceGenerator          ███████████████            7m  CC̄=5.4   max=25    !!
+  DependencyScanner              █████████████              6m  CC̄=4.5   max=8   
+  EndpointDetector               ██████                     3m  CC̄=4.3   max=5   
+  DocstringExtractor             ██████                     3m  CC̄=10.7  max=19    !!
+  ProjectScanner                 ██████                     3m  CC̄=1.3   max=2   
+  Code2DocsConfig                ████                       2m  CC̄=4.0   max=7   
+  ReadmeConfig                                              0m  CC̄=0.0   max=0.0 
+  DocsConfig                                                0m  CC̄=0.0   max=0.0 
+  ExamplesConfig                                            0m  CC̄=0.0   max=0.0 
+  SyncConfig                                                0m  CC̄=0.0   max=0.0 
+  Endpoint                                                  0m  CC̄=0.0   max=0.0 
+  DocstringInfo                                             0m  CC̄=0.0   max=0.0 
+  DependencyInfo                                            0m  CC̄=0.0   max=0.0 
+  ProjectDependencies                                       0m  CC̄=0.0   max=0.0 
+
+D:
+  code2docs/generators/module_docs_gen.py:
+    e: ModuleDocsGenerator
+    ModuleDocsGenerator  # Generate docs/modules/ — detailed per-module documentation....
+      __init__(2)  CC=1.0
+  code2docs/generators/api_reference_gen.py:
+    e: ApiReferenceGenerator
+    ApiReferenceGenerator  # Generate docs/api/ — per-module API reference from signature...
+      __init__(2)  CC=1.0
+  code2docs/generators/readme_gen.py:
+    e: ReadmeGenerator,generate_readme
+    ReadmeGenerator  # Generate README.md from AnalysisResult....
+      __init__(2)  CC=1.0
+    generate_readme(project_path,output,sections,sync_markers,config)
+  code2docs/analyzers/docstring_extractor.py:
+    e: DocstringInfo,DocstringExtractor
+    DocstringInfo  # Parsed docstring with sections....
+    DocstringExtractor  # Extract and parse docstrings from AnalysisResult....
+      extract_all(1)  CC=5.0
+        → parse(1)  CC=19.0  !
+  code2docs/cli.py:
+    e: main,sync,watch,init,_load_config,_run_generate,_run_sync,_run_watch
+    main(ctx,project_path,config_path,readme_only,sections,output,verbose,dry_run)
+    sync(project_path,config_path,verbose,dry_run)
+    watch(project_path,config_path,verbose)
+    init(project_path,output)
+    _load_config(project_path,config_path)
+    _run_generate(project_path,config,readme_only,dry_run)
+    _run_sync(project_path,config,dry_run)
+    _run_watch(project_path,config)
+  code2docs/analyzers/dependency_scanner.py:
+    e: DependencyInfo,ProjectDependencies,DependencyScanner
+    DependencyInfo  # Information about a project dependency....
+    ProjectDependencies  # All detected project dependencies....
+    DependencyScanner  # Scan and parse project dependency files....
+      scan(1)  CC=4.0
+        → _parse_pyproject(1)  CC=8.0
+        → _parse_pyproject_regex(1)  CC=4.0
+        → _parse_dep_string(0)  CC=2.0
+        → _parse_setup_py(1)  CC=4.0
+        → _parse_requirements_txt(1)  CC=5.0
+  code2docs/config.py:
+    e: ReadmeConfig,DocsConfig,ExamplesConfig,SyncConfig,Code2DocsConfig
+    ReadmeConfig  # Configuration for README generation....
+    DocsConfig  # Configuration for docs/ generation....
+    ExamplesConfig  # Configuration for examples/ generation....
+    SyncConfig  # Configuration for synchronization....
+    Code2DocsConfig  # Main configuration for code2docs....
+      from_yaml(1)  CC=7.0
+  code2docs/generators/__init__.py:
+    e: generate_docs
+    generate_docs(project_path,config)
+  code2docs/analyzers/endpoint_detector.py:
+    e: Endpoint,EndpointDetector
+    Endpoint  # Represents a detected web endpoint....
+    EndpointDetector  # Detects web endpoints from decorator patterns in source code...
+      detect(2)  CC=5.0
+        → _scan_django_urls(1)  CC=4.0
+        → _parse_decorator(2)  CC=4.0
+  code2docs/__init__.py:
+    e: __getattr__
+    __getattr__(name)
+  code2docs/analyzers/project_scanner.py:
+    e: ProjectScanner,analyze_and_document
+    ProjectScanner  # Wraps code2llm's ProjectAnalyzer with code2docs-specific def...
+      __init__(1)  CC=2.0
+        → _build_llm_config(0)  CC=1.0
+    analyze_and_document(project_path,config)
+  code2docs/__main__.py:
+  code2docs/analyzers/__init__.py:

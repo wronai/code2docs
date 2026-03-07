@@ -1,0 +1,69 @@
+# code2docs | 13f 1491L | python:13
+# Keys: M=modules, D=details, i=imports, c=classes, f=functions, m=methods
+M[13]:
+  code2docs/__init__.py,32
+  code2docs/__main__.py,6
+  code2docs/analyzers/__init__.py,13
+  code2docs/analyzers/dependency_scanner.py,159
+  code2docs/analyzers/docstring_extractor.py,111
+  code2docs/analyzers/endpoint_detector.py,116
+  code2docs/analyzers/project_scanner.py,45
+  code2docs/cli.py,226
+  code2docs/config.py,158
+  code2docs/generators/__init__.py,42
+  code2docs/generators/api_reference_gen.py,150
+  code2docs/generators/module_docs_gen.py,204
+  code2docs/generators/readme_gen.py,229
+D:
+  code2docs/generators/module_docs_gen.py:
+    e: ModuleDocsGenerator
+    ModuleDocsGenerator: __init__(2),generate_all(0),_generate_module(2),_count_file_lines(1),_calc_module_avg_cc(1),_get_module_docstring(1),_get_module_classes(1),_get_module_functions(1),_get_class_methods(1),_get_module_metrics(2),write_all(2)  # Generate docs/modules/ — detailed per-module documentation...
+  code2docs/generators/api_reference_gen.py:
+    e: ApiReferenceGenerator
+    ApiReferenceGenerator: __init__(2),generate_all(0),_generate_index(0),_generate_module_api(2),_get_class_methods(1),_format_signature(0),write_all(2)  # Generate docs/api/ — per-module API reference from signature...
+  code2docs/generators/readme_gen.py:
+    e: ReadmeGenerator,generate_readme
+    ReadmeGenerator: __init__(2),generate(0),_build_context(1),_calc_avg_complexity(0),_build_module_tree(0),_build_manual(3),write(2)  # Generate README.md from AnalysisResult...
+    generate_readme(project_path;output;sections;sync_markers;config)
+  code2docs/analyzers/docstring_extractor.py:
+    e: DocstringInfo,DocstringExtractor
+    DocstringInfo:  # Parsed docstring with sections...
+    DocstringExtractor: extract_all(1),parse(1),coverage_report(1)  # Extract and parse docstrings from AnalysisResult...
+  code2docs/cli.py:
+    e: main,sync,watch,init,_load_config,_run_generate,_run_sync,_run_watch
+    main(ctx;project_path;config_path;readme_only;sections;output;verbose;dry_run)
+    sync(project_path;config_path;verbose;dry_run)
+    watch(project_path;config_path;verbose)
+    init(project_path;output)
+    _load_config(project_path;config_path)
+    _run_generate(project_path;config;readme_only;dry_run)
+    _run_sync(project_path;config;dry_run)
+    _run_watch(project_path;config)
+  code2docs/analyzers/dependency_scanner.py:
+    e: DependencyInfo,ProjectDependencies,DependencyScanner
+    DependencyInfo:  # Information about a project dependency...
+    ProjectDependencies:  # All detected project dependencies...
+    DependencyScanner: scan(1),_parse_pyproject(1),_parse_pyproject_regex(1),_parse_setup_py(1),_parse_requirements_txt(1),_parse_dep_string(0)  # Scan and parse project dependency files...
+  code2docs/config.py:
+    e: ReadmeConfig,DocsConfig,ExamplesConfig,SyncConfig,Code2DocsConfig
+    ReadmeConfig:  # Configuration for README generation...
+    DocsConfig:  # Configuration for docs/ generation...
+    ExamplesConfig:  # Configuration for examples/ generation...
+    SyncConfig:  # Configuration for synchronization...
+    Code2DocsConfig: from_yaml(1),to_yaml(1)  # Main configuration for code2docs...
+  code2docs/generators/__init__.py:
+    e: generate_docs
+    generate_docs(project_path;config)
+  code2docs/analyzers/endpoint_detector.py:
+    e: Endpoint,EndpointDetector
+    Endpoint:  # Represents a detected web endpoint...
+    EndpointDetector: detect(2),_parse_decorator(2),_scan_django_urls(1)  # Detects web endpoints from decorator patterns in source code...
+  code2docs/__init__.py:
+    e: __getattr__
+    __getattr__(name)
+  code2docs/analyzers/project_scanner.py:
+    e: ProjectScanner,analyze_and_document
+    ProjectScanner: __init__(1),_build_llm_config(0),analyze(1)  # Wraps code2llm's ProjectAnalyzer with code2docs-specific def...
+    analyze_and_document(project_path;config)
+  code2docs/__main__.py:
+  code2docs/analyzers/__init__.py:

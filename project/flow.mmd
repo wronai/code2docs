@@ -1,0 +1,77 @@
+flowchart TD
+    subgraph code2docs
+        code2docs____getattr__["__getattr__"]
+    end
+    subgraph code2docs_analyzers
+        code2docs__detect["detect"]
+        code2docs___parse_decorator["_parse_decorator"]
+        code2docs___scan_django_urls["_scan_django_urls"]
+        code2docs__extract_all["extract_all"]
+        code2docs__parse{{parse CC=19}}
+        code2docs__coverage_report("coverage_report CC=8")
+        code2docs__scan["scan"]
+        code2docs___parse_pyproject("_parse_pyproject CC=8")
+        code2docs___parse_pyproject_regex["_parse_pyproject_regex"]
+        code2docs___parse_setup_py["_parse_setup_py"]
+        code2docs___parse_requirements_txt["_parse_requirements_txt"]
+        code2docs___parse_dep_string["_parse_dep_string"]
+        code2docs____init__["__init__"]
+        code2docs___build_llm_config["_build_llm_config"]
+        code2docs__analyze["analyze"]
+        code2docs__analyze_and_document["analyze_and_document"]
+    end
+    subgraph code2docs_cli
+        code2docs__cli__main["main"]
+        code2docs__cli__sync["sync"]
+        code2docs__cli__watch["watch"]
+        code2docs__cli__init["init"]
+        code2docs__cli___load_config["_load_config"]
+        code2docs__cli___run_generate("_run_generate CC=13")
+        code2docs__cli___run_sync["_run_sync"]
+        code2docs__cli___run_watch["_run_watch"]
+    end
+    subgraph code2docs_config
+        code2docs__config__Code2DocsConfig__from_yaml["from_yaml"]
+        code2docs__config__Code2DocsConfig__to_yaml["to_yaml"]
+    end
+    subgraph code2docs_generators
+        code2docs__generators__generate_docs["generate_docs"]
+        code2docs____init__["__init__"]
+        code2docs__generate["generate"]
+        code2docs___build_context["_build_context"]
+        code2docs___calc_avg_complexity["_calc_avg_complexity"]
+        code2docs___build_module_tree["_build_module_tree"]
+        code2docs___build_manual{{_build_manual CC=22}}
+        code2docs__write["write"]
+        code2docs__generators__readme_gen__generate_readme["generate_readme"]
+        code2docs____init__["__init__"]
+        code2docs__generate_all["generate_all"]
+        code2docs___generate_index["_generate_index"]
+        code2docs___generate_module_api{{_generate_module_api CC=25}}
+        code2docs___get_class_methods["_get_class_methods"]
+        code2docs___format_signature["_format_signature"]
+        code2docs__write_all["write_all"]
+        code2docs____init__["__init__"]
+        code2docs__generate_all["generate_all"]
+        code2docs___generate_module{{_generate_module CC=34}}
+        code2docs___count_file_lines["_count_file_lines"]
+        code2docs___calc_module_avg_cc["_calc_module_avg_cc"]
+        code2docs___get_module_docstring["_get_module_docstring"]
+        code2docs___get_module_classes["_get_module_classes"]
+        code2docs___get_module_functions["_get_module_functions"]
+        code2docs___get_class_methods["_get_class_methods"]
+        code2docs___get_module_metrics["_get_module_metrics"]
+        code2docs__write_all["write_all"]
+    end
+    code2docs__cli__main --> code2docs__cli___load_config
+    code2docs__cli__main --> code2docs__cli___run_generate
+    code2docs__cli__sync --> code2docs__cli___load_config
+    code2docs__cli__sync --> code2docs__cli___run_sync
+    code2docs__cli__watch --> code2docs__cli___load_config
+    code2docs__cli__watch --> code2docs__cli___run_watch
+    code2docs__cli___load_config --> code2docs__config__Code2DocsConfig__from_yaml
+
+    classDef highCC fill:#ff6b6b,stroke:#c92a2a,color:#fff
+    classDef medCC fill:#ffd43b,stroke:#f08c00,color:#000
+    class code2docs___build_manual,code2docs___generate_module_api,code2docs___generate_module,code2docs__parse highCC
+    class code2docs__cli___run_generate,code2docs__coverage_report,code2docs___parse_pyproject medCC

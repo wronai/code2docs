@@ -1,0 +1,20 @@
+flowchart LR
+    subgraph code2docs_cli
+        code2docs__cli___run_watch["_run_watch"]
+        code2docs__cli__main["main"]
+        code2docs__cli___load_config["_load_config"]
+        code2docs__cli___run_sync["_run_sync"]
+        code2docs__cli___run_generate["_run_generate"]
+        code2docs__cli__sync["sync"]
+        code2docs__cli__watch["watch"]
+    end
+    subgraph code2docs_config
+        code2docs__config__Code2DocsConfig__from_yaml["from_yaml"]
+    end
+    code2docs__cli__main --> code2docs__cli___load_config
+    code2docs__cli__main --> code2docs__cli___run_generate
+    code2docs__cli__sync --> code2docs__cli___load_config
+    code2docs__cli__sync --> code2docs__cli___run_sync
+    code2docs__cli__watch --> code2docs__cli___load_config
+    code2docs__cli__watch --> code2docs__cli___run_watch
+    code2docs__cli___load_config --> code2docs__config__Code2DocsConfig__from_yaml

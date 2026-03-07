@@ -1,0 +1,85 @@
+{% if sync_markers %}<!-- code2docs:start -->{% endif %}
+# {{ project_name }}
+
+{% if badges %}{{ badges }}{% endif %}
+
+{% if "overview" in sections %}
+> **{{ stats.get('functions_found', 0) }}** functions | **{{ stats.get('classes_found', 0) }}** classes | **{{ stats.get('files_processed', 0) }}** files | CC̄ = {{ avg_complexity }}
+
+{% endif %}
+{% if "install" in sections and dependencies and dependencies.install_command %}
+## Installation
+
+```bash
+{{ dependencies.install_command }}
+```
+{% if dependencies.python_version %}
+Requires Python {{ dependencies.python_version }}
+{% endif %}
+
+{% if dependencies.dependencies %}
+### Dependencies
+
+{% for dep in dependencies.dependencies %}
+- `{{ dep.name }}` {{ dep.version_spec }}
+{% endfor %}
+{% endif %}
+{% endif %}
+
+{% if "quickstart" in sections %}
+## Quick Start
+
+{% if entry_points %}
+```python
+{% for ep in entry_points[:3] %}
+# Entry point: {{ ep }}
+{% endfor %}
+```
+{% else %}
+```python
+import {{ project_name }}
+```
+{% endif %}
+{% endif %}
+
+{% if "api" in sections %}
+## API Overview
+
+{% if public_classes %}
+### Classes
+
+{% for name, cls in public_classes.items()|list %}
+- **`{{ cls.name }}`**{% if cls.docstring %} — {{ cls.docstring.split('\n')[0] }}{% endif %}
+
+{% endfor %}
+{% endif %}
+
+{% if public_functions %}
+### Functions
+
+{% for name, func in public_functions.items()|list %}
+{% set args = func.args|join(', ') %}
+{% set ret = ' → ' ~ func.returns if func.returns else '' %}
+- `{{ func.name }}({{ args }}){{ ret }}`{% if func.docstring %} — {{ func.docstring.split('\n')[0] }}{% endif %}
+
+{% endfor %}
+{% endif %}
+{% endif %}
+
+{% if "structure" in sections and module_tree %}
+## Project Structure
+
+{{ module_tree }}
+{% endif %}
+
+{% if "endpoints" in sections and endpoints %}
+## Endpoints
+
+| Method | Path | Function | Framework |
+|--------|------|----------|-----------|
+{% for ep in endpoints %}
+| {{ ep.method }} | `{{ ep.path }}` | `{{ ep.function_name }}` | {{ ep.framework }} |
+{% endfor %}
+{% endif %}
+
+{% if sync_markers %}<!-- code2docs:end -->{% endif %}

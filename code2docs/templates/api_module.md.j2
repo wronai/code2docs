@@ -1,0 +1,62 @@
+# `{{ module_name }}`
+
+> Source: `{{ module_info.file }}`
+
+{% if classes %}
+## Classes
+
+{% for cls_name, cls_info in classes.items() %}
+### `{{ cls_info.name }}`
+
+{% if cls_info.bases %}
+Inherits from: {% for b in cls_info.bases %}`{{ b }}`{% if not loop.last %}, {% endif %}{% endfor %}
+
+{% endif %}
+{% if cls_info.docstring %}
+{{ cls_info.docstring }}
+
+{% endif %}
+{% if methods[cls_name] %}
+#### Methods
+
+{% for method in methods[cls_name] %}
+{% set args = method.args|join(', ') %}
+{% set ret = ' → ' ~ method.returns if method.returns else '' %}
+{% set cc = method.complexity.get('cyclomatic', 0) %}
+- `{{ method.name }}({{ args }}){{ ret }}`{% if method.docstring %} — {{ method.docstring.split('\n')[0] }}{% endif %}{% if cc > 10 %} ⚠️ CC={{ cc }}{% endif %}
+
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if functions %}
+## Functions
+
+{% for func_name, func in functions.items() %}
+{% set args = func.args|join(', ') %}
+{% set ret = ' → ' ~ func.returns if func.returns else '' %}
+### `{{ func.name }}({{ args }}){{ ret }}`
+
+{% if func.docstring %}
+{{ func.docstring }}
+
+{% endif %}
+{% set cc = func.complexity.get('cyclomatic', 0) %}
+{% if cc %}
+- Complexity: {{ cc }}
+{% endif %}
+{% if func.calls %}
+- Calls: {% for c in func.calls[:10] %}`{{ c }}`{% if not loop.last %}, {% endif %}{% endfor %}
+
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if module_info.imports %}
+## Imports
+
+{% for imp in module_info.imports|sort %}
+- `{{ imp }}`
+{% endfor %}
+{% endif %}

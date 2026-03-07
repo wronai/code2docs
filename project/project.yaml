@@ -1,0 +1,315 @@
+version: '1'
+project:
+  name: code2docs
+  repo: /home/tom/github/wronai/code2docs
+  language: python
+  analyzed_at: '2026-03-07T19:09:31Z'
+  tool: code2llm
+  stats:
+    files: 11
+    lines: 1502
+    functions: 54
+    classes: 16
+health:
+  cc_avg: 5.3
+  critical_count: 5
+  critical_limit: 10
+  duplicates: 0
+  cycles: 0
+  alerts:
+  - type: cc_exceeded
+    target: ModuleDocsGenerator._generate_module
+    value: 34
+    limit: 15
+    severity: critical
+  - type: cc_exceeded
+    target: ApiReferenceGenerator._generate_module_api
+    value: 25
+    limit: 15
+    severity: critical
+  - type: high_fan_out
+    target: _run_generate
+    value: 24
+    limit: 10
+    severity: critical
+  - type: high_fan_out
+    target: ModuleDocsGenerator._generate_module
+    value: 20
+    limit: 10
+    severity: critical
+  - type: cc_exceeded
+    target: ReadmeGenerator._build_manual
+    value: 22
+    limit: 15
+    severity: error
+  - type: high_fan_out
+    target: ApiReferenceGenerator._generate_module_api
+    value: 15
+    limit: 10
+    severity: error
+  - type: high_fan_out
+    target: Code2DocsConfig.from_yaml
+    value: 15
+    limit: 10
+    severity: error
+  - type: high_fan_out
+    target: DocstringExtractor.parse
+    value: 15
+    limit: 10
+    severity: error
+  - type: cc_exceeded
+    target: DocstringExtractor.parse
+    value: 19
+    limit: 15
+    severity: warning
+  - type: high_fan_out
+    target: init
+    value: 10
+    limit: 10
+    severity: warning
+  - type: high_fan_out
+    target: EndpointDetector._scan_django_urls
+    value: 10
+    limit: 10
+    severity: warning
+modules:
+- path: code2docs/generators/module_docs_gen.py
+  lines: 204
+  classes: 1
+  methods: 11
+  cc_max: 34
+  inbound_deps: 0
+  exports:
+  - name: ModuleDocsGenerator
+    type: class
+    cc_avg: 6.5
+    methods:
+    - name: _generate_module
+      cc: 34
+      flag: split
+      fan_out: 20
+- path: code2docs/generators/api_reference_gen.py
+  lines: 150
+  classes: 1
+  methods: 7
+  cc_max: 25
+  inbound_deps: 0
+  exports:
+  - name: ApiReferenceGenerator
+    type: class
+    cc_avg: 5.4
+    methods:
+    - name: _generate_module_api
+      cc: 25
+      flag: split
+      fan_out: 15
+- path: code2docs/generators/readme_gen.py
+  lines: 229
+  classes: 1
+  methods: 8
+  cc_max: 22
+  inbound_deps: 0
+  exports:
+  - name: ReadmeGenerator
+    type: class
+    cc_avg: 6.9
+    methods:
+    - name: _build_manual
+      cc: 22
+      flag: split
+  - name: generate_readme
+    type: function
+    cc: 3
+- path: code2docs/analyzers/docstring_extractor.py
+  lines: 111
+  classes: 2
+  methods: 3
+  cc_max: 19
+  inbound_deps: 0
+  exports:
+  - name: DocstringInfo
+    type: class
+    cc_avg: 0.0
+  - name: DocstringExtractor
+    type: class
+    cc_avg: 10.7
+    methods:
+    - name: parse
+      cc: 19
+      flag: split
+      fan_out: 15
+- path: code2docs/cli.py
+  lines: 226
+  classes: 0
+  methods: 8
+  cc_max: 13
+  inbound_deps: 0
+  exports:
+  - name: main
+    type: function
+    cc: 6
+  - name: sync
+    type: function
+    cc: 2
+  - name: watch
+    type: function
+    cc: 2
+  - name: init
+    type: function
+    cc: 1
+    fan_out: 10
+- path: code2docs/analyzers/dependency_scanner.py
+  lines: 159
+  classes: 3
+  methods: 6
+  cc_max: 8
+  inbound_deps: 0
+  exports:
+  - name: DependencyInfo
+    type: class
+    cc_avg: 0.0
+  - name: ProjectDependencies
+    type: class
+    cc_avg: 0.0
+  - name: DependencyScanner
+    type: class
+    cc_avg: 4.5
+- path: code2docs/config.py
+  lines: 158
+  classes: 5
+  methods: 2
+  cc_max: 7
+  inbound_deps: 0
+  exports:
+  - name: ReadmeConfig
+    type: class
+    cc_avg: 0.0
+  - name: DocsConfig
+    type: class
+    cc_avg: 0.0
+  - name: ExamplesConfig
+    type: class
+    cc_avg: 0.0
+  - name: SyncConfig
+    type: class
+    cc_avg: 0.0
+  - name: Code2DocsConfig
+    type: class
+    cc_avg: 4.0
+    methods:
+    - name: from_yaml
+      cc: 7
+      fan_out: 15
+- path: code2docs/analyzers/endpoint_detector.py
+  lines: 116
+  classes: 2
+  methods: 3
+  cc_max: 5
+  inbound_deps: 0
+  exports:
+  - name: Endpoint
+    type: class
+    cc_avg: 0.0
+  - name: EndpointDetector
+    type: class
+    cc_avg: 4.3
+    methods:
+    - name: _scan_django_urls
+      cc: 4
+      fan_out: 10
+- path: code2docs/generators/__init__.py
+  lines: 42
+  classes: 0
+  methods: 1
+  cc_max: 5
+  inbound_deps: 0
+  exports:
+  - name: generate_docs
+    type: function
+    cc: 5
+- path: code2docs/__init__.py
+  lines: 32
+  classes: 0
+  methods: 1
+  cc_max: 4
+  inbound_deps: 0
+- path: code2docs/analyzers/project_scanner.py
+  lines: 45
+  classes: 1
+  methods: 4
+  cc_max: 2
+  inbound_deps: 0
+  exports:
+  - name: ProjectScanner
+    type: class
+    cc_avg: 1.3
+  - name: analyze_and_document
+    type: function
+    cc: 1
+- path: code2docs/__main__.py
+  lines: 6
+  classes: 0
+  methods: 0
+  cc_max: 0
+  inbound_deps: 0
+- path: code2docs/analyzers/__init__.py
+  lines: 13
+  classes: 0
+  methods: 0
+  cc_max: 0
+  inbound_deps: 0
+hotspots:
+- name: _run_generate
+  fan_out: 24
+  note: Run full documentation generation.
+- name: ModuleDocsGenerator._generate_module
+  fan_out: 20
+  note: Generate detailed documentation for a single module.
+- name: ApiReferenceGenerator._generate_module_api
+  fan_out: 15
+  note: Generate API reference for a single module.
+- name: Code2DocsConfig.from_yaml
+  fan_out: 15
+  note: Load configuration from code2docs.yaml.
+- name: DocstringExtractor.parse
+  fan_out: 15
+  note: Parse a docstring into structured sections.
+- name: init
+  fan_out: 10
+  note: Initialize code2docs.yaml configuration file.
+- name: EndpointDetector._scan_django_urls
+  fan_out: 10
+  note: Scan urls.py files for Django URL patterns.
+refactoring:
+  priorities:
+  - action: Split ApiReferenceGenerator._generate_module_api (CC=25 → target CC<10)
+    impact: high
+    effort: low
+    module: api_reference_gen.py
+  - action: Split ModuleDocsGenerator._generate_module (CC=34 → target CC<10)
+    impact: high
+    effort: low
+    module: module_docs_gen.py
+  - action: Split ReadmeGenerator._build_manual (CC=22 → target CC<10)
+    impact: medium
+    effort: low
+    module: readme_gen.py
+  - action: Split DocstringExtractor.parse (CC=19 → target CC<10)
+    impact: medium
+    effort: low
+    module: docstring_extractor.py
+  - action: Reduce _run_generate fan-out (currently 24)
+    impact: medium
+    effort: medium
+  - action: Reduce ModuleDocsGenerator._generate_module fan-out (currently 20)
+    impact: medium
+    effort: medium
+  - action: Reduce ApiReferenceGenerator._generate_module_api fan-out (currently 15)
+    impact: medium
+    effort: medium
+evolution:
+- date: '2026-03-07'
+  cc_avg: 5.3
+  critical: 5
+  lines: 1502
+  note: Automated analysis

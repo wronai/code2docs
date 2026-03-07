@@ -1,0 +1,31 @@
+# code2llm/evolution | 54 func | 11f | 2026-03-07
+
+NEXT[4] (ranked by impact):
+  [1] !! SPLIT-FUNC      ModuleDocsGenerator._generate_module  CC=34  fan=20
+      WHY: CC=34 exceeds 15
+      EFFORT: ~1h  IMPACT: 680
+
+  [2] !! SPLIT-FUNC      ApiReferenceGenerator._generate_module_api  CC=25  fan=15
+      WHY: CC=25 exceeds 15
+      EFFORT: ~1h  IMPACT: 375
+
+  [3] !  SPLIT-FUNC      DocstringExtractor.parse  CC=19  fan=15
+      WHY: CC=19 exceeds 15
+      EFFORT: ~1h  IMPACT: 285
+
+  [4] !  SPLIT-FUNC      ReadmeGenerator._build_manual  CC=22  fan=7
+      WHY: CC=22 exceeds 15
+      EFFORT: ~1h  IMPACT: 154
+
+
+RISKS[0]: none
+
+METRICS-TARGET:
+  CC̄:          5.3 → ≤3.7
+  max-CC:      34 → ≤17
+  god-modules: 0 → 0
+  high-CC(≥15): 4 → ≤2
+  hub-types:   0 → ≤0
+
+HISTORY:
+  prev CC̄=5.0 → now CC̄=5.3
