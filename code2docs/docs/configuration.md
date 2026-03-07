@@ -24,7 +24,7 @@
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `sections` | `List` | overview, install, quickstart, generated_output, config, api, structure, requirements, contributing, docs_nav | README sections to include |
+| `sections` | `List` | overview, install, quickstart, generated_output, config, sync_markers, architecture, api, structure, requirements, contributing, docs_nav | README sections to include |
 | `badges` | `List` | version, python, coverage, complexity | Badge types to show in README header |
 | `sync_markers` | `bool` | true | Wrap generated content in `<!-- code2docs:start/end -->` markers |
 

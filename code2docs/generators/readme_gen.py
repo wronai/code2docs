@@ -192,27 +192,34 @@ class ReadmeGenerator:
         # Try pyproject.toml
         try:
             import tomllib
-            pyproject_path = Path(self.result.project_path) / "pyproject.toml"
-            if pyproject_path.exists():
-                with open(pyproject_path, "rb") as f:
-                    data = tomllib.load(f)
+            pyproject_paths = [
+                Path(self.result.project_path) / "pyproject.toml",
+                Path(self.result.project_path).parent / "pyproject.toml",
+            ]
+            for pyproject_path in pyproject_paths:
+                if pyproject_path.exists():
+                    with open(pyproject_path, "rb") as f:
+                        data = tomllib.load(f)
 
-                project = data.get("project", {})
-                metadata["version"] = project.get("version", metadata["version"])
+                    project = data.get("project", {})
+                    metadata["version"] = project.get("version", metadata["version"])
 
-                # Authors
-                authors = project.get("authors", [])
-                if authors:
-                    if isinstance(authors[0], dict):
-                        metadata["author"] = authors[0].get("name", "")
-                        metadata["contributors"] = [a.get("name", "") for a in authors[1:] if a.get("name")]
+                    # Authors
+                    authors = project.get("authors", [])
+                    if authors:
+                        if isinstance(authors[0], dict):
+                            metadata["author"] = authors[0].get("name", "")
+                            metadata["contributors"] = [a.get("name", "") for a in authors[1:] if a.get("name")]
+                        else:
+                            metadata["author"] = str(authors[0])
+
+                    # License
+                    lic = project.get("license", {})
+                    if isinstance(lic, dict):
+                        metadata["license"] = lic.get("text", "")
                     else:
-                        metadata["author"] = str(authors[0])
-
-                # License
-                metadata["license"] = project.get("license", {}).get("text", "")
-                if not metadata["license"]:
-                    metadata["license"] = project.get("license", "")
+                        metadata["license"] = lic
+                    break
         except Exception:
             pass
 

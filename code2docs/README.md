@@ -6,7 +6,7 @@
 > Auto-generated project documentation from source code analysis.
 
 **Author:** Tom Softreck <tom@sapletta.com>  
-**License:** Not specified  
+**License:** MIT[(LICENSE)](./LICENSE)  
 **Repository:** [https://github.com/wronai/code2docs](https://github.com/wronai/code2docs)
 
 ## Installation
@@ -124,6 +124,25 @@ sync:
     - "__pycache__"
 ```
 
+## Sync Markers
+
+code2docs can update only specific sections of an existing README using HTML comment markers:
+
+```markdown
+<!-- code2docs:start -->
+# Project Title
+... auto-generated content ...
+<!-- code2docs:end -->
+```
+
+Content outside the markers is preserved when regenerating. Enable this with `sync_markers: true` in your configuration.
+
+## Architecture
+
+```
+code2docs/
+├── registry├── llm_helper├── code2docs/    ├── updater├── sync/    ├── watcher    ├── differ    ├── quickstart    ├── advanced_usage    ├── markdown    ├── badges    ├── toc├── formatters/    ├── readme_gen├── base    ├── coverage_gen    ├── _source_links    ├── depgraph_gen    ├── getting_started_gen    ├── config_docs_gen    ├── changelog_gen├── generators/    ├── module_docs_gen    ├── api_reference_gen    ├── mkdocs_gen    ├── examples_gen    ├── _registry_adapters├── cli    ├── api_changelog_gen    ├── contributing_gen├── analyzers/    ├── architecture_gen├── config    ├── project_scanner    ├── dependency_scanner    ├── endpoint_detector    ├── docstring_extractor```
+
 ## API Overview
 
 ### Classes
@@ -134,10 +153,10 @@ sync:
 - **`ChangeInfo`** — Describes a detected change.
 - **`Differ`** — Detect changes between current source and previous state.
 - **`MarkdownFormatter`** — Helper for constructing Markdown documents.
+- **`ReadmeGenerator`** — Generate README.md from AnalysisResult.
 - **`GenerateContext`** — Shared context passed to all generators during a run.
 - **`BaseGenerator`** — Abstract base for all documentation generators.
 - **`CoverageGenerator`** — Generate docs/coverage.md — docstring coverage report.
-- **`ReadmeGenerator`** — Generate README.md from AnalysisResult.
 - **`SourceLinker`** — Build source-code links (relative paths + optional GitHub/GitLab URLs).
 - **`DepGraphGenerator`** — Generate docs/dependency-graph.md with Mermaid diagrams.
 - **`GettingStartedGenerator`** — Generate docs/getting-started.md from entry points and dependencies.
@@ -160,11 +179,11 @@ sync:
 - **`GettingStartedAdapter`** — —
 - **`ConfigDocsAdapter`** — —
 - **`ContributingAdapter`** — —
+- **`DefaultGroup`** — Click Group that routes unknown subcommands to 'generate'.
 - **`ApiChange`** — A single API change between two analysis snapshots.
 - **`ApiChangelogGenerator`** — Generate API changelog by diffing current analysis with a saved snapshot.
 - **`ContributingGenerator`** — Generate CONTRIBUTING.md by detecting dev tools from pyproject.toml.
 - **`ArchitectureGenerator`** — Generate docs/architecture.md — architecture overview with diagrams.
-- **`DefaultGroup`** — Click Group that routes unknown subcommands to 'generate'.
 - **`ReadmeConfig`** — Configuration for README generation.
 - **`DocsConfig`** — Configuration for docs/ generation.
 - **`ExamplesConfig`** — Configuration for examples/ generation.
@@ -175,10 +194,10 @@ sync:
 - **`DependencyInfo`** — Information about a project dependency.
 - **`ProjectDependencies`** — All detected project dependencies.
 - **`DependencyScanner`** — Scan and parse project dependency files.
-- **`DocstringInfo`** — Parsed docstring with sections.
-- **`DocstringExtractor`** — Extract and parse docstrings from AnalysisResult.
 - **`Endpoint`** — Represents a detected web endpoint.
 - **`EndpointDetector`** — Detects web endpoints from decorator patterns in source code.
+- **`DocstringInfo`** — Parsed docstring with sections.
+- **`DocstringExtractor`** — Extract and parse docstrings from AnalysisResult.
 
 ### Functions
 

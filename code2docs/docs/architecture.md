@@ -297,7 +297,7 @@ classDiagram
 | Modules | 38 |
 | Functions | 229 |
 | Classes | 51 |
-| CFG Nodes | 1344 |
+| CFG Nodes | 1346 |
 | Patterns | 2 |
 | Avg Complexity | 4.0 |
-| Analysis Time | 1.31s |
+| Analysis Time | 1.92s |
