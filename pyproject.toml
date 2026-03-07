@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "code2docs"
-version = "0.2.8"
+version = "0.2.9"
 description = "Auto-generate and sync project documentation from source code analysis"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -52,6 +52,8 @@ dev = [
     "black>=23.0",
     "ruff>=0.1",
     "mypy>=1.0",
+    "build>=1.0",
+    "twine>=5.0",
 ]
 all = ["code2docs[llm,git,watch,mkdocs]"]
 
