@@ -80,7 +80,7 @@ class ModuleDocsGenerator:
                     if len(m.args) > 4:
                         args += ", ..."
                     ret = m.returns or "—"
-                    cc = m.complexity.get("cyclomatic", "—")
+                    cc = m.complexity.get("cyclomatic_complexity", m.complexity.get("cyclomatic", "—"))
                     warn = " ⚠️" if isinstance(cc, (int, float)) and cc > 10 else ""
                     lines.append(f"| `{m.name}` | `{args}` | `{ret}` | {cc}{warn} |")
                 lines.append("")
@@ -149,7 +149,7 @@ class ModuleDocsGenerator:
         complexities = []
         for func in self.result.functions.values():
             if func.module == mod_name:
-                cc = func.complexity.get("cyclomatic", 0)
+                cc = func.complexity.get("cyclomatic_complexity", func.complexity.get("cyclomatic", 0))
                 if cc > 0:
                     complexities.append(cc)
         return round(sum(complexities) / len(complexities), 1) if complexities else 0.0

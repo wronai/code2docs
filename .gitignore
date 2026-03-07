@@ -211,6 +211,4 @@ __marimo__/
 # code2docs generated outputs
 .code2docs.state
 .code2docs.api_snapshot.json
-docs/
-examples/
 mkdocs.yml

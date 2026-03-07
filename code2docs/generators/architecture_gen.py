@@ -177,9 +177,9 @@ class ArchitectureGenerator:
 
         # Average complexity
         complexities = [
-            f.complexity.get("cyclomatic", 0)
+            f.complexity.get("cyclomatic_complexity", f.complexity.get("cyclomatic", 0))
             for f in self.result.functions.values()
-            if f.complexity.get("cyclomatic", 0) > 0
+            if f.complexity.get("cyclomatic_complexity", f.complexity.get("cyclomatic", 0)) > 0
         ]
         if complexities:
             avg = round(sum(complexities) / len(complexities), 1)

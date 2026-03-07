@@ -95,7 +95,8 @@ class ReadmeGenerator:
         """Calculate average cyclomatic complexity."""
         complexities = []
         for func in self.result.functions.values():
-            cc = func.complexity.get("cyclomatic", 0)
+            cc = func.complexity.get("cyclomatic_complexity",
+                                     func.complexity.get("cyclomatic", 0))
             if cc > 0:
                 complexities.append(cc)
         return round(sum(complexities) / len(complexities), 1) if complexities else 0.0

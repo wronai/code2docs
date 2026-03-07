@@ -97,7 +97,7 @@ class ApiReferenceGenerator:
                     doc_line = ""
                     if method.docstring:
                         doc_line = f" — {method.docstring.splitlines()[0]}"
-                    cc = method.complexity.get("cyclomatic", 0)
+                    cc = method.complexity.get("cyclomatic_complexity", method.complexity.get("cyclomatic", 0))
                     cc_badge = f" ⚠️ CC={cc}" if cc > 10 else ""
                     lines.append(f"- `{sig}`{doc_line}{cc_badge}")
                 lines.append("")
@@ -118,7 +118,7 @@ class ApiReferenceGenerator:
             lines.append(f"### `{sig}`\n")
             if func_info.docstring:
                 lines.append(f"{func_info.docstring.strip()}\n")
-            cc = func_info.complexity.get("cyclomatic", 0)
+            cc = func_info.complexity.get("cyclomatic_complexity", func_info.complexity.get("cyclomatic", 0))
             if cc:
                 lines.append(f"- Complexity: {cc}")
             if func_info.calls:

@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-03-07
+
+### Other
+- Update .gitignore
+- Update code2docs/generators/api_reference_gen.py
+- Update code2docs/generators/architecture_gen.py
+- Update code2docs/generators/module_docs_gen.py
+- Update code2docs/generators/readme_gen.py
+- Update code2docs/templates/module_doc.md.j2
+
 ## [0.2.1] - 2026-03-07
 
 ### Docs

@@ -30,7 +30,7 @@
 {% for m in methods[cls_name] %}
 {% set args = m.args[:4]|join(', ') %}
 {% set ret = m.returns or '—' %}
-{% set cc = m.complexity.get('cyclomatic', '—') %}
+{% set cc = m.complexity.get('cyclomatic_complexity', m.complexity.get('cyclomatic', '—')) %}
 | `{{ m.name }}` | `{{ args }}` | `{{ ret }}` | {{ cc }} |
 {% endfor %}
 
