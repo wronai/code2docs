@@ -3,22 +3,22 @@ flowchart TD
         code2docs____getattr__["__getattr__"]
     end
     subgraph code2docs_analyzers
-        code2docs__detect["detect"]
-        code2docs___parse_decorator["_parse_decorator"]
-        code2docs___scan_django_urls["_scan_django_urls"]
-        code2docs__extract_all["extract_all"]
-        code2docs__parse{{parse CC=19}}
-        code2docs__coverage_report("coverage_report CC=8")
         code2docs__scan["scan"]
         code2docs___parse_pyproject("_parse_pyproject CC=8")
         code2docs___parse_pyproject_regex["_parse_pyproject_regex"]
         code2docs___parse_setup_py["_parse_setup_py"]
         code2docs___parse_requirements_txt["_parse_requirements_txt"]
         code2docs___parse_dep_string["_parse_dep_string"]
+        code2docs__detect["detect"]
+        code2docs___parse_decorator["_parse_decorator"]
+        code2docs___scan_django_urls["_scan_django_urls"]
         code2docs____init__["__init__"]
         code2docs___build_llm_config["_build_llm_config"]
         code2docs__analyze["analyze"]
         code2docs__analyze_and_document["analyze_and_document"]
+        code2docs__extract_all["extract_all"]
+        code2docs__parse{{parse CC=19}}
+        code2docs__coverage_report("coverage_report CC=8")
     end
     subgraph code2docs_cli
         code2docs__cli__main["main"]
@@ -34,8 +34,27 @@ flowchart TD
         code2docs__config__Code2DocsConfig__from_yaml["from_yaml"]
         code2docs__config__Code2DocsConfig__to_yaml["to_yaml"]
     end
+    subgraph code2docs_formatters
+        code2docs____init__["__init__"]
+        code2docs__heading["heading"]
+        code2docs__paragraph["paragraph"]
+        code2docs__blockquote["blockquote"]
+        code2docs__code_block["code_block"]
+        code2docs__inline_code["inline_code"]
+        code2docs__bold["bold"]
+        code2docs__link["link"]
+        code2docs__list_item["list_item"]
+        code2docs__table["table"]
+        code2docs__separator["separator"]
+        code2docs__blank["blank"]
+        code2docs__render["render"]
+        code2docs__formatters__badges__generate_badges["generate_badges"]
+        code2docs__formatters__badges___make_badge("_make_badge CC=11")
+        code2docs__formatters__toc__generate_toc["generate_toc"]
+        code2docs__formatters__toc__extract_headings["extract_headings"]
+        code2docs__formatters__toc___slugify["_slugify"]
+    end
     subgraph code2docs_generators
-        code2docs__generators__generate_docs["generate_docs"]
         code2docs____init__["__init__"]
         code2docs__generate["generate"]
         code2docs___build_context["_build_context"]
@@ -44,13 +63,7 @@ flowchart TD
         code2docs___build_manual{{_build_manual CC=22}}
         code2docs__write["write"]
         code2docs__generators__readme_gen__generate_readme["generate_readme"]
-        code2docs____init__["__init__"]
-        code2docs__generate_all["generate_all"]
-        code2docs___generate_index["_generate_index"]
-        code2docs___generate_module_api{{_generate_module_api CC=25}}
-        code2docs___get_class_methods["_get_class_methods"]
-        code2docs___format_signature["_format_signature"]
-        code2docs__write_all["write_all"]
+        code2docs__generators__generate_docs["generate_docs"]
         code2docs____init__["__init__"]
         code2docs__generate_all["generate_all"]
         code2docs___generate_module{{_generate_module CC=34}}
@@ -62,7 +75,48 @@ flowchart TD
         code2docs___get_class_methods["_get_class_methods"]
         code2docs___get_module_metrics["_get_module_metrics"]
         code2docs__write_all["write_all"]
+        code2docs____init__["__init__"]
+        code2docs__generate_all["generate_all"]
+        code2docs___generate_index["_generate_index"]
+        code2docs___generate_module_api{{_generate_module_api CC=25}}
+        code2docs___get_class_methods["_get_class_methods"]
+        code2docs___format_signature["_format_signature"]
+        code2docs__write_all["write_all"]
+        code2docs____init__["__init__"]
+        code2docs__generate["generate"]
+        code2docs___get_git_log["_get_git_log"]
+        code2docs___classify_message["_classify_message"]
+        code2docs___group_by_type["_group_by_type"]
+        code2docs___render["_render"]
+        code2docs____init__["__init__"]
+        code2docs__generate_all["generate_all"]
+        code2docs___generate_basic_usage{{_generate_basic_usage CC=25}}
+        code2docs___generate_entry_point_examples["_generate_entry_point_examples"]
+        code2docs___generate_class_examples("_generate_class_examples CC=12")
+        code2docs___get_major_classes["_get_major_classes"]
+        code2docs___get_init_args["_get_init_args"]
+        code2docs___get_public_methods["_get_public_methods"]
+        code2docs__write_all["write_all"]
+        code2docs____init__["__init__"]
+        code2docs__generate("generate CC=12")
+        code2docs___generate_module_graph("_generate_module_graph CC=9")
+        code2docs___generate_class_diagram("_generate_class_diagram CC=11")
+        code2docs___detect_layers("_detect_layers CC=8")
+        code2docs___generate_metrics_table["_generate_metrics_table"]
     end
+    subgraph code2docs_sync
+        code2docs__sync__updater__Updater____init__["__init__"]
+        code2docs__sync__updater__Updater__apply("apply CC=12")
+        code2docs__sync__watcher__start_watcher["start_watcher"]
+        code2docs__sync__differ__ChangeInfo____str__["__str__"]
+        code2docs__sync__differ__Differ____init__["__init__"]
+        code2docs__sync__differ__Differ__detect_changes["detect_changes"]
+        code2docs__sync__differ__Differ__save_state["save_state"]
+        code2docs__sync__differ__Differ___load_state["_load_state"]
+        code2docs__sync__differ__Differ___compute_state["_compute_state"]
+        code2docs__sync__differ__Differ___file_to_module["_file_to_module"]
+    end
+    code2docs__formatters__badges__generate_badges --> code2docs__formatters__badges___make_badge
     code2docs__cli__main --> code2docs__cli___load_config
     code2docs__cli__main --> code2docs__cli___run_generate
     code2docs__cli__sync --> code2docs__cli___load_config
@@ -70,8 +124,12 @@ flowchart TD
     code2docs__cli__watch --> code2docs__cli___load_config
     code2docs__cli__watch --> code2docs__cli___run_watch
     code2docs__cli___load_config --> code2docs__config__Code2DocsConfig__from_yaml
+    code2docs__cli___run_watch --> code2docs__sync__watcher__start_watcher
+    code2docs__formatters__toc__generate_toc --> code2docs__formatters__toc__extract_headings
+    code2docs__formatters__toc__extract_headings --> code2docs__formatters__toc___slugify
+    code2docs___build_context --> code2docs__formatters__badges__generate_badges
 
     classDef highCC fill:#ff6b6b,stroke:#c92a2a,color:#fff
     classDef medCC fill:#ffd43b,stroke:#f08c00,color:#000
-    class code2docs___build_manual,code2docs___generate_module_api,code2docs___generate_module,code2docs__parse highCC
-    class code2docs__cli___run_generate,code2docs__coverage_report,code2docs___parse_pyproject medCC
+    class code2docs___build_manual,code2docs___generate_module,code2docs___generate_module_api,code2docs___generate_basic_usage,code2docs__parse highCC
+    class code2docs__sync__updater__Updater__apply,code2docs__formatters__badges___make_badge,code2docs__cli___run_generate,code2docs___generate_class_examples,code2docs__generate,code2docs___generate_module_graph,code2docs___generate_class_diagram,code2docs___detect_layers,code2docs___parse_pyproject,code2docs__coverage_report medCC

@@ -4,10 +4,10 @@ Use the attached/generated files as the authoritative context.
 we are in project path: .
 
 Files for analysis:
-- project/analysis.toon  (Health diagnostics - complexity metrics, god modules, coupling issues, refactoring priorities) [7KB]
-- project/context.md  (LLM narrative - architecture summary, key entry points, process flows, public API surface) [18KB]
-- project/evolution.toon  (Refactoring queue - ranked actions by impact/effort, risks, metrics targets, history) [827B]
-- project/project.toon  (Project logic - compact module view from code2logic, file sizes, dependencies overview) [5KB]
+- project/analysis.toon  (Health diagnostics - complexity metrics, god modules, coupling issues, refactoring priorities) [11KB]
+- project/context.md  (LLM narrative - architecture summary, key entry points, process flows, public API surface) [24KB]
+- project/evolution.toon  (Refactoring queue - ranked actions by impact/effort, risks, metrics targets, history) [968B]
+- project/project.toon  (Project logic - compact module view from code2logic, file sizes, dependencies overview) [10KB]
 - project/README.md  (Documentation - complete guide to all generated files, usage examples, interpretation) [9KB]
 
 Task:

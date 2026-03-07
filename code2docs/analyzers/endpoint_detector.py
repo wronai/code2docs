@@ -26,11 +26,11 @@ class Endpoint:
 class EndpointDetector:
     """Detects web endpoints from decorator patterns in source code."""
 
-    FLASK_PATTERNS = re.compile(
-        r'@(?:app|blueprint|bp)\.(route|get|post|put|delete|patch)\s*\(\s*["\']([^"\']+)["\']'
-    )
     FASTAPI_PATTERNS = re.compile(
         r'@(?:app|router)\.(get|post|put|delete|patch|options|head)\s*\(\s*["\']([^"\']+)["\']'
+    )
+    FLASK_PATTERNS = re.compile(
+        r'@(?:app|blueprint|bp)\.route\s*\(\s*["\']([^"\']+)["\']'
     )
     DJANGO_URL_PATTERN = re.compile(
         r'(?:path|re_path|url)\s*\(\s*["\']([^"\']+)["\']'
@@ -58,25 +58,7 @@ class EndpointDetector:
 
     def _parse_decorator(self, decorator: str, func: FunctionInfo) -> Optional[Endpoint]:
         """Try to parse a route decorator string."""
-        # Flask patterns
-        match = self.FLASK_PATTERNS.search(decorator)
-        if match:
-            method = match.group(1).upper()
-            if method == "ROUTE":
-                method = "GET"
-            return Endpoint(
-                method=method,
-                path=match.group(2),
-                function_name=func.name,
-                file=func.file,
-                line=func.line,
-                framework="flask",
-                docstring=func.docstring,
-                params=func.args,
-                return_type=func.returns,
-            )
-
-        # FastAPI patterns
+        # FastAPI patterns (checked first - more specific)
         match = self.FASTAPI_PATTERNS.search(decorator)
         if match:
             return Endpoint(
@@ -86,6 +68,21 @@ class EndpointDetector:
                 file=func.file,
                 line=func.line,
                 framework="fastapi",
+                docstring=func.docstring,
+                params=func.args,
+                return_type=func.returns,
+            )
+
+        # Flask patterns (@app.route only)
+        match = self.FLASK_PATTERNS.search(decorator)
+        if match:
+            return Endpoint(
+                method="GET",
+                path=match.group(1),
+                function_name=func.name,
+                file=func.file,
+                line=func.line,
+                framework="flask",
                 docstring=func.docstring,
                 params=func.args,
                 return_type=func.returns,

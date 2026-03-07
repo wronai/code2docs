@@ -1,19 +1,30 @@
-# code2docs | 13f 1491L | python:13
+# code2docs | 24f 2473L | python:24
 # Keys: M=modules, D=details, i=imports, c=classes, f=functions, m=methods
-M[13]:
+M[24]:
   code2docs/__init__.py,32
   code2docs/__main__.py,6
   code2docs/analyzers/__init__.py,13
   code2docs/analyzers/dependency_scanner.py,159
   code2docs/analyzers/docstring_extractor.py,111
-  code2docs/analyzers/endpoint_detector.py,116
+  code2docs/analyzers/endpoint_detector.py,113
   code2docs/analyzers/project_scanner.py,45
   code2docs/cli.py,226
   code2docs/config.py,158
+  code2docs/formatters/__init__.py,7
+  code2docs/formatters/badges.py,52
+  code2docs/formatters/markdown.py,73
+  code2docs/formatters/toc.py,63
   code2docs/generators/__init__.py,42
   code2docs/generators/api_reference_gen.py,150
+  code2docs/generators/architecture_gen.py,192
+  code2docs/generators/changelog_gen.py,121
+  code2docs/generators/examples_gen.py,194
   code2docs/generators/module_docs_gen.py,204
   code2docs/generators/readme_gen.py,229
+  code2docs/sync/__init__.py,6
+  code2docs/sync/differ.py,125
+  code2docs/sync/updater.py,77
+  code2docs/sync/watcher.py,75
 D:
   code2docs/generators/module_docs_gen.py:
     e: ModuleDocsGenerator
@@ -21,6 +32,9 @@ D:
   code2docs/generators/api_reference_gen.py:
     e: ApiReferenceGenerator
     ApiReferenceGenerator: __init__(2),generate_all(0),_generate_index(0),_generate_module_api(2),_get_class_methods(1),_format_signature(0),write_all(2)  # Generate docs/api/ — per-module API reference from signature...
+  code2docs/generators/examples_gen.py:
+    e: ExamplesGenerator
+    ExamplesGenerator: __init__(2),generate_all(0),_generate_basic_usage(0),_generate_entry_point_examples(0),_generate_class_examples(1),_get_major_classes(0),_get_init_args(1),_get_public_methods(1),write_all(2)  # Generate examples/ — usage examples from public API signatur...
   code2docs/generators/readme_gen.py:
     e: ReadmeGenerator,generate_readme
     ReadmeGenerator: __init__(2),generate(0),_build_context(1),_calc_avg_complexity(0),_build_module_tree(0),_build_manual(3),write(2)  # Generate README.md from AnalysisResult...
@@ -39,6 +53,16 @@ D:
     _run_generate(project_path;config;readme_only;dry_run)
     _run_sync(project_path;config;dry_run)
     _run_watch(project_path;config)
+  code2docs/sync/updater.py:
+    e: Updater
+    Updater: __init__(1),apply(2)  # Apply selective documentation updates based on detected chan...
+  code2docs/generators/architecture_gen.py:
+    e: ArchitectureGenerator
+    ArchitectureGenerator: __init__(2),generate(0),_generate_module_graph(0),_generate_class_diagram(0),_detect_layers(0),_generate_metrics_table(0)  # Generate docs/architecture.md — architecture overview with d...
+  code2docs/formatters/badges.py:
+    e: generate_badges,_make_badge
+    generate_badges(project_name;badge_types;stats;deps)
+    _make_badge(badge_type;project_name;stats;deps)
   code2docs/analyzers/dependency_scanner.py:
     e: DependencyInfo,ProjectDependencies,DependencyScanner
     DependencyInfo:  # Information about a project dependency...
@@ -51,6 +75,22 @@ D:
     ExamplesConfig:  # Configuration for examples/ generation...
     SyncConfig:  # Configuration for synchronization...
     Code2DocsConfig: from_yaml(1),to_yaml(1)  # Main configuration for code2docs...
+  code2docs/formatters/toc.py:
+    e: generate_toc,extract_headings,_slugify
+    generate_toc(markdown_content;max_depth)
+    extract_headings(content;max_depth)
+    _slugify(text)
+  code2docs/sync/differ.py:
+    e: ChangeInfo,Differ
+    ChangeInfo: __str__(0)  # Describes a detected change...
+    Differ: __init__(1),detect_changes(1),save_state(1),_load_state(1),_compute_state(1),_file_to_module(1)  # Detect changes between current source and previous state...
+  code2docs/generators/changelog_gen.py:
+    e: ChangelogEntry,ChangelogGenerator
+    ChangelogEntry:  # A single changelog entry...
+    ChangelogGenerator: __init__(2),generate(2),_get_git_log(2),_classify_message(1),_group_by_type(1),_render(1)  # Generate CHANGELOG.md from git log and analysis diff...
+  code2docs/sync/watcher.py:
+    e: start_watcher
+    start_watcher(project_path;config)
   code2docs/generators/__init__.py:
     e: generate_docs
     generate_docs(project_path;config)
@@ -61,9 +101,14 @@ D:
   code2docs/__init__.py:
     e: __getattr__
     __getattr__(name)
+  code2docs/formatters/markdown.py:
+    e: MarkdownFormatter
+    MarkdownFormatter: __init__(0),heading(2),paragraph(1),blockquote(1),code_block(2),inline_code(1),bold(1),link(2),list_item(2),table(2),separator(0),blank(0),render(0)  # Helper for constructing Markdown documents...
   code2docs/analyzers/project_scanner.py:
     e: ProjectScanner,analyze_and_document
     ProjectScanner: __init__(1),_build_llm_config(0),analyze(1)  # Wraps code2llm's ProjectAnalyzer with code2docs-specific def...
     analyze_and_document(project_path;config)
   code2docs/__main__.py:
+  code2docs/sync/__init__.py:
+  code2docs/formatters/__init__.py:
   code2docs/analyzers/__init__.py:
