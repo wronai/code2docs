@@ -25,7 +25,12 @@ class ReadmeGeneratorAdapter(BaseGenerator):
             preview = content[:500] + "..." if len(content) > 500 else content
             click.echo(preview)
             return None
-        readme_path = ctx.project / self.config.readme_output
+        # Use docs_dir if readme_output is a simple filename, otherwise respect the path
+        readme_output = Path(self.config.readme_output)
+        if readme_output.parent == Path("."):
+            readme_path = ctx.docs_dir / readme_output.name
+        else:
+            readme_path = ctx.project / readme_output
         gen.write(str(readme_path), content)
         return f"✅ {readme_path.relative_to(ctx.project)}"
 
@@ -141,7 +146,7 @@ class ExamplesAdapter(BaseGenerator):
         files = gen.generate_all()
         if ctx.dry_run:
             return f"[dry-run] examples/ ({len(files)} files)"
-        examples_dir = ctx.project / "examples"
+        examples_dir = ctx.docs_dir / "examples"
         gen.write_all(str(examples_dir), files)
         return f"✅ examples/ ({len(files)} files)"
 
@@ -158,7 +163,7 @@ class MkDocsAdapter(BaseGenerator):
         content = gen.generate(str(ctx.docs_dir))
         if ctx.dry_run:
             return "[dry-run] mkdocs.yml"
-        gen.write(str(ctx.project / "mkdocs.yml"), content)
+        gen.write(str(ctx.docs_dir / "mkdocs.yml"), content)
         return "✅ mkdocs.yml"
 
 
@@ -208,7 +213,8 @@ class ContributingAdapter(BaseGenerator):
         content = gen.generate()
         if ctx.dry_run:
             return "[dry-run] CONTRIBUTING.md"
-        (ctx.project / "CONTRIBUTING.md").write_text(content, encoding="utf-8")
+        ctx.docs_dir.mkdir(parents=True, exist_ok=True)
+        (ctx.docs_dir / "CONTRIBUTING.md").write_text(content, encoding="utf-8")
         return "✅ CONTRIBUTING.md"
 
 

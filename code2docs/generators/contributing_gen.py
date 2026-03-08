@@ -54,10 +54,11 @@ class ContributingGenerator:
     def _render_setup(self, tools: Dict[str, bool]) -> str:
         """Render development setup instructions."""
         project = self.config.project_name or "project"
+        repo_url = self.config.repo_url or "<repository-url>"
         lines = [
             "## Development Setup\n",
             "```bash",
-            f"git clone <repository-url>",
+            f"git clone {repo_url}",
             f"cd {project}",
             "python -m venv .venv",
             "source .venv/bin/activate  # or .venv\\Scripts\\activate on Windows",

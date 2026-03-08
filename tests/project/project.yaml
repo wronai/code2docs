@@ -3,7 +3,7 @@ project:
   name: tests
   repo: /home/tom/github/wronai/code2docs/tests
   language: python
-  analyzed_at: '2026-03-08T08:35:57Z'
+  analyzed_at: '2026-03-08T08:38:44Z'
   tool: code2llm
   stats:
     files: 0

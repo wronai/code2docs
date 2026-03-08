@@ -15,19 +15,19 @@ PIPELINES[12] (Analysis:2, Core:4, Export:2, IO:3, Unknown:1):
               → _find_class_by_name(name:str) → Optional[ClassInfo] CC=3    pure ■
               PURITY: 2/4 pure  BOTTLENECK: _generate_advanced(CC=22)
 
-  Analyzers [Analysis]: AnalysisResult → Optional[str]
-              → extract_all(result:AnalysisResult) → Dict[str, DocstringInfo] CC=5    pure ▶
-              → parse(docstring:str) → DocstringInfo    CC=2    pure
-              → _parse_sections(lines:List[str], info:DocstringInfo) → None CC=8    mutation
-              → _classify_section(line:str) → Optional[str] CC=5    pure ■
-              PURITY: 3/4 pure  BOTTLENECK: _parse_sections(CC=8)
-
   Analyzers [Analysis]: str → DependencyInfo
               → scan(project_path:str) → ProjectDependencies CC=4    pure ▶
               → _parse_pyproject(path:Path) → ProjectDependencies CC=8    IO
               → _parse_pyproject_regex(path:Path) → ProjectDependencies CC=4    IO
               → _parse_dep_string(dep_str:str) → DependencyInfo CC=2    pure ■
               PURITY: 2/4 pure  BOTTLENECK: _parse_pyproject(CC=8)
+
+  Analyzers [Analysis]: AnalysisResult → Optional[str]
+              → extract_all(result:AnalysisResult) → Dict[str, DocstringInfo] CC=5    pure ▶
+              → parse(docstring:str) → DocstringInfo    CC=2    pure
+              → _parse_sections(lines:List[str], info:DocstringInfo) → None CC=8    mutation
+              → _classify_section(line:str) → Optional[str] CC=5    pure ■
+              PURITY: 3/4 pure  BOTTLENECK: _parse_sections(CC=8)
 
   Generators [IO]: ? → str
               → generate() → str                        CC=3    pure ▶
@@ -137,24 +137,6 @@ CONTRACTS:
       OUT: Optional[ClassInfo]
 
   Pipeline: Analyzers
-    extract_all(result:AnalysisResult) → Dict[str, DocstringInfo]
-      IN:  result:AnalysisResult
-      OUT: Dict[str, DocstringInfo]
-
-    parse(docstring:str) → DocstringInfo
-      IN:  docstring:str
-      OUT: DocstringInfo
-
-    _parse_sections(lines:List[str], info:DocstringInfo) → None
-      IN:  lines:List[str], info:DocstringInfo
-      OUT: None
-      SIDE-EFFECT: pure
-
-    _classify_section(line:str) → Optional[str]
-      IN:  line:str
-      OUT: Optional[str]
-
-  Pipeline: Analyzers
     scan(project_path:str) → ProjectDependencies
       IN:  project_path:str
       OUT: ProjectDependencies
@@ -172,6 +154,24 @@ CONTRACTS:
     _parse_dep_string(dep_str:str) → DependencyInfo
       IN:  dep_str:str
       OUT: DependencyInfo
+
+  Pipeline: Analyzers
+    extract_all(result:AnalysisResult) → Dict[str, DocstringInfo]
+      IN:  result:AnalysisResult
+      OUT: Dict[str, DocstringInfo]
+
+    parse(docstring:str) → DocstringInfo
+      IN:  docstring:str
+      OUT: DocstringInfo
+
+    _parse_sections(lines:List[str], info:DocstringInfo) → None
+      IN:  lines:List[str], info:DocstringInfo
+      OUT: None
+      SIDE-EFFECT: pure
+
+    _classify_section(line:str) → Optional[str]
+      IN:  line:str
+      OUT: Optional[str]
 
   Pipeline: Generators
     generate() → str
@@ -302,8 +302,8 @@ CONTRACTS:
 DATA_TYPES (by cross-function usage) [232 annotated, 0 inferred / 237 functions]:
   str                  consumed:111 produced:100  !! HUB-TYPE → split interface
   Code2DocsConfig      consumed:28  produced:2    !! HUB-TYPE → split interface
-  Dict                 consumed:16  produced:6    !! HUB-TYPE → split interface
   bool                 consumed:5   produced:17 
+  Dict                 consumed:16  produced:6    !! HUB-TYPE → split interface
   AnalysisResult       consumed:19  produced:2    !! HUB-TYPE → split interface
   GenerateContext      consumed:16  produced:0    !! HUB-TYPE → split interface
   Path                 consumed:13  produced:1    !! HUB-TYPE → split interface
@@ -311,15 +311,15 @@ DATA_TYPES (by cross-function usage) [232 annotated, 0 inferred / 237 functions]
   int                  consumed:8   produced:1    input-heavy (read-only flow)
   FunctionInfo         consumed:4   produced:5  
   MarkdownFormatter    consumed:0   produced:8    output-heavy
-  DocstringInfo        consumed:5   produced:1    input-heavy (read-only flow)
   ClassInfo            consumed:3   produced:3  
-  str, bool            consumed:4   produced:1  
+  DocstringInfo        consumed:5   produced:1    input-heavy (read-only flow)
   ProjectDependencies  consumed:0   produced:5    output-heavy
+  str, bool            consumed:4   produced:1  
   str, List[str]       consumed:1   produced:3    narrow scope
   ApiChange            consumed:3   produced:1    narrow scope
   ModuleInfo           consumed:3   produced:0    narrow scope
   Endpoint             consumed:0   produced:3    narrow scope
-  ChangeInfo           consumed:1   produced:1    narrow scope
+  LLMConfig            consumed:1   produced:1    narrow scope
 
   HUB TYPES (consumed ≥10):
     str → 111 consumers → split into:
@@ -345,8 +345,8 @@ SIDE_EFFECTS:
   PIPELINE PURITY:
     Generators      ███░ 75% pure
     Generators      ██░░ 50% pure
-    Analyzers       ███░ 75% pure
     Analyzers       ██░░ 50% pure
+    Analyzers       ███░ 75% pure
     Generators      ████ 100% pure
     Generators      ██░░ 50% pure
     Llm_helper      █░░░ 33% pure

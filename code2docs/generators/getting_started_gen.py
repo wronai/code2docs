@@ -59,6 +59,7 @@ class GettingStartedGenerator:
         dep_scanner = DependencyScanner()
         deps = dep_scanner.scan(self.result.project_path)
         cmd = deps.install_command or f"pip install {self.config.project_name or '.'}"
+        repo_url = self.config.repo_url or "<repository-url>"
         lines = [
             "## Installation\n",
             "```bash",
@@ -66,7 +67,7 @@ class GettingStartedGenerator:
             "```\n",
             "To install from source:\n",
             "```bash",
-            "git clone <repository-url>",
+            f"git clone {repo_url}",
             f"cd {self.config.project_name or 'project'}",
             "pip install -e .",
             "```",
