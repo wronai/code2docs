@@ -108,6 +108,7 @@ class Code2DocsConfig:
     output: str = "./docs/"
     readme_output: str = "./README.md"
     repo_url: str = ""  # GitHub/GitLab URL for source links (auto-detected from git)
+    org_name: str = ""  # Organization name for org-mode README generation
 
     readme: ReadmeConfig = field(default_factory=ReadmeConfig)
     docs: DocsConfig = field(default_factory=DocsConfig)

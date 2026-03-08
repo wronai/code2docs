@@ -1,4 +1,4 @@
-# code2docs | 61f 8365L | python:61
+# code2docs | 61f 8409L | python:61
 # Keys: M=modules, D=details, i=imports, c=classes, f=functions, m=methods
 M[61]:
   code2docs/__init__.py,26
@@ -29,7 +29,7 @@ M[61]:
   code2docs/generators/contributing_gen.py,124
   code2docs/generators/coverage_gen.py,91
   code2docs/generators/depgraph_gen.py,121
-  code2docs/generators/examples_gen.py,338
+  code2docs/generators/examples_gen.py,374
   code2docs/generators/getting_started_gen.py,147
   code2docs/generators/mkdocs_gen.py,75
   code2docs/generators/module_docs_gen.py,171
@@ -186,7 +186,7 @@ D:
   code2docs/generators/examples_gen.py:
     i: code2llm.api.{AnalysisResult,ClassInfo,FunctionInfo},config.Code2DocsConfig,pathlib.Path,typing.{Dict,List,Optional,Set}
     e: _TYPE_EXAMPLES,_ARG_EXAMPLES,ExamplesGenerator
-    ExamplesGenerator: __init__(2),generate_all(0),_generate_quickstart(0),_generate_advanced(0),_detect_package_name(0)  # Generate examples/ — usage examples f...
+    ExamplesGenerator: __init__(2),_get_example_value(1),generate_all(0),_generate_quickstart(0),_generate_advanced(0)  # Generate examples/ — usage examples f...
   code2docs/generators/getting_started_gen.py:
     i: analyzers.dependency_scanner.DependencyScanner,code2llm.api.AnalysisResult,config.Code2DocsConfig,llm_helper.LLMHelper,typing.{List,Optional}
     e: GettingStartedGenerator

@@ -240,6 +240,35 @@ class Code2LlmAdapter(BaseGenerator):
         return "⚠️ project/ (no files generated)"
 
 
+class OrgReadmeAdapter(BaseGenerator):
+    """Adapter for organization README generation."""
+    name = "org_readme"
+
+    def should_run(self, *, readme_only: bool = False) -> bool:
+        # Only run if org_name is set in config
+        return hasattr(self.config, 'org_name') and bool(self.config.org_name)
+
+    def run(self, ctx: GenerateContext) -> Optional[str]:
+        from .org_readme_gen import OrgReadmeGenerator
+        
+        org_name = getattr(self.config, 'org_name', '')
+        if not org_name:
+            return None
+            
+        gen = OrgReadmeGenerator(self.config, str(ctx.project), org_name)
+        content = gen.generate()
+        
+        if ctx.dry_run:
+            click.echo(f"\n--- {org_name} README ({len(content)} chars) ---")
+            preview = content[:500] + "..." if len(content) > 500 else content
+            click.echo(preview)
+            return None
+        
+        readme_path = ctx.docs_dir / "README.md"
+        gen.write(str(readme_path), content)
+        return f"✅ {readme_path.relative_to(ctx.project)}"
+
+
 ALL_ADAPTERS = [
     ReadmeGeneratorAdapter,
     ApiReferenceAdapter,
@@ -254,4 +283,5 @@ ALL_ADAPTERS = [
     ContributingAdapter,
     MkDocsAdapter,
     Code2LlmAdapter,
+    OrgReadmeAdapter,
 ]

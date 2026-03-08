@@ -3,16 +3,16 @@ project:
   name: code2docs
   repo: /home/tom/github/wronai/code2docs
   language: python
-  analyzed_at: '2026-03-08T08:46:01Z'
+  analyzed_at: '2026-03-08T08:50:38Z'
   tool: code2llm
   stats:
     files: 33
-    lines: 6646
-    functions: 238
+    lines: 6690
+    functions: 240
     classes: 54
 health:
-  cc_avg: 4.1
-  critical_count: 22
+  cc_avg: 4.2
+  critical_count: 24
   critical_limit: 10
   duplicates: 0
   cycles: 1
@@ -179,23 +179,25 @@ modules:
       flag: split
       fan_out: 16
 - path: code2docs/generators/examples_gen.py
-  lines: 399
+  lines: 443
   classes: 1
-  methods: 14
+  methods: 15
   cc_max: 22
   inbound_deps: 0
   exports:
   - name: ExamplesGenerator
     type: class
-    cc_avg: 5.6
+    cc_avg: 6.1
     methods:
     - name: _generate_quickstart
-      cc: 9
-      fan_out: 10
+      cc: 13
+      fan_out: 11
     - name: _generate_advanced
       cc: 22
       flag: split
       fan_out: 11
+    - name: _example_from_type
+      cc: 11
 - path: code2docs/generators/code2llm_gen.py
   lines: 206
   classes: 1
@@ -566,13 +568,13 @@ modules:
 - path: code2docs/generators/mkdocs_gen.py
   lines: 110
   classes: 1
-  methods: 4
+  methods: 5
   cc_max: 5
   inbound_deps: 0
   exports:
   - name: MkDocsGenerator
     type: class
-    cc_avg: 2.2
+    cc_avg: 3.2
 - path: code2docs/sync/watcher.py
   lines: 75
   classes: 0
@@ -761,7 +763,7 @@ refactoring:
     effort: medium
 evolution:
 - date: '2026-03-08'
-  cc_avg: 4.1
-  critical: 22
-  lines: 6646
+  cc_avg: 4.2
+  critical: 24
+  lines: 6690
   note: Automated analysis

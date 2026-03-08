@@ -40,8 +40,9 @@ def main():
 @click.option("--dry-run", is_flag=True, help="Show what would be generated without writing")
 @click.option("--llm", "llm_model", default=None,
               help="Enable LLM-assisted generation (e.g. openai/gpt-4o-mini, ollama/llama3)")
+@click.option("--org-name", default=None, help="Organization name for org-mode README generation")
 def generate(project_path, config_path, readme_only, sections, output, verbose, dry_run,
-             llm_model):
+             llm_model, org_name):
     """Generate documentation (default command)."""
     config = _load_config(project_path, config_path)
     if verbose:
@@ -53,6 +54,8 @@ def generate(project_path, config_path, readme_only, sections, output, verbose, 
     if llm_model:
         config.llm.enabled = True
         config.llm.model = llm_model
+    if org_name:
+        config.org_name = org_name
 
     _run_generate(project_path, config, readme_only=readme_only, dry_run=dry_run)
 
