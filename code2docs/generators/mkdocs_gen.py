@@ -1,7 +1,7 @@
 """MkDocs configuration generator — auto-generate mkdocs.yml from docs tree."""
 
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 import yaml
 
@@ -22,11 +22,14 @@ class MkDocsGenerator:
         project_name = self.config.project_name or "Project"
         nav = self._build_nav(docs_dir)
 
+        # Read MkDocs config from pyproject.toml if available
+        mkdocs_config = self._read_pyproject_mkdocs()
+
         data = {
             "site_name": f"{project_name} Documentation",
-            "theme": {"name": "material"},
+            "theme": mkdocs_config.get("theme", {"name": "material"}),
             "nav": nav,
-            "markdown_extensions": [
+            "markdown_extensions": mkdocs_config.get("markdown_extensions", [
                 "admonition",
                 "pymdownx.highlight",
                 "pymdownx.superfences",
@@ -37,9 +40,46 @@ class MkDocsGenerator:
                         "format": "!!python/name:pymdownx.superfences.fence_code_format",
                     }]
                 }},
-            ],
+            ]),
         }
+
+        # Add extra fields from pyproject.toml if present
+        for key in ["extra_css", "extra_javascript", "plugins", "copyright"]:
+            if key in mkdocs_config:
+                data[key] = mkdocs_config[key]
+
         return yaml.dump(data, default_flow_style=False, sort_keys=False)
+
+    def _read_pyproject_mkdocs(self) -> Dict[str, Any]:
+        """Read MkDocs configuration from [tool.mkdocs] in pyproject.toml."""
+        project_path = Path(self.result.project_path)
+        pyproject_path = project_path / "pyproject.toml"
+
+        if not pyproject_path.exists():
+            # Also check parent directory (for nested packages)
+            pyproject_path = project_path.parent / "pyproject.toml"
+
+        if not pyproject_path.exists():
+            return {}
+
+        try:
+            import tomllib
+            with open(pyproject_path, "rb") as f:
+                data = tomllib.load(f)
+
+            # Support both [tool.mkdocs] and [tool.poetry.plugins.mkdocs] formats
+            tool_data = data.get("tool", {})
+            mkdocs_data = tool_data.get("mkdocs", {})
+
+            # Also check for poetry-style config
+            if not mkdocs_data:
+                poetry = tool_data.get("poetry", {})
+                plugins = poetry.get("plugins", {})
+                mkdocs_data = plugins.get("mkdocs", {})
+
+            return mkdocs_data
+        except Exception:
+            return {}
 
     def _build_nav(self, docs_dir: Optional[str] = None) -> List:
         """Build navigation structure from docs tree and analysis."""

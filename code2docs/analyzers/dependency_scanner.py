@@ -32,6 +32,11 @@ class ProjectDependencies:
     optional_groups: Dict[str, List[DependencyInfo]] = field(default_factory=dict)
     install_command: str = "pip install ."
     source_file: str = ""
+    # Additional metadata from pyproject.toml
+    keywords: List[str] = field(default_factory=list)
+    classifiers: List[str] = field(default_factory=list)
+    urls: Dict[str, str] = field(default_factory=dict)
+    version: str = ""
 
 
 class DependencyScanner:
@@ -76,6 +81,10 @@ class DependencyScanner:
 
         project = data.get("project", {})
         deps.python_version = project.get("requires-python", "")
+        deps.version = project.get("version", "")
+        deps.keywords = project.get("keywords", [])
+        deps.classifiers = project.get("classifiers", [])
+        deps.urls = project.get("urls", {})
 
         # Main dependencies
         for dep_str in project.get("dependencies", []):
@@ -95,6 +104,9 @@ class DependencyScanner:
         name = project.get("name", "")
         if name:
             deps.install_command = f"pip install {name}"
+
+        # Detect version with fallback to git tags or VERSION file
+        deps.version = self._detect_version(path.parent, deps.version)
 
         return deps
 
@@ -157,3 +169,29 @@ class DependencyScanner:
                 version_spec=match.group(2).strip(),
             )
         return DependencyInfo(name=dep_str.strip())
+
+    def _detect_version(self, project_path: Path, pyproject_version: str = "") -> str:
+        """Detect version from pyproject.toml, git tags, or VERSION file."""
+        # Priority 1: pyproject.toml version
+        if pyproject_version:
+            return pyproject_version
+
+        # Priority 2: VERSION file
+        version_file = project_path / "VERSION"
+        if version_file.exists():
+            return version_file.read_text(encoding="utf-8").strip()
+
+        # Priority 3: git tags (latest tag)
+        try:
+            import subprocess
+            result = subprocess.run(
+                ["git", "describe", "--tags", "--abbrev=0"],
+                cwd=str(project_path),
+                capture_output=True, text=True, timeout=5,
+            )
+            if result.returncode == 0:
+                return result.stdout.strip().lstrip("v")
+        except (subprocess.TimeoutExpired, FileNotFoundError):
+            pass
+
+        return ""

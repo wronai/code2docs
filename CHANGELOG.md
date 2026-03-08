@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.4] - 2026-03-08
+
+### Docs
+- Update project/README.md
+- Update project/context.md
+
+### Test
+- Update tests/project/dashboard.html
+- Update tests/project/project.yaml
+
+### Other
+- Update code2docs/analyzers/dependency_scanner.py
+- Update code2docs/generators/examples_gen.py
+- Update code2docs/generators/mkdocs_gen.py
+- Update project/analysis.json
+- Update project/analysis.toon
+- Update project/analysis.yaml
+- Update project/calls.mmd
+- Update project/compact_flow.mmd
+- Update project/dashboard.html
+- Update project/evolution.toon
+- ... and 5 more files
+
 ## [3.0.3] - 2026-03-08
 
 ### Docs

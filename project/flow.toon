@@ -1,4 +1,4 @@
-# code2docs/flow | 277 func | 12 pipelines | 6 hub-types | 2026-03-08
+# code2docs/flow | 278 func | 12 pipelines | 6 hub-types | 2026-03-08
 
 PIPELINES[12] (Analysis:2, Core:4, Export:3, IO:2, Unknown:1):
   Code2docs [Export]: ? → str
@@ -22,12 +22,12 @@ PIPELINES[12] (Analysis:2, Core:4, Export:3, IO:2, Unknown:1):
               → _find_class_by_name(name:str) → Optional[ClassInfo] CC=3    pure ■
               PURITY: 2/4 pure  BOTTLENECK: _generate_advanced(CC=22)
 
-  Code2docs [Analysis]: str → DependencyInfo
-              → scan(project_path:str) → ProjectDependencies CC=4    pure ▶
-              → _parse_pyproject(path:Path) → ProjectDependencies CC=8    IO
-              → _parse_pyproject_regex(path:Path) → ProjectDependencies CC=4    IO
-              → _parse_dep_string(dep_str:str) → DependencyInfo CC=2    pure ■
-              PURITY: 2/4 pure  BOTTLENECK: _parse_pyproject(CC=8)
+  Code2docs [Analysis]: AnalysisResult → Optional[str]
+              → extract_all(result:AnalysisResult) → Dict[str, DocstringInfo] CC=5    pure ▶
+              → parse(docstring:str) → DocstringInfo    CC=2    pure
+              → _parse_sections(lines:List[str], info:DocstringInfo) → None CC=8    mutation
+              → _classify_section(line:str) → Optional[str] CC=5    pure ■
+              PURITY: 3/4 pure  BOTTLENECK: _parse_sections(CC=8)
 
   Code2docs [IO]: ? → Optional[str]
               → generate() → str                        CC=3    pure ▶
@@ -36,12 +36,12 @@ PIPELINES[12] (Analysis:2, Core:4, Export:3, IO:2, Unknown:1):
               → _make_badge(badge_type:str, project_name:str, stats:Dict, deps) → Optional[str] CC=11   pure ■
               PURITY: 3/4 pure  BOTTLENECK: _build_context(CC=12)
 
-  Code2docs [Analysis]: AnalysisResult → Optional[str]
-              → extract_all(result:AnalysisResult) → Dict[str, DocstringInfo] CC=5    pure ▶
-              → parse(docstring:str) → DocstringInfo    CC=2    pure
-              → _parse_sections(lines:List[str], info:DocstringInfo) → None CC=8    mutation
-              → _classify_section(line:str) → Optional[str] CC=5    pure ■
-              PURITY: 3/4 pure  BOTTLENECK: _parse_sections(CC=8)
+  Code2docs [Analysis]: str → DependencyInfo
+              → scan(project_path:str) → ProjectDependencies CC=4    pure ▶
+              → _parse_pyproject(path:Path) → ProjectDependencies CC=8    IO
+              → _parse_pyproject_regex(path:Path) → ProjectDependencies CC=4    IO
+              → _parse_dep_string(dep_str:str) → DependencyInfo CC=2    pure ■
+              PURITY: 2/4 pure  BOTTLENECK: _parse_pyproject(CC=8)
 
   Code2docs [IO]: ? → Optional[FunctionInfo]
               → generate_all() → Dict[str, str]         CC=1    pure ▶
@@ -160,23 +160,22 @@ CONTRACTS:
       OUT: Optional[ClassInfo]
 
   Pipeline: Code2docs
-    scan(project_path:str) → ProjectDependencies
-      IN:  project_path:str
-      OUT: ProjectDependencies
+    extract_all(result:AnalysisResult) → Dict[str, DocstringInfo]
+      IN:  result:AnalysisResult
+      OUT: Dict[str, DocstringInfo]
 
-    _parse_pyproject(path:Path) → ProjectDependencies
-      IN:  path:Path
-      OUT: ProjectDependencies
-      SIDE-EFFECT: IO(open, load)
+    parse(docstring:str) → DocstringInfo
+      IN:  docstring:str
+      OUT: DocstringInfo
 
-    _parse_pyproject_regex(path:Path) → ProjectDependencies
-      IN:  path:Path
-      OUT: ProjectDependencies
-      SIDE-EFFECT: IO(read_text)
+    _parse_sections(lines:List[str], info:DocstringInfo) → None
+      IN:  lines:List[str], info:DocstringInfo
+      OUT: None
+      SIDE-EFFECT: pure
 
-    _parse_dep_string(dep_str:str) → DependencyInfo
-      IN:  dep_str:str
-      OUT: DependencyInfo
+    _classify_section(line:str) → Optional[str]
+      IN:  line:str
+      OUT: Optional[str]
 
   Pipeline: Code2docs
     generate() → str
@@ -197,22 +196,23 @@ CONTRACTS:
       OUT: Optional[str]
 
   Pipeline: Code2docs
-    extract_all(result:AnalysisResult) → Dict[str, DocstringInfo]
-      IN:  result:AnalysisResult
-      OUT: Dict[str, DocstringInfo]
+    scan(project_path:str) → ProjectDependencies
+      IN:  project_path:str
+      OUT: ProjectDependencies
 
-    parse(docstring:str) → DocstringInfo
-      IN:  docstring:str
-      OUT: DocstringInfo
+    _parse_pyproject(path:Path) → ProjectDependencies
+      IN:  path:Path
+      OUT: ProjectDependencies
+      SIDE-EFFECT: IO(open, load)
 
-    _parse_sections(lines:List[str], info:DocstringInfo) → None
-      IN:  lines:List[str], info:DocstringInfo
-      OUT: None
-      SIDE-EFFECT: pure
+    _parse_pyproject_regex(path:Path) → ProjectDependencies
+      IN:  path:Path
+      OUT: ProjectDependencies
+      SIDE-EFFECT: IO(read_text)
 
-    _classify_section(line:str) → Optional[str]
-      IN:  line:str
-      OUT: Optional[str]
+    _parse_dep_string(dep_str:str) → DependencyInfo
+      IN:  dep_str:str
+      OUT: DependencyInfo
 
   Pipeline: Code2docs
     generate_all() → Dict[str, str]
@@ -309,30 +309,30 @@ CONTRACTS:
       OUT: Optional[str]
 
 
-DATA_TYPES (by cross-function usage) [272 annotated, 0 inferred / 277 functions]:
-  str                  consumed:136 produced:111  !! HUB-TYPE → split interface
+DATA_TYPES (by cross-function usage) [273 annotated, 0 inferred / 278 functions]:
+  str                  consumed:137 produced:112  !! HUB-TYPE → split interface
   Code2DocsConfig      consumed:30  produced:5    !! HUB-TYPE → split interface
   AnalysisResult       consumed:23  produced:2    !! HUB-TYPE → split interface
   bool                 consumed:6   produced:18 
   Dict                 consumed:16  produced:6    !! HUB-TYPE → split interface
   GenerateContext      consumed:16  produced:0    !! HUB-TYPE → split interface
-  Path                 consumed:13  produced:1    !! HUB-TYPE → split interface
-  int                  consumed:9   produced:1    input-heavy (read-only flow)
+  Path                 consumed:14  produced:1    !! HUB-TYPE → split interface
   str, str             consumed:4   produced:6  
+  int                  consumed:9   produced:1    input-heavy (read-only flow)
   FunctionInfo         consumed:4   produced:5  
   MarkdownFormatter    consumed:0   produced:8    output-heavy
-  ClassInfo            consumed:3   produced:3  
   DocstringInfo        consumed:5   produced:1    input-heavy (read-only flow)
-  ProjectDependencies  consumed:0   produced:5    output-heavy
+  ClassInfo            consumed:3   produced:3  
   str, bool            consumed:4   produced:1  
   str, List[str]       consumed:1   produced:4  
+  ProjectDependencies  consumed:0   produced:5    output-heavy
   ApiChange            consumed:3   produced:1    narrow scope
   str, int             consumed:3   produced:1    narrow scope
-  dict                 consumed:0   produced:3    narrow scope
+  ModuleInfo           consumed:3   produced:0    narrow scope
   ChangeInfo           consumed:1   produced:2    narrow scope
 
   HUB TYPES (consumed ≥10):
-    str → 136 consumers → split into:
+    str → 137 consumers → split into:
       - (analyze consumers to suggest sub-interfaces)
     Code2DocsConfig → 30 consumers → split into:
       - (analyze consumers to suggest sub-interfaces)
@@ -344,7 +344,7 @@ DATA_TYPES (by cross-function usage) [272 annotated, 0 inferred / 277 functions]
       - (analyze consumers to suggest sub-interfaces)
     GenerateContext → 16 consumers → split into:
       - (analyze consumers to suggest sub-interfaces)
-    Path → 13 consumers → split into:
+    Path → 14 consumers → split into:
       - (analyze consumers to suggest sub-interfaces)
 
 SIDE_EFFECTS:
@@ -356,9 +356,9 @@ SIDE_EFFECTS:
     Code2docs       █░░░ 25% pure
     Code2docs       █░░░ 25% pure
     Code2docs       ██░░ 50% pure
+    Code2docs       ███░ 75% pure
+    Code2docs       ███░ 75% pure
     Code2docs       ██░░ 50% pure
-    Code2docs       ███░ 75% pure
-    Code2docs       ███░ 75% pure
     Code2docs       ██░░ 50% pure
     Code2docs       █░░░ 33% pure
     Code2docs       █░░░ 33% pure

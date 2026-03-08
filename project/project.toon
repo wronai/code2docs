@@ -1,10 +1,10 @@
-# code2docs | 61f 8279L | python:61
+# code2docs | 61f 8365L | python:61
 # Keys: M=modules, D=details, i=imports, c=classes, f=functions, m=methods
 M[61]:
   code2docs/__init__.py,26
   code2docs/__main__.py,4
   code2docs/analyzers/__init__.py,11
-  code2docs/analyzers/dependency_scanner.py,117
+  code2docs/analyzers/dependency_scanner.py,145
   code2docs/analyzers/docstring_extractor.py,114
   code2docs/analyzers/endpoint_detector.py,91
   code2docs/analyzers/project_scanner.py,30
@@ -18,7 +18,7 @@ M[61]:
   code2docs/formatters/markdown.py,57
   code2docs/formatters/toc.py,47
   code2docs/generators/__init__.py,48
-  code2docs/generators/_registry_adapters.py,191
+  code2docs/generators/_registry_adapters.py,196
   code2docs/generators/_source_links.py,60
   code2docs/generators/api_changelog_gen.py,165
   code2docs/generators/api_reference_gen.py,136
@@ -26,12 +26,12 @@ M[61]:
   code2docs/generators/changelog_gen.py,98
   code2docs/generators/code2llm_gen.py,148
   code2docs/generators/config_docs_gen.py,109
-  code2docs/generators/contributing_gen.py,123
+  code2docs/generators/contributing_gen.py,124
   code2docs/generators/coverage_gen.py,91
   code2docs/generators/depgraph_gen.py,121
   code2docs/generators/examples_gen.py,338
-  code2docs/generators/getting_started_gen.py,146
-  code2docs/generators/mkdocs_gen.py,50
+  code2docs/generators/getting_started_gen.py,147
+  code2docs/generators/mkdocs_gen.py,75
   code2docs/generators/module_docs_gen.py,171
   code2docs/generators/readme_gen.py,381
   code2docs/llm_helper.py,138
@@ -192,9 +192,9 @@ D:
     e: GettingStartedGenerator
     GettingStartedGenerator: __init__(2),generate(0),_render_prerequisites(0),_render_installation(0),_render_first_usage(0)  # Generate docs/getting-started.md from...
   code2docs/generators/mkdocs_gen.py:
-    i: yaml,code2llm.api.AnalysisResult,config.Code2DocsConfig,pathlib.Path,typing.{Dict,List,Optional}
+    i: yaml,code2llm.api.AnalysisResult,config.Code2DocsConfig,pathlib.Path,typing.{Any,Dict,List,Optional}
     e: MkDocsGenerator
-    MkDocsGenerator: __init__(2),generate(1),_build_nav(1),write(2)  # Generate mkdocs.yml from the docs/ di...
+    MkDocsGenerator: __init__(2),generate(1),_read_pyproject_mkdocs(0),_build_nav(1),write(2)  # Generate mkdocs.yml from the docs/ di...
   code2docs/generators/module_docs_gen.py:
     i: ast,code2llm.api.{AnalysisResult,ClassInfo,FunctionInfo,ModuleInfo},collections.defaultdict,config.Code2DocsConfig,pathlib.Path,typing.{Dict,List}
     e: ModuleDocsGenerator

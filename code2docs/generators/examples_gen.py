@@ -59,6 +59,44 @@ class ExamplesGenerator:
         self.result = result
         self._pkg = self._detect_package_name()
 
+    def _get_example_value(self, arg_name: str) -> str:
+        """Get realistic example value based on actual project config."""
+        project_name = self.config.project_name or Path(self.result.project_path).name
+        
+        # Map argument names to actual config values
+        arg_mappings = {
+            "project_path": f'"./{project_name}"',
+            "path": f'"./{project_name}"',
+            "source": f'"{self.config.source}"' if self.config.source else '"./src"',
+            "output": f'"{self.config.output}"' if self.config.output else '"./docs"',
+            "output_dir": f'"{self.config.output}"' if self.config.output else '"./docs"',
+            "output_path": f'"{self.config.readme_output}"' if self.config.readme_output else '"./docs/README.md"',
+            "config": "config",
+            "config_path": '"code2docs.yaml"',
+            "result": "result",
+            "name": f'"{project_name}"',
+            "project_name": f'"{project_name}"',
+            "verbose": "True",
+            "dry_run": "False",
+            "readme_only": "False",
+            "sections": '["overview", "install", "quickstart"]',
+            "content": '"# My Doc\\n## Section"',
+            "markdown_content": '"# My Doc\\n## Section"',
+            "max_depth": "3",
+            "target": "80",
+            "badge_types": '["version", "python"]',
+            "stats": "{}",
+            "deps": "[]",
+            "sync_markers": "True",
+            "docstring": '"""My function docstring."""',
+        }
+        
+        if arg_name in arg_mappings:
+            return arg_mappings[arg_name]
+        
+        # Fallback to original static examples
+        return _ARG_EXAMPLES.get(arg_name, '"..."')
+
     def generate_all(self) -> Dict[str, str]:
         """Generate all example files. Returns {filename: content}."""
         files: Dict[str, str] = {}
@@ -100,15 +138,18 @@ class ExamplesGenerator:
 
         # --- Example 1: Config (define first so later examples can use it) ---
         config_cls = self._find_class_by_name("Code2DocsConfig")
+        project_name = self.config.project_name or Path(self.result.project_path).name
+        source = self.config.source or "./"
+        output = self.config.output or "./docs"
         if config_cls:
             lines.append('# ' + '=' * 50)
             lines.append("# Example 1: Configuration")
             lines.append('# ' + '=' * 50)
             lines.append("")
             lines.append(f"config = {config_cls.name}(")
-            lines.append('    project_name="my-project",')
-            lines.append('    source="./src",')
-            lines.append('    output="./docs",')
+            lines.append(f'    project_name="{project_name}",')
+            lines.append(f'    source="{source}",')
+            lines.append(f'    output="{output}",')
             lines.append("    verbose=True,")
             lines.append(")")
             lines.append("")
@@ -119,20 +160,22 @@ class ExamplesGenerator:
         lines.append("# Example 2: Generate documentation")
         lines.append('# ' + '=' * 50)
         lines.append("")
+        
+        project_path = f'"./{project_name}"' if project_name != "." else '"./"'
 
         gen_func = self._find_function_by_name("generate_readme")
         if gen_func:
             lines.append("# Generate a README for your project")
-            lines.append('generate_readme("./my-project", output="README.md")')
+            lines.append(f'generate_readme({project_path}, output="README.md")')
             lines.append("")
 
         docs_func = self._find_function_by_name("generate_docs")
         if docs_func:
             lines.append("# Generate all documentation")
             if config_cls:
-                lines.append('docs = generate_docs("./my-project", config=config)')
+                lines.append(f'docs = generate_docs({project_path}, config=config)')
             else:
-                lines.append('docs = generate_docs("./my-project")')
+                lines.append(f'docs = generate_docs({project_path})')
             lines.append('print(f"Generated {len(docs)} documentation sections")')
             lines.append("")
 
@@ -147,7 +190,7 @@ class ExamplesGenerator:
             lines.append(f"from {pkg}.analyzers.project_scanner import ProjectScanner")
             lines.append("")
             lines.append("scanner = ProjectScanner(config)")
-            lines.append('result = scanner.analyze("./my-project")')
+            lines.append(f'result = scanner.analyze({project_path})')
             lines.append("")
             lines.append('print(f"Found {len(result.functions)} functions")')
             lines.append('print(f"Found {len(result.classes)} classes")')
@@ -191,7 +234,7 @@ class ExamplesGenerator:
             lines.append("# Step 1: Analyze the project")
             lines.append("config = Code2DocsConfig(project_name=\"my-project\")")
             lines.append("scanner = ProjectScanner(config)")
-            lines.append('result = scanner.analyze("./my-project")')
+            lines.append('result = scanner.analyze(f"./${project_name_adv}") if project_name_adv != "." else result = scanner.analyze("./")')
             lines.append("")
 
             for i, cls in enumerate(gen_classes[:4], start=2):
@@ -351,8 +394,8 @@ class ExamplesGenerator:
         args = [a for a in func.args if a not in ("self", "cls")]
         parts = []
         for arg in args[:5]:
-            val = _ARG_EXAMPLES.get(arg)
-            if not val:
+            val = self._get_example_value(arg)
+            if not val or val == '"..."':
                 # Try type hint
                 val = self._example_from_type(func, arg)
             if not val:
@@ -360,17 +403,18 @@ class ExamplesGenerator:
             parts.append(f"{arg}={val}" if len(args) > 1 else val)
         return ", ".join(parts)
 
-    @staticmethod
-    def _example_from_type(func: FunctionInfo, arg: str) -> Optional[str]:
+    def _example_from_type(self, func: FunctionInfo, arg: str) -> Optional[str]:
         """Try to infer example value from type annotation."""
+        project_name = self.config.project_name or Path(self.result.project_path).name
+        
         # FunctionInfo.returns gives return type, but arg types
         # are not always available; use naming heuristics
         if "path" in arg.lower():
-            return '"./my-project"'
+            return f'"./{project_name}"'
         if "name" in arg.lower():
-            return '"my-project"'
+            return f'"{project_name}"'
         if "dir" in arg.lower():
-            return '"./docs"'
+            return f'"{self.config.output}"' if self.config.output else '"./docs"'
         if arg.startswith("is_") or arg.startswith("enable"):
             return "True"
         if "count" in arg.lower() or "max" in arg.lower() or "min" in arg.lower():

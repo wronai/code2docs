@@ -3,12 +3,12 @@ project:
   name: code2docs
   repo: /home/tom/github/wronai/code2docs
   language: python
-  analyzed_at: '2026-03-08T08:38:39Z'
+  analyzed_at: '2026-03-08T08:46:01Z'
   tool: code2llm
   stats:
     files: 33
-    lines: 6560
-    functions: 237
+    lines: 6646
+    functions: 238
     classes: 54
 health:
   cc_avg: 4.1
@@ -219,7 +219,7 @@ modules:
     type: function
     cc: 2
 - path: code2docs/generators/getting_started_gen.py
-  lines: 166
+  lines: 167
   classes: 1
   methods: 8
   cc_max: 16
@@ -227,7 +227,7 @@ modules:
   exports:
   - name: GettingStartedGenerator
     type: class
-    cc_avg: 5.8
+    cc_avg: 5.9
     methods:
     - name: _render_first_usage
       cc: 15
@@ -384,9 +384,9 @@ modules:
     type: class
     cc_avg: 3.9
 - path: code2docs/analyzers/dependency_scanner.py
-  lines: 159
+  lines: 197
   classes: 3
-  methods: 6
+  methods: 7
   cc_max: 8
   inbound_deps: 0
   exports:
@@ -398,7 +398,11 @@ modules:
     cc_avg: 0.0
   - name: DependencyScanner
     type: class
-    cc_avg: 4.5
+    cc_avg: 4.6
+    methods:
+    - name: _parse_pyproject
+      cc: 8
+      fan_out: 10
 - path: code2docs/analyzers/docstring_extractor.py
   lines: 140
   classes: 2
@@ -413,7 +417,7 @@ modules:
     type: class
     cc_avg: 3.5
 - path: code2docs/generators/contributing_gen.py
-  lines: 136
+  lines: 137
   classes: 1
   methods: 8
   cc_max: 8
@@ -421,9 +425,9 @@ modules:
   exports:
   - name: ContributingGenerator
     type: class
-    cc_avg: 2.5
+    cc_avg: 2.6
 - path: code2docs/generators/_registry_adapters.py
-  lines: 251
+  lines: 257
   classes: 13
   methods: 26
   cc_max: 7
@@ -431,7 +435,7 @@ modules:
   exports:
   - name: ReadmeGeneratorAdapter
     type: class
-    cc_avg: 2.0
+    cc_avg: 2.5
   - name: ApiReferenceAdapter
     type: class
     cc_avg: 2.0
@@ -560,7 +564,7 @@ modules:
     type: class
     cc_avg: 3.0
 - path: code2docs/generators/mkdocs_gen.py
-  lines: 70
+  lines: 110
   classes: 1
   methods: 4
   cc_max: 5
@@ -759,5 +763,5 @@ evolution:
 - date: '2026-03-08'
   cc_avg: 4.1
   critical: 22
-  lines: 6560
+  lines: 6646
   note: Automated analysis
