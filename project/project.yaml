@@ -3,23 +3,43 @@ project:
   name: code2docs
   repo: /home/tom/github/wronai/code2docs
   language: python
-  analyzed_at: '2026-03-07T19:43:02Z'
+  analyzed_at: '2026-03-08T07:09:27Z'
   tool: code2llm
   stats:
-    files: 24
-    lines: 4083
-    functions: 154
-    classes: 30
+    files: 32
+    lines: 6275
+    functions: 229
+    classes: 51
 health:
-  cc_avg: 4.4
-  critical_count: 16
+  cc_avg: 4.0
+  critical_count: 19
   critical_limit: 10
   duplicates: 0
   cycles: 1
   alerts:
+  - type: cc_exceeded
+    target: ReadmeGenerator._extract_project_metadata
+    value: 29
+    limit: 15
+    severity: critical
+  - type: cc_exceeded
+    target: ModuleDocsGenerator._render_module_detail
+    value: 25
+    limit: 15
+    severity: critical
+  - type: cc_exceeded
+    target: ApiReferenceGenerator._render_module_section
+    value: 25
+    limit: 15
+    severity: critical
   - type: high_fan_out
-    target: _run_generate
-    value: 34
+    target: _run_check
+    value: 24
+    limit: 10
+    severity: critical
+  - type: high_fan_out
+    target: ReadmeGenerator._extract_project_metadata
+    value: 23
     limit: 10
     severity: critical
   - type: high_fan_out
@@ -28,27 +48,62 @@ health:
     limit: 10
     severity: critical
   - type: high_fan_out
-    target: Updater.apply
-    value: 20
+    target: ApiReferenceGenerator._render_module_section
+    value: 21
     limit: 10
     severity: critical
+  - type: cc_exceeded
+    target: ExamplesGenerator._generate_advanced
+    value: 22
+    limit: 15
+    severity: error
+  - type: high_fan_out
+    target: ModuleDocsGenerator.generate
+    value: 19
+    limit: 10
+    severity: error
+  - type: high_fan_out
+    target: ReadmeGenerator._build_context
+    value: 17
+    limit: 10
+    severity: error
   - type: high_fan_out
     target: Code2DocsConfig.from_yaml
-    value: 15
+    value: 17
+    limit: 10
+    severity: error
+  - type: high_fan_out
+    target: Updater.apply
+    value: 16
+    limit: 10
+    severity: error
+  - type: high_fan_out
+    target: ModuleDocsGenerator._render_module_detail
+    value: 16
+    limit: 10
+    severity: error
+  - type: high_fan_out
+    target: _run_generate
+    value: 16
+    limit: 10
+    severity: error
+  - type: high_fan_out
+    target: ArchitectureGenerator.generate
+    value: 16
     limit: 10
     severity: error
   - type: cc_exceeded
-    target: CoverageGenerator._render_per_module
+    target: ModuleDocsGenerator.generate
     value: 18
     limit: 15
     severity: warning
   - type: cc_exceeded
-    target: _run_generate
-    value: 17
+    target: GettingStartedGenerator._generate_intro
+    value: 16
     limit: 15
     severity: warning
   - type: cc_exceeded
-    target: DocstringExtractor._parse_sections
+    target: GettingStartedGenerator._render_first_usage
     value: 15
     limit: 15
     severity: warning
@@ -58,99 +113,106 @@ health:
     limit: 10
     severity: warning
   - type: high_fan_out
-    target: generate_docs
+    target: ConfigDocsGenerator._render_section
     value: 11
-    limit: 10
-    severity: warning
-  - type: high_fan_out
-    target: ApiReferenceGenerator._render_api_classes
-    value: 11
-    limit: 10
-    severity: warning
-  - type: high_fan_out
-    target: ArchitectureGenerator.generate
-    value: 11
-    limit: 10
-    severity: warning
-  - type: high_fan_out
-    target: DocstringExtractor._parse_sections
-    value: 11
-    limit: 10
-    severity: warning
-  - type: high_fan_out
-    target: Differ.detect_changes
-    value: 10
-    limit: 10
-    severity: warning
-  - type: high_fan_out
-    target: init
-    value: 10
-    limit: 10
-    severity: warning
-  - type: high_fan_out
-    target: EndpointDetector._scan_django_urls
-    value: 10
     limit: 10
     severity: warning
 modules:
-- path: code2docs/generators/coverage_gen.py
-  lines: 85
+- path: code2docs/generators/readme_gen.py
+  lines: 463
   classes: 1
-  methods: 5
-  cc_max: 18
+  methods: 18
+  cc_max: 29
+  inbound_deps: 1
+  exports:
+  - name: ReadmeGenerator
+    type: class
+    cc_avg: 5.9
+    methods:
+    - name: _build_context
+      cc: 12
+      fan_out: 17
+    - name: _extract_project_metadata
+      cc: 29
+      flag: split
+      fan_out: 23
+  - name: generate_readme
+    type: function
+    cc: 3
+- path: code2docs/generators/api_reference_gen.py
+  lines: 163
+  classes: 1
+  methods: 7
+  cc_max: 25
   inbound_deps: 0
   exports:
-  - name: CoverageGenerator
+  - name: ApiReferenceGenerator
     type: class
-    cc_avg: 6.4
+    cc_avg: 8.7
     methods:
-    - name: _render_per_module
+    - name: generate
+      cc: 11
+      fan_out: 11
+    - name: _has_content
+      cc: 10
+    - name: _render_module_section
+      cc: 25
+      flag: split
+      fan_out: 21
+- path: code2docs/generators/module_docs_gen.py
+  lines: 198
+  classes: 1
+  methods: 9
+  cc_max: 25
+  inbound_deps: 0
+  exports:
+  - name: ModuleDocsGenerator
+    type: class
+    cc_avg: 8.0
+    methods:
+    - name: generate
       cc: 18
       flag: split
-- path: code2docs/cli.py
-  lines: 269
+      fan_out: 19
+    - name: _render_module_detail
+      cc: 25
+      flag: split
+      fan_out: 16
+- path: code2docs/generators/examples_gen.py
+  lines: 399
   classes: 1
-  methods: 10
-  cc_max: 17
+  methods: 14
+  cc_max: 22
   inbound_deps: 0
   exports:
-  - name: DefaultGroup
+  - name: ExamplesGenerator
     type: class
-    cc_avg: 4.0
-  - name: main
-    type: function
-    cc: 1
-  - name: generate
-    type: function
-    cc: 5
-  - name: sync
-    type: function
-    cc: 2
-  - name: watch
-    type: function
-    cc: 2
-  - name: init
-    type: function
-    cc: 1
-    fan_out: 10
-- path: code2docs/analyzers/docstring_extractor.py
-  lines: 119
-  classes: 2
-  methods: 6
-  cc_max: 15
-  inbound_deps: 0
-  exports:
-  - name: DocstringInfo
-    type: class
-    cc_avg: 0.0
-  - name: DocstringExtractor
-    type: class
-    cc_avg: 6.2
+    cc_avg: 5.6
     methods:
-    - name: _parse_sections
-      cc: 15
+    - name: _generate_quickstart
+      cc: 9
+      fan_out: 10
+    - name: _generate_advanced
+      cc: 22
       flag: split
       fan_out: 11
+- path: code2docs/generators/getting_started_gen.py
+  lines: 166
+  classes: 1
+  methods: 8
+  cc_max: 16
+  inbound_deps: 0
+  exports:
+  - name: GettingStartedGenerator
+    type: class
+    cc_avg: 5.8
+    methods:
+    - name: _render_first_usage
+      cc: 15
+      flag: split
+    - name: _generate_intro
+      cc: 16
+      flag: split
 - path: code2docs/generators/api_changelog_gen.py
   lines: 196
   classes: 2
@@ -172,92 +234,120 @@ modules:
       fan_out: 12
     - name: _render
       cc: 14
-- path: code2docs/generators/api_reference_gen.py
-  lines: 162
-  classes: 1
-  methods: 11
-  cc_max: 13
-  inbound_deps: 0
-  exports:
-  - name: ApiReferenceGenerator
-    type: class
-    cc_avg: 4.0
-    methods:
-    - name: _render_api_classes
-      cc: 13
-      fan_out: 11
-    - name: _render_api_functions
-      cc: 11
 - path: code2docs/generators/architecture_gen.py
-  lines: 192
+  lines: 294
   classes: 1
-  methods: 6
-  cc_max: 12
+  methods: 10
+  cc_max: 13
   inbound_deps: 0
   exports:
   - name: ArchitectureGenerator
     type: class
-    cc_avg: 7.8
+    cc_avg: 6.9
     methods:
     - name: generate
-      cc: 12
-      fan_out: 11
+      cc: 13
+      fan_out: 16
     - name: _generate_class_diagram
       cc: 11
-- path: code2docs/generators/examples_gen.py
-  lines: 198
+- path: code2docs/generators/coverage_gen.py
+  lines: 104
   classes: 1
-  methods: 12
+  methods: 7
   cc_max: 12
   inbound_deps: 0
   exports:
-  - name: ExamplesGenerator
+  - name: CoverageGenerator
     type: class
-    cc_avg: 6.0
+    cc_avg: 4.4
     methods:
-    - name: _generate_basic_usage
-      cc: 10
-    - name: _generate_class_examples
+    - name: _collect_module_stats
       cc: 12
-- path: code2docs/generators/module_docs_gen.py
-  lines: 220
-  classes: 1
-  methods: 17
-  cc_max: 12
-  inbound_deps: 0
-  exports:
-  - name: ModuleDocsGenerator
-    type: class
-    cc_avg: 4.6
-    methods:
-    - name: _render_classes_section
-      cc: 12
-    - name: _render_dependencies_section
-      cc: 10
-- path: code2docs/sync/updater.py
-  lines: 77
-  classes: 1
-  methods: 2
-  cc_max: 12
-  inbound_deps: 0
-  exports:
-  - name: Updater
-    type: class
-    cc_avg: 7.0
-    methods:
-    - name: apply
-      cc: 12
-      fan_out: 20
 - path: code2docs/formatters/badges.py
   lines: 52
   classes: 0
   methods: 2
   cc_max: 11
-  inbound_deps: 1
+  inbound_deps: 2
   exports:
   - name: generate_badges
     type: function
     cc: 4
+- path: code2docs/cli.py
+  lines: 316
+  classes: 1
+  methods: 14
+  cc_max: 10
+  inbound_deps: 0
+  exports:
+  - name: DefaultGroup
+    type: class
+    cc_avg: 4.0
+  - name: main
+    type: function
+    cc: 1
+  - name: generate
+    type: function
+    cc: 6
+  - name: sync
+    type: function
+    cc: 2
+  - name: watch
+    type: function
+    cc: 2
+  - name: init
+    type: function
+    cc: 1
+    fan_out: 10
+  - name: check
+    type: function
+    cc: 1
+  - name: diff
+    type: function
+    cc: 1
+- path: code2docs/generators/config_docs_gen.py
+  lines: 125
+  classes: 1
+  methods: 4
+  cc_max: 10
+  inbound_deps: 0
+  exports:
+  - name: ConfigDocsGenerator
+    type: class
+    cc_avg: 4.2
+    methods:
+    - name: _render_section
+      cc: 10
+      fan_out: 11
+- path: code2docs/config.py
+  lines: 240
+  classes: 6
+  methods: 5
+  cc_max: 9
+  inbound_deps: 0
+  exports:
+  - name: ReadmeConfig
+    type: class
+    cc_avg: 0.0
+  - name: DocsConfig
+    type: class
+    cc_avg: 0.0
+  - name: ExamplesConfig
+    type: class
+    cc_avg: 0.0
+  - name: SyncConfig
+    type: class
+    cc_avg: 0.0
+  - name: LLMConfig
+    type: class
+    cc_avg: 1.0
+  - name: Code2DocsConfig
+    type: class
+    cc_avg: 3.8
+    methods:
+    - name: from_yaml
+      cc: 9
+      fan_out: 17
 - path: code2docs/generators/depgraph_gen.py
   lines: 140
   classes: 1
@@ -284,61 +374,45 @@ modules:
   - name: DependencyScanner
     type: class
     cc_avg: 4.5
-- path: code2docs/generators/mkdocs_gen.py
-  lines: 79
-  classes: 1
-  methods: 4
+- path: code2docs/analyzers/docstring_extractor.py
+  lines: 140
+  classes: 2
+  methods: 10
   cc_max: 8
   inbound_deps: 0
   exports:
-  - name: MkDocsGenerator
-    type: class
-    cc_avg: 3.0
-- path: code2docs/config.py
-  lines: 158
-  classes: 5
-  methods: 2
-  cc_max: 7
-  inbound_deps: 0
-  exports:
-  - name: ReadmeConfig
+  - name: DocstringInfo
     type: class
     cc_avg: 0.0
-  - name: DocsConfig
+  - name: DocstringExtractor
     type: class
-    cc_avg: 0.0
-  - name: ExamplesConfig
-    type: class
-    cc_avg: 0.0
-  - name: SyncConfig
-    type: class
-    cc_avg: 0.0
-  - name: Code2DocsConfig
-    type: class
-    cc_avg: 4.0
-    methods:
-    - name: from_yaml
-      cc: 7
-      fan_out: 15
-- path: code2docs/generators/readme_gen.py
-  lines: 260
+    cc_avg: 3.5
+- path: code2docs/generators/contributing_gen.py
+  lines: 136
   classes: 1
-  methods: 14
+  methods: 8
+  cc_max: 8
+  inbound_deps: 0
+  exports:
+  - name: ContributingGenerator
+    type: class
+    cc_avg: 2.5
+- path: code2docs/llm_helper.py
+  lines: 161
+  classes: 1
+  methods: 7
   cc_max: 7
   inbound_deps: 0
   exports:
-  - name: ReadmeGenerator
+  - name: LLMHelper
     type: class
-    cc_avg: 3.9
-  - name: generate_readme
-    type: function
-    cc: 3
+    cc_avg: 2.0
 - path: code2docs/formatters/toc.py
   lines: 63
   classes: 0
   methods: 3
   cc_max: 6
-  inbound_deps: 0
+  inbound_deps: 1
   exports:
   - name: generate_toc
     type: function
@@ -394,7 +468,7 @@ modules:
       cc: 4
       fan_out: 10
 - path: code2docs/generators/__init__.py
-  lines: 53
+  lines: 59
   classes: 0
   methods: 1
   cc_max: 5
@@ -403,13 +477,33 @@ modules:
   - name: generate_docs
     type: function
     cc: 5
-    fan_out: 11
+    fan_out: 10
+- path: code2docs/generators/_source_links.py
+  lines: 76
+  classes: 1
+  methods: 6
+  cc_max: 5
+  inbound_deps: 0
+  exports:
+  - name: SourceLinker
+    type: class
+    cc_avg: 3.0
+- path: code2docs/generators/mkdocs_gen.py
+  lines: 70
+  classes: 1
+  methods: 4
+  cc_max: 5
+  inbound_deps: 0
+  exports:
+  - name: MkDocsGenerator
+    type: class
+    cc_avg: 2.2
 - path: code2docs/sync/watcher.py
   lines: 75
   classes: 0
   methods: 1
   cc_max: 5
-  inbound_deps: 1
+  inbound_deps: 2
   exports:
   - name: start_watcher
     type: function
@@ -431,12 +525,79 @@ modules:
   - name: MarkdownFormatter
     type: class
     cc_avg: 1.2
+- path: code2docs/registry.py
+  lines: 39
+  classes: 1
+  methods: 4
+  cc_max: 4
+  inbound_deps: 0
+  exports:
+  - name: GeneratorRegistry
+    type: class
+    cc_avg: 2.5
+- path: code2docs/sync/updater.py
+  lines: 51
+  classes: 1
+  methods: 2
+  cc_max: 4
+  inbound_deps: 0
+  exports:
+  - name: Updater
+    type: class
+    cc_avg: 3.0
+    methods:
+    - name: apply
+      cc: 4
+      fan_out: 16
+- path: code2docs/generators/_registry_adapters.py
+  lines: 228
+  classes: 12
+  methods: 24
+  cc_max: 3
+  inbound_deps: 0
+  exports:
+  - name: ReadmeGeneratorAdapter
+    type: class
+    cc_avg: 2.0
+  - name: ApiReferenceAdapter
+    type: class
+    cc_avg: 2.0
+  - name: ModuleDocsAdapter
+    type: class
+    cc_avg: 2.0
+  - name: ArchitectureAdapter
+    type: class
+    cc_avg: 2.0
+  - name: DepGraphAdapter
+    type: class
+    cc_avg: 1.5
+  - name: CoverageAdapter
+    type: class
+    cc_avg: 1.5
+  - name: ApiChangelogAdapter
+    type: class
+    cc_avg: 1.5
+  - name: ExamplesAdapter
+    type: class
+    cc_avg: 2.0
+  - name: MkDocsAdapter
+    type: class
+    cc_avg: 1.5
+  - name: GettingStartedAdapter
+    type: class
+    cc_avg: 1.5
+  - name: ConfigDocsAdapter
+    type: class
+    cc_avg: 1.5
+  - name: ContributingAdapter
+    type: class
+    cc_avg: 1.5
 - path: code2docs/analyzers/project_scanner.py
   lines: 42
   classes: 1
   methods: 4
   cc_max: 2
-  inbound_deps: 0
+  inbound_deps: 3
   exports:
   - name: ProjectScanner
     type: class
@@ -444,6 +605,19 @@ modules:
   - name: analyze_and_document
     type: function
     cc: 1
+- path: code2docs/base.py
+  lines: 46
+  classes: 2
+  methods: 3
+  cc_max: 1
+  inbound_deps: 0
+  exports:
+  - name: GenerateContext
+    type: class
+    cc_avg: 0.0
+  - name: BaseGenerator
+    type: class
+    cc_avg: 1.0
 - path: code2docs/__main__.py
   lines: 6
   classes: 0
@@ -469,63 +643,80 @@ modules:
   cc_max: 0
   inbound_deps: 0
 hotspots:
-- name: _run_generate
-  fan_out: 34
-  note: Run full documentation generation.
+- name: _run_check
+  fan_out: 24
+  note: Run documentation health check.
+- name: ReadmeGenerator._extract_project_metadata
+  fan_out: 23
+  note: Extract project metadata (author, license, version) from pyproject.toml or
+    git.
 - name: start_watcher
   fan_out: 22
   note: 'Start watching project for file changes and auto-resync docs.
 
 
     Requires watchdog'
-- name: Updater.apply
-  fan_out: 20
-  note: Regenerate documentation for changed modules.
+- name: ApiReferenceGenerator._render_module_section
+  fan_out: 21
+  note: Render a module as a subsection within the consolidated doc.
+- name: ModuleDocsGenerator.generate
+  fan_out: 19
+  note: Generate a single modules.md with all modules grouped by package.
+- name: ReadmeGenerator._build_context
+  fan_out: 17
+  note: Build template context from analysis result.
 - name: Code2DocsConfig.from_yaml
-  fan_out: 15
+  fan_out: 17
   note: Load configuration from code2docs.yaml.
-- name: ApiChangelogGenerator._diff_classes
-  fan_out: 12
-  note: Diff class definitions.
-- name: generate_docs
-  fan_out: 11
-  note: High-level function to generate all documentation.
-- name: ApiReferenceGenerator._render_api_classes
-  fan_out: 11
-  note: Render classes with their method signatures.
-- name: ArchitectureGenerator.generate
-  fan_out: 11
-  note: Generate architecture documentation.
-- name: DocstringExtractor._parse_sections
-  fan_out: 11
-  note: Walk remaining lines, dispatching content to the right section.
-- name: Differ.detect_changes
-  fan_out: 10
-  note: Compare current file hashes with saved state. Return list of changes.
+- name: Updater.apply
+  fan_out: 16
+  note: Regenerate documentation for changed modules.
+- name: ModuleDocsGenerator._render_module_detail
+  fan_out: 16
+  note: Render a single module's detail section.
+- name: _run_generate
+  fan_out: 16
+  note: Run full documentation generation via the generator registry.
 refactoring:
   priorities:
-  - action: Split CoverageGenerator._render_per_module (CC=18 → target CC<10)
+  - action: Split ReadmeGenerator._extract_project_metadata (CC=29 → target CC<10)
+    impact: high
+    effort: low
+    module: readme_gen.py
+  - action: Split ModuleDocsGenerator._render_module_detail (CC=25 → target CC<10)
+    impact: high
+    effort: low
+    module: module_docs_gen.py
+  - action: Split ApiReferenceGenerator._render_module_section (CC=25 → target CC<10)
+    impact: high
+    effort: low
+    module: api_reference_gen.py
+  - action: Split GettingStartedGenerator._render_first_usage (CC=15 → target CC<10)
     impact: medium
     effort: low
-    module: coverage_gen.py
-  - action: Split _run_generate (CC=17 → target CC<10)
+    module: getting_started_gen.py
+  - action: Split GettingStartedGenerator._generate_intro (CC=16 → target CC<10)
     impact: medium
     effort: low
-    module: cli.py
-  - action: Split DocstringExtractor._parse_sections (CC=15 → target CC<10)
+    module: getting_started_gen.py
+  - action: Split ModuleDocsGenerator.generate (CC=18 → target CC<10)
     impact: medium
     effort: low
-    module: docstring_extractor.py
+    module: module_docs_gen.py
+  - action: Split ExamplesGenerator._generate_advanced (CC=22 → target CC<10)
+    impact: medium
+    effort: low
+    module: examples_gen.py
   - action: 'Break circular dependency: code2docs.analyzers.project_scanner.ProjectScanner.analyze'
     impact: medium
     effort: low
-  - action: Reduce _run_generate fan-out (currently 34)
+  - action: Reduce _run_check fan-out (currently 24)
+    impact: medium
+    effort: medium
+  - action: Reduce ReadmeGenerator._extract_project_metadata fan-out (currently 23)
     impact: medium
     effort: medium
   - action: Reduce start_watcher fan-out (currently 22)
-    impact: medium
-    effort: medium
-  - action: Reduce Updater.apply fan-out (currently 20)
     impact: medium
     effort: medium
 evolution:
@@ -533,4 +724,9 @@ evolution:
   cc_avg: 4.4
   critical: 16
   lines: 4083
+  note: Automated analysis
+- date: '2026-03-08'
+  cc_avg: 4.0
+  critical: 19
+  lines: 6275
   note: Automated analysis
