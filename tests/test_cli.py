@@ -150,8 +150,8 @@ class TestCLIShellE2E:
         assert result.returncode == 0, f"stderr: {result.stderr}"
         assert "Done!" in result.stdout
 
-        # Check files were created
-        assert (temp_project / "README.md").exists()
+        # Check files were created (README goes to docs_dir when readme_output is relative)
+        assert (output_dir / "README.md").exists()
 
     def test_shell_init(self, temp_project):
         """E2E: Init command creates config file."""

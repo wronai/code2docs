@@ -447,9 +447,6 @@ Filters out:
 > Try to parse a route decorator string.
 - **Output to**: self.FASTAPI_PATTERNS.search, self.FLASK_PATTERNS.search, Endpoint, Endpoint, None.upper
 
-### code2docs.cli.DefaultGroup.parse_args
-- **Output to**: None.parse_args, super
-
 ### code2docs.analyzers.dependency_scanner.DependencyScanner._parse_pyproject
 > Parse pyproject.toml for dependencies.
 - **Output to**: ProjectDependencies, data.get, project.get, project.get, project.get
@@ -469,6 +466,9 @@ Filters out:
 ### code2docs.analyzers.dependency_scanner.DependencyScanner._parse_dep_string
 > Parse a dependency string like 'package>=1.0'.
 - **Output to**: re.match, DependencyInfo, dep_str.strip, DependencyInfo, dep_str.strip
+
+### code2docs.cli.DefaultGroup.parse_args
+- **Output to**: None.parse_args, super
 
 ## Behavioral Patterns
 
@@ -523,8 +523,8 @@ Functions exposed as public API (no underscore prefix):
 - `code2docs.generators.getting_started_gen.GettingStartedGenerator.generate` - 8 calls
 - `code2docs.generators.code2llm_gen.Code2LlmGenerator.generate_all` - 8 calls
 - `code2docs.generators.org_readme_gen.OrgReadmeGenerator.generate` - 8 calls
-- `code2docs.cli.sync` - 8 calls
 - `code2docs.analyzers.dependency_scanner.DependencyScanner.scan` - 8 calls
+- `code2docs.cli.sync` - 8 calls
 - `examples.04_sync_and_watch.update_docs_incrementally` - 7 calls
 
 ## System Interactions
