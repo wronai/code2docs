@@ -65,7 +65,7 @@
   <div class="card"><div class="value">237</div><div class="label">Functions</div></div>
   <div class="card"><div class="value">54</div><div class="label">Classes</div></div>
   <div class="card"><div class="value">33</div><div class="label">Files</div></div>
-  <div class="card"><div class="value">6560</div><div class="label">Lines</div></div>
+  <div class="card"><div class="value">4982</div><div class="label">Lines</div></div>
   <div class="card"><div class="value">0</div><div class="label">Duplicates</div></div>
   <div class="card"><div class="value">1</div><div class="label">Cycles</div></div>
 </div>
@@ -76,7 +76,7 @@
     <div class="evo-cards">
       <div class="card"><div class="value">4.1</div><div class="label">CC̄ →</div></div>
       <div class="card"><div class="value">22</div><div class="label">Critical →</div></div>
-      <div class="card"><div class="value">6560</div><div class="label">Lines</div></div>
+      <div class="card"><div class="value">4982</div><div class="label">Lines</div></div>
     </div>
     <p class="trend" style="margin-top:.5rem;">Run analysis multiple times to build a trend chart (≥3 data points needed).</p>
   </div>
@@ -184,14 +184,14 @@
             </tr>
             <tr class="error">
                 <td><span class="badge error">error</span></td>
-                <td>_run_generate</td>
+                <td>ArchitectureGenerator.generate</td>
                 <td>high_fan_out</td>
                 <td>16</td>
                 <td>10</td>
             </tr>
             <tr class="error">
                 <td><span class="badge error">error</span></td>
-                <td>ArchitectureGenerator.generate</td>
+                <td>_run_generate</td>
                 <td>high_fan_out</td>
                 <td>16</td>
                 <td>10</td>
@@ -254,9 +254,9 @@ Requires watchdog</td>
                 <td>Render a single module's detail section.</td>
             </tr>
             <tr>
-                <td><strong>_run_generate</strong></td>
+                <td><strong>ArchitectureGenerator.generate</strong></td>
                 <td>16</td>
-                <td>Run full documentation generation via the generator registry.</td>
+                <td>Generate architecture documentation.</td>
             </tr></tbody>
 </table>
 </div></div>
@@ -324,7 +324,7 @@ Requires watchdog</td>
             </tr>
             <tr>
                 <td>10</td>
-                <td>Break circular dependency: code2docs.analyzers.project_scanner.ProjectScanner.analyze</td>
+                <td>Break circular dependency: analyzers.project_scanner.ProjectScanner.analyze</td>
                 <td><span class="badge medium">medium</span></td>
                 <td>low</td>
             </tr></tbody>

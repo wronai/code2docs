@@ -1,0 +1,58 @@
+flowchart LR
+    subgraph cli
+        cli___run_check["_run_check"]
+        cli___load_config["_load_config"]
+        cli__generate["generate"]
+        cli__check["check"]
+        cli__diff["diff"]
+        cli___run_diff["_run_diff"]
+        cli___run_sync["_run_sync"]
+        cli___run_watch["_run_watch"]
+        cli__watch["watch"]
+        cli__sync["sync"]
+    end
+    subgraph config_Code2DocsConfig
+        config__Code2DocsConfig__from_yaml["from_yaml"]
+    end
+    subgraph formatters_badges
+        formatters__badges__generate_badges["generate_badges"]
+        formatters__badges___make_badge["_make_badge"]
+    end
+    subgraph formatters_toc
+        formatters__toc___slugify["_slugify"]
+        formatters__toc__generate_toc["generate_toc"]
+        formatters__toc__extract_headings["extract_headings"]
+    end
+    subgraph generators_code2llm_gen
+        generators__code2llm_gen__parse_gitignore["parse_gitignore"]
+        generators___run_code2llm["_run_code2llm"]
+    end
+    subgraph generators_readme_gen
+        generators___build_context["_build_context"]
+    end
+    subgraph llm_helper
+        llm_helper___get_litellm["_get_litellm"]
+    end
+    subgraph llm_helper_LLMHelper
+        llm_helper__LLMHelper__complete["complete"]
+    end
+    subgraph sync_watcher
+        sync__watcher__start_watcher["start_watcher"]
+    end
+    llm_helper__LLMHelper__complete --> llm_helper___get_litellm
+    formatters__badges__generate_badges --> formatters__badges___make_badge
+    formatters__toc__generate_toc --> formatters__toc__extract_headings
+    formatters__toc__extract_headings --> formatters__toc___slugify
+    generators___build_context --> formatters__badges__generate_badges
+    generators___run_code2llm --> generators__code2llm_gen__parse_gitignore
+    cli__generate --> cli___load_config
+    cli__sync --> cli___load_config
+    cli__sync --> cli___run_sync
+    cli__watch --> cli___load_config
+    cli__watch --> cli___run_watch
+    cli__check --> cli___load_config
+    cli__check --> cli___run_check
+    cli__diff --> cli___load_config
+    cli__diff --> cli___run_diff
+    cli___load_config --> config__Code2DocsConfig__from_yaml
+    cli___run_watch --> sync__watcher__start_watcher

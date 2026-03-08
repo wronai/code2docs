@@ -1,6 +1,6 @@
 # code2docs — Architecture
 
-> 38 modules | 229 functions | 51 classes
+> 39 modules | 237 functions | 54 classes
 
 ## How It Works
 
@@ -38,7 +38,7 @@ Source files  ──►  code2llm (tree-sitter + AST)  ──►  AnalysisResult
 
 ```mermaid
 graph TD
-    Other["Other<br/>23 modules"]
+    Other["Other<br/>24 modules"]
     Analysis["Analysis<br/>5 modules"]
     Core["Core<br/>1 modules"]
     API___CLI["API / CLI<br/>3 modules"]
@@ -62,6 +62,7 @@ graph TD
 - `generators._source_links`
 - `generators.architecture_gen`
 - `generators.changelog_gen`
+- `generators.code2llm_gen`
 - `generators.contributing_gen`
 - `generators.coverage_gen`
 - `generators.depgraph_gen`
@@ -281,6 +282,7 @@ classDiagram
 - `formatters.toc.generate_toc` — Generate a table of contents from Markdown headings.
 - `generators.readme_gen.generate_readme` — Convenience function to generate a README.
 - `generators.generate_docs` — High-level function to generate all documentation.
+- `generators.code2llm_gen.generate_code2llm_analysis` — Convenience function to generate code2llm analysis.
 - `cli.main` — code2docs — Auto-generate project documentation from source code.
 - `cli.generate` — Generate documentation (default command).
 - `cli.sync` — Synchronize documentation with source code changes.
@@ -294,10 +296,10 @@ classDiagram
 
 | Metric | Value |
 |--------|-------|
-| Modules | 38 |
-| Functions | 229 |
-| Classes | 51 |
-| CFG Nodes | 1346 |
+| Modules | 39 |
+| Functions | 237 |
+| Classes | 54 |
+| CFG Nodes | 1405 |
 | Patterns | 2 |
-| Avg Complexity | 4.0 |
-| Analysis Time | 1.59s |
+| Avg Complexity | 4.1 |
+| Analysis Time | 0.98s |

@@ -1,11 +1,11 @@
 # code2docs — Docstring Coverage
 
-🟡 **Overall coverage: 78.9%**
+🟡 **Overall coverage: 78.7%**
 
 | Category | Documented | Total | Coverage |
 |----------|-----------|-------|----------|
-| Functions | 182 | 229 | 79.5% |
-| Classes | 39 | 51 | 76.5% |
+| Functions | 187 | 237 | 78.9% |
+| Classes | 42 | 54 | 77.8% |
 
 ## Per-Module Breakdown
 
@@ -20,7 +20,7 @@
 | `base` | 0/0 | 2/2 | 🟢 100% |
 | `cli` | 13/13 | 1/1 | 🟢 100% |
 | `code2docs` | 1/1 | 0/0 | 🟢 100% |
-| `config` | 0/0 | 6/6 | 🟢 100% |
+| `config` | 0/0 | 7/7 | 🟢 100% |
 | `examples.advanced_usage` | 0/0 | 0/0 | 🟢 100% |
 | `examples.quickstart` | 0/0 | 0/0 | 🟢 100% |
 | `formatters` | 0/0 | 0/0 | 🟢 100% |
@@ -28,12 +28,13 @@
 | `formatters.markdown` | 0/0 | 1/1 | 🟢 100% |
 | `formatters.toc` | 3/3 | 0/0 | 🟢 100% |
 | `generators` | 1/1 | 0/0 | 🟢 100% |
-| `generators._registry_adapters` | 0/0 | 0/12 | 🔴 0% |
+| `generators._registry_adapters` | 0/0 | 1/13 | 🔴 8% |
 | `generators._source_links` | 0/0 | 1/1 | 🟢 100% |
 | `generators.api_changelog_gen` | 0/0 | 2/2 | 🟢 100% |
 | `generators.api_reference_gen` | 0/0 | 1/1 | 🟢 100% |
 | `generators.architecture_gen` | 0/0 | 1/1 | 🟢 100% |
 | `generators.changelog_gen` | 0/0 | 2/2 | 🟢 100% |
+| `generators.code2llm_gen` | 2/2 | 1/1 | 🟢 100% |
 | `generators.config_docs_gen` | 0/0 | 1/1 | 🟢 100% |
 | `generators.contributing_gen` | 0/0 | 1/1 | 🟢 100% |
 | `generators.coverage_gen` | 0/0 | 1/1 | 🟢 100% |

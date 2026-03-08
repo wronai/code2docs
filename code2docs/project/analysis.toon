@@ -1,5 +1,5 @@
 # code2llm | 37f 4982L | py:37 | 2026-03-08
-# CC̄=4.1 | critical:22/277 | dups:0 | cycles:1
+# CC̄=4.1 | critical:22/237 | dups:0 | cycles:1
 
 HEALTH[9]:
   🟡 CC    _extract_project_metadata CC=29 (limit:15)
@@ -17,19 +17,18 @@ REFACTOR[2]:
   2. break 1 circular dependencies
 
 COUPLING:
-                                   code2docs  code2docs.formatters  code2docs.generators        code2docs.sync
-             code2docs                    ──                                                                 1
-  code2docs.formatters                                          ──                    ←1                      
-  code2docs.generators                                           1                    ──                      
-        code2docs.sync                    ←1                                                                ──
+                     cli      config  formatters  generators        sync
+         cli          ──           2                                   1
+      config          ←2          ──                                    
+  formatters                                  ──          ←1            
+  generators                                   1          ──            
+        sync          ←1                                              ──
   CYCLES: 1
 
 LAYERS:
-  code2docs/                      CC̄=4.1    ←in:0  →out:1
-  │ !! readme_gen                 463L  1C   18m  CC=29     ←1
+  generators/                     CC̄=4.8    ←in:0  →out:1
+  │ !! readme_gen                 463L  1C   18m  CC=29     ←0
   │ !! examples_gen               399L  1C   14m  CC=22     ←0
-  │ !  cli                        316L  1C   14m  CC=10     ←0
-  │ !  config                     296L  7C    5m  CC=10     ←2
   │ !  architecture_gen           294L  1C   10m  CC=13     ←0
   │ _registry_adapters         251L  13C   26m  CC=7      ←0
   │ !! code2llm_gen               206L  1C    6m  CC=17     ←0
@@ -37,32 +36,42 @@ LAYERS:
   │ !  api_changelog_gen          196L  2C    9m  CC=14     ←0
   │ !! getting_started_gen        166L  1C    8m  CC=16     ←0
   │ !! api_reference_gen          163L  1C    7m  CC=25     ←0
-  │ llm_helper                 161L  1C    7m  CC=7      ←0
-  │ dependency_scanner         159L  3C    6m  CC=8      ←0
   │ depgraph_gen               140L  1C    9m  CC=9      ←0
-  │ docstring_extractor        140L  2C   10m  CC=8      ←0
   │ contributing_gen           136L  1C    8m  CC=8      ←0
-  │ differ                     125L  2C    7m  CC=6      ←0
   │ !  config_docs_gen            125L  1C    4m  CC=10     ←0
   │ changelog_gen              121L  2C    6m  CC=6      ←0
-  │ endpoint_detector          113L  2C    3m  CC=5      ←0
   │ !  coverage_gen               104L  1C    7m  CC=12     ←0
   │ _source_links               76L  1C    6m  CC=5      ←0
-  │ watcher                     75L  0C    1m  CC=5      ←2
-  │ markdown                    73L  1C   13m  CC=4      ←0
   │ mkdocs_gen                  70L  1C    4m  CC=5      ←0
-  │ toc                         63L  0C    3m  CC=6      ←1
   │ __init__                    59L  0C    1m  CC=5      ←0
-  │ !  badges                      52L  0C    2m  CC=11     ←2
+  │
+  sync/                           CC̄=3.6    ←in:1  →out:0
+  │ differ                     125L  2C    7m  CC=6      ←0
+  │ watcher                     75L  0C    1m  CC=5      ←1
   │ updater                     51L  1C    2m  CC=4      ←0
+  │ __init__                     6L  0C    0m  CC=0.0    ←0
+  │
+  analyzers/                      CC̄=3.4    ←in:0  →out:0
+  │ dependency_scanner         159L  3C    6m  CC=8      ←0
+  │ docstring_extractor        140L  2C   10m  CC=8      ←0
+  │ endpoint_detector          113L  2C    3m  CC=5      ←0
+  │ project_scanner             42L  1C    4m  CC=2      ←0
+  │ __init__                    13L  0C    0m  CC=0.0    ←0
+  │
+  ./                              CC̄=2.9    ←in:0  →out:0
+  │ !  cli                        316L  1C   14m  CC=10     ←0
+  │ !  config                     296L  7C    5m  CC=10     ←1
+  │ llm_helper                 161L  1C    7m  CC=7      ←0
   │ base                        46L  2C    3m  CC=1      ←0
-  │ project_scanner             42L  1C    4m  CC=2      ←3
   │ registry                    39L  1C    4m  CC=4      ←0
   │ __init__                    32L  0C    1m  CC=4      ←0
-  │ __init__                    13L  0C    0m  CC=0.0    ←0
-  │ __init__                     7L  0C    0m  CC=0.0    ←0
   │ __main__                     6L  0C    0m  CC=0.0    ←0
-  │ __init__                     6L  0C    0m  CC=0.0    ←0
+  │
+  formatters/                     CC̄=2.3    ←in:1  →out:0
+  │ markdown                    73L  1C   13m  CC=4      ←0
+  │ toc                         63L  0C    3m  CC=6      ←0
+  │ !  badges                      52L  0C    2m  CC=11     ←1
+  │ __init__                     7L  0C    0m  CC=0.0    ←0
   │
 
 DUPLICATES[0]: none
@@ -79,8 +88,8 @@ FUNCTIONS (CC≥10, 22 of 237):
    15.0  parse_gitignore                             6n   3exit  cond+ret  !! split
    14.0  ApiChangelogGenerator._render              17n   4exit  loops+cond+ret
    13.0  ArchitectureGenerator.generate             15n   2exit  loops+cond+ret
-   12.0  CoverageGenerator._collect_module_stats     4n   2exit  loops+ret
    12.0  ReadmeGenerator._build_context              3n   2exit  ret
+   12.0  CoverageGenerator._collect_module_stats     4n   2exit  loops+ret
    11.0  _make_badge                                21n   6exit  cond+ret
    11.0  ApiReferenceGenerator.generate             10n   2exit  loops+cond+ret
    11.0  ArchitectureGenerator._generate_class_diagram   12n   2exit  loops+cond+ret
@@ -105,7 +114,7 @@ HOTSPOTS:
   #7  ReadmeGenerator._build_context       fan=17   "ReadmeGenerator method, fan-out=17"
   #8  Updater.apply                        fan=16   "Updater method, fan-out=16"
   #9  ModuleDocsGenerator._render_module_detail  fan=16   "ModuleDocsGenerator method, fan-out=16"
-  #10 _run_generate                        fan=16   "calls 16 functions"
+  #10 ArchitectureGenerator.generate       fan=16   "ArchitectureGenerator method, fan-out=16"
 
 CLASSES:
   ReadmeGenerator                ████████████████████████  17m  CC̄=5.9   max=29    !!
@@ -159,30 +168,30 @@ CLASSES:
   SyncConfig                                                0m  CC̄=0.0   max=0.0 
   Code2LlmConfig                                            0m  CC̄=0.0   max=0.0 
   DocstringInfo                                             0m  CC̄=0.0   max=0.0 
-  Endpoint                                                  0m  CC̄=0.0   max=0.0 
   DependencyInfo                                            0m  CC̄=0.0   max=0.0 
   ProjectDependencies                                       0m  CC̄=0.0   max=0.0 
+  Endpoint                                                  0m  CC̄=0.0   max=0.0 
 
 D:
-  code2docs/generators/readme_gen.py:
+  generators/readme_gen.py:
     e: ReadmeGenerator,generate_readme
     ReadmeGenerator  # Generate README.md from AnalysisResult....
       __init__(2)  CC=1.0
     generate_readme(project_path,output,sections,sync_markers,config)
-  code2docs/generators/module_docs_gen.py:
+  generators/module_docs_gen.py:
     e: ModuleDocsGenerator
     ModuleDocsGenerator  # Generate docs/modules.md — consolidated module documentation...
       __init__(2)  CC=1.0
-  code2docs/generators/api_reference_gen.py:
+  generators/api_reference_gen.py:
     e: ApiReferenceGenerator
     ApiReferenceGenerator  # Generate docs/api.md — consolidated API reference....
       __init__(2)  CC=1.0
-  code2docs/generators/examples_gen.py:
+  generators/examples_gen.py:
     e: ExamplesGenerator
     ExamplesGenerator  # Generate examples/ — usage examples from public API signatur...
       __init__(2)  CC=1.0
         → _detect_package_name(0)  CC=6.0
-  code2docs/generators/code2llm_gen.py:
+  generators/code2llm_gen.py:
     e: Code2LlmGenerator,parse_gitignore,generate_code2llm_analysis
     Code2LlmGenerator  # Generate code2llm analysis files in project/ directory.
 
@@ -190,32 +199,32 @@ Thi...
       __init__(2)  CC=1.0
     parse_gitignore(project_path)
     generate_code2llm_analysis(project_path,config)
-  code2docs/generators/getting_started_gen.py:
+  generators/getting_started_gen.py:
     e: GettingStartedGenerator
     GettingStartedGenerator  # Generate docs/getting-started.md from entry points and depen...
       __init__(2)  CC=1.0
-  code2docs/generators/api_changelog_gen.py:
+  generators/api_changelog_gen.py:
     e: ApiChange,ApiChangelogGenerator
     ApiChange  # A single API change between two analysis snapshots....
     ApiChangelogGenerator  # Generate API changelog by diffing current analysis with a sa...
       __init__(2)  CC=1.0
-  code2docs/generators/architecture_gen.py:
+  generators/architecture_gen.py:
     e: ArchitectureGenerator
     ArchitectureGenerator  # Generate docs/architecture.md — architecture overview with d...
       __init__(2)  CC=1.0
-  code2docs/generators/coverage_gen.py:
+  generators/coverage_gen.py:
     e: CoverageGenerator
     CoverageGenerator  # Generate docs/coverage.md — docstring coverage report....
       __init__(2)  CC=1.0
-  code2docs/formatters/badges.py:
+  formatters/badges.py:
     e: generate_badges,_make_badge
     generate_badges(project_name,badge_types,stats,deps)
     _make_badge(badge_type,project_name,stats,deps)
-  code2docs/generators/config_docs_gen.py:
+  generators/config_docs_gen.py:
     e: ConfigDocsGenerator
     ConfigDocsGenerator  # Generate docs/configuration.md from Code2DocsConfig dataclas...
       __init__(2)  CC=1.0
-  code2docs/cli.py:
+  cli.py:
     e: DefaultGroup,main,generate,sync,watch,init,check,diff,_load_config,_run_generate,_run_sync,_run_watch,_run_check,_run_diff
     DefaultGroup  # Click Group that routes unknown subcommands to 'generate'....
       parse_args(2)  CC=4.0
@@ -233,7 +242,7 @@ Thi...
     _run_watch(project_path,config)
     _run_check(project_path,config,target)
     _run_diff(project_path,config)
-  code2docs/config.py:
+  config.py:
     e: ReadmeConfig,DocsConfig,ExamplesConfig,SyncConfig,Code2LlmConfig,LLMConfig,Code2DocsConfig
     ReadmeConfig  # Configuration for README generation....
     DocsConfig  # Configuration for docs/ generation....
@@ -245,31 +254,15 @@ Thi...
     Code2DocsConfig  # Main configuration for code2docs....
       __post_init__(0)  CC=2.0
         → _detect_repo_url(-1)  CC=3.0
-  examples/07_web_frameworks.py:
-    e: detect_flask_endpoints,detect_fastapi_endpoints,generate_api_docs_from_endpoints,create_example_web_apps,document_web_project
-    detect_flask_endpoints(project_path)
-    detect_fastapi_endpoints(project_path)
-    generate_api_docs_from_endpoints(project_path,output_dir)
-    create_example_web_apps(target_dir)
-    document_web_project(project_path)
-  code2docs/generators/depgraph_gen.py:
+  generators/depgraph_gen.py:
     e: DepGraphGenerator
     DepGraphGenerator  # Generate docs/dependency-graph.md with Mermaid diagrams....
       __init__(2)  CC=1.0
-  examples/05_custom_generators.py:
-    e: MetricsReportGenerator,APIChangelogGenerator,CustomGenerator,generate_custom_report
-    MetricsReportGenerator  # Generate a metrics report from code analysis....
-      __init__(2)  CC=1.0
-    APIChangelogGenerator  # Generate changelog based on API changes....
-      __init__(2)  CC=1.0
-    CustomGenerator  # Example of extending the base generator class....
-      generate(0)  CC=1.0
-    generate_custom_report(project_path)
-  code2docs/generators/contributing_gen.py:
+  generators/contributing_gen.py:
     e: ContributingGenerator
     ContributingGenerator  # Generate CONTRIBUTING.md by detecting dev tools from pyproje...
       __init__(2)  CC=1.0
-  code2docs/analyzers/docstring_extractor.py:
+  analyzers/docstring_extractor.py:
     e: DocstringInfo,DocstringExtractor
     DocstringInfo  # Parsed docstring with sections....
     DocstringExtractor  # Extract and parse docstrings from AnalysisResult....
@@ -278,7 +271,7 @@ Thi...
         → _extract_summary(0)  CC=2.0
         → _parse_sections(2)  CC=8.0
         → _classify_section(0)  CC=5.0
-  code2docs/analyzers/dependency_scanner.py:
+  analyzers/dependency_scanner.py:
     e: DependencyInfo,ProjectDependencies,DependencyScanner
     DependencyInfo  # Information about a project dependency....
     ProjectDependencies  # All detected project dependencies....
@@ -289,14 +282,14 @@ Thi...
         → _parse_dep_string(0)  CC=2.0
         → _parse_setup_py(1)  CC=4.0
         → _parse_requirements_txt(1)  CC=5.0
-  code2docs/llm_helper.py:
+  llm_helper.py:
     e: LLMHelper,_get_litellm
     LLMHelper  # Thin wrapper around litellm for documentation generation.
 
 I...
       __init__(1)  CC=1.0
     _get_litellm()
-  code2docs/generators/_registry_adapters.py:
+  generators/_registry_adapters.py:
     e: ReadmeGeneratorAdapter,ApiReferenceAdapter,ModuleDocsAdapter,ArchitectureAdapter,DepGraphAdapter,CoverageAdapter,ApiChangelogAdapter,ExamplesAdapter,MkDocsAdapter,GettingStartedAdapter,ConfigDocsAdapter,ContributingAdapter,Code2LlmAdapter
     ReadmeGeneratorAdapter
       should_run(0)  CC=1.0
@@ -324,115 +317,78 @@ I...
       should_run(0)  CC=1.0
     Code2LlmAdapter  # Adapter for code2llm analysis generation....
       should_run(0)  CC=1.0
-  code2docs/sync/differ.py:
+  sync/differ.py:
     e: ChangeInfo,Differ
     ChangeInfo  # Describes a detected change....
       __str__(0)  CC=1.0
     Differ  # Detect changes between current source and previous state....
       __init__(1)  CC=2.0
-  code2docs/formatters/toc.py:
+  formatters/toc.py:
     e: generate_toc,extract_headings,_slugify
     generate_toc(markdown_content,max_depth)
     extract_headings(content,max_depth)
     _slugify(text)
-  code2docs/generators/changelog_gen.py:
+  generators/changelog_gen.py:
     e: ChangelogEntry,ChangelogGenerator
     ChangelogEntry  # A single changelog entry....
     ChangelogGenerator  # Generate CHANGELOG.md from git log and analysis diff....
       __init__(2)  CC=1.0
-  examples/03_programmatic_api.py:
-    e: generate_readme_simple,generate_full_documentation,custom_documentation_pipeline,inspect_project_structure,generate_docs_if_needed
-    generate_readme_simple(project_path)
-    generate_full_documentation(project_path)
-    custom_documentation_pipeline(project_path)
-    inspect_project_structure(project_path)
-    generate_docs_if_needed(project_path,force)
-  code2docs/sync/watcher.py:
+  sync/watcher.py:
     e: start_watcher
     start_watcher(project_path,config)
-  code2docs/generators/_source_links.py:
+  generators/_source_links.py:
     e: SourceLinker
     SourceLinker  # Build source-code links (relative paths + optional GitHub/Gi...
       __init__(2)  CC=2.0
         → _find_git_root(0)  CC=4.0
         → _detect_branch(-1)  CC=3.0
-  code2docs/generators/__init__.py:
+  generators/__init__.py:
     e: generate_docs
     generate_docs(project_path,config)
-  code2docs/generators/mkdocs_gen.py:
+  generators/mkdocs_gen.py:
     e: MkDocsGenerator
     MkDocsGenerator  # Generate mkdocs.yml from the docs/ directory structure....
       __init__(2)  CC=1.0
-  code2docs/analyzers/endpoint_detector.py:
+  analyzers/endpoint_detector.py:
     e: Endpoint,EndpointDetector
     Endpoint  # Represents a detected web endpoint....
     EndpointDetector  # Detects web endpoints from decorator patterns in source code...
       detect(2)  CC=5.0
         → _scan_django_urls(1)  CC=4.0
         → _parse_decorator(2)  CC=3.0
-  code2docs/registry.py:
+  registry.py:
     e: GeneratorRegistry
     GeneratorRegistry  # Registry of documentation generators.
 
 Generators register t...
       __init__(0)  CC=1.0
-  code2docs/__init__.py:
+  __init__.py:
     e: __getattr__
     __getattr__(name)
-  examples/04_sync_and_watch.py:
-    e: detect_changes_example,update_docs_incrementally,force_full_regeneration,watch_and_auto_regenerate,custom_watcher_with_hooks,sync_with_git_changes
-    detect_changes_example(project_path)
-    update_docs_incrementally(project_path)
-    force_full_regeneration(project_path)
-    watch_and_auto_regenerate(project_path,interval)
-    custom_watcher_with_hooks(project_path)
-    sync_with_git_changes(project_path)
-  code2docs/sync/updater.py:
+  sync/updater.py:
     e: Updater
     Updater  # Apply selective documentation updates based on detected chan...
       __init__(1)  CC=2.0
-  code2docs/formatters/markdown.py:
+  formatters/markdown.py:
     e: MarkdownFormatter
     MarkdownFormatter  # Helper for constructing Markdown documents....
       __init__(0)  CC=1.0
-  examples/06_formatters.py:
-    e: markdown_formatting_examples,generate_complex_document,badge_examples,toc_examples,build_custom_readme
-    markdown_formatting_examples()
-    generate_complex_document()
-    badge_examples()
-    toc_examples()
-    build_custom_readme()
-  code2docs/analyzers/project_scanner.py:
+  analyzers/project_scanner.py:
     e: ProjectScanner,analyze_and_document
     ProjectScanner  # Wraps code2llm's ProjectAnalyzer with code2docs-specific def...
       __init__(1)  CC=2.0
         → _build_llm_config(0)  CC=1.0
     analyze_and_document(project_path,config)
-  examples/01_cli_usage.py:
-    e: run_cli_basic,run_cli_with_config
-    run_cli_basic(project_path)
-    run_cli_with_config(project_path,config_path)
-  examples/02_configuration.py:
-    e: create_basic_config,create_advanced_config,save_yaml_config_example,load_config_from_yaml
-    create_basic_config()
-    create_advanced_config()
-    save_yaml_config_example(path)
-    load_config_from_yaml(path)
-  code2docs/base.py:
+  base.py:
     e: GenerateContext,BaseGenerator
     GenerateContext  # Shared context passed to all generators during a run....
     BaseGenerator  # Abstract base for all documentation generators.
 
 Subclasses ...
       __init__(2)  CC=1.0
-  code2docs/__main__.py:
+  __main__.py:
+  sync/__init__.py:
   examples/quickstart.py:
   examples/advanced_usage.py:
-  examples/entry_points.py:
-  examples/class_examples.py:
-  examples/basic_usage.py:
-  code2docs/sync/__init__.py:
-  code2docs/examples/quickstart.py:
-  code2docs/examples/advanced_usage.py:
-  code2docs/formatters/__init__.py:
-  code2docs/analyzers/__init__.py:
+  formatters/__init__.py:
+  analyzers/__init__.py:

@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 clear
 pip install glon --upgrade
+pip install goal --upgrade
 pip install code2llm --upgrade
+#pip install code2docs --upgrade
 pip install -e .
 code2docs ./code2docs --output ../docs/
 #code2llm ./ -f toon,evolution,code2logic,project-yaml -o ./project --no-chunk

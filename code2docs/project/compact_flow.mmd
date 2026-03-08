@@ -1,0 +1,12 @@
+flowchart TD
+    cli["cli<br/>13 funcs"]
+    config_Code2DocsConfig["config.Code2DocsConfig<br/>4 funcs"]
+    formatters_badges["formatters.badges<br/>2 funcs"]
+    generators_readme_gen["generators.readme_gen<br/>18 funcs"]
+    llm_helper["llm_helper<br/>1 funcs"]
+    llm_helper_LLMHelper["llm_helper.LLMHelper<br/>6 funcs"]
+    sync_watcher["sync.watcher<br/>1 funcs"]
+    cli -->|2| config_Code2DocsConfig
+    llm_helper_LLMHelper -->|1| llm_helper
+    generators_readme_gen -->|1| formatters_badges
+    cli -->|1| sync_watcher

@@ -2,11 +2,61 @@
 
 import subprocess
 from pathlib import Path
-from typing import List, Optional, Dict
+from typing import List, Optional, Dict, Set
 
 from code2llm.api import AnalysisResult
 
 from ..config import Code2DocsConfig
+
+
+def parse_gitignore(project_path: Path) -> List[str]:
+    """Parse .gitignore file and return list of patterns to exclude.
+    
+    Filters out:
+    - Empty lines
+    - Comments (lines starting with #)
+    - Negation patterns (starting with !)
+    - Complex patterns with ** or regex
+    
+    Returns simple directory/file patterns that can be passed to --skip-subprojects.
+    """
+    gitignore_path = project_path / ".gitignore"
+    if not gitignore_path.exists():
+        return []
+    
+    patterns = []
+    try:
+        content = gitignore_path.read_text(encoding="utf-8")
+        for line in content.split("\n"):
+            line = line.strip()
+            # Skip empty lines and comments
+            if not line or line.startswith("#"):
+                continue
+            # Skip negation patterns (too complex)
+            if line.startswith("!"):
+                continue
+            # Skip patterns with ** (globstar - too complex)
+            if "**" in line:
+                continue
+            # Skip file-specific patterns (with wildcards)
+            if "*" in line and "/" not in line:
+                # Wildcard without path - likely file pattern, skip
+                continue
+            # Clean up the pattern
+            pattern = line.rstrip("/")  # Remove trailing slash
+            # Skip patterns starting with / (root-only patterns)
+            if pattern.startswith("/"):
+                pattern = pattern[1:]
+            # Skip if still has special characters
+            if any(c in pattern for c in "[]?*"):
+                continue
+            # Valid directory pattern
+            if pattern and len(pattern) > 1:
+                patterns.append(pattern)
+    except Exception:
+        pass  # Silently fail if can't read gitignore
+    
+    return patterns
 
 
 class Code2LlmGenerator:
@@ -81,6 +131,7 @@ class Code2LlmGenerator:
             "-f", ",".join(cfg.formats),
             "-o", str(output_dir),
             "--strategy", cfg.strategy,
+            "--max-depth", str(cfg.max_depth),
         ]
         
         # Add options based on config
@@ -90,6 +141,24 @@ class Code2LlmGenerator:
             cmd.append("--no-png")
         if self.config.verbose:
             cmd.append("-v")
+        
+        # Add exclude patterns as skip-subprojects if specified
+        if cfg.exclude_patterns:
+            # Convert patterns to skip-subprojects (folders to skip)
+            skip_dirs = [p for p in cfg.exclude_patterns if not p.startswith(".") and not p.startswith("*")]
+            if skip_dirs:
+                cmd.extend(["--skip-subprojects"] + skip_dirs[:10])  # Limit to 10
+        
+        # Add patterns from .gitignore
+        gitignore_patterns = parse_gitignore(project_path)
+        if gitignore_patterns:
+            # Merge with existing patterns, remove duplicates
+            existing = set(skip_dirs) if cfg.exclude_patterns else set()
+            new_patterns = [p for p in gitignore_patterns if p not in existing][:10]
+            if new_patterns:
+                if "--skip-subprojects" not in cmd:
+                    cmd.append("--skip-subprojects")
+                cmd.extend(new_patterns)
         
         # Run the command
         result = subprocess.run(

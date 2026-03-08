@@ -62,6 +62,17 @@ class Code2LlmConfig:
     output_dir: str = "project"  # Relative to project root
     chunk: bool = False  # Enable chunking for large repos
     no_png: bool = True  # Skip PNG generation (faster)
+    max_depth: int = 3  # Maximum directory depth to scan (default 3 levels)
+    exclude_patterns: List[str] = field(default_factory=lambda: [
+        "venv", ".venv", "env", ".env",
+        "node_modules", "bower_components",
+        "__pycache__", ".pytest_cache", ".mypy_cache",
+        ".git", ".hg", ".svn",
+        "dist", "build", "target", "out",
+        ".tox", ".eggs", "*.egg-info",
+        "vendor", "third_party", "third-party",
+        "site-packages", "lib/python*",
+    ])  # Patterns to exclude from scanning
 
 
 @dataclass
@@ -214,6 +225,17 @@ class Code2DocsConfig:
                 output_dir=code2llm_data.get("output_dir", "project"),
                 chunk=code2llm_data.get("chunk", False),
                 no_png=code2llm_data.get("no_png", True),
+                max_depth=code2llm_data.get("max_depth", 3),
+                exclude_patterns=code2llm_data.get("exclude_patterns", [
+                    "venv", ".venv", "env", ".env",
+                    "node_modules", "bower_components",
+                    "__pycache__", ".pytest_cache", ".mypy_cache",
+                    ".git", ".hg", ".svn",
+                    "dist", "build", "target", "out",
+                    ".tox", ".eggs", "*.egg-info",
+                    "vendor", "third_party", "third-party",
+                    "site-packages", "lib/python*",
+                ]),
             )
 
         return config
@@ -266,6 +288,8 @@ class Code2DocsConfig:
                 "output_dir": self.code2llm.output_dir,
                 "chunk": self.code2llm.chunk,
                 "no_png": self.code2llm.no_png,
+                "max_depth": self.code2llm.max_depth,
+                "exclude_patterns": self.code2llm.exclude_patterns,
             },
         }
         with open(path, "w", encoding="utf-8") as f:

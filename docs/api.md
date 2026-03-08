@@ -1,13 +1,13 @@
 # code2docs — API Reference
 
-> 38 modules | 229 functions | 51 classes
+> 39 modules | 237 functions | 54 classes
 
 ## Contents
 
 - [Core](#core) (9 modules)
 - [analyzers](#analyzers) (4 modules)
 - [formatters](#formatters) (3 modules)
-- [generators](#generators) (15 modules)
+- [generators](#generators) (16 modules)
 - [sync](#sync) (3 modules)
 
 ## Core
@@ -67,10 +67,11 @@
 
 | Class | Methods | Description | Source |
 |-------|---------|-------------|--------|
-| `Code2DocsConfig` | 2 | Main configuration for code2docs. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/config.py#L82) |
+| `Code2DocsConfig` | 2 | Main configuration for code2docs. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/config.py#L104) |
+| `Code2LlmConfig` | 0 | Configuration for code2llm analysis generation. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/config.py#L57) |
 | `DocsConfig` | 0 | Configuration for docs/ generation. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/config.py#L33) |
 | `ExamplesConfig` | 0 | Configuration for examples/ generation. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/config.py#L42) |
-| `LLMConfig` | 1 | Configuration for optional LLM-assisted documentation generation. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/config.py#L57) |
+| `LLMConfig` | 1 | Configuration for optional LLM-assisted documentation generation. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/config.py#L79) |
 | `ReadmeConfig` | 0 | Configuration for README generation. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/config.py#L20) |
 | `SyncConfig` | 0 | Configuration for synchronization. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/config.py#L49) |
 
@@ -113,6 +114,7 @@
 | `ApiChangelogAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L115) |
 | `ApiReferenceAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L33) |
 | `ArchitectureAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L67) |
+| `Code2LlmAdapter` | 2 | Adapter for code2llm analysis generation. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L215) |
 | `ConfigDocsAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L182) |
 | `ContributingAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L199) |
 | `CoverageAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L99) |
@@ -129,6 +131,7 @@
 | `ArchitectureGenerator` | 1 | Generate docs/architecture.md — architecture overview with diagrams. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/architecture_gen.py#L12) |
 | `ChangelogEntry` | 0 | A single changelog entry. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/changelog_gen.py#L14) |
 | `ChangelogGenerator` | 1 | Generate CHANGELOG.md from git log and analysis diff. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/changelog_gen.py#L23) |
+| `Code2LlmGenerator` | 2 | Generate code2llm analysis files in project/ directory. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/code2llm_gen.py#L62) |
 | `ConfigDocsGenerator` | 1 | Generate docs/configuration.md from Code2DocsConfig dataclass. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/config_docs_gen.py#L11) |
 | `ContributingGenerator` | 1 | Generate CONTRIBUTING.md by detecting dev tools from pyproject.toml. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/contributing_gen.py#L11) |
 | `CoverageGenerator` | 1 | Generate docs/coverage.md — docstring coverage report. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/coverage_gen.py#L11) |
@@ -150,6 +153,11 @@
 - `run(ctx)`
 
 **`ArchitectureAdapter` methods:**
+
+- `should_run()`
+- `run(ctx)`
+
+**`Code2LlmAdapter` methods:**
 
 - `should_run()`
 - `run(ctx)`
@@ -209,6 +217,11 @@
 - `generate(project_path)` — Generate api-changelog.md by comparing with previous snapshot.
 - `save_snapshot(project_path)` — Save current API state as snapshot for future diffs.
 
+**`Code2LlmGenerator` methods:**
+
+- `generate_all()` — Generate all code2llm analysis files.
+- `get_analysis_summary()` — Get a summary of the analysis for integration with other docs.
+
 **`ExamplesGenerator` methods:**
 
 - `generate_all()` — Generate all example files. Returns {filename: content}.
@@ -226,6 +239,8 @@
 
 | Function | Signature | CC | Description | Source |
 |----------|-----------|----|-----------  |--------|
+| `generate_code2llm_analysis` | `generate_code2llm_analysis(project_path, config)` | 2 | Convenience function to generate code2llm analysis. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/code2llm_gen.py#L188) |
+| `parse_gitignore` | `parse_gitignore(project_path)` | 15 ⚠️ | Parse .gitignore file and return list of patterns to exclude. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/code2llm_gen.py#L12) |
 | `generate_docs` | `generate_docs(project_path, config)` | 5 | High-level function to generate all documentation. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/__init__.py#L35) |
 | `generate_readme` | `generate_readme(project_path, output, sections, sync_markers, ...)` | 3 | Convenience function to generate a README. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/readme_gen.py#L446) |
 
@@ -357,6 +372,7 @@
 | `ApiChangelogAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L115) |
 | `ApiReferenceAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L33) |
 | `ArchitectureAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L67) |
+| `Code2LlmAdapter` | 2 | Adapter for code2llm analysis generation. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L215) |
 | `ConfigDocsAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L182) |
 | `ContributingAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L199) |
 | `CoverageAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L99) |
@@ -378,6 +394,11 @@
 - `run(ctx)`
 
 **`ArchitectureAdapter` methods:**
+
+- `should_run()`
+- `run(ctx)`
+
+**`Code2LlmAdapter` methods:**
 
 - `should_run()`
 - `run(ctx)`
@@ -468,6 +489,22 @@
 |-------|---------|-------------|--------|
 | `ChangelogEntry` | 0 | A single changelog entry. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/changelog_gen.py#L14) |
 | `ChangelogGenerator` | 1 | Generate CHANGELOG.md from git log and analysis diff. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/changelog_gen.py#L23) |
+
+### `generators.code2llm_gen` [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/code2llm_gen.py)
+
+| Class | Methods | Description | Source |
+|-------|---------|-------------|--------|
+| `Code2LlmGenerator` | 2 | Generate code2llm analysis files in project/ directory. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/code2llm_gen.py#L62) |
+
+**`Code2LlmGenerator` methods:**
+
+- `generate_all()` — Generate all code2llm analysis files.
+- `get_analysis_summary()` — Get a summary of the analysis for integration with other docs.
+
+| Function | Signature | CC | Description | Source |
+|----------|-----------|----|-----------  |--------|
+| `generate_code2llm_analysis` | `generate_code2llm_analysis(project_path, config)` | 2 | Convenience function to generate code2llm analysis. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/code2llm_gen.py#L188) |
+| `parse_gitignore` | `parse_gitignore(project_path)` | 15 ⚠️ | Parse .gitignore file and return list of patterns to exclude. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/code2llm_gen.py#L12) |
 
 ### `generators.config_docs_gen` [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/config_docs_gen.py)
 

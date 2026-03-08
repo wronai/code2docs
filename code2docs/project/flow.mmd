@@ -1,0 +1,333 @@
+flowchart TD
+    subgraph analyzers_dependency_scanner
+        analyzers__scan["scan"]
+        analyzers___parse_pyproject("_parse_pyproject CC=8")
+        analyzers___parse_pyproject_regex["_parse_pyproject_regex"]
+        analyzers___parse_setup_py["_parse_setup_py"]
+        analyzers___parse_requirements_txt["_parse_requirements_txt"]
+        analyzers___parse_dep_string["_parse_dep_string"]
+    end
+    subgraph analyzers_docstring_extractor
+        analyzers__extract_all["extract_all"]
+        analyzers__parse["parse"]
+        analyzers___extract_summary["_extract_summary"]
+        analyzers___classify_section["_classify_section"]
+        analyzers___parse_sections("_parse_sections CC=8")
+        analyzers___parse_param_line["_parse_param_line"]
+        analyzers___parse_returns_line["_parse_returns_line"]
+        analyzers___parse_raises_line["_parse_raises_line"]
+        analyzers___parse_examples_line["_parse_examples_line"]
+        analyzers__coverage_report("coverage_report CC=8")
+    end
+    subgraph analyzers_endpoint_detector
+        analyzers__detect["detect"]
+        analyzers___parse_decorator["_parse_decorator"]
+        analyzers___scan_django_urls["_scan_django_urls"]
+    end
+    subgraph analyzers_project_scanner
+        analyzers____init__["__init__"]
+        analyzers___build_llm_config["_build_llm_config"]
+        analyzers__analyze["analyze"]
+        analyzers__project_scanner__analyze_and_document["analyze_and_document"]
+    end
+    subgraph base_BaseGenerator
+        base__BaseGenerator____init__["__init__"]
+        base__BaseGenerator__should_run["should_run"]
+        base__BaseGenerator__run["run"]
+    end
+    subgraph cli
+        cli__main["main"]
+        cli__generate["generate"]
+        cli__sync["sync"]
+        cli__watch["watch"]
+        cli__init["init"]
+        cli__check["check"]
+        cli__diff["diff"]
+        cli___load_config["_load_config"]
+        cli___run_generate["_run_generate"]
+        cli___run_sync["_run_sync"]
+        cli___run_watch["_run_watch"]
+        cli___run_check("_run_check CC=10")
+        cli___run_diff["_run_diff"]
+    end
+    subgraph cli_DefaultGroup
+        cli__DefaultGroup__parse_args["parse_args"]
+    end
+    subgraph code2docs
+        code2docs____getattr__["__getattr__"]
+    end
+    subgraph config_Code2DocsConfig
+        config__Code2DocsConfig____post_init__["__post_init__"]
+        config__Code2DocsConfig___detect_repo_url["_detect_repo_url"]
+        config__Code2DocsConfig__from_yaml("from_yaml CC=10")
+        config__Code2DocsConfig__to_yaml["to_yaml"]
+    end
+    subgraph config_LLMConfig
+        config__LLMConfig__from_env["from_env"]
+    end
+    subgraph formatters_badges
+        formatters__badges__generate_badges["generate_badges"]
+        formatters__badges___make_badge("_make_badge CC=11")
+    end
+    subgraph formatters_markdown
+        formatters__markdown__MarkdownFormatter____init__["__init__"]
+        formatters__markdown__MarkdownFormatter__heading["heading"]
+        formatters__markdown__MarkdownFormatter__paragraph["paragraph"]
+        formatters__blockquote["blockquote"]
+        formatters__code_block["code_block"]
+        formatters__inline_code["inline_code"]
+        formatters__markdown__MarkdownFormatter__bold["bold"]
+        formatters__markdown__MarkdownFormatter__link["link"]
+        formatters__markdown__MarkdownFormatter__list_item["list_item"]
+        formatters__markdown__MarkdownFormatter__table["table"]
+        formatters__markdown__MarkdownFormatter__separator["separator"]
+        formatters__markdown__MarkdownFormatter__blank["blank"]
+        formatters__markdown__MarkdownFormatter__render["render"]
+    end
+    subgraph formatters_toc
+        formatters__toc__generate_toc["generate_toc"]
+        formatters__toc__extract_headings["extract_headings"]
+        formatters__toc___slugify["_slugify"]
+    end
+    subgraph generators
+        generators__generate_docs["generate_docs"]
+    end
+    subgraph generators__registry_adapters
+        generators__should_run["should_run"]
+        generators__run["run"]
+        generators__should_run["should_run"]
+        generators__run["run"]
+        generators__should_run["should_run"]
+        generators__run["run"]
+        generators__should_run["should_run"]
+        generators__run["run"]
+        generators__should_run["should_run"]
+        generators__run["run"]
+        generators__should_run["should_run"]
+        generators__run["run"]
+        generators__should_run["should_run"]
+        generators__run["run"]
+        generators__should_run["should_run"]
+        generators__run["run"]
+        generators__should_run["should_run"]
+        generators___registry_adapters__MkDocsAdapter__run["run"]
+        generators__should_run["should_run"]
+        generators__run["run"]
+        generators__should_run["should_run"]
+        generators__run["run"]
+        generators__should_run["should_run"]
+        generators__run["run"]
+        generators__should_run["should_run"]
+        generators__run["run"]
+    end
+    subgraph generators__source_links
+        generators___source_links__SourceLinker____init__["__init__"]
+        generators__source_link["source_link"]
+        generators___source_links__SourceLinker__file_link["file_link"]
+        generators___relative_path["_relative_path"]
+        generators___find_git_root["_find_git_root"]
+        generators___detect_branch["_detect_branch"]
+    end
+    subgraph generators_api_changelog_gen
+        generators____init__["__init__"]
+        generators__generate["generate"]
+        generators__save_snapshot["save_snapshot"]
+        generators___build_snapshot["_build_snapshot"]
+        generators___load_snapshot["_load_snapshot"]
+        generators___diff["_diff"]
+        generators___diff_functions("_diff_functions CC=10")
+        generators___diff_classes("_diff_classes CC=10")
+        generators___render("_render CC=14")
+    end
+    subgraph generators_api_reference_gen
+        generators____init__["__init__"]
+        generators__generate("generate CC=11")
+        generators___group_modules["_group_modules"]
+        generators___has_content("_has_content CC=10")
+        generators___render_module_section{{_render_module_section CC=25}}
+        generators___get_public_methods["_get_public_methods"]
+        generators___format_signature["_format_signature"]
+    end
+    subgraph generators_architecture_gen
+        generators____init__["__init__"]
+        generators__generate("generate CC=13")
+        generators___generate_pipeline_overview["_generate_pipeline_overview"]
+        generators___generate_layer_diagram["_generate_layer_diagram"]
+        generators___get_public_entry_points("_get_public_entry_points CC=9")
+        generators___generate_llm_summary["_generate_llm_summary"]
+        generators___generate_module_graph("_generate_module_graph CC=9")
+        generators___generate_class_diagram("_generate_class_diagram CC=11")
+        generators___detect_layers("_detect_layers CC=8")
+        generators___generate_metrics_table["_generate_metrics_table"]
+    end
+    subgraph generators_changelog_gen
+        generators____init__["__init__"]
+        generators__generate["generate"]
+        generators___get_git_log["_get_git_log"]
+        generators___classify_message["_classify_message"]
+        generators___group_by_type["_group_by_type"]
+        generators___render["_render"]
+    end
+    subgraph generators_code2llm_gen
+        generators__code2llm_gen__parse_gitignore{{parse_gitignore CC=15}}
+        generators____init__["__init__"]
+        generators__generate_all["generate_all"]
+        generators___run_code2llm{{_run_code2llm CC=17}}
+        generators__get_analysis_summary["get_analysis_summary"]
+        generators__generate_code2llm_analysis["generate_code2llm_analysis"]
+    end
+    subgraph generators_config_docs_gen
+        generators____init__["__init__"]
+        generators__generate["generate"]
+        generators___render_section("_render_section CC=10")
+        generators___render_example["_render_example"]
+    end
+    subgraph generators_contributing_gen
+        generators____init__["__init__"]
+        generators__generate["generate"]
+        generators___detect_dev_tools["_detect_dev_tools"]
+        generators___render_setup["_render_setup"]
+        generators___render_development["_render_development"]
+        generators___render_testing["_render_testing"]
+        generators___render_code_style("_render_code_style CC=8")
+        generators___render_pull_request["_render_pull_request"]
+    end
+    subgraph generators_coverage_gen
+        generators____init__["__init__"]
+        generators__generate["generate"]
+        generators___render_summary["_render_summary"]
+        generators___render_per_module["_render_per_module"]
+        generators___collect_module_stats("_collect_module_stats CC=12")
+        generators___format_coverage_table["_format_coverage_table"]
+        generators___render_undocumented("_render_undocumented CC=8")
+    end
+    subgraph generators_depgraph_gen
+        generators____init__["__init__"]
+        generators__generate["generate"]
+        generators___collect_edges["_collect_edges"]
+        generators___extract_imports_from_file["_extract_imports_from_file"]
+        generators___import_matches["_import_matches"]
+        generators___render_mermaid["_render_mermaid"]
+        generators___render_matrix("_render_matrix CC=9")
+        generators___calc_degrees["_calc_degrees"]
+        generators___render_degree_table["_render_degree_table"]
+    end
+    subgraph generators_examples_gen
+        generators____init__["__init__"]
+        generators__generate_all["generate_all"]
+        generators___generate_quickstart("_generate_quickstart CC=9")
+        generators___generate_advanced{{_generate_advanced CC=22}}
+        generators___detect_package_name["_detect_package_name"]
+        generators___find_convenience_functions["_find_convenience_functions"]
+        generators___find_api_classes["_find_api_classes"]
+        generators___find_generator_classes["_find_generator_classes"]
+        generators___find_function_by_name["_find_function_by_name"]
+        generators___find_class_by_name["_find_class_by_name"]
+        generators___build_realistic_args["_build_realistic_args"]
+        generators___example_from_type("_example_from_type CC=9")
+        generators___get_public_methods["_get_public_methods"]
+        generators__write_all["write_all"]
+    end
+    subgraph generators_getting_started_gen
+        generators____init__["__init__"]
+        generators__generate["generate"]
+        generators___render_prerequisites["_render_prerequisites"]
+        generators___render_installation["_render_installation"]
+        generators___render_first_usage{{_render_first_usage CC=15}}
+        generators___generate_intro{{_generate_intro CC=16}}
+        generators___render_next_steps["_render_next_steps"]
+        generators___get_top_level_modules["_get_top_level_modules"]
+    end
+    subgraph generators_mkdocs_gen
+        generators__mkdocs_gen__MkDocsGenerator____init__["__init__"]
+        generators__mkdocs_gen__MkDocsGenerator__generate["generate"]
+        generators___build_nav["_build_nav"]
+        generators__mkdocs_gen__MkDocsGenerator__write["write"]
+    end
+    subgraph generators_module_docs_gen
+        generators____init__["__init__"]
+        generators__generate{{generate CC=18}}
+        generators___group_modules["_group_modules"]
+        generators___has_content["_has_content"]
+        generators___render_module_detail{{_render_module_detail CC=25}}
+        generators___get_public_methods["_get_public_methods"]
+        generators___count_file_lines["_count_file_lines"]
+        generators___calc_module_avg_cc["_calc_module_avg_cc"]
+        generators___get_module_docstring["_get_module_docstring"]
+    end
+    subgraph generators_readme_gen
+        generators__readme_gen__ReadmeGenerator____init__["__init__"]
+        generators__readme_gen__ReadmeGenerator__generate["generate"]
+        generators___build_context("_build_context CC=12")
+        generators___calc_avg_complexity["_calc_avg_complexity"]
+        generators___build_module_tree["_build_module_tree"]
+        generators___generate_description["_generate_description"]
+        generators___extract_project_description("_extract_project_description CC=8")
+        generators___extract_project_metadata{{_extract_project_metadata CC=29}}
+        generators___extract_extras["_extract_extras"]
+        generators___build_manual["_build_manual"]
+        generators___build_overview_section["_build_overview_section"]
+        generators___build_install_section["_build_install_section"]
+        generators___build_quickstart_section["_build_quickstart_section"]
+        generators___build_api_section["_build_api_section"]
+        generators___build_structure_section["_build_structure_section"]
+        generators___build_endpoints_section["_build_endpoints_section"]
+        generators__readme_gen__ReadmeGenerator__write["write"]
+        generators__readme_gen__generate_readme["generate_readme"]
+    end
+    subgraph llm_helper
+        llm_helper___get_litellm["_get_litellm"]
+    end
+    subgraph llm_helper_LLMHelper
+        llm_helper__LLMHelper____init__["__init__"]
+        llm_helper__LLMHelper__complete["complete"]
+        llm_helper__generate_project_description["generate_project_description"]
+        llm_helper__generate_architecture_summary["generate_architecture_summary"]
+        llm_helper__generate_getting_started_summary["generate_getting_started_summary"]
+        llm_helper__LLMHelper__enhance_module_docstring["enhance_module_docstring"]
+    end
+    subgraph registry_GeneratorRegistry
+        registry__GeneratorRegistry____init__["__init__"]
+        registry__GeneratorRegistry__add["add"]
+        registry__GeneratorRegistry__run_all["run_all"]
+        registry__GeneratorRegistry__run_only["run_only"]
+    end
+    subgraph sync_differ
+        sync__differ__ChangeInfo____str__["__str__"]
+        sync__differ__Differ____init__["__init__"]
+        sync__differ__Differ__detect_changes["detect_changes"]
+        sync__differ__Differ__save_state["save_state"]
+        sync__differ__Differ___load_state["_load_state"]
+        sync__differ__Differ___compute_state["_compute_state"]
+        sync__differ__Differ___file_to_module["_file_to_module"]
+    end
+    subgraph sync_updater
+        sync__updater__Updater____init__["__init__"]
+        sync__updater__Updater__apply["apply"]
+    end
+    subgraph sync_watcher
+        sync__watcher__start_watcher["start_watcher"]
+    end
+    llm_helper__LLMHelper__complete --> llm_helper___get_litellm
+    formatters__badges__generate_badges --> formatters__badges___make_badge
+    formatters__toc__generate_toc --> formatters__toc__extract_headings
+    formatters__toc__extract_headings --> formatters__toc___slugify
+    generators___build_context --> formatters__badges__generate_badges
+    generators___run_code2llm --> generators__code2llm_gen__parse_gitignore
+    cli__generate --> cli___load_config
+    cli__generate --> cli___run_generate
+    cli__sync --> cli___load_config
+    cli__sync --> cli___run_sync
+    cli__watch --> cli___load_config
+    cli__watch --> cli___run_watch
+    cli__check --> cli___load_config
+    cli__check --> cli___run_check
+    cli__diff --> cli___load_config
+    cli__diff --> cli___run_diff
+    cli___load_config --> config__Code2DocsConfig__from_yaml
+    cli___run_watch --> sync__watcher__start_watcher
+
+    classDef highCC fill:#ff6b6b,stroke:#c92a2a,color:#fff
+    classDef medCC fill:#ffd43b,stroke:#f08c00,color:#000
+    class generators___extract_project_metadata,generators___render_first_usage,generators___generate_intro,generators__code2llm_gen__parse_gitignore,generators___run_code2llm,generators__generate,generators___render_module_detail,generators___render_module_section,generators___generate_advanced highCC
+    class formatters__badges___make_badge,generators___build_context,generators___extract_project_description,generators___collect_module_stats,generators___render_undocumented,generators___render_matrix,generators___render_section,generators__generate,generators___has_content,generators___generate_quickstart,generators___example_from_type,generators___diff_functions,generators___diff_classes,generators___render,generators___render_code_style,generators__generate,generators___get_public_entry_points,generators___generate_module_graph,generators___generate_class_diagram,generators___detect_layers,cli___run_check,config__Code2DocsConfig__from_yaml,analyzers___parse_sections,analyzers__coverage_report,analyzers___parse_pyproject medCC
