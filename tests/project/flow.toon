@@ -1,0 +1,11 @@
+# tests/flow | 0 func | 0 pipelines | 0 hub-types | 2026-03-08
+
+PIPELINES[0]: none detected
+
+TRANSFORMS: none (fan-out < 10)
+
+CONTRACTS: none (no pipelines detected)
+
+DATA_TYPES: no type information available
+
+SIDE_EFFECTS:

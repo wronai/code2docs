@@ -1,0 +1,20 @@
+# code2llm | 0f 0L | py:0 | 2026-03-08
+# CC̄=0.0 | critical:0/0 | dups:0 | cycles:0
+
+HEALTH[0]: ok
+
+REFACTOR[0]: none needed
+
+COUPLING: no cross-package imports detected
+
+LAYERS:
+
+DUPLICATES[0]: none
+
+FUNCTIONS (CC≥10, 0 of 0): none
+
+HOTSPOTS: none
+
+CLASSES: none
+
+D:

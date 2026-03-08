@@ -1,0 +1,29 @@
+version: '1'
+project:
+  name: tests
+  repo: /home/tom/github/wronai/code2docs/tests
+  language: python
+  analyzed_at: '2026-03-08T08:22:33Z'
+  tool: code2llm
+  stats:
+    files: 0
+    lines: 1578
+    functions: 0
+    classes: 0
+health:
+  cc_avg: 0.0
+  critical_count: 0
+  critical_limit: 10
+  duplicates: 0
+  cycles: 0
+  alerts: []
+modules: []
+hotspots: []
+refactoring:
+  priorities: []
+evolution:
+- date: '2026-03-08'
+  cc_avg: 0.0
+  critical: 0
+  lines: 1578
+  note: Automated analysis

@@ -1,13 +1,13 @@
 You are an AI assistant helping me understand and improve a codebase.
 Use the attached/generated files as the authoritative context.
 
-we are in project path: code2docs
+we are in project path: tests
 
 Files for analysis:
-- project/analysis.toon  (Health diagnostics - complexity metrics, god modules, coupling issues, refactoring priorities) [22KB]
-- project/context.md  (LLM narrative - architecture summary, key entry points, process flows, public API surface) [32KB]
-- project/evolution.toon  (Refactoring queue - ranked actions by impact/effort, risks, metrics targets, history) [1KB]
-- project/project.toon  (Project logic - compact module view from code2logic, file sizes, dependencies overview) [23KB]
+- project/analysis.toon  (Health diagnostics - complexity metrics, god modules, coupling issues, refactoring priorities) [271B]
+- project/context.md  (LLM narrative - architecture summary, key entry points, process flows, public API surface) [1KB]
+- project/evolution.toon  (Refactoring queue - ranked actions by impact/effort, risks, metrics targets, history) [455B]
+- project/project.toon  (Project logic - compact module view from code2logic, file sizes, dependencies overview) [5KB]
 - project/README.md  (Documentation - complete guide to all generated files, usage examples, interpretation) [9KB]
 
 Task:

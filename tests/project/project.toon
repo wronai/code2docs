@@ -1,0 +1,69 @@
+# tests | 10f 1588L | python:10
+# Keys: M=modules, D=details, i=imports, c=classes, f=functions, m=methods
+M[10]:
+  test_formatters.py,72
+  test_sync.py,58
+  __init__.py,0
+  test_config.py,39
+  test_code2docs.py,7
+  test_generators.py,520
+  test_analyzers.py,119
+  test_registry.py,172
+  test_llm_helper.py,214
+  test_cli.py,72
+D:
+  test_formatters.py:
+    i: pytest,code2docs.formatters.badges.generate_badges,code2docs.formatters.markdown.MarkdownFormatter,code2docs.formatters.toc.{extract_headings,generate_toc}
+    e: TestMarkdownFormatter,TestBadges,TestToc
+    TestMarkdownFormatter: test_heading(0),test_heading_level2(0),test_code_block(0),test_table(0),test_list_item(0)
+    TestBadges: test_generate_badges_version(0),test_generate_badges_python(0),test_generate_badges_complexity(0),test_generate_badges_empty(0)
+    TestToc: test_extract_headings(0),test_extract_headings_skips_code_blocks(0),test_generate_toc(0),test_generate_toc_empty(0)
+  test_sync.py:
+    i: tempfile,pytest,code2docs.sync.differ.{ChangeInfo,Differ},pathlib.Path
+    e: TestDiffer
+    TestDiffer: test_detect_new_files(0),test_detect_no_changes_after_save(0),test_detect_modified(0),test_detect_deleted(0),test_ignore_patterns(0)
+  test_config.py:
+    i: tempfile,pytest,code2docs.config.{Code2DocsConfig,DocsConfig,ReadmeConfig,SyncConfig},pathlib.Path
+    e: TestCode2DocsConfig
+    TestCode2DocsConfig: test_defaults(0),test_readme_defaults(0),test_yaml_roundtrip(0),test_from_yaml_missing_file(0),test_sync_config_defaults(0)
+  test_code2docs.py:
+    e: test_placeholder,test_import
+    test_placeholder()
+    test_import()
+  test_generators.py:
+    i: tempfile,pytest,code2docs.config.Code2DocsConfig,code2llm.core.models.{AnalysisResult,ClassInfo,FunctionInfo,ModuleInfo},pathlib.Path
+    e: TestReadmeGenerator,TestApiReferenceGenerator,TestModuleDocsGenerator,TestExamplesGenerator,TestArchitectureGenerator,TestChangelogGenerator,TestDepGraphGenerator,TestCoverageGenerator
+    TestReadmeGenerator: test_manual_fallback_contains_sections(0),test_manual_fallback_sync_markers(0),test_generate_produces_output(0),test_build_api_section_lists_classes(0),test_build_endpoints_section_empty(0)
+    TestApiReferenceGenerator: test_generate_produces_single_file(0),test_contains_modules(0),test_contains_classes(0),test_contains_functions(0),test_skips_trivial_modules(0)
+    TestModuleDocsGenerator: test_generate_produces_single_file(0),test_contains_modules(0),test_contains_classes(0),test_contains_functions(0),test_skips_trivial_modules(0)
+    TestExamplesGenerator: test_generate_all_produces_quickstart(0),test_quickstart_contains_imports(0),test_quickstart_has_docstring(0),test_advanced_contains_imports(0),test_detect_package_name(0)
+    TestArchitectureGenerator: test_generate_produces_output(0),test_contains_mermaid(0),test_contains_metrics(0)
+    _make_result()->AnalysisResult
+    _make_config()->Code2DocsConfig
+  test_analyzers.py:
+    i: tempfile,pytest,code2docs.analyzers.dependency_scanner.DependencyScanner,code2docs.analyzers.docstring_extractor.{DocstringExtractor,DocstringInfo},code2docs.analyzers.endpoint_detector.{Endpoint,EndpointDetector},pathlib.Path
+    e: TestDocstringExtractor,TestDependencyScanner,TestEndpointDetector
+    TestDocstringExtractor: test_parse_simple(0),test_parse_with_params(0),test_parse_empty(0),test_coverage_report(0)
+    TestDependencyScanner: test_parse_requirements_txt(0),test_parse_pyproject_toml(0),test_empty_project(0)
+    TestEndpointDetector: test_parse_flask_decorator(0),test_parse_fastapi_decorator(0),test_no_match(0)
+  test_registry.py:
+    i: tempfile,pytest,code2docs.base.BaseGenerator,code2docs.config.Code2DocsConfig,code2llm.core.models.{AnalysisResult,ClassInfo,FunctionInfo,ModuleInfo},pathlib.Path,typing.Optional
+    e: TestBaseGenerator,TestGenerateContext,TestGeneratorRegistry,TestAdapters
+    _DummyGenerator: __init__(2),should_run(0),run(1)  # Concrete test generator.
+    _AlwaysGenerator: should_run(0),run(1)
+    TestBaseGenerator: test_subclass_instantiation(0),test_should_run_respects_flag(0),test_should_run_readme_only(0)
+    TestGenerateContext: test_defaults(0),test_custom(0)
+    TestGeneratorRegistry: test_add_and_run_all(0),test_skips_disabled_generator(0),test_readme_only_filters(0),test_run_only(0),test_run_preserves_order(0)
+    _make_config()->Code2DocsConfig
+    _make_result()->AnalysisResult
+  test_llm_helper.py:
+    i: pytest,code2docs.config.{Code2DocsConfig,LLMConfig},code2docs.llm_helper.{LLMHelper,_get_litellm},unittest.mock.{MagicMock,patch}
+    e: TestLLMConfig,TestLLMHelperDisabled,TestLLMHelperEnabled,TestGeneratorFallback
+    TestLLMConfig: test_defaults(0),test_from_env_no_vars(0),test_from_env_with_model(0),test_from_env_with_api_base(0)
+    TestLLMHelperDisabled: test_not_available_when_disabled(0),test_not_available_when_no_model(0),test_complete_returns_none_when_disabled(0),test_generate_project_description_returns_none(0),test_generate_architecture_summary_returns_none(0)  # Test that LLMHelper returns None for...
+    TestLLMHelperEnabled: _make_helper(0),_mock_response(1),test_complete_calls_litellm(0),test_complete_returns_none_on_exception(0),test_generate_project_description_with_llm(0)  # Test LLMHelper with mocked litellm.
+    TestGeneratorFallback: test_readme_without_llm(0),test_architecture_without_llm(0),test_getting_started_without_llm(0)  # Verify generators work correctly with...
+  test_cli.py:
+    i: tempfile,click.testing.CliRunner,code2docs.cli.main,pathlib.Path
+    e: TestCLI
+    TestCLI: setup_method(0),test_help(0),test_generate_help(0),test_sync_help(0),test_init_creates_config(0)

@@ -1,0 +1,20 @@
+# code2llm/evolution | 0 func | 1f | 2026-03-08
+
+NEXT[1] (ranked by impact):
+  [1] !! SPLIT           test_generators.py
+      WHY: 626L, 0 classes, max CC=0
+      EFFORT: ~4h  IMPACT: 0
+
+
+RISKS[1]:
+  ⚠ Splitting test_generators.py may break 0 import paths
+
+METRICS-TARGET:
+  CC̄:          0.0 → ≤0.0
+  max-CC:      0 → ≤0
+  god-modules: 1 → 0
+  high-CC(≥15): 0 → ≤0
+  hub-types:   0 → ≤0
+
+HISTORY:
+  prev CC̄=0.0 → now CC̄=0.0
