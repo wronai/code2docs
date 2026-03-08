@@ -1,4 +1,4 @@
-# tests | 10f 1588L | python:10
+# tests | 10f 1785L | python:10
 # Keys: M=modules, D=details, i=imports, c=classes, f=functions, m=methods
 M[10]:
   test_formatters.py,72
@@ -10,7 +10,7 @@ M[10]:
   test_analyzers.py,119
   test_registry.py,172
   test_llm_helper.py,214
-  test_cli.py,72
+  test_cli.py,231
 D:
   test_formatters.py:
     i: pytest,code2docs.formatters.badges.generate_badges,code2docs.formatters.markdown.MarkdownFormatter,code2docs.formatters.toc.{extract_headings,generate_toc}
@@ -64,6 +64,8 @@ D:
     TestLLMHelperEnabled: _make_helper(0),_mock_response(1),test_complete_calls_litellm(0),test_complete_returns_none_on_exception(0),test_generate_project_description_with_llm(0)  # Test LLMHelper with mocked litellm.
     TestGeneratorFallback: test_readme_without_llm(0),test_architecture_without_llm(0),test_getting_started_without_llm(0)  # Verify generators work correctly with...
   test_cli.py:
-    i: tempfile,click.testing.CliRunner,code2docs.cli.main,pathlib.Path
-    e: TestCLI
-    TestCLI: setup_method(0),test_help(0),test_generate_help(0),test_sync_help(0),test_init_creates_config(0)
+    i: subprocess,sys,tempfile,pytest,click.testing.CliRunner,code2docs.cli.main,pathlib.Path
+    e: TestCLI,TestCLIShellE2E,TestCLINewFeaturesE2E
+    TestCLI: setup_method(0),test_help(0),test_generate_help(0),test_sync_help(0),test_init_creates_config(0)  # Unit tests using Click's CliRunner.
+    TestCLIShellE2E: temp_project(0),_run_shell(2),test_shell_generate(1),test_shell_generate_creates_files(1),test_shell_init(1)  # E2E tests using actual shell subproce...
+    TestCLINewFeaturesE2E: temp_org(0),_run_shell(2),test_shell_org_mode(1),test_shell_org_mode_dry_run(1)  # E2E tests for new CLI features (--org...

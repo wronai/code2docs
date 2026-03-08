@@ -1,8 +1,6 @@
-# code2docs | 64f 8813L | python:64
+# code2docs | 64f 9010L | python:64
 # Keys: M=modules, D=details, i=imports, c=classes, f=functions, m=methods
 M[64]:
-  docs/examples/advanced_usage.py,52
-  docs/examples/quickstart.py,25
   code2docs/__init__.py,26
   code2docs/__main__.py,4
   code2docs/analyzers/__init__.py,11
@@ -43,6 +41,8 @@ M[64]:
   code2docs/sync/differ.py,99
   code2docs/sync/updater.py,32
   code2docs/sync/watcher.py,58
+  docs/examples/advanced_usage.py,52
+  docs/examples/quickstart.py,25
   examples/01_cli_usage.py,23
   examples/02_configuration.py,106
   examples/03_programmatic_api.py,88
@@ -57,7 +57,7 @@ M[64]:
   examples/quickstart.py,25
   tests/__init__.py,0
   tests/test_analyzers.py,119
-  tests/test_cli.py,72
+  tests/test_cli.py,231
   tests/test_code2docs.py,7
   tests/test_config.py,39
   tests/test_formatters.py,72
@@ -292,9 +292,11 @@ D:
     TestDependencyScanner: test_parse_requirements_txt(0),test_parse_pyproject_toml(0),test_empty_project(0)
     TestEndpointDetector: test_parse_flask_decorator(0),test_parse_fastapi_decorator(0),test_no_match(0)
   tests/test_cli.py:
-    i: tempfile,click.testing.CliRunner,code2docs.cli.main,pathlib.Path
-    e: TestCLI
-    TestCLI: setup_method(0),test_help(0),test_generate_help(0),test_sync_help(0),test_init_creates_config(0)
+    i: subprocess,sys,tempfile,pytest,click.testing.CliRunner,code2docs.cli.main,pathlib.Path
+    e: TestCLI,TestCLIShellE2E,TestCLINewFeaturesE2E
+    TestCLI: setup_method(0),test_help(0),test_generate_help(0),test_sync_help(0),test_init_creates_config(0)  # Unit tests using Click's CliRunner.
+    TestCLIShellE2E: temp_project(0),_run_shell(2),test_shell_generate(1),test_shell_generate_creates_files(1),test_shell_init(1)  # E2E tests using actual shell subproce...
+    TestCLINewFeaturesE2E: temp_org(0),_run_shell(2),test_shell_org_mode(1),test_shell_org_mode_dry_run(1)  # E2E tests for new CLI features (--org...
   tests/test_code2docs.py:
     e: test_placeholder,test_import
     test_placeholder()

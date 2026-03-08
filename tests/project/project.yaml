@@ -3,11 +3,11 @@ project:
   name: tests
   repo: /home/tom/github/wronai/code2docs/tests
   language: python
-  analyzed_at: '2026-03-08T08:54:01Z'
+  analyzed_at: '2026-03-08T08:55:37Z'
   tool: code2llm
   stats:
     files: 0
-    lines: 1578
+    lines: 1775
     functions: 0
     classes: 0
 health:
@@ -25,5 +25,5 @@ evolution:
 - date: '2026-03-08'
   cc_avg: 0.0
   critical: 0
-  lines: 1578
+  lines: 1775
   note: Automated analysis
