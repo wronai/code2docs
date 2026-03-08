@@ -1,19 +1,20 @@
-# code2llm | 37f 5112L | py:37 | 2026-03-08
-# CC̄=4.2 | critical:24/280 | dups:0 | cycles:1
+# code2llm | 38f 5373L | py:38 | 2026-03-08
+# CC̄=4.2 | critical:25/292 | dups:0 | cycles:1
 
-HEALTH[9]:
+HEALTH[10]:
   🟡 CC    _render_first_usage CC=15 (limit:15)
   🟡 CC    _generate_intro CC=16 (limit:15)
   🟡 CC    parse_gitignore CC=15 (limit:15)
   🟡 CC    _run_code2llm CC=17 (limit:15)
   🟡 CC    generate CC=18 (limit:15)
   🟡 CC    _render_module_detail CC=25 (limit:15)
+  🟡 CC    _extract_description CC=17 (limit:15)
   🟡 CC    _render_module_section CC=25 (limit:15)
   🟡 CC    _generate_advanced CC=22 (limit:15)
   🟡 CC    _extract_project_metadata CC=29 (limit:15)
 
 REFACTOR[2]:
-  1. split 9 high-CC methods  (CC>15)
+  1. split 10 high-CC methods  (CC>15)
   2. break 1 circular dependencies
 
 COUPLING:
@@ -28,10 +29,11 @@ LAYERS:
   code2docs/                      CC̄=4.2    ←in:0  →out:1
   │ !! readme_gen                 463L  1C   18m  CC=29     ←1
   │ !! examples_gen               443L  1C   15m  CC=22     ←0
-  │ !  cli                        316L  1C   14m  CC=10     ←0
-  │ !  config                     296L  7C    5m  CC=10     ←2
+  │ !  cli                        319L  1C   14m  CC=10     ←0
+  │ !  config                     297L  7C    5m  CC=10     ←2
   │ !  architecture_gen           294L  1C   10m  CC=13     ←0
-  │ _registry_adapters         257L  13C   26m  CC=7      ←0
+  │ _registry_adapters         287L  14C   28m  CC=7      ←0
+  │ !! org_readme_gen             227L  1C   10m  CC=17     ←0
   │ !! code2llm_gen               206L  1C    6m  CC=17     ←0
   │ !! module_docs_gen            198L  1C    9m  CC=25     ←0
   │ dependency_scanner         197L  3C    7m  CC=8      ←0
@@ -67,13 +69,14 @@ LAYERS:
 
 DUPLICATES[0]: none
 
-FUNCTIONS (CC≥10, 24 of 240):
+FUNCTIONS (CC≥10, 25 of 252):
    29.0  ReadmeGenerator._extract_project_metadata   14n   2exit  loops+cond+ret  !! split
    25.0  ModuleDocsGenerator._render_module_detail   18n   2exit  loops+cond+ret  !! split
    25.0  ApiReferenceGenerator._render_module_section   13n   2exit  loops+cond+ret  !! split
    22.0  ExamplesGenerator._generate_advanced       24n   2exit  loops+cond+ret  !! split
    18.0  ModuleDocsGenerator.generate               12n   2exit  loops+cond+ret  !! split
    17.0  Code2LlmGenerator._run_code2llm            20n   1exit  cond  !! split
+   17.0  OrgReadmeGenerator._extract_description     9n   3exit  loops+cond+ret  !! split
    16.0  GettingStartedGenerator._generate_intro     6n   3exit  cond+ret  !! split
    15.0  GettingStartedGenerator._render_first_usage    7n   2exit  cond+ret  !! split
    15.0  parse_gitignore                             6n   3exit  cond+ret  !! split
@@ -88,31 +91,32 @@ FUNCTIONS (CC≥10, 24 of 240):
    11.0  ArchitectureGenerator._generate_class_diagram   12n   2exit  loops+cond+ret
    10.0  ConfigDocsGenerator._render_section        14n   2exit  loops+cond+ret
    10.0  ApiReferenceGenerator._has_content          6n   3exit  cond+ret
+   10.0  Code2DocsConfig.from_yaml                  20n   3exit  cond+ret
    10.0  ApiChangelogGenerator._diff_functions       9n   1exit  loops+cond
    10.0  ApiChangelogGenerator._diff_classes        15n   1exit  loops+cond
-   10.0  Code2DocsConfig.from_yaml                  20n   3exit  cond+ret
    10.0  _run_check                                 11n   1exit  loops+cond
 
   summary:
-    critical(≥10): 24 | high(5-10): 49 | medium(2-5): 98 | low(<2): 69
-    10% CC≥10  30% CC≥5
+    critical(≥10): 25 | high(5-10): 52 | medium(2-5): 105 | low(<2): 70
+    10% CC≥10  31% CC≥5
 
 HOTSPOTS:
   #1  _run_check                           fan=24   "calls 24 functions"
   #2  ReadmeGenerator._extract_project_metadata  fan=23   "ReadmeGenerator method, fan-out=23"
   #3  start_watcher                        fan=22   "calls 22 functions"
   #4  ApiReferenceGenerator._render_module_section  fan=21   "ApiReferenceGenerator method, fan-out=21"
-  #5  ModuleDocsGenerator.generate         fan=19   "ModuleDocsGenerator method, fan-out=19"
-  #6  Code2DocsConfig.from_yaml            fan=19   "Code2DocsConfig method, fan-out=19"
-  #7  ReadmeGenerator._build_context       fan=17   "ReadmeGenerator method, fan-out=17"
-  #8  Updater.apply                        fan=16   "Updater method, fan-out=16"
-  #9  ModuleDocsGenerator._render_module_detail  fan=16   "ModuleDocsGenerator method, fan-out=16"
-  #10 ArchitectureGenerator.generate       fan=16   "ArchitectureGenerator method, fan-out=16"
+  #5  OrgReadmeGenerator._extract_description  fan=20   "OrgReadmeGenerator method, fan-out=20"
+  #6  ModuleDocsGenerator.generate         fan=19   "ModuleDocsGenerator method, fan-out=19"
+  #7  Code2DocsConfig.from_yaml            fan=19   "Code2DocsConfig method, fan-out=19"
+  #8  ReadmeGenerator._build_context       fan=17   "ReadmeGenerator method, fan-out=17"
+  #9  Updater.apply                        fan=16   "Updater method, fan-out=16"
+  #10 ModuleDocsGenerator._render_module_detail  fan=16   "ModuleDocsGenerator method, fan-out=16"
 
 CLASSES:
   ReadmeGenerator                ████████████████████████  17m  CC̄=5.9   max=29    !!
   ExamplesGenerator              █████████████████████     15m  CC̄=6.1   max=22    !!
   MarkdownFormatter              ██████████████████        13m  CC̄=1.2   max=4   
+  OrgReadmeGenerator             ██████████████            10m  CC̄=5.2   max=17    !!
   ArchitectureGenerator          ██████████████            10m  CC̄=6.9   max=13  
   DocstringExtractor             ██████████████            10m  CC̄=3.5   max=8   
   DepGraphGenerator              ████████████               9m  CC̄=3.9   max=9   
@@ -149,21 +153,22 @@ CLASSES:
   ConfigDocsAdapter              ██                         2m  CC̄=1.5   max=2   
   ContributingAdapter            ██                         2m  CC̄=1.5   max=2   
   Code2LlmAdapter                ██                         2m  CC̄=4.0   max=7   
+  OrgReadmeAdapter               ██                         2m  CC̄=3.0   max=4   
   ChangeInfo                     █                          1m  CC̄=1.0   max=1   
   LLMConfig                      █                          1m  CC̄=1.0   max=1   
   DefaultGroup                   █                          1m  CC̄=4.0   max=4   
   GenerateContext                                           0m  CC̄=0.0   max=0.0 
   ChangelogEntry                                            0m  CC̄=0.0   max=0.0 
-  ApiChange                                                 0m  CC̄=0.0   max=0.0 
   ReadmeConfig                                              0m  CC̄=0.0   max=0.0 
   DocsConfig                                                0m  CC̄=0.0   max=0.0 
   ExamplesConfig                                            0m  CC̄=0.0   max=0.0 
   SyncConfig                                                0m  CC̄=0.0   max=0.0 
   Code2LlmConfig                                            0m  CC̄=0.0   max=0.0 
+  ApiChange                                                 0m  CC̄=0.0   max=0.0 
+  DocstringInfo                                             0m  CC̄=0.0   max=0.0 
+  Endpoint                                                  0m  CC̄=0.0   max=0.0 
   DependencyInfo                                            0m  CC̄=0.0   max=0.0 
   ProjectDependencies                                       0m  CC̄=0.0   max=0.0 
-  Endpoint                                                  0m  CC̄=0.0   max=0.0 
-  DocstringInfo                                             0m  CC̄=0.0   max=0.0 
 
 D:
   code2docs/generators/readme_gen.py:
@@ -192,6 +197,10 @@ Thi...
       __init__(2)  CC=1.0
     parse_gitignore(project_path)
     generate_code2llm_analysis(project_path,config)
+  code2docs/generators/org_readme_gen.py:
+    e: OrgReadmeGenerator
+    OrgReadmeGenerator  # Generate organization README with list of projects and brief...
+      __init__(3)  CC=2.0
   code2docs/generators/getting_started_gen.py:
     e: GettingStartedGenerator
     GettingStartedGenerator  # Generate docs/getting-started.md from entry points and depen...
@@ -235,7 +244,7 @@ Thi...
       parse_args(2)  CC=4.0
         → parse_args(2)  CC=4.0
     main()
-    generate(project_path,config_path,readme_only,sections,output,verbose,dry_run,llm_model)
+    generate(project_path,config_path,readme_only,sections,output,verbose,dry_run,llm_model,org_name)
     sync(project_path,config_path,verbose,dry_run)
     watch(project_path,config_path,verbose)
     init(project_path,output)
@@ -271,6 +280,15 @@ Thi...
     e: ContributingGenerator
     ContributingGenerator  # Generate CONTRIBUTING.md by detecting dev tools from pyproje...
       __init__(2)  CC=1.0
+  code2docs/analyzers/docstring_extractor.py:
+    e: DocstringInfo,DocstringExtractor
+    DocstringInfo  # Parsed docstring with sections....
+    DocstringExtractor  # Extract and parse docstrings from AnalysisResult....
+      extract_all(1)  CC=5.0
+        → parse(1)  CC=2.0
+        → _extract_summary(0)  CC=2.0
+        → _parse_sections(2)  CC=8.0
+        → _classify_section(0)  CC=5.0
   code2docs/analyzers/dependency_scanner.py:
     e: DependencyInfo,ProjectDependencies,DependencyScanner
     DependencyInfo  # Information about a project dependency....
@@ -283,15 +301,6 @@ Thi...
         → _parse_dep_string(0)  CC=2.0
         → _parse_setup_py(1)  CC=4.0
         → _parse_requirements_txt(1)  CC=5.0
-  code2docs/analyzers/docstring_extractor.py:
-    e: DocstringInfo,DocstringExtractor
-    DocstringInfo  # Parsed docstring with sections....
-    DocstringExtractor  # Extract and parse docstrings from AnalysisResult....
-      extract_all(1)  CC=5.0
-        → parse(1)  CC=2.0
-        → _extract_summary(0)  CC=2.0
-        → _parse_sections(2)  CC=8.0
-        → _classify_section(0)  CC=5.0
   code2docs/llm_helper.py:
     e: LLMHelper,_get_litellm
     LLMHelper  # Thin wrapper around litellm for documentation generation.
@@ -300,7 +309,7 @@ I...
       __init__(1)  CC=1.0
     _get_litellm()
   code2docs/generators/_registry_adapters.py:
-    e: ReadmeGeneratorAdapter,ApiReferenceAdapter,ModuleDocsAdapter,ArchitectureAdapter,DepGraphAdapter,CoverageAdapter,ApiChangelogAdapter,ExamplesAdapter,MkDocsAdapter,GettingStartedAdapter,ConfigDocsAdapter,ContributingAdapter,Code2LlmAdapter
+    e: ReadmeGeneratorAdapter,ApiReferenceAdapter,ModuleDocsAdapter,ArchitectureAdapter,DepGraphAdapter,CoverageAdapter,ApiChangelogAdapter,ExamplesAdapter,MkDocsAdapter,GettingStartedAdapter,ConfigDocsAdapter,ContributingAdapter,Code2LlmAdapter,OrgReadmeAdapter
     ReadmeGeneratorAdapter
       should_run(0)  CC=1.0
     ApiReferenceAdapter
@@ -327,6 +336,8 @@ I...
       should_run(0)  CC=1.0
     Code2LlmAdapter  # Adapter for code2llm analysis generation....
       should_run(0)  CC=1.0
+    OrgReadmeAdapter  # Adapter for organization README generation....
+      should_run(0)  CC=2.0
   code2docs/sync/differ.py:
     e: ChangeInfo,Differ
     ChangeInfo  # Describes a detected change....
@@ -415,12 +426,6 @@ Generators register t...
     e: run_cli_basic,run_cli_with_config
     run_cli_basic(project_path)
     run_cli_with_config(project_path,config_path)
-  examples/02_configuration.py:
-    e: create_basic_config,create_advanced_config,save_yaml_config_example,load_config_from_yaml
-    create_basic_config()
-    create_advanced_config()
-    save_yaml_config_example(path)
-    load_config_from_yaml(path)
   code2docs/base.py:
     e: GenerateContext,BaseGenerator
     GenerateContext  # Shared context passed to all generators during a run....
@@ -428,6 +433,12 @@ Generators register t...
 
 Subclasses ...
       __init__(2)  CC=1.0
+  examples/02_configuration.py:
+    e: create_basic_config,create_advanced_config,save_yaml_config_example,load_config_from_yaml
+    create_basic_config()
+    create_advanced_config()
+    save_yaml_config_example(path)
+    load_config_from_yaml(path)
   code2docs/__main__.py:
   examples/quickstart.py:
   examples/advanced_usage.py:
@@ -439,3 +450,4 @@ Subclasses ...
   code2docs/examples/advanced_usage.py:
   code2docs/formatters/__init__.py:
   code2docs/analyzers/__init__.py:
+  docs/examples/quickstart.py:

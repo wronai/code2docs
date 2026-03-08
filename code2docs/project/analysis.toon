@@ -1,7 +1,7 @@
-# code2llm | 37f 4982L | py:37 | 2026-03-08
-# CC̄=4.1 | critical:22/237 | dups:0 | cycles:1
+# code2llm | 38f 5373L | py:38 | 2026-03-08
+# CC̄=4.2 | critical:25/252 | dups:0 | cycles:1
 
-HEALTH[9]:
+HEALTH[10]:
   🟡 CC    _extract_project_metadata CC=29 (limit:15)
   🟡 CC    _render_first_usage CC=15 (limit:15)
   🟡 CC    _generate_intro CC=16 (limit:15)
@@ -9,11 +9,12 @@ HEALTH[9]:
   🟡 CC    _run_code2llm CC=17 (limit:15)
   🟡 CC    generate CC=18 (limit:15)
   🟡 CC    _render_module_detail CC=25 (limit:15)
+  🟡 CC    _extract_description CC=17 (limit:15)
   🟡 CC    _render_module_section CC=25 (limit:15)
   🟡 CC    _generate_advanced CC=22 (limit:15)
 
 REFACTOR[2]:
-  1. split 9 high-CC methods  (CC>15)
+  1. split 10 high-CC methods  (CC>15)
   2. break 1 circular dependencies
 
 COUPLING:
@@ -26,23 +27,24 @@ COUPLING:
   CYCLES: 1
 
 LAYERS:
-  generators/                     CC̄=4.8    ←in:0  →out:1
+  generators/                     CC̄=4.9    ←in:0  →out:1
   │ !! readme_gen                 463L  1C   18m  CC=29     ←0
-  │ !! examples_gen               399L  1C   14m  CC=22     ←0
+  │ !! examples_gen               443L  1C   15m  CC=22     ←0
   │ !  architecture_gen           294L  1C   10m  CC=13     ←0
-  │ _registry_adapters         251L  13C   26m  CC=7      ←0
+  │ _registry_adapters         287L  14C   28m  CC=7      ←0
+  │ !! org_readme_gen             227L  1C   10m  CC=17     ←0
   │ !! code2llm_gen               206L  1C    6m  CC=17     ←0
   │ !! module_docs_gen            198L  1C    9m  CC=25     ←0
   │ !  api_changelog_gen          196L  2C    9m  CC=14     ←0
-  │ !! getting_started_gen        166L  1C    8m  CC=16     ←0
+  │ !! getting_started_gen        167L  1C    8m  CC=16     ←0
   │ !! api_reference_gen          163L  1C    7m  CC=25     ←0
   │ depgraph_gen               140L  1C    9m  CC=9      ←0
-  │ contributing_gen           136L  1C    8m  CC=8      ←0
+  │ contributing_gen           137L  1C    8m  CC=8      ←0
   │ !  config_docs_gen            125L  1C    4m  CC=10     ←0
   │ changelog_gen              121L  2C    6m  CC=6      ←0
+  │ mkdocs_gen                 110L  1C    5m  CC=5      ←0
   │ !  coverage_gen               104L  1C    7m  CC=12     ←0
   │ _source_links               76L  1C    6m  CC=5      ←0
-  │ mkdocs_gen                  70L  1C    4m  CC=5      ←0
   │ __init__                    59L  0C    1m  CC=5      ←0
   │
   sync/                           CC̄=3.6    ←in:1  →out:0
@@ -51,16 +53,16 @@ LAYERS:
   │ updater                     51L  1C    2m  CC=4      ←0
   │ __init__                     6L  0C    0m  CC=0.0    ←0
   │
-  analyzers/                      CC̄=3.4    ←in:0  →out:0
-  │ dependency_scanner         159L  3C    6m  CC=8      ←0
+  analyzers/                      CC̄=3.5    ←in:0  →out:0
+  │ dependency_scanner         197L  3C    7m  CC=8      ←0
   │ docstring_extractor        140L  2C   10m  CC=8      ←0
   │ endpoint_detector          113L  2C    3m  CC=5      ←0
   │ project_scanner             42L  1C    4m  CC=2      ←0
   │ __init__                    13L  0C    0m  CC=0.0    ←0
   │
   ./                              CC̄=2.9    ←in:0  →out:0
-  │ !  cli                        316L  1C   14m  CC=10     ←0
-  │ !  config                     296L  7C    5m  CC=10     ←1
+  │ !  cli                        319L  1C   14m  CC=10     ←0
+  │ !  config                     297L  7C    5m  CC=10     ←1
   │ llm_helper                 161L  1C    7m  CC=7      ←0
   │ base                        46L  2C    3m  CC=1      ←0
   │ registry                    39L  1C    4m  CC=4      ←0
@@ -76,74 +78,78 @@ LAYERS:
 
 DUPLICATES[0]: none
 
-FUNCTIONS (CC≥10, 22 of 237):
+FUNCTIONS (CC≥10, 25 of 252):
    29.0  ReadmeGenerator._extract_project_metadata   14n   2exit  loops+cond+ret  !! split
    25.0  ModuleDocsGenerator._render_module_detail   18n   2exit  loops+cond+ret  !! split
    25.0  ApiReferenceGenerator._render_module_section   13n   2exit  loops+cond+ret  !! split
    22.0  ExamplesGenerator._generate_advanced       24n   2exit  loops+cond+ret  !! split
    18.0  ModuleDocsGenerator.generate               12n   2exit  loops+cond+ret  !! split
    17.0  Code2LlmGenerator._run_code2llm            20n   1exit  cond  !! split
+   17.0  OrgReadmeGenerator._extract_description     9n   3exit  loops+cond+ret  !! split
    16.0  GettingStartedGenerator._generate_intro     6n   3exit  cond+ret  !! split
    15.0  GettingStartedGenerator._render_first_usage    7n   2exit  cond+ret  !! split
    15.0  parse_gitignore                             6n   3exit  cond+ret  !! split
    14.0  ApiChangelogGenerator._render              17n   4exit  loops+cond+ret
+   13.0  ExamplesGenerator._generate_quickstart     17n   2exit  loops+cond+ret
    13.0  ArchitectureGenerator.generate             15n   2exit  loops+cond+ret
    12.0  ReadmeGenerator._build_context              3n   2exit  ret
    12.0  CoverageGenerator._collect_module_stats     4n   2exit  loops+ret
    11.0  _make_badge                                21n   6exit  cond+ret
    11.0  ApiReferenceGenerator.generate             10n   2exit  loops+cond+ret
+   11.0  ExamplesGenerator._example_from_type       18n   7exit  cond+ret
    11.0  ArchitectureGenerator._generate_class_diagram   12n   2exit  loops+cond+ret
    10.0  ConfigDocsGenerator._render_section        14n   2exit  loops+cond+ret
    10.0  ApiReferenceGenerator._has_content          6n   3exit  cond+ret
+   10.0  _run_check                                 11n   1exit  loops+cond
    10.0  ApiChangelogGenerator._diff_functions       9n   1exit  loops+cond
    10.0  ApiChangelogGenerator._diff_classes        15n   1exit  loops+cond
-   10.0  _run_check                                 11n   1exit  loops+cond
    10.0  Code2DocsConfig.from_yaml                  20n   3exit  cond+ret
 
   summary:
-    critical(≥10): 22 | high(5-10): 47 | medium(2-5): 99 | low(<2): 69
-    9% CC≥10  29% CC≥5
+    critical(≥10): 25 | high(5-10): 52 | medium(2-5): 105 | low(<2): 70
+    10% CC≥10  31% CC≥5
 
 HOTSPOTS:
   #1  _run_check                           fan=24   "calls 24 functions"
   #2  ReadmeGenerator._extract_project_metadata  fan=23   "ReadmeGenerator method, fan-out=23"
   #3  start_watcher                        fan=22   "calls 22 functions"
   #4  ApiReferenceGenerator._render_module_section  fan=21   "ApiReferenceGenerator method, fan-out=21"
-  #5  ModuleDocsGenerator.generate         fan=19   "ModuleDocsGenerator method, fan-out=19"
-  #6  Code2DocsConfig.from_yaml            fan=19   "Code2DocsConfig method, fan-out=19"
-  #7  ReadmeGenerator._build_context       fan=17   "ReadmeGenerator method, fan-out=17"
-  #8  Updater.apply                        fan=16   "Updater method, fan-out=16"
-  #9  ModuleDocsGenerator._render_module_detail  fan=16   "ModuleDocsGenerator method, fan-out=16"
-  #10 ArchitectureGenerator.generate       fan=16   "ArchitectureGenerator method, fan-out=16"
+  #5  OrgReadmeGenerator._extract_description  fan=20   "OrgReadmeGenerator method, fan-out=20"
+  #6  ModuleDocsGenerator.generate         fan=19   "ModuleDocsGenerator method, fan-out=19"
+  #7  Code2DocsConfig.from_yaml            fan=19   "Code2DocsConfig method, fan-out=19"
+  #8  ReadmeGenerator._build_context       fan=17   "ReadmeGenerator method, fan-out=17"
+  #9  Updater.apply                        fan=16   "Updater method, fan-out=16"
+  #10 ModuleDocsGenerator._render_module_detail  fan=16   "ModuleDocsGenerator method, fan-out=16"
 
 CLASSES:
   ReadmeGenerator                ████████████████████████  17m  CC̄=5.9   max=29    !!
-  ExamplesGenerator              ███████████████████       14m  CC̄=5.6   max=22    !!
+  ExamplesGenerator              █████████████████████     15m  CC̄=6.1   max=22    !!
   MarkdownFormatter              ██████████████████        13m  CC̄=1.2   max=4   
+  OrgReadmeGenerator             ██████████████            10m  CC̄=5.2   max=17    !!
   ArchitectureGenerator          ██████████████            10m  CC̄=6.9   max=13  
   DocstringExtractor             ██████████████            10m  CC̄=3.5   max=8   
   DepGraphGenerator              ████████████               9m  CC̄=3.9   max=9   
   ModuleDocsGenerator            ████████████               9m  CC̄=8.0   max=25    !!
   ApiChangelogGenerator          ████████████               9m  CC̄=5.4   max=14  
-  GettingStartedGenerator        ███████████                8m  CC̄=5.8   max=16    !!
-  ContributingGenerator          ███████████                8m  CC̄=2.5   max=8   
+  GettingStartedGenerator        ███████████                8m  CC̄=5.9   max=16    !!
+  ContributingGenerator          ███████████                8m  CC̄=2.6   max=8   
   CoverageGenerator              █████████                  7m  CC̄=4.4   max=12  
   ApiReferenceGenerator          █████████                  7m  CC̄=8.7   max=25    !!
+  DependencyScanner              █████████                  7m  CC̄=4.6   max=8   
   LLMHelper                      ████████                   6m  CC̄=2.0   max=7   
   Differ                         ████████                   6m  CC̄=4.0   max=6   
   SourceLinker                   ████████                   6m  CC̄=3.0   max=5   
   ChangelogGenerator             ████████                   6m  CC̄=3.5   max=6   
-  DependencyScanner              ████████                   6m  CC̄=4.5   max=8   
+  MkDocsGenerator                ███████                    5m  CC̄=3.2   max=5   
   GeneratorRegistry              █████                      4m  CC̄=2.5   max=4   
   ConfigDocsGenerator            █████                      4m  CC̄=4.2   max=10  
   Code2LlmGenerator              █████                      4m  CC̄=6.2   max=17    !!
-  MkDocsGenerator                █████                      4m  CC̄=2.2   max=5   
   Code2DocsConfig                █████                      4m  CC̄=4.0   max=10  
   BaseGenerator                  ████                       3m  CC̄=1.0   max=1   
-  ProjectScanner                 ████                       3m  CC̄=1.3   max=2   
   EndpointDetector               ████                       3m  CC̄=4.0   max=5   
+  ProjectScanner                 ████                       3m  CC̄=1.3   max=2   
   Updater                        ██                         2m  CC̄=3.0   max=4   
-  ReadmeGeneratorAdapter         ██                         2m  CC̄=2.0   max=3   
+  ReadmeGeneratorAdapter         ██                         2m  CC̄=2.5   max=4   
   ApiReferenceAdapter            ██                         2m  CC̄=2.0   max=2   
   ModuleDocsAdapter              ██                         2m  CC̄=2.0   max=2   
   ArchitectureAdapter            ██                         2m  CC̄=2.0   max=2   
@@ -156,6 +162,7 @@ CLASSES:
   ConfigDocsAdapter              ██                         2m  CC̄=1.5   max=2   
   ContributingAdapter            ██                         2m  CC̄=1.5   max=2   
   Code2LlmAdapter                ██                         2m  CC̄=4.0   max=7   
+  OrgReadmeAdapter               ██                         2m  CC̄=3.0   max=4   
   ChangeInfo                     █                          1m  CC̄=1.0   max=1   
   DefaultGroup                   █                          1m  CC̄=4.0   max=4   
   LLMConfig                      █                          1m  CC̄=1.0   max=1   
@@ -167,10 +174,10 @@ CLASSES:
   ExamplesConfig                                            0m  CC̄=0.0   max=0.0 
   SyncConfig                                                0m  CC̄=0.0   max=0.0 
   Code2LlmConfig                                            0m  CC̄=0.0   max=0.0 
+  Endpoint                                                  0m  CC̄=0.0   max=0.0 
   DependencyInfo                                            0m  CC̄=0.0   max=0.0 
   ProjectDependencies                                       0m  CC̄=0.0   max=0.0 
   DocstringInfo                                             0m  CC̄=0.0   max=0.0 
-  Endpoint                                                  0m  CC̄=0.0   max=0.0 
 
 D:
   generators/readme_gen.py:
@@ -199,6 +206,10 @@ Thi...
       __init__(2)  CC=1.0
     parse_gitignore(project_path)
     generate_code2llm_analysis(project_path,config)
+  generators/org_readme_gen.py:
+    e: OrgReadmeGenerator
+    OrgReadmeGenerator  # Generate organization README with list of projects and brief...
+      __init__(3)  CC=2.0
   generators/getting_started_gen.py:
     e: GettingStartedGenerator
     GettingStartedGenerator  # Generate docs/getting-started.md from entry points and depen...
@@ -230,7 +241,7 @@ Thi...
       parse_args(2)  CC=4.0
         → parse_args(2)  CC=4.0
     main()
-    generate(project_path,config_path,readme_only,sections,output,verbose,dry_run,llm_model)
+    generate(project_path,config_path,readme_only,sections,output,verbose,dry_run,llm_model,org_name)
     sync(project_path,config_path,verbose,dry_run)
     watch(project_path,config_path,verbose)
     init(project_path,output)
@@ -269,6 +280,7 @@ Thi...
     DependencyScanner  # Scan and parse project dependency files....
       scan(1)  CC=4.0
         → _parse_pyproject(1)  CC=8.0
+        → _detect_version(2)  CC=5.0
         → _parse_pyproject_regex(1)  CC=4.0
         → _parse_dep_string(0)  CC=2.0
         → _parse_setup_py(1)  CC=4.0
@@ -290,7 +302,7 @@ I...
       __init__(1)  CC=1.0
     _get_litellm()
   generators/_registry_adapters.py:
-    e: ReadmeGeneratorAdapter,ApiReferenceAdapter,ModuleDocsAdapter,ArchitectureAdapter,DepGraphAdapter,CoverageAdapter,ApiChangelogAdapter,ExamplesAdapter,MkDocsAdapter,GettingStartedAdapter,ConfigDocsAdapter,ContributingAdapter,Code2LlmAdapter
+    e: ReadmeGeneratorAdapter,ApiReferenceAdapter,ModuleDocsAdapter,ArchitectureAdapter,DepGraphAdapter,CoverageAdapter,ApiChangelogAdapter,ExamplesAdapter,MkDocsAdapter,GettingStartedAdapter,ConfigDocsAdapter,ContributingAdapter,Code2LlmAdapter,OrgReadmeAdapter
     ReadmeGeneratorAdapter
       should_run(0)  CC=1.0
     ApiReferenceAdapter
@@ -317,6 +329,8 @@ I...
       should_run(0)  CC=1.0
     Code2LlmAdapter  # Adapter for code2llm analysis generation....
       should_run(0)  CC=1.0
+    OrgReadmeAdapter  # Adapter for organization README generation....
+      should_run(0)  CC=2.0
   sync/differ.py:
     e: ChangeInfo,Differ
     ChangeInfo  # Describes a detected change....

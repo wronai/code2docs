@@ -1,11 +1,11 @@
 # code2docs — Docstring Coverage
 
-🟡 **Overall coverage: 78.7%**
+🟡 **Overall coverage: 78.9%**
 
 | Category | Documented | Total | Coverage |
 |----------|-----------|-------|----------|
-| Functions | 187 | 237 | 78.9% |
-| Classes | 42 | 54 | 77.8% |
+| Functions | 199 | 252 | 79.0% |
+| Classes | 44 | 56 | 78.6% |
 
 ## Per-Module Breakdown
 
@@ -28,7 +28,7 @@
 | `formatters.markdown` | 0/0 | 1/1 | 🟢 100% |
 | `formatters.toc` | 3/3 | 0/0 | 🟢 100% |
 | `generators` | 1/1 | 0/0 | 🟢 100% |
-| `generators._registry_adapters` | 0/0 | 1/13 | 🔴 8% |
+| `generators._registry_adapters` | 0/0 | 2/14 | 🔴 14% |
 | `generators._source_links` | 0/0 | 1/1 | 🟢 100% |
 | `generators.api_changelog_gen` | 0/0 | 2/2 | 🟢 100% |
 | `generators.api_reference_gen` | 0/0 | 1/1 | 🟢 100% |
@@ -43,6 +43,7 @@
 | `generators.getting_started_gen` | 0/0 | 1/1 | 🟢 100% |
 | `generators.mkdocs_gen` | 0/0 | 1/1 | 🟢 100% |
 | `generators.module_docs_gen` | 0/0 | 1/1 | 🟢 100% |
+| `generators.org_readme_gen` | 0/0 | 1/1 | 🟢 100% |
 | `generators.readme_gen` | 1/1 | 1/1 | 🟢 100% |
 | `llm_helper` | 1/1 | 1/1 | 🟢 100% |
 | `registry` | 0/0 | 1/1 | 🟢 100% |
@@ -53,15 +54,15 @@
 
 ## Undocumented Items
 
-- `generators._registry_adapters.ApiChangelogAdapter` (/home/tom/github/wronai/code2docs/code2docs/generators/_registry_adapters.py:115)
-- `generators._registry_adapters.ApiReferenceAdapter` (/home/tom/github/wronai/code2docs/code2docs/generators/_registry_adapters.py:33)
-- `generators._registry_adapters.ArchitectureAdapter` (/home/tom/github/wronai/code2docs/code2docs/generators/_registry_adapters.py:67)
-- `generators._registry_adapters.ConfigDocsAdapter` (/home/tom/github/wronai/code2docs/code2docs/generators/_registry_adapters.py:182)
-- `generators._registry_adapters.ContributingAdapter` (/home/tom/github/wronai/code2docs/code2docs/generators/_registry_adapters.py:199)
-- `generators._registry_adapters.CoverageAdapter` (/home/tom/github/wronai/code2docs/code2docs/generators/_registry_adapters.py:99)
-- `generators._registry_adapters.DepGraphAdapter` (/home/tom/github/wronai/code2docs/code2docs/generators/_registry_adapters.py:83)
-- `generators._registry_adapters.ExamplesAdapter` (/home/tom/github/wronai/code2docs/code2docs/generators/_registry_adapters.py:132)
-- `generators._registry_adapters.GettingStartedAdapter` (/home/tom/github/wronai/code2docs/code2docs/generators/_registry_adapters.py:165)
-- `generators._registry_adapters.MkDocsAdapter` (/home/tom/github/wronai/code2docs/code2docs/generators/_registry_adapters.py:149)
-- `generators._registry_adapters.ModuleDocsAdapter` (/home/tom/github/wronai/code2docs/code2docs/generators/_registry_adapters.py:50)
+- `generators._registry_adapters.ApiChangelogAdapter` (/home/tom/github/wronai/code2docs/code2docs/generators/_registry_adapters.py:120)
+- `generators._registry_adapters.ApiReferenceAdapter` (/home/tom/github/wronai/code2docs/code2docs/generators/_registry_adapters.py:38)
+- `generators._registry_adapters.ArchitectureAdapter` (/home/tom/github/wronai/code2docs/code2docs/generators/_registry_adapters.py:72)
+- `generators._registry_adapters.ConfigDocsAdapter` (/home/tom/github/wronai/code2docs/code2docs/generators/_registry_adapters.py:187)
+- `generators._registry_adapters.ContributingAdapter` (/home/tom/github/wronai/code2docs/code2docs/generators/_registry_adapters.py:204)
+- `generators._registry_adapters.CoverageAdapter` (/home/tom/github/wronai/code2docs/code2docs/generators/_registry_adapters.py:104)
+- `generators._registry_adapters.DepGraphAdapter` (/home/tom/github/wronai/code2docs/code2docs/generators/_registry_adapters.py:88)
+- `generators._registry_adapters.ExamplesAdapter` (/home/tom/github/wronai/code2docs/code2docs/generators/_registry_adapters.py:137)
+- `generators._registry_adapters.GettingStartedAdapter` (/home/tom/github/wronai/code2docs/code2docs/generators/_registry_adapters.py:170)
+- `generators._registry_adapters.MkDocsAdapter` (/home/tom/github/wronai/code2docs/code2docs/generators/_registry_adapters.py:154)
+- `generators._registry_adapters.ModuleDocsAdapter` (/home/tom/github/wronai/code2docs/code2docs/generators/_registry_adapters.py:55)
 - `generators._registry_adapters.ReadmeGeneratorAdapter` (/home/tom/github/wronai/code2docs/code2docs/generators/_registry_adapters.py:13)

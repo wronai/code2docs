@@ -14,7 +14,7 @@ pip install .
 To install from source:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/wronai/code2docs
 cd code2docs
 pip install -e .
 ```

@@ -3,16 +3,16 @@ project:
   name: code2docs
   repo: /home/tom/github/wronai/code2docs
   language: python
-  analyzed_at: '2026-03-08T08:50:38Z'
+  analyzed_at: '2026-03-08T08:53:55Z'
   tool: code2llm
   stats:
-    files: 33
-    lines: 6690
-    functions: 240
-    classes: 54
+    files: 34
+    lines: 6951
+    functions: 252
+    classes: 56
 health:
   cc_avg: 4.2
-  critical_count: 24
+  critical_count: 25
   critical_limit: 10
   duplicates: 0
   cycles: 1
@@ -50,6 +50,11 @@ health:
   - type: high_fan_out
     target: ApiReferenceGenerator._render_module_section
     value: 21
+    limit: 10
+    severity: critical
+  - type: high_fan_out
+    target: OrgReadmeGenerator._extract_description
+    value: 20
     limit: 10
     severity: critical
   - type: cc_exceeded
@@ -103,18 +108,13 @@ health:
     limit: 15
     severity: warning
   - type: cc_exceeded
+    target: OrgReadmeGenerator._extract_description
+    value: 17
+    limit: 15
+    severity: warning
+  - type: cc_exceeded
     target: GettingStartedGenerator._generate_intro
     value: 16
-    limit: 15
-    severity: warning
-  - type: cc_exceeded
-    target: GettingStartedGenerator._render_first_usage
-    value: 15
-    limit: 15
-    severity: warning
-  - type: cc_exceeded
-    target: parse_gitignore
-    value: 15
     limit: 15
     severity: warning
 modules:
@@ -220,6 +220,24 @@ modules:
   - name: generate_code2llm_analysis
     type: function
     cc: 2
+- path: code2docs/generators/org_readme_gen.py
+  lines: 227
+  classes: 1
+  methods: 10
+  cc_max: 17
+  inbound_deps: 0
+  exports:
+  - name: OrgReadmeGenerator
+    type: class
+    cc_avg: 5.2
+    methods:
+    - name: _extract_description
+      cc: 17
+      flag: split
+      fan_out: 20
+    - name: _get_repo_url
+      cc: 7
+      fan_out: 13
 - path: code2docs/generators/getting_started_gen.py
   lines: 167
   classes: 1
@@ -298,7 +316,7 @@ modules:
     type: function
     cc: 4
 - path: code2docs/cli.py
-  lines: 316
+  lines: 319
   classes: 1
   methods: 14
   cc_max: 10
@@ -312,7 +330,7 @@ modules:
     cc: 1
   - name: generate
     type: function
-    cc: 6
+    cc: 7
   - name: sync
     type: function
     cc: 2
@@ -330,7 +348,7 @@ modules:
     type: function
     cc: 1
 - path: code2docs/config.py
-  lines: 296
+  lines: 297
   classes: 7
   methods: 5
   cc_max: 10
@@ -429,9 +447,9 @@ modules:
     type: class
     cc_avg: 2.6
 - path: code2docs/generators/_registry_adapters.py
-  lines: 257
-  classes: 13
-  methods: 26
+  lines: 287
+  classes: 14
+  methods: 28
   cc_max: 7
   inbound_deps: 0
   exports:
@@ -474,6 +492,9 @@ modules:
   - name: Code2LlmAdapter
     type: class
     cc_avg: 4.0
+  - name: OrgReadmeAdapter
+    type: class
+    cc_avg: 3.0
 - path: code2docs/llm_helper.py
   lines: 161
   classes: 1
@@ -693,6 +714,9 @@ hotspots:
 - name: ApiReferenceGenerator._render_module_section
   fan_out: 21
   note: Render a module as a subsection within the consolidated doc.
+- name: OrgReadmeGenerator._extract_description
+  fan_out: 20
+  note: Extract short description from project (max 5 lines).
 - name: ModuleDocsGenerator.generate
   fan_out: 19
   note: Generate a single modules.md with all modules grouped by package.
@@ -708,9 +732,6 @@ hotspots:
 - name: ModuleDocsGenerator._render_module_detail
   fan_out: 16
   note: Render a single module's detail section.
-- name: ArchitectureGenerator.generate
-  fan_out: 16
-  note: Generate architecture documentation.
 refactoring:
   priorities:
   - action: Split ModuleDocsGenerator._render_module_detail (CC=25 → target CC<10)
@@ -745,6 +766,10 @@ refactoring:
     impact: medium
     effort: low
     module: module_docs_gen.py
+  - action: Split OrgReadmeGenerator._extract_description (CC=17 → target CC<10)
+    impact: medium
+    effort: low
+    module: org_readme_gen.py
   - action: Split ExamplesGenerator._generate_advanced (CC=22 → target CC<10)
     impact: medium
     effort: low
@@ -764,6 +789,6 @@ refactoring:
 evolution:
 - date: '2026-03-08'
   cc_avg: 4.2
-  critical: 24
-  lines: 6690
+  critical: 25
+  lines: 6951
   note: Automated analysis

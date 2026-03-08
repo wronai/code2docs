@@ -1,9 +1,9 @@
-# code2docs | 39f 5161L | python:39
+# code2docs | 40f 5553L | python:40
 # Keys: M=modules, D=details, i=imports, c=classes, f=functions, m=methods
-M[39]:
-  config.py,251
+M[40]:
+  config.py,252
   base.py,33
-  cli.py,239
+  cli.py,242
   registry.py,29
   llm_helper.py,138
   __init__.py,26
@@ -22,20 +22,21 @@ M[39]:
   generators/coverage_gen.py,91
   generators/_source_links.py,60
   generators/depgraph_gen.py,121
-  generators/getting_started_gen.py,146
+  generators/getting_started_gen.py,147
   generators/config_docs_gen.py,109
   generators/changelog_gen.py,98
   generators/__init__.py,48
   generators/code2llm_gen.py,148
   generators/module_docs_gen.py,171
+  generators/org_readme_gen.py,171
   generators/api_reference_gen.py,136
-  generators/examples_gen.py,338
-  generators/mkdocs_gen.py,50
-  generators/_registry_adapters.py,191
+  generators/examples_gen.py,374
+  generators/mkdocs_gen.py,75
+  generators/_registry_adapters.py,217
   generators/api_changelog_gen.py,165
   generators/architecture_gen.py,243
-  generators/contributing_gen.py,123
-  analyzers/dependency_scanner.py,117
+  generators/contributing_gen.py,124
+  analyzers/dependency_scanner.py,145
   analyzers/__init__.py,11
   analyzers/docstring_extractor.py,114
   analyzers/endpoint_detector.py,91
@@ -150,6 +151,10 @@ D:
     i: ast,code2llm.api.{AnalysisResult,ClassInfo,FunctionInfo,ModuleInfo},collections.defaultdict,config.Code2DocsConfig,pathlib.Path,typing.{Dict,List}
     e: ModuleDocsGenerator
     ModuleDocsGenerator: __init__(2),generate(0),_group_modules(0),_has_content(1),_render_module_detail(2)  # Generate docs/modules.md — consolidat...
+  generators/org_readme_gen.py:
+    i: analyzers.project_scanner.ProjectScanner,code2llm.api.AnalysisResult,config.Code2DocsConfig,pathlib.Path,typing.{Dict,List,Optional}
+    e: OrgReadmeGenerator
+    OrgReadmeGenerator: __init__(3),generate(0),_discover_projects(0),_analyze_project(1),_extract_description(2)  # Generate organization README with lis...
   generators/api_reference_gen.py:
     i: code2llm.api.{AnalysisResult,ClassInfo,FunctionInfo,ModuleInfo},collections.defaultdict,config.Code2DocsConfig,pathlib.Path,typing.{Dict,List,Optional}
     e: ApiReferenceGenerator
@@ -157,11 +162,11 @@ D:
   generators/examples_gen.py:
     i: code2llm.api.{AnalysisResult,ClassInfo,FunctionInfo},config.Code2DocsConfig,pathlib.Path,typing.{Dict,List,Optional,Set}
     e: _TYPE_EXAMPLES,_ARG_EXAMPLES,ExamplesGenerator
-    ExamplesGenerator: __init__(2),generate_all(0),_generate_quickstart(0),_generate_advanced(0),_detect_package_name(0)  # Generate examples/ — usage examples f...
+    ExamplesGenerator: __init__(2),_get_example_value(1),generate_all(0),_generate_quickstart(0),_generate_advanced(0)  # Generate examples/ — usage examples f...
   generators/mkdocs_gen.py:
-    i: yaml,code2llm.api.AnalysisResult,config.Code2DocsConfig,pathlib.Path,typing.{Dict,List,Optional}
+    i: yaml,code2llm.api.AnalysisResult,config.Code2DocsConfig,pathlib.Path,typing.{Any,Dict,List,Optional}
     e: MkDocsGenerator
-    MkDocsGenerator: __init__(2),generate(1),_build_nav(1),write(2)  # Generate mkdocs.yml from the docs/ di...
+    MkDocsGenerator: __init__(2),generate(1),_read_pyproject_mkdocs(0),_build_nav(1),write(2)  # Generate mkdocs.yml from the docs/ di...
   generators/_registry_adapters.py:
     i: click,base.{BaseGenerator,GenerateContext},code2llm.api.AnalysisResult,config.Code2DocsConfig,pathlib.Path,typing.Optional
     e: ReadmeGeneratorAdapter,ApiReferenceAdapter,ModuleDocsAdapter,ArchitectureAdapter,DepGraphAdapter,CoverageAdapter,ApiChangelogAdapter,ExamplesAdapter

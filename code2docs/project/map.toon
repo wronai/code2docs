@@ -1,16 +1,16 @@
-# code2docs | 39f 5122L | python:39
+# code2docs | 40f 5513L | python:40
 # Keys: M=modules, D=details, i=imports, c=classes, f=functions, m=methods
-M[39]:
+M[40]:
   __main__.py,6
   analyzers/__init__.py,13
-  analyzers/dependency_scanner.py,159
+  analyzers/dependency_scanner.py,197
   analyzers/docstring_extractor.py,140
   analyzers/endpoint_detector.py,113
   analyzers/project_scanner.py,42
   base.py,46
-  cli.py,316
+  cli.py,319
   __init__.py,32
-  config.py,296
+  config.py,297
   examples/advanced_usage.py,90
   examples/quickstart.py,50
   formatters/__init__.py,7
@@ -18,7 +18,7 @@ M[39]:
   formatters/markdown.py,73
   formatters/toc.py,63
   generators/__init__.py,59
-  generators/_registry_adapters.py,251
+  generators/_registry_adapters.py,287
   generators/_source_links.py,76
   generators/api_changelog_gen.py,196
   generators/api_reference_gen.py,163
@@ -26,13 +26,14 @@ M[39]:
   generators/changelog_gen.py,121
   generators/code2llm_gen.py,206
   generators/config_docs_gen.py,125
-  generators/contributing_gen.py,136
+  generators/contributing_gen.py,137
   generators/coverage_gen.py,104
   generators/depgraph_gen.py,140
-  generators/examples_gen.py,399
-  generators/getting_started_gen.py,166
-  generators/mkdocs_gen.py,70
+  generators/examples_gen.py,443
+  generators/getting_started_gen.py,167
+  generators/mkdocs_gen.py,110
   generators/module_docs_gen.py,198
+  generators/org_readme_gen.py,227
   generators/readme_gen.py,463
   llm_helper.py,161
   registry.py,39
@@ -53,7 +54,7 @@ D:
     ApiReferenceGenerator: __init__(2),generate(0),_group_modules(0),_has_content(1),_render_module_section(2),_get_public_methods(1),_format_signature(0)  # Generate docs/api.md — consolidated API reference...
   generators/examples_gen.py:
     e: ExamplesGenerator
-    ExamplesGenerator: __init__(2),generate_all(0),_generate_quickstart(0),_generate_advanced(0),_detect_package_name(0),_find_convenience_functions(0),_find_api_classes(0),_find_generator_classes(0),_find_function_by_name(1),_find_class_by_name(1),_build_realistic_args(1),_example_from_type(1),_get_public_methods(1),write_all(2)  # Generate examples/ — usage examples from public API signatur...
+    ExamplesGenerator: __init__(2),_get_example_value(1),generate_all(0),_generate_quickstart(0),_generate_advanced(0),_detect_package_name(0),_find_convenience_functions(0),_find_api_classes(0),_find_generator_classes(0),_find_function_by_name(1),_find_class_by_name(1),_build_realistic_args(1),_example_from_type(2),_get_public_methods(1),write_all(2)  # Generate examples/ — usage examples from public API signatur...
   generators/code2llm_gen.py:
     e: Code2LlmGenerator,parse_gitignore,generate_code2llm_analysis
     Code2LlmGenerator: __init__(2),generate_all(0),_run_code2llm(2),get_analysis_summary(0)  # Generate code2llm analysis files in project/ directory.
@@ -61,6 +62,9 @@ D:
 Thi...
     parse_gitignore(project_path)
     generate_code2llm_analysis(project_path;config)
+  generators/org_readme_gen.py:
+    e: OrgReadmeGenerator
+    OrgReadmeGenerator: __init__(3),generate(0),_discover_projects(0),_analyze_project(1),_extract_description(2),_truncate_description(2),_get_version(1),_get_repo_url(1),_render_project_section(2),write(2)  # Generate organization README with list of projects and brief...
   generators/getting_started_gen.py:
     e: GettingStartedGenerator
     GettingStartedGenerator: __init__(2),generate(0),_render_prerequisites(0),_render_installation(0),_render_first_usage(0),_generate_intro(1),_render_next_steps(0),_get_top_level_modules(0)  # Generate docs/getting-started.md from entry points and depen...
@@ -85,7 +89,7 @@ Thi...
     e: DefaultGroup,main,generate,sync,watch,init,check,diff,_load_config,_run_generate,_run_sync,_run_watch,_run_check,_run_diff
     DefaultGroup(click.Group): parse_args(2)  # Click Group that routes unknown subcommands to 'generate'...
     main()
-    generate(project_path;config_path;readme_only;sections;output;verbose;dry_run;llm_model)
+    generate(project_path;config_path;readme_only;sections;output;verbose;dry_run;llm_model;org_name)
     sync(project_path;config_path;verbose;dry_run)
     watch(project_path;config_path;verbose)
     init(project_path;output)
@@ -116,7 +120,7 @@ Thi...
     e: DependencyInfo,ProjectDependencies,DependencyScanner
     DependencyInfo:  # Information about a project dependency...
     ProjectDependencies:  # All detected project dependencies...
-    DependencyScanner: scan(1),_parse_pyproject(1),_parse_pyproject_regex(1),_parse_setup_py(1),_parse_requirements_txt(1),_parse_dep_string(0)  # Scan and parse project dependency files...
+    DependencyScanner: scan(1),_parse_pyproject(1),_parse_pyproject_regex(1),_parse_setup_py(1),_parse_requirements_txt(1),_parse_dep_string(0),_detect_version(2)  # Scan and parse project dependency files...
   analyzers/docstring_extractor.py:
     e: DocstringInfo,DocstringExtractor
     DocstringInfo:  # Parsed docstring with sections...
@@ -128,7 +132,7 @@ Thi...
 I...
     _get_litellm()
   generators/_registry_adapters.py:
-    e: ReadmeGeneratorAdapter,ApiReferenceAdapter,ModuleDocsAdapter,ArchitectureAdapter,DepGraphAdapter,CoverageAdapter,ApiChangelogAdapter,ExamplesAdapter,MkDocsAdapter,GettingStartedAdapter,ConfigDocsAdapter,ContributingAdapter,Code2LlmAdapter
+    e: ReadmeGeneratorAdapter,ApiReferenceAdapter,ModuleDocsAdapter,ArchitectureAdapter,DepGraphAdapter,CoverageAdapter,ApiChangelogAdapter,ExamplesAdapter,MkDocsAdapter,GettingStartedAdapter,ConfigDocsAdapter,ContributingAdapter,Code2LlmAdapter,OrgReadmeAdapter
     ReadmeGeneratorAdapter(BaseGenerator): should_run(0),run(1)
     ApiReferenceAdapter(BaseGenerator): should_run(0),run(1)
     ModuleDocsAdapter(BaseGenerator): should_run(0),run(1)
@@ -142,6 +146,7 @@ I...
     ConfigDocsAdapter(BaseGenerator): should_run(0),run(1)
     ContributingAdapter(BaseGenerator): should_run(0),run(1)
     Code2LlmAdapter(BaseGenerator): should_run(0),run(1)  # Adapter for code2llm analysis generation...
+    OrgReadmeAdapter(BaseGenerator): should_run(0),run(1)  # Adapter for organization README generation...
   sync/differ.py:
     e: ChangeInfo,Differ
     ChangeInfo: __str__(0)  # Describes a detected change...
@@ -166,7 +171,7 @@ I...
     generate_docs(project_path;config)
   generators/mkdocs_gen.py:
     e: MkDocsGenerator
-    MkDocsGenerator: __init__(2),generate(1),_build_nav(1),write(2)  # Generate mkdocs.yml from the docs/ directory structure...
+    MkDocsGenerator: __init__(2),generate(1),_read_pyproject_mkdocs(0),_build_nav(1),write(2)  # Generate mkdocs.yml from the docs/ directory structure...
   analyzers/endpoint_detector.py:
     e: Endpoint,EndpointDetector
     Endpoint:  # Represents a detected web endpoint...

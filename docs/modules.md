@@ -1,24 +1,24 @@
 # code2docs — Module Reference
 
-> 39 modules | 237 functions | 54 classes
+> 40 modules | 252 functions | 56 classes
 
 ## Module Overview
 
 | Module | Lines | Functions | Classes | CC avg | Description | Source |
 |--------|-------|-----------|---------|--------|-------------|--------|
-| `analyzers.dependency_scanner` | 159 | 0 | 3 | 4.5 | Scan project dependencies from requirements.txt, pyproject.t | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py) |
+| `analyzers.dependency_scanner` | 197 | 0 | 3 | 4.6 | Scan project dependencies from requirements.txt, pyproject.t | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py) |
 | `analyzers.docstring_extractor` | 140 | 0 | 2 | 3.5 | Extract and analyze docstrings from source code. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/docstring_extractor.py) |
 | `analyzers.endpoint_detector` | 113 | 0 | 2 | 4.0 | Detect web framework endpoints (Flask, FastAPI, Django) from | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/endpoint_detector.py) |
 | `analyzers.project_scanner` | 42 | 1 | 1 | 1.2 | Wrapper around code2llm's ProjectAnalyzer for documentation  | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/project_scanner.py) |
 | `base` | 46 | 0 | 2 | 1.0 | Base generator interface and generation context. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/base.py) |
-| `cli` | 316 | 13 | 1 | 3.4 | CLI interface for code2docs. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py) |
+| `cli` | 319 | 13 | 1 | 3.4 | CLI interface for code2docs. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py) |
 | `code2docs` | 32 | 1 | 0 | 4.0 | code2docs - Auto-generate and sync project documentation fro | [source](https://github.com/wronai/code2docs/blob/main/code2docs/__init__.py) |
-| `config` | 296 | 0 | 7 | 3.4 | Configuration for code2docs documentation generation. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/config.py) |
+| `config` | 297 | 0 | 7 | 3.4 | Configuration for code2docs documentation generation. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/config.py) |
 | `formatters.badges` | 52 | 2 | 0 | 7.5 | Badge generation using shields.io URLs. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/formatters/badges.py) |
 | `formatters.markdown` | 73 | 0 | 1 | 1.2 | Markdown formatting utilities. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/formatters/markdown.py) |
 | `formatters.toc` | 63 | 3 | 0 | 3.3 | Table of contents generator from Markdown headings. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/formatters/toc.py) |
 | `generators` | 59 | 1 | 0 | 5.0 | Documentation generators — produce Markdown, examples, and d | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/__init__.py) |
-| `generators._registry_adapters` | 251 | 0 | 13 | 1.9 | Registry adapters — wrap existing generators into BaseGenera | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py) |
+| `generators._registry_adapters` | 287 | 0 | 14 | 2.0 | Registry adapters — wrap existing generators into BaseGenera | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py) |
 | `generators._source_links` | 76 | 0 | 1 | 3.0 | Helper for generating source code links in documentation. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_source_links.py) |
 | `generators.api_changelog_gen` | 196 | 0 | 2 | 5.4 | API changelog generator — diff function/class signatures bet | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/api_changelog_gen.py) |
 | `generators.api_reference_gen` | 163 | 0 | 1 | 8.7 | API reference documentation generator — single consolidated  | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/api_reference_gen.py) |
@@ -26,13 +26,14 @@
 | `generators.changelog_gen` | 121 | 0 | 2 | 3.5 | Changelog generator from git log and API diff. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/changelog_gen.py) |
 | `generators.code2llm_gen` | 206 | 2 | 1 | 7.0 | code2llm integration generator — produces analysis files in  | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/code2llm_gen.py) |
 | `generators.config_docs_gen` | 125 | 0 | 1 | 4.2 | Configuration documentation generator. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/config_docs_gen.py) |
-| `generators.contributing_gen` | 136 | 0 | 1 | 2.5 | CONTRIBUTING.md generator from project tooling detection. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/contributing_gen.py) |
+| `generators.contributing_gen` | 137 | 0 | 1 | 2.6 | CONTRIBUTING.md generator from project tooling detection. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/contributing_gen.py) |
 | `generators.coverage_gen` | 104 | 0 | 1 | 4.4 | Docstring coverage report generator. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/coverage_gen.py) |
 | `generators.depgraph_gen` | 140 | 0 | 1 | 3.9 | Dependency graph generator — Mermaid diagram from coupling m | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/depgraph_gen.py) |
-| `generators.examples_gen` | 399 | 0 | 1 | 5.6 | Auto-generate usage examples from public signatures and entr | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/examples_gen.py) |
-| `generators.getting_started_gen` | 166 | 0 | 1 | 5.8 | Getting Started guide generator. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/getting_started_gen.py) |
-| `generators.mkdocs_gen` | 70 | 0 | 1 | 2.2 | MkDocs configuration generator — auto-generate mkdocs.yml fr | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/mkdocs_gen.py) |
+| `generators.examples_gen` | 443 | 0 | 1 | 6.1 | Auto-generate usage examples from public signatures and entr | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/examples_gen.py) |
+| `generators.getting_started_gen` | 167 | 0 | 1 | 5.9 | Getting Started guide generator. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/getting_started_gen.py) |
+| `generators.mkdocs_gen` | 110 | 0 | 1 | 3.2 | MkDocs configuration generator — auto-generate mkdocs.yml fr | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/mkdocs_gen.py) |
 | `generators.module_docs_gen` | 198 | 0 | 1 | 8.0 | Module documentation generator — single consolidated modules | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/module_docs_gen.py) |
+| `generators.org_readme_gen` | 227 | 0 | 1 | 5.2 | Organization README generator - generates overview of multip | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/org_readme_gen.py) |
 | `generators.readme_gen` | 463 | 1 | 1 | 5.7 | README.md generator from AnalysisResult. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/readme_gen.py) |
 | `llm_helper` | 161 | 1 | 1 | 2.3 | LLM helper — optional LLM-assisted documentation generation  | [source](https://github.com/wronai/code2docs/blob/main/code2docs/llm_helper.py) |
 | `registry` | 39 | 0 | 1 | 2.5 | Generator registry — pluggable generator system. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/registry.py) |
@@ -68,13 +69,13 @@ CLI interface for code2docs.
 |--------|------|---------|----|
 | `parse_args` | `ctx, args` | `—` | 4 |
 
-- `check(project_path, config_path, target)` — Health check — verify documentation completeness. [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py#L106)
-- `diff(project_path, config_path)` — Preview what would change without writing anything. [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py#L115)
-- `generate(project_path, config_path, readme_only, sections, output, verbose, dry_run, llm_model)` — Generate documentation (default command). [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py#L43)
-- `init(project_path, output)` — Initialize code2docs.yaml configuration file. [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py#L90)
+- `check(project_path, config_path, target)` — Health check — verify documentation completeness. [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py#L109)
+- `diff(project_path, config_path)` — Preview what would change without writing anything. [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py#L118)
+- `generate(project_path, config_path, readme_only, sections, output, verbose, dry_run, llm_model, org_name)` — Generate documentation (default command). [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py#L44)
+- `init(project_path, output)` — Initialize code2docs.yaml configuration file. [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py#L93)
 - `main()` — code2docs — Auto-generate project documentation from source code. [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py#L29)
-- `sync(project_path, config_path, verbose, dry_run)` — Synchronize documentation with source code changes. [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py#L65)
-- `watch(project_path, config_path, verbose)` — Watch for file changes and auto-regenerate docs. [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py#L78)
+- `sync(project_path, config_path, verbose, dry_run)` — Synchronize documentation with source code changes. [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py#L68)
+- `watch(project_path, config_path, verbose)` — Watch for file changes and auto-regenerate docs. [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py#L81)
 
 ### `config` [source](https://github.com/wronai/code2docs/blob/main/code2docs/config.py)
 
@@ -153,7 +154,7 @@ Scan project dependencies from requirements.txt, pyproject.toml, setup.py.
 **`DependencyInfo`** [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L18)
 : Information about a project dependency.
 
-**`DependencyScanner`** [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L37)
+**`DependencyScanner`** [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L42)
 : Scan and parse project dependency files.
 
 | Method | Args | Returns | CC |
@@ -249,28 +250,28 @@ Table of contents generator from Markdown headings.
 
 Registry adapters — wrap existing generators into BaseGenerator interface.
 
-**`ApiChangelogAdapter`** (BaseGenerator) [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L115)
+**`ApiChangelogAdapter`** (BaseGenerator) [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L120)
 
 | Method | Args | Returns | CC |
 |--------|------|---------|----|
 | `should_run` | `` | `—` | 1 |
 | `run` | `ctx` | `—` | 2 |
 
-**`ApiReferenceAdapter`** (BaseGenerator) [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L33)
+**`ApiReferenceAdapter`** (BaseGenerator) [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L38)
 
 | Method | Args | Returns | CC |
 |--------|------|---------|----|
 | `should_run` | `` | `—` | 2 |
 | `run` | `ctx` | `—` | 2 |
 
-**`ArchitectureAdapter`** (BaseGenerator) [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L67)
+**`ArchitectureAdapter`** (BaseGenerator) [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L72)
 
 | Method | Args | Returns | CC |
 |--------|------|---------|----|
 | `should_run` | `` | `—` | 2 |
 | `run` | `ctx` | `—` | 2 |
 
-**`Code2LlmAdapter`** (BaseGenerator) [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L215)
+**`Code2LlmAdapter`** (BaseGenerator) [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L221)
 : Adapter for code2llm analysis generation.
 
 | Method | Args | Returns | CC |
@@ -278,68 +279,76 @@ Registry adapters — wrap existing generators into BaseGenerator interface.
 | `should_run` | `` | `—` | 1 |
 | `run` | `ctx` | `—` | 7 |
 
-**`ConfigDocsAdapter`** (BaseGenerator) [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L182)
+**`ConfigDocsAdapter`** (BaseGenerator) [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L187)
 
 | Method | Args | Returns | CC |
 |--------|------|---------|----|
 | `should_run` | `` | `—` | 1 |
 | `run` | `ctx` | `—` | 2 |
 
-**`ContributingAdapter`** (BaseGenerator) [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L199)
+**`ContributingAdapter`** (BaseGenerator) [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L204)
 
 | Method | Args | Returns | CC |
 |--------|------|---------|----|
 | `should_run` | `` | `—` | 1 |
 | `run` | `ctx` | `—` | 2 |
 
-**`CoverageAdapter`** (BaseGenerator) [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L99)
+**`CoverageAdapter`** (BaseGenerator) [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L104)
 
 | Method | Args | Returns | CC |
 |--------|------|---------|----|
 | `should_run` | `` | `—` | 1 |
 | `run` | `ctx` | `—` | 2 |
 
-**`DepGraphAdapter`** (BaseGenerator) [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L83)
+**`DepGraphAdapter`** (BaseGenerator) [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L88)
 
 | Method | Args | Returns | CC |
 |--------|------|---------|----|
 | `should_run` | `` | `—` | 1 |
 | `run` | `ctx` | `—` | 2 |
 
-**`ExamplesAdapter`** (BaseGenerator) [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L132)
+**`ExamplesAdapter`** (BaseGenerator) [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L137)
 
 | Method | Args | Returns | CC |
 |--------|------|---------|----|
 | `should_run` | `` | `—` | 2 |
 | `run` | `ctx` | `—` | 2 |
 
-**`GettingStartedAdapter`** (BaseGenerator) [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L165)
+**`GettingStartedAdapter`** (BaseGenerator) [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L170)
 
 | Method | Args | Returns | CC |
 |--------|------|---------|----|
 | `should_run` | `` | `—` | 1 |
 | `run` | `ctx` | `—` | 2 |
 
-**`MkDocsAdapter`** (BaseGenerator) [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L149)
+**`MkDocsAdapter`** (BaseGenerator) [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L154)
 
 | Method | Args | Returns | CC |
 |--------|------|---------|----|
 | `should_run` | `` | `—` | 1 |
 | `run` | `ctx` | `—` | 2 |
 
-**`ModuleDocsAdapter`** (BaseGenerator) [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L50)
+**`ModuleDocsAdapter`** (BaseGenerator) [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L55)
 
 | Method | Args | Returns | CC |
 |--------|------|---------|----|
 | `should_run` | `` | `—` | 2 |
 | `run` | `ctx` | `—` | 2 |
+
+**`OrgReadmeAdapter`** (BaseGenerator) [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L243)
+: Adapter for organization README generation.
+
+| Method | Args | Returns | CC |
+|--------|------|---------|----|
+| `should_run` | `` | `—` | 2 |
+| `run` | `ctx` | `—` | 4 |
 
 **`ReadmeGeneratorAdapter`** (BaseGenerator) [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L13)
 
 | Method | Args | Returns | CC |
 |--------|------|---------|----|
 | `should_run` | `` | `—` | 1 |
-| `run` | `ctx` | `—` | 3 |
+| `run` | `ctx` | `—` | 4 |
 
 ### `generators._source_links` [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_source_links.py)
 
@@ -495,7 +504,7 @@ MkDocs configuration generator — auto-generate mkdocs.yml from docs tree.
 
 | Method | Args | Returns | CC |
 |--------|------|---------|----|
-| `generate` | `docs_dir` | `—` | 2 |
+| `generate` | `docs_dir` | `—` | 4 |
 | `write` | `output_path, content` | `—` | 1 |
 
 ### `generators.module_docs_gen` [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/module_docs_gen.py)
@@ -508,6 +517,18 @@ Module documentation generator — single consolidated modules.md.
 | Method | Args | Returns | CC |
 |--------|------|---------|----|
 | `generate` | `` | `—` | 18 |
+
+### `generators.org_readme_gen` [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/org_readme_gen.py)
+
+Organization README generator - generates overview of multiple projects.
+
+**`OrgReadmeGenerator`** [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/org_readme_gen.py#L12)
+: Generate organization README with list of projects and brief descriptions.
+
+| Method | Args | Returns | CC |
+|--------|------|---------|----|
+| `generate` | `` | `—` | 2 |
+| `write` | `output_path, content` | `—` | 1 |
 
 ### `generators.readme_gen` [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/readme_gen.py)
 

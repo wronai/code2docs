@@ -1,6 +1,8 @@
-# code2docs | 61f 8409L | python:61
+# code2docs | 64f 8813L | python:64
 # Keys: M=modules, D=details, i=imports, c=classes, f=functions, m=methods
-M[61]:
+M[64]:
+  docs/examples/advanced_usage.py,52
+  docs/examples/quickstart.py,25
   code2docs/__init__.py,26
   code2docs/__main__.py,4
   code2docs/analyzers/__init__.py,11
@@ -9,8 +11,8 @@ M[61]:
   code2docs/analyzers/endpoint_detector.py,91
   code2docs/analyzers/project_scanner.py,30
   code2docs/base.py,33
-  code2docs/cli.py,239
-  code2docs/config.py,251
+  code2docs/cli.py,242
+  code2docs/config.py,252
   code2docs/examples/advanced_usage.py,52
   code2docs/examples/quickstart.py,25
   code2docs/formatters/__init__.py,5
@@ -18,7 +20,7 @@ M[61]:
   code2docs/formatters/markdown.py,57
   code2docs/formatters/toc.py,47
   code2docs/generators/__init__.py,48
-  code2docs/generators/_registry_adapters.py,196
+  code2docs/generators/_registry_adapters.py,217
   code2docs/generators/_source_links.py,60
   code2docs/generators/api_changelog_gen.py,165
   code2docs/generators/api_reference_gen.py,136
@@ -33,6 +35,7 @@ M[61]:
   code2docs/generators/getting_started_gen.py,147
   code2docs/generators/mkdocs_gen.py,75
   code2docs/generators/module_docs_gen.py,171
+  code2docs/generators/org_readme_gen.py,171
   code2docs/generators/readme_gen.py,381
   code2docs/llm_helper.py,138
   code2docs/registry.py,29
@@ -199,6 +202,10 @@ D:
     i: ast,code2llm.api.{AnalysisResult,ClassInfo,FunctionInfo,ModuleInfo},collections.defaultdict,config.Code2DocsConfig,pathlib.Path,typing.{Dict,List}
     e: ModuleDocsGenerator
     ModuleDocsGenerator: __init__(2),generate(0),_group_modules(0),_has_content(1),_render_module_detail(2)  # Generate docs/modules.md — consolidat...
+  code2docs/generators/org_readme_gen.py:
+    i: analyzers.project_scanner.ProjectScanner,code2llm.api.AnalysisResult,config.Code2DocsConfig,pathlib.Path,typing.{Dict,List,Optional}
+    e: OrgReadmeGenerator
+    OrgReadmeGenerator: __init__(3),generate(0),_discover_projects(0),_analyze_project(1),_extract_description(2)  # Generate organization README with lis...
   code2docs/generators/readme_gen.py:
     i: re,code2llm.api.{AnalysisResult,FunctionInfo},jinja2.{Environment,PackageLoader,select_autoescape},pathlib.Path,typing.{Dict,List,Optional}
     e: MARKER_START,MARKER_END,ReadmeGenerator,generate_readme

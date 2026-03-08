@@ -3,16 +3,16 @@ project:
   name: code2docs
   repo: /home/tom/github/wronai/code2docs/code2docs
   language: python
-  analyzed_at: '2026-03-08T08:40:17Z'
+  analyzed_at: '2026-03-08T08:53:33Z'
   tool: code2llm
   stats:
-    files: 33
-    lines: 4982
-    functions: 237
-    classes: 54
+    files: 34
+    lines: 5373
+    functions: 252
+    classes: 56
 health:
-  cc_avg: 4.1
-  critical_count: 22
+  cc_avg: 4.2
+  critical_count: 25
   critical_limit: 10
   duplicates: 0
   cycles: 1
@@ -52,6 +52,11 @@ health:
     value: 21
     limit: 10
     severity: critical
+  - type: high_fan_out
+    target: OrgReadmeGenerator._extract_description
+    value: 20
+    limit: 10
+    severity: critical
   - type: cc_exceeded
     target: ExamplesGenerator._generate_advanced
     value: 22
@@ -83,12 +88,12 @@ health:
     limit: 10
     severity: error
   - type: high_fan_out
-    target: ArchitectureGenerator.generate
+    target: _run_generate
     value: 16
     limit: 10
     severity: error
   - type: high_fan_out
-    target: _run_generate
+    target: ArchitectureGenerator.generate
     value: 16
     limit: 10
     severity: error
@@ -103,18 +108,13 @@ health:
     limit: 15
     severity: warning
   - type: cc_exceeded
+    target: OrgReadmeGenerator._extract_description
+    value: 17
+    limit: 15
+    severity: warning
+  - type: cc_exceeded
     target: GettingStartedGenerator._generate_intro
     value: 16
-    limit: 15
-    severity: warning
-  - type: cc_exceeded
-    target: GettingStartedGenerator._render_first_usage
-    value: 15
-    limit: 15
-    severity: warning
-  - type: cc_exceeded
-    target: parse_gitignore
-    value: 15
     limit: 15
     severity: warning
 modules:
@@ -179,23 +179,25 @@ modules:
       flag: split
       fan_out: 16
 - path: generators/examples_gen.py
-  lines: 399
+  lines: 443
   classes: 1
-  methods: 14
+  methods: 15
   cc_max: 22
   inbound_deps: 0
   exports:
   - name: ExamplesGenerator
     type: class
-    cc_avg: 5.6
+    cc_avg: 6.1
     methods:
     - name: _generate_quickstart
-      cc: 9
-      fan_out: 10
+      cc: 13
+      fan_out: 11
     - name: _generate_advanced
       cc: 22
       flag: split
       fan_out: 11
+    - name: _example_from_type
+      cc: 11
 - path: generators/code2llm_gen.py
   lines: 206
   classes: 1
@@ -218,8 +220,26 @@ modules:
   - name: generate_code2llm_analysis
     type: function
     cc: 2
+- path: generators/org_readme_gen.py
+  lines: 227
+  classes: 1
+  methods: 10
+  cc_max: 17
+  inbound_deps: 0
+  exports:
+  - name: OrgReadmeGenerator
+    type: class
+    cc_avg: 5.2
+    methods:
+    - name: _extract_description
+      cc: 17
+      flag: split
+      fan_out: 20
+    - name: _get_repo_url
+      cc: 7
+      fan_out: 13
 - path: generators/getting_started_gen.py
-  lines: 166
+  lines: 167
   classes: 1
   methods: 8
   cc_max: 16
@@ -227,7 +247,7 @@ modules:
   exports:
   - name: GettingStartedGenerator
     type: class
-    cc_avg: 5.8
+    cc_avg: 5.9
     methods:
     - name: _render_first_usage
       cc: 15
@@ -296,7 +316,7 @@ modules:
     type: function
     cc: 4
 - path: cli.py
-  lines: 316
+  lines: 319
   classes: 1
   methods: 14
   cc_max: 10
@@ -310,7 +330,7 @@ modules:
     cc: 1
   - name: generate
     type: function
-    cc: 6
+    cc: 7
   - name: sync
     type: function
     cc: 2
@@ -328,7 +348,7 @@ modules:
     type: function
     cc: 1
 - path: config.py
-  lines: 296
+  lines: 297
   classes: 7
   methods: 5
   cc_max: 10
@@ -384,9 +404,9 @@ modules:
     type: class
     cc_avg: 3.9
 - path: analyzers/dependency_scanner.py
-  lines: 159
+  lines: 197
   classes: 3
-  methods: 6
+  methods: 7
   cc_max: 8
   inbound_deps: 0
   exports:
@@ -398,7 +418,11 @@ modules:
     cc_avg: 0.0
   - name: DependencyScanner
     type: class
-    cc_avg: 4.5
+    cc_avg: 4.6
+    methods:
+    - name: _parse_pyproject
+      cc: 8
+      fan_out: 10
 - path: analyzers/docstring_extractor.py
   lines: 140
   classes: 2
@@ -413,7 +437,7 @@ modules:
     type: class
     cc_avg: 3.5
 - path: generators/contributing_gen.py
-  lines: 136
+  lines: 137
   classes: 1
   methods: 8
   cc_max: 8
@@ -421,17 +445,17 @@ modules:
   exports:
   - name: ContributingGenerator
     type: class
-    cc_avg: 2.5
+    cc_avg: 2.6
 - path: generators/_registry_adapters.py
-  lines: 251
-  classes: 13
-  methods: 26
+  lines: 287
+  classes: 14
+  methods: 28
   cc_max: 7
   inbound_deps: 0
   exports:
   - name: ReadmeGeneratorAdapter
     type: class
-    cc_avg: 2.0
+    cc_avg: 2.5
   - name: ApiReferenceAdapter
     type: class
     cc_avg: 2.0
@@ -468,6 +492,9 @@ modules:
   - name: Code2LlmAdapter
     type: class
     cc_avg: 4.0
+  - name: OrgReadmeAdapter
+    type: class
+    cc_avg: 3.0
 - path: llm_helper.py
   lines: 161
   classes: 1
@@ -560,15 +587,15 @@ modules:
     type: class
     cc_avg: 3.0
 - path: generators/mkdocs_gen.py
-  lines: 70
+  lines: 110
   classes: 1
-  methods: 4
+  methods: 5
   cc_max: 5
   inbound_deps: 0
   exports:
   - name: MkDocsGenerator
     type: class
-    cc_avg: 2.2
+    cc_avg: 3.2
 - path: sync/watcher.py
   lines: 75
   classes: 0
@@ -687,6 +714,9 @@ hotspots:
 - name: ApiReferenceGenerator._render_module_section
   fan_out: 21
   note: Render a module as a subsection within the consolidated doc.
+- name: OrgReadmeGenerator._extract_description
+  fan_out: 20
+  note: Extract short description from project (max 5 lines).
 - name: ModuleDocsGenerator.generate
   fan_out: 19
   note: Generate a single modules.md with all modules grouped by package.
@@ -702,9 +732,6 @@ hotspots:
 - name: ModuleDocsGenerator._render_module_detail
   fan_out: 16
   note: Render a single module's detail section.
-- name: ArchitectureGenerator.generate
-  fan_out: 16
-  note: Generate architecture documentation.
 refactoring:
   priorities:
   - action: Split ReadmeGenerator._extract_project_metadata (CC=29 → target CC<10)
@@ -739,6 +766,10 @@ refactoring:
     impact: medium
     effort: low
     module: module_docs_gen.py
+  - action: Split OrgReadmeGenerator._extract_description (CC=17 → target CC<10)
+    impact: medium
+    effort: low
+    module: org_readme_gen.py
   - action: Split ExamplesGenerator._generate_advanced (CC=22 → target CC<10)
     impact: medium
     effort: low
@@ -757,7 +788,7 @@ refactoring:
     effort: medium
 evolution:
 - date: '2026-03-08'
-  cc_avg: 4.1
-  critical: 22
-  lines: 4982
+  cc_avg: 4.2
+  critical: 25
+  lines: 5373
   note: Automated analysis

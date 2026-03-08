@@ -6,6 +6,7 @@ flowchart TD
         analyzers___parse_setup_py["_parse_setup_py"]
         analyzers___parse_requirements_txt["_parse_requirements_txt"]
         analyzers___parse_dep_string["_parse_dep_string"]
+        analyzers___detect_version["_detect_version"]
     end
     subgraph analyzers_docstring_extractor
         analyzers__extract_all["extract_all"]
@@ -119,6 +120,8 @@ flowchart TD
         generators__run["run"]
         generators__should_run["should_run"]
         generators__run["run"]
+        generators__should_run["should_run"]
+        generators__run["run"]
     end
     subgraph generators__source_links
         generators___source_links__SourceLinker____init__["__init__"]
@@ -214,8 +217,9 @@ flowchart TD
     end
     subgraph generators_examples_gen
         generators____init__["__init__"]
+        generators___get_example_value["_get_example_value"]
         generators__generate_all["generate_all"]
-        generators___generate_quickstart("_generate_quickstart CC=9")
+        generators___generate_quickstart("_generate_quickstart CC=13")
         generators___generate_advanced{{_generate_advanced CC=22}}
         generators___detect_package_name["_detect_package_name"]
         generators___find_convenience_functions["_find_convenience_functions"]
@@ -223,8 +227,8 @@ flowchart TD
         generators___find_generator_classes["_find_generator_classes"]
         generators___find_function_by_name["_find_function_by_name"]
         generators___find_class_by_name["_find_class_by_name"]
-        generators___build_realistic_args["_build_realistic_args"]
-        generators___example_from_type("_example_from_type CC=9")
+        generators___build_realistic_args("_build_realistic_args CC=8")
+        generators___example_from_type("_example_from_type CC=11")
         generators___get_public_methods["_get_public_methods"]
         generators__write_all["write_all"]
     end
@@ -241,6 +245,7 @@ flowchart TD
     subgraph generators_mkdocs_gen
         generators__mkdocs_gen__MkDocsGenerator____init__["__init__"]
         generators__mkdocs_gen__MkDocsGenerator__generate["generate"]
+        generators___read_pyproject_mkdocs["_read_pyproject_mkdocs"]
         generators___build_nav["_build_nav"]
         generators__mkdocs_gen__MkDocsGenerator__write["write"]
     end
@@ -254,6 +259,18 @@ flowchart TD
         generators___count_file_lines["_count_file_lines"]
         generators___calc_module_avg_cc["_calc_module_avg_cc"]
         generators___get_module_docstring["_get_module_docstring"]
+    end
+    subgraph generators_org_readme_gen
+        generators____init__["__init__"]
+        generators__generate["generate"]
+        generators___discover_projects["_discover_projects"]
+        generators___analyze_project["_analyze_project"]
+        generators___extract_description{{_extract_description CC=17}}
+        generators___truncate_description("_truncate_description CC=8")
+        generators___get_version["_get_version"]
+        generators___get_repo_url["_get_repo_url"]
+        generators___render_project_section["_render_project_section"]
+        generators__write["write"]
     end
     subgraph generators_readme_gen
         generators__readme_gen__ReadmeGenerator____init__["__init__"]
@@ -329,5 +346,5 @@ flowchart TD
 
     classDef highCC fill:#ff6b6b,stroke:#c92a2a,color:#fff
     classDef medCC fill:#ffd43b,stroke:#f08c00,color:#000
-    class generators___extract_project_metadata,generators___render_first_usage,generators___generate_intro,generators__code2llm_gen__parse_gitignore,generators___run_code2llm,generators__generate,generators___render_module_detail,generators___render_module_section,generators___generate_advanced highCC
-    class formatters__badges___make_badge,generators___build_context,generators___extract_project_description,generators___collect_module_stats,generators___render_undocumented,generators___render_matrix,generators___render_section,generators__generate,generators___has_content,generators___generate_quickstart,generators___example_from_type,generators___diff_functions,generators___diff_classes,generators___render,generators___render_code_style,generators__generate,generators___get_public_entry_points,generators___generate_module_graph,generators___generate_class_diagram,generators___detect_layers,cli___run_check,config__Code2DocsConfig__from_yaml,analyzers___parse_pyproject,analyzers___parse_sections,analyzers__coverage_report medCC
+    class generators___extract_project_metadata,generators___render_first_usage,generators___generate_intro,generators__code2llm_gen__parse_gitignore,generators___run_code2llm,generators__generate,generators___render_module_detail,generators___extract_description,generators___render_module_section,generators___generate_advanced highCC
+    class formatters__badges___make_badge,generators___build_context,generators___extract_project_description,generators___collect_module_stats,generators___render_undocumented,generators___render_matrix,generators___render_section,generators___truncate_description,generators__generate,generators___has_content,generators___generate_quickstart,generators___build_realistic_args,generators___example_from_type,cli___run_check,generators___diff_functions,generators___diff_classes,generators___render,generators___render_code_style,config__Code2DocsConfig__from_yaml,generators__generate,generators___get_public_entry_points,generators___generate_module_graph,generators___generate_class_diagram,generators___detect_layers,analyzers___parse_pyproject,analyzers___parse_sections,analyzers__coverage_report medCC

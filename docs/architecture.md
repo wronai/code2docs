@@ -1,6 +1,6 @@
 # code2docs — Architecture
 
-> 39 modules | 237 functions | 54 classes
+> 40 modules | 252 functions | 56 classes
 
 ## How It Works
 
@@ -38,7 +38,7 @@ Source files  ──►  code2llm (tree-sitter + AST)  ──►  AnalysisResult
 
 ```mermaid
 graph TD
-    Other["Other<br/>24 modules"]
+    Other["Other<br/>25 modules"]
     Analysis["Analysis<br/>5 modules"]
     Core["Core<br/>1 modules"]
     API___CLI["API / CLI<br/>3 modules"]
@@ -70,6 +70,7 @@ graph TD
 - `generators.getting_started_gen`
 - `generators.mkdocs_gen`
 - `generators.module_docs_gen`
+- `generators.org_readme_gen`
 - `generators.readme_gen`
 - `llm_helper`
 - `registry`
@@ -132,14 +133,14 @@ classDiagram
     }
     class ExamplesGenerator {
         -__init__(self, config, result) None
+        -_get_example_value(self, arg_name) None
         +generate_all(self) None
         -_generate_quickstart(self) None
         -_generate_advanced(self) None
         -_detect_package_name(self) None
         -_find_convenience_functions(self) None
         -_find_api_classes(self) None
-        -_find_generator_classes(self) None
-        ... +6 more
+        ... +7 more
     }
     class MarkdownFormatter {
         -__init__(self) None
@@ -151,6 +152,17 @@ classDiagram
         +bold(self, text) None
         +link(self, text, url) None
         ... +5 more
+    }
+    class OrgReadmeGenerator {
+        -__init__(self, config, org_path) None
+        +generate(self) None
+        -_discover_projects(self) None
+        -_analyze_project(self, project_path) None
+        -_extract_description(self, project_path, result) None
+        -_truncate_description(self, desc, max_chars) None
+        -_get_version(self, project_path) None
+        -_get_repo_url(self, project_path) None
+        ... +2 more
     }
     class ArchitectureGenerator {
         -__init__(self, config, result) None
@@ -254,21 +266,14 @@ classDiagram
         -_get_public_methods(self, cls_info) None
         -_format_signature(func) None
     }
-    class Differ {
-        -__init__(self, config) None
-        +detect_changes(self, project_path) None
-        +save_state(self, project_path) None
-        -_load_state(self, state_path) None
-        -_compute_state(self, project) None
-        -_file_to_module(filepath, project) None
-    }
-    class SourceLinker {
-        -__init__(self, config, result) None
-        +source_link(self, file, line) None
-        +file_link(self, file) None
-        -_relative_path(self, file) None
-        -_find_git_root(start) None
-        -_detect_branch() None
+    class DependencyScanner {
+        +scan(self, project_path) None
+        -_parse_pyproject(self, path) None
+        -_parse_pyproject_regex(self, path) None
+        -_parse_setup_py(self, path) None
+        -_parse_requirements_txt(self, path) None
+        -_parse_dep_string(dep_str) None
+        -_detect_version(self, project_path, pyproject_version) None
     }
 ```
 
@@ -296,10 +301,10 @@ classDiagram
 
 | Metric | Value |
 |--------|-------|
-| Modules | 39 |
-| Functions | 237 |
-| Classes | 54 |
-| CFG Nodes | 1405 |
+| Modules | 40 |
+| Functions | 252 |
+| Classes | 56 |
+| CFG Nodes | 1499 |
 | Patterns | 2 |
-| Avg Complexity | 4.1 |
-| Analysis Time | 1.35s |
+| Avg Complexity | 4.2 |
+| Analysis Time | 1.43s |

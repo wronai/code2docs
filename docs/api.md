@@ -1,13 +1,13 @@
 # code2docs — API Reference
 
-> 39 modules | 237 functions | 54 classes
+> 40 modules | 252 functions | 56 classes
 
 ## Contents
 
 - [Core](#core) (9 modules)
 - [analyzers](#analyzers) (4 modules)
 - [formatters](#formatters) (3 modules)
-- [generators](#generators) (16 modules)
+- [generators](#generators) (17 modules)
 - [sync](#sync) (3 modules)
 
 ## Core
@@ -17,7 +17,7 @@
 | Class | Methods | Description | Source |
 |-------|---------|-------------|--------|
 | `DependencyInfo` | 0 | Information about a project dependency. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L18) |
-| `DependencyScanner` | 1 | Scan and parse project dependency files. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L37) |
+| `DependencyScanner` | 1 | Scan and parse project dependency files. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L42) |
 | `ProjectDependencies` | 0 | All detected project dependencies. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L27) |
 | `DocstringExtractor` | 3 | Extract and parse docstrings from AnalysisResult. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/docstring_extractor.py#L23) |
 | `DocstringInfo` | 0 | Parsed docstring with sections. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/docstring_extractor.py#L12) |
@@ -55,13 +55,13 @@
 
 | Function | Signature | CC | Description | Source |
 |----------|-----------|----|-----------  |--------|
-| `check` | `check(project_path, config_path, target)` | 1 | Health check — verify documentation completeness. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py#L106) |
-| `diff` | `diff(project_path, config_path)` | 1 | Preview what would change without writing anything. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py#L115) |
-| `generate` | `generate(project_path, config_path, readme_only, sections, ...)` | 6 | Generate documentation (default command). | [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py#L43) |
-| `init` | `init(project_path, output)` | 1 | Initialize code2docs.yaml configuration file. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py#L90) |
+| `check` | `check(project_path, config_path, target)` | 1 | Health check — verify documentation completeness. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py#L109) |
+| `diff` | `diff(project_path, config_path)` | 1 | Preview what would change without writing anything. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py#L118) |
+| `generate` | `generate(project_path, config_path, readme_only, sections, ...)` | 7 | Generate documentation (default command). | [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py#L44) |
+| `init` | `init(project_path, output)` | 1 | Initialize code2docs.yaml configuration file. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py#L93) |
 | `main` | `main()` | 1 | code2docs — Auto-generate project documentation from source code. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py#L29) |
-| `sync` | `sync(project_path, config_path, verbose, dry_run)` | 2 | Synchronize documentation with source code changes. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py#L65) |
-| `watch` | `watch(project_path, config_path, verbose)` | 2 | Watch for file changes and auto-regenerate docs. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py#L78) |
+| `sync` | `sync(project_path, config_path, verbose, dry_run)` | 2 | Synchronize documentation with source code changes. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py#L68) |
+| `watch` | `watch(project_path, config_path, verbose)` | 2 | Watch for file changes and auto-regenerate docs. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py#L81) |
 
 ### `config` [source](https://github.com/wronai/code2docs/blob/main/code2docs/config.py)
 
@@ -111,18 +111,19 @@
 
 | Class | Methods | Description | Source |
 |-------|---------|-------------|--------|
-| `ApiChangelogAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L115) |
-| `ApiReferenceAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L33) |
-| `ArchitectureAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L67) |
-| `Code2LlmAdapter` | 2 | Adapter for code2llm analysis generation. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L215) |
-| `ConfigDocsAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L182) |
-| `ContributingAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L199) |
-| `CoverageAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L99) |
-| `DepGraphAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L83) |
-| `ExamplesAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L132) |
-| `GettingStartedAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L165) |
-| `MkDocsAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L149) |
-| `ModuleDocsAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L50) |
+| `ApiChangelogAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L120) |
+| `ApiReferenceAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L38) |
+| `ArchitectureAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L72) |
+| `Code2LlmAdapter` | 2 | Adapter for code2llm analysis generation. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L221) |
+| `ConfigDocsAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L187) |
+| `ContributingAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L204) |
+| `CoverageAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L104) |
+| `DepGraphAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L88) |
+| `ExamplesAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L137) |
+| `GettingStartedAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L170) |
+| `MkDocsAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L154) |
+| `ModuleDocsAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L55) |
+| `OrgReadmeAdapter` | 2 | Adapter for organization README generation. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L243) |
 | `ReadmeGeneratorAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L13) |
 | `SourceLinker` | 2 | Build source-code links (relative paths + optional GitHub/GitLab URLs). | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_source_links.py#L11) |
 | `ApiChange` | 1 | A single API change between two analysis snapshots. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/api_changelog_gen.py#L16) |
@@ -140,6 +141,7 @@
 | `GettingStartedGenerator` | 1 | Generate docs/getting-started.md from entry points and dependencies. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/getting_started_gen.py#L12) |
 | `MkDocsGenerator` | 2 | Generate mkdocs.yml from the docs/ directory structure. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/mkdocs_gen.py#L13) |
 | `ModuleDocsGenerator` | 1 | Generate docs/modules.md — consolidated module documentation. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/module_docs_gen.py#L14) |
+| `OrgReadmeGenerator` | 2 | Generate organization README with list of projects and brief descriptions. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/org_readme_gen.py#L12) |
 | `ReadmeGenerator` | 2 | Generate README.md from AnalysisResult. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/readme_gen.py#L23) |
 
 **`ApiChangelogAdapter` methods:**
@@ -202,6 +204,11 @@
 - `should_run()`
 - `run(ctx)`
 
+**`OrgReadmeAdapter` methods:**
+
+- `should_run()`
+- `run(ctx)`
+
 **`ReadmeGeneratorAdapter` methods:**
 
 - `should_run()`
@@ -231,6 +238,11 @@
 
 - `generate(docs_dir)` — Generate mkdocs.yml content.
 - `write(output_path, content)` — Write mkdocs.yml file.
+
+**`OrgReadmeGenerator` methods:**
+
+- `generate()` — Generate organization README content.
+- `write(output_path, content)` — Write README to output path.
 
 **`ReadmeGenerator` methods:**
 
@@ -294,7 +306,7 @@
 | Class | Methods | Description | Source |
 |-------|---------|-------------|--------|
 | `DependencyInfo` | 0 | Information about a project dependency. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L18) |
-| `DependencyScanner` | 1 | Scan and parse project dependency files. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L37) |
+| `DependencyScanner` | 1 | Scan and parse project dependency files. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L42) |
 | `ProjectDependencies` | 0 | All detected project dependencies. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L27) |
 
 ### `analyzers.docstring_extractor` [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/docstring_extractor.py)
@@ -369,18 +381,19 @@
 
 | Class | Methods | Description | Source |
 |-------|---------|-------------|--------|
-| `ApiChangelogAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L115) |
-| `ApiReferenceAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L33) |
-| `ArchitectureAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L67) |
-| `Code2LlmAdapter` | 2 | Adapter for code2llm analysis generation. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L215) |
-| `ConfigDocsAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L182) |
-| `ContributingAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L199) |
-| `CoverageAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L99) |
-| `DepGraphAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L83) |
-| `ExamplesAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L132) |
-| `GettingStartedAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L165) |
-| `MkDocsAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L149) |
-| `ModuleDocsAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L50) |
+| `ApiChangelogAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L120) |
+| `ApiReferenceAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L38) |
+| `ArchitectureAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L72) |
+| `Code2LlmAdapter` | 2 | Adapter for code2llm analysis generation. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L221) |
+| `ConfigDocsAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L187) |
+| `ContributingAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L204) |
+| `CoverageAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L104) |
+| `DepGraphAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L88) |
+| `ExamplesAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L137) |
+| `GettingStartedAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L170) |
+| `MkDocsAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L154) |
+| `ModuleDocsAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L55) |
+| `OrgReadmeAdapter` | 2 | Adapter for organization README generation. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L243) |
 | `ReadmeGeneratorAdapter` | 2 | — | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py#L13) |
 
 **`ApiChangelogAdapter` methods:**
@@ -439,6 +452,11 @@
 - `run(ctx)`
 
 **`ModuleDocsAdapter` methods:**
+
+- `should_run()`
+- `run(ctx)`
+
+**`OrgReadmeAdapter` methods:**
 
 - `should_run()`
 - `run(ctx)`
@@ -563,6 +581,17 @@
 | Class | Methods | Description | Source |
 |-------|---------|-------------|--------|
 | `ModuleDocsGenerator` | 1 | Generate docs/modules.md — consolidated module documentation. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/module_docs_gen.py#L14) |
+
+### `generators.org_readme_gen` [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/org_readme_gen.py)
+
+| Class | Methods | Description | Source |
+|-------|---------|-------------|--------|
+| `OrgReadmeGenerator` | 2 | Generate organization README with list of projects and brief descriptions. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/org_readme_gen.py#L12) |
+
+**`OrgReadmeGenerator` methods:**
+
+- `generate()` — Generate organization README content.
+- `write(output_path, content)` — Write README to output path.
 
 ### `generators.readme_gen` [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/readme_gen.py)
 

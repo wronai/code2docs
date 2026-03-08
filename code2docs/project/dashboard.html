@@ -60,12 +60,12 @@
 </p>
 
 <div class="grid">
-  <div class="card"><div class="value">4.1</div><div class="label">Avg CC</div></div>
-  <div class="card"><div class="value">22</div><div class="label">Critical (CC≥10)</div></div>
-  <div class="card"><div class="value">237</div><div class="label">Functions</div></div>
-  <div class="card"><div class="value">54</div><div class="label">Classes</div></div>
-  <div class="card"><div class="value">33</div><div class="label">Files</div></div>
-  <div class="card"><div class="value">4982</div><div class="label">Lines</div></div>
+  <div class="card"><div class="value">4.2</div><div class="label">Avg CC</div></div>
+  <div class="card"><div class="value">25</div><div class="label">Critical (CC≥10)</div></div>
+  <div class="card"><div class="value">252</div><div class="label">Functions</div></div>
+  <div class="card"><div class="value">56</div><div class="label">Classes</div></div>
+  <div class="card"><div class="value">34</div><div class="label">Files</div></div>
+  <div class="card"><div class="value">5373</div><div class="label">Lines</div></div>
   <div class="card"><div class="value">0</div><div class="label">Duplicates</div></div>
   <div class="card"><div class="value">1</div><div class="label">Cycles</div></div>
 </div>
@@ -74,9 +74,9 @@
   <div class="chart-container">
     <h2 style="border:none;margin:0 0 .5rem;">Evolution (2026-03-08)</h2>
     <div class="evo-cards">
-      <div class="card"><div class="value">4.1</div><div class="label">CC̄ →</div></div>
-      <div class="card"><div class="value">22</div><div class="label">Critical →</div></div>
-      <div class="card"><div class="value">4982</div><div class="label">Lines</div></div>
+      <div class="card"><div class="value">4.2</div><div class="label">CC̄ →</div></div>
+      <div class="card"><div class="value">25</div><div class="label">Critical →</div></div>
+      <div class="card"><div class="value">5373</div><div class="label">Lines</div></div>
     </div>
     <p class="trend" style="margin-top:.5rem;">Run analysis multiple times to build a trend chart (≥3 data points needed).</p>
   </div>
@@ -140,6 +140,13 @@
                 <td>21</td>
                 <td>10</td>
             </tr>
+            <tr class="critical">
+                <td><span class="badge critical">critical</span></td>
+                <td>OrgReadmeGenerator._extract_description</td>
+                <td>high_fan_out</td>
+                <td>20</td>
+                <td>10</td>
+            </tr>
             <tr class="error">
                 <td><span class="badge error">error</span></td>
                 <td>ExamplesGenerator._generate_advanced</td>
@@ -184,13 +191,6 @@
             </tr>
             <tr class="error">
                 <td><span class="badge error">error</span></td>
-                <td>ArchitectureGenerator.generate</td>
-                <td>high_fan_out</td>
-                <td>16</td>
-                <td>10</td>
-            </tr>
-            <tr class="error">
-                <td><span class="badge error">error</span></td>
                 <td>_run_generate</td>
                 <td>high_fan_out</td>
                 <td>16</td>
@@ -229,6 +229,11 @@ Requires watchdog</td>
                 <td>Render a module as a subsection within the consolidated doc.</td>
             </tr>
             <tr>
+                <td><strong>OrgReadmeGenerator._extract_description</strong></td>
+                <td>20</td>
+                <td>Extract short description from project (max 5 lines).</td>
+            </tr>
+            <tr>
                 <td><strong>ModuleDocsGenerator.generate</strong></td>
                 <td>19</td>
                 <td>Generate a single modules.md with all modules grouped by package.</td>
@@ -252,18 +257,13 @@ Requires watchdog</td>
                 <td><strong>ModuleDocsGenerator._render_module_detail</strong></td>
                 <td>16</td>
                 <td>Render a single module's detail section.</td>
-            </tr>
-            <tr>
-                <td><strong>ArchitectureGenerator.generate</strong></td>
-                <td>16</td>
-                <td>Generate architecture documentation.</td>
             </tr></tbody>
 </table>
 </div></div>
 </div>
 
 <div>
-<h2>Refactoring Priorities (13)</h2>
+<h2>Refactoring Priorities (14)</h2>
 <div class="card"><div class="table-wrap">
 <table>
   <thead><tr><th>#</th><th>Action</th><th>Impact</th><th>Effort</th></tr></thead>
@@ -318,13 +318,13 @@ Requires watchdog</td>
             </tr>
             <tr>
                 <td>9</td>
-                <td>Split ExamplesGenerator._generate_advanced (CC=22 → target CC<10)</td>
+                <td>Split OrgReadmeGenerator._extract_description (CC=17 → target CC<10)</td>
                 <td><span class="badge medium">medium</span></td>
                 <td>low</td>
             </tr>
             <tr>
                 <td>10</td>
-                <td>Break circular dependency: analyzers.project_scanner.ProjectScanner.analyze</td>
+                <td>Split ExamplesGenerator._generate_advanced (CC=22 → target CC<10)</td>
                 <td><span class="badge medium">medium</span></td>
                 <td>low</td>
             </tr></tbody>
@@ -333,7 +333,7 @@ Requires watchdog</td>
 </div>
 </div>
 
-<footer>Generated by code2llm on 2026-03-08 08:40</footer>
+<footer>Generated by code2llm on 2026-03-08 08:53</footer>
 
 <script>
 // Evolution chart disabled — fewer than 3 data points
@@ -342,9 +342,9 @@ const modCtx = document.getElementById('modChart').getContext('2d');
 new Chart(modCtx, {
   type: 'bar',
   data: {
-    labels: ['readme_gen.py', 'api_reference_gen.py', 'module_docs_gen.py', 'examples_gen.py', 'code2llm_gen.py', 'getting_started_gen.py', 'api_changelog_gen.py', 'architecture_gen.py', 'coverage_gen.py', 'badges.py', 'cli.py', 'config.py', 'config_docs_gen.py', 'depgraph_gen.py', 'dependency_scanner.py'],
-    datasets: [{ label: 'Max CC', data: [29, 25, 25, 22, 17, 16, 14, 13, 12, 11, 10, 10, 10, 9, 8],
-      backgroundColor: [29, 25, 25, 22, 17, 16, 14, 13, 12, 11, 10, 10, 10, 9, 8].map(v => v >= 15 ? '#ef4444' : v >= 10 ? '#eab308' : '#22c55e')
+    labels: ['readme_gen.py', 'api_reference_gen.py', 'module_docs_gen.py', 'examples_gen.py', 'code2llm_gen.py', 'org_readme_gen.py', 'getting_started_gen.py', 'api_changelog_gen.py', 'architecture_gen.py', 'coverage_gen.py', 'badges.py', 'cli.py', 'config.py', 'config_docs_gen.py', 'depgraph_gen.py'],
+    datasets: [{ label: 'Max CC', data: [29, 25, 25, 22, 17, 17, 16, 14, 13, 12, 11, 10, 10, 10, 9],
+      backgroundColor: [29, 25, 25, 22, 17, 17, 16, 14, 13, 12, 11, 10, 10, 10, 9].map(v => v >= 15 ? '#ef4444' : v >= 10 ? '#eab308' : '#22c55e')
     }]
   },
   options: {
