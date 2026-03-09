@@ -6,7 +6,7 @@
 - **Analysis Mode**: static
 - **Total Functions**: 292
 - **Total Classes**: 59
-- **Modules**: 53
+- **Modules**: 54
 - **Entry Points**: 275
 
 ## Architecture by Module
@@ -46,15 +46,15 @@
 - **Classes**: 1
 - **File**: `org_readme_gen.py`
 
-### code2docs.analyzers.docstring_extractor
-- **Functions**: 10
-- **Classes**: 2
-- **File**: `docstring_extractor.py`
-
 ### code2docs.generators.architecture_gen
 - **Functions**: 10
 - **Classes**: 1
 - **File**: `architecture_gen.py`
+
+### code2docs.analyzers.docstring_extractor
+- **Functions**: 10
+- **Classes**: 2
+- **File**: `docstring_extractor.py`
 
 ### code2docs.generators.depgraph_gen
 - **Functions**: 9
@@ -310,15 +310,15 @@ _diff_classes [code2docs.generators.api_changelog_gen.ApiChangelogGenerator]
 - **Methods**: 10
 - **Key Methods**: code2docs.generators.org_readme_gen.OrgReadmeGenerator.__init__, code2docs.generators.org_readme_gen.OrgReadmeGenerator.generate, code2docs.generators.org_readme_gen.OrgReadmeGenerator._discover_projects, code2docs.generators.org_readme_gen.OrgReadmeGenerator._analyze_project, code2docs.generators.org_readme_gen.OrgReadmeGenerator._extract_description, code2docs.generators.org_readme_gen.OrgReadmeGenerator._truncate_description, code2docs.generators.org_readme_gen.OrgReadmeGenerator._get_version, code2docs.generators.org_readme_gen.OrgReadmeGenerator._get_repo_url, code2docs.generators.org_readme_gen.OrgReadmeGenerator._render_project_section, code2docs.generators.org_readme_gen.OrgReadmeGenerator.write
 
-### code2docs.analyzers.docstring_extractor.DocstringExtractor
-> Extract and parse docstrings from AnalysisResult.
-- **Methods**: 10
-- **Key Methods**: code2docs.analyzers.docstring_extractor.DocstringExtractor.extract_all, code2docs.analyzers.docstring_extractor.DocstringExtractor.parse, code2docs.analyzers.docstring_extractor.DocstringExtractor._extract_summary, code2docs.analyzers.docstring_extractor.DocstringExtractor._classify_section, code2docs.analyzers.docstring_extractor.DocstringExtractor._parse_sections, code2docs.analyzers.docstring_extractor.DocstringExtractor._parse_param_line, code2docs.analyzers.docstring_extractor.DocstringExtractor._parse_returns_line, code2docs.analyzers.docstring_extractor.DocstringExtractor._parse_raises_line, code2docs.analyzers.docstring_extractor.DocstringExtractor._parse_examples_line, code2docs.analyzers.docstring_extractor.DocstringExtractor.coverage_report
-
 ### code2docs.generators.architecture_gen.ArchitectureGenerator
 > Generate docs/architecture.md — architecture overview with diagrams.
 - **Methods**: 10
 - **Key Methods**: code2docs.generators.architecture_gen.ArchitectureGenerator.__init__, code2docs.generators.architecture_gen.ArchitectureGenerator.generate, code2docs.generators.architecture_gen.ArchitectureGenerator._generate_pipeline_overview, code2docs.generators.architecture_gen.ArchitectureGenerator._generate_layer_diagram, code2docs.generators.architecture_gen.ArchitectureGenerator._get_public_entry_points, code2docs.generators.architecture_gen.ArchitectureGenerator._generate_llm_summary, code2docs.generators.architecture_gen.ArchitectureGenerator._generate_module_graph, code2docs.generators.architecture_gen.ArchitectureGenerator._generate_class_diagram, code2docs.generators.architecture_gen.ArchitectureGenerator._detect_layers, code2docs.generators.architecture_gen.ArchitectureGenerator._generate_metrics_table
+
+### code2docs.analyzers.docstring_extractor.DocstringExtractor
+> Extract and parse docstrings from AnalysisResult.
+- **Methods**: 10
+- **Key Methods**: code2docs.analyzers.docstring_extractor.DocstringExtractor.extract_all, code2docs.analyzers.docstring_extractor.DocstringExtractor.parse, code2docs.analyzers.docstring_extractor.DocstringExtractor._extract_summary, code2docs.analyzers.docstring_extractor.DocstringExtractor._classify_section, code2docs.analyzers.docstring_extractor.DocstringExtractor._parse_sections, code2docs.analyzers.docstring_extractor.DocstringExtractor._parse_param_line, code2docs.analyzers.docstring_extractor.DocstringExtractor._parse_returns_line, code2docs.analyzers.docstring_extractor.DocstringExtractor._parse_raises_line, code2docs.analyzers.docstring_extractor.DocstringExtractor._parse_examples_line, code2docs.analyzers.docstring_extractor.DocstringExtractor.coverage_report
 
 ### code2docs.generators.depgraph_gen.DepGraphGenerator
 > Generate docs/dependency-graph.md with Mermaid diagrams.
@@ -420,6 +420,9 @@ Filters out:
 > Format a function signature string.
 - **Output to**: None.join, len
 
+### code2docs.cli.DefaultGroup.parse_args
+- **Output to**: None.parse_args, super
+
 ### code2docs.analyzers.docstring_extractor.DocstringExtractor.parse
 > Parse a docstring into structured sections (orchestrator).
 - **Output to**: None.splitlines, DocstringInfo, self._extract_summary, self._parse_sections, DocstringInfo
@@ -467,9 +470,6 @@ Filters out:
 > Try to parse a route decorator string.
 - **Output to**: self.FASTAPI_PATTERNS.search, self.FLASK_PATTERNS.search, Endpoint, Endpoint, None.upper
 
-### code2docs.cli.DefaultGroup.parse_args
-- **Output to**: None.parse_args, super
-
 ## Behavioral Patterns
 
 ### recursion_analyze
@@ -515,16 +515,16 @@ Functions exposed as public API (no underscore prefix):
 - `code2docs.cli.init` - 10 calls
 - `examples.05_custom_generators.generate_custom_report` - 9 calls
 - `examples.07_web_frameworks.document_web_project` - 9 calls
-- `code2docs.config.LLMConfig.from_env` - 9 calls
 - `code2docs.generators.readme_gen.ReadmeGenerator.write` - 9 calls
+- `code2docs.config.LLMConfig.from_env` - 9 calls
 - `examples.03_programmatic_api.custom_documentation_pipeline` - 8 calls
 - `code2docs.formatters.markdown.MarkdownFormatter.table` - 8 calls
 - `code2docs.generators.depgraph_gen.DepGraphGenerator.generate` - 8 calls
 - `code2docs.generators.getting_started_gen.GettingStartedGenerator.generate` - 8 calls
 - `code2docs.generators.code2llm_gen.Code2LlmGenerator.generate_all` - 8 calls
 - `code2docs.generators.org_readme_gen.OrgReadmeGenerator.generate` - 8 calls
-- `code2docs.analyzers.dependency_scanner.DependencyScanner.scan` - 8 calls
 - `code2docs.cli.sync` - 8 calls
+- `code2docs.analyzers.dependency_scanner.DependencyScanner.scan` - 8 calls
 - `examples.04_sync_and_watch.update_docs_incrementally` - 7 calls
 
 ## System Interactions

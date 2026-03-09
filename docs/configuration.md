@@ -75,7 +75,7 @@
 | `output_dir` | `str` | project |  |
 | `chunk` | `bool` | false |  |
 | `no_png` | `bool` | true |  |
-| `max_depth` | `int` | 3 |  |
+| `max_depth` | `int` | 6 |  |
 | `exclude_patterns` | `List` | venv, .venv, env, .env, node_modules, bower_components, __pycache__, .pytest_cache, .mypy_cache, .git, .hg, .svn, dist, build, target, out, .tox, .eggs, *.egg-info, vendor, third_party, third-party, site-packages, lib/python* |  |
 
 ## Example `code2docs.yaml`

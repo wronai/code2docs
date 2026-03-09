@@ -1,4 +1,4 @@
-# code2docs/flow | 252 func | 12 pipelines | 6 hub-types | 2026-03-08
+# code2docs/flow | 252 func | 12 pipelines | 6 hub-types | 2026-03-09
 
 PIPELINES[12] (Analysis:2, Core:4, Export:1, IO:4, Unknown:1):
   Generators [IO]: ? → str
@@ -23,19 +23,19 @@ PIPELINES[12] (Analysis:2, Core:4, Export:1, IO:4, Unknown:1):
               → _find_class_by_name(name:str) → Optional[ClassInfo] CC=3    pure ■
               PURITY: 2/4 pure  BOTTLENECK: _generate_advanced(CC=22)
 
-  Analyzers [Analysis]: str → DependencyInfo
-              → scan(project_path:str) → ProjectDependencies CC=4    pure ▶
-              → _parse_pyproject(path:Path) → ProjectDependencies CC=8    IO
-              → _parse_pyproject_regex(path:Path) → ProjectDependencies CC=4    IO
-              → _parse_dep_string(dep_str:str) → DependencyInfo CC=2    pure ■
-              PURITY: 2/4 pure  BOTTLENECK: _parse_pyproject(CC=8)
-
   Analyzers [Analysis]: AnalysisResult → Optional[str]
               → extract_all(result:AnalysisResult) → Dict[str, DocstringInfo] CC=5    pure ▶
               → parse(docstring:str) → DocstringInfo    CC=2    pure
               → _parse_sections(lines:List[str], info:DocstringInfo) → None CC=8    mutation
               → _classify_section(line:str) → Optional[str] CC=5    pure ■
               PURITY: 3/4 pure  BOTTLENECK: _parse_sections(CC=8)
+
+  Analyzers [Analysis]: str → DependencyInfo
+              → scan(project_path:str) → ProjectDependencies CC=4    pure ▶
+              → _parse_pyproject(path:Path) → ProjectDependencies CC=8    IO
+              → _parse_pyproject_regex(path:Path) → ProjectDependencies CC=4    IO
+              → _parse_dep_string(dep_str:str) → DependencyInfo CC=2    pure ■
+              PURITY: 2/4 pure  BOTTLENECK: _parse_pyproject(CC=8)
 
   Generators [IO]: ? → str
               → generate() → str                        CC=3    pure ▶
@@ -93,8 +93,8 @@ TRANSFORMS (fan-out ≥10):
   _build_context(project_name:str) → Dict                 fan=17   PIPELINE:ReadmeGenerator.entry
   apply(project_path:str, changes:List[ChangeInfo]) → None fan=16   PIPELINE:Updater.entry
   _render_module_detail(mod_name:str, mod_info:ModuleInfo) → str fan=16   PIPELINE:ModuleDocsGenerator.entry
-  _run_generate(project_path:str, config:Code2DocsConfig, readme_only:bool, dry_run:bool) fan=16   fan=16
   generate() → str                                        fan=16   PIPELINE:ArchitectureGenerator.entry
+  _run_generate(project_path:str, config:Code2DocsConfig, readme_only:bool, dry_run:bool) fan=16   fan=16
   _get_repo_url(project_path:Path) → str                  fan=13   PIPELINE:OrgReadmeGenerator.entry
   _diff_classes(old:Dict, new:Dict, changes:List[ApiChange]) → None fan=12   PIPELINE:ApiChangelogGenerator.entry
   _render_section(title:str, cls:type) → str              fan=11   PIPELINE:ConfigDocsGenerator.entry
@@ -164,6 +164,24 @@ CONTRACTS:
       OUT: Optional[ClassInfo]
 
   Pipeline: Analyzers
+    extract_all(result:AnalysisResult) → Dict[str, DocstringInfo]
+      IN:  result:AnalysisResult
+      OUT: Dict[str, DocstringInfo]
+
+    parse(docstring:str) → DocstringInfo
+      IN:  docstring:str
+      OUT: DocstringInfo
+
+    _parse_sections(lines:List[str], info:DocstringInfo) → None
+      IN:  lines:List[str], info:DocstringInfo
+      OUT: None
+      SIDE-EFFECT: pure
+
+    _classify_section(line:str) → Optional[str]
+      IN:  line:str
+      OUT: Optional[str]
+
+  Pipeline: Analyzers
     scan(project_path:str) → ProjectDependencies
       IN:  project_path:str
       OUT: ProjectDependencies
@@ -181,24 +199,6 @@ CONTRACTS:
     _parse_dep_string(dep_str:str) → DependencyInfo
       IN:  dep_str:str
       OUT: DependencyInfo
-
-  Pipeline: Analyzers
-    extract_all(result:AnalysisResult) → Dict[str, DocstringInfo]
-      IN:  result:AnalysisResult
-      OUT: Dict[str, DocstringInfo]
-
-    parse(docstring:str) → DocstringInfo
-      IN:  docstring:str
-      OUT: DocstringInfo
-
-    _parse_sections(lines:List[str], info:DocstringInfo) → None
-      IN:  lines:List[str], info:DocstringInfo
-      OUT: None
-      SIDE-EFFECT: pure
-
-    _classify_section(line:str) → Optional[str]
-      IN:  line:str
-      OUT: Optional[str]
 
   Pipeline: Generators
     generate() → str
@@ -324,15 +324,15 @@ DATA_TYPES (by cross-function usage) [247 annotated, 0 inferred / 252 functions]
   int                  consumed:9   produced:1    input-heavy (read-only flow)
   FunctionInfo         consumed:4   produced:5  
   MarkdownFormatter    consumed:0   produced:8    output-heavy
-  ClassInfo            consumed:3   produced:3  
   DocstringInfo        consumed:5   produced:1    input-heavy (read-only flow)
-  ProjectDependencies  consumed:0   produced:5    output-heavy
+  ClassInfo            consumed:3   produced:3  
   str, bool            consumed:4   produced:1  
+  ProjectDependencies  consumed:0   produced:5    output-heavy
   ApiChange            consumed:3   produced:1    narrow scope
   str, List[str]       consumed:1   produced:3    narrow scope
   Endpoint             consumed:0   produced:3    narrow scope
   ModuleInfo           consumed:3   produced:0    narrow scope
-  ChangeInfo           consumed:1   produced:1    narrow scope
+  float                consumed:0   produced:2    narrow scope
 
   HUB TYPES (consumed ≥10):
     str → 119 consumers → split into:
@@ -359,8 +359,8 @@ SIDE_EFFECTS:
     Generators      █░░░ 40% pure
     Generators      ███░ 75% pure
     Generators      ██░░ 50% pure
-    Analyzers       ██░░ 50% pure
     Analyzers       ███░ 75% pure
+    Analyzers       ██░░ 50% pure
     Generators      ████ 100% pure
     Generators      ██░░ 50% pure
     Llm_helper      █░░░ 33% pure

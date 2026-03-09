@@ -3,7 +3,7 @@ project:
   name: code2docs
   repo: /home/tom/github/wronai/code2docs/code2docs
   language: python
-  analyzed_at: '2026-03-08T08:53:33Z'
+  analyzed_at: '2026-03-09T16:15:58Z'
   tool: code2llm
   stats:
     files: 34
@@ -88,12 +88,12 @@ health:
     limit: 10
     severity: error
   - type: high_fan_out
-    target: _run_generate
+    target: ArchitectureGenerator.generate
     value: 16
     limit: 10
     severity: error
   - type: high_fan_out
-    target: ArchitectureGenerator.generate
+    target: _run_generate
     value: 16
     limit: 10
     severity: error
@@ -788,6 +788,11 @@ refactoring:
     effort: medium
 evolution:
 - date: '2026-03-08'
+  cc_avg: 4.2
+  critical: 25
+  lines: 5373
+  note: Automated analysis
+- date: '2026-03-09'
   cc_avg: 4.2
   critical: 25
   lines: 5373

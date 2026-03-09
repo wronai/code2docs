@@ -3,11 +3,11 @@ project:
   name: code2docs
   repo: /home/tom/github/wronai/code2docs
   language: python
-  analyzed_at: '2026-03-08T18:45:46Z'
+  analyzed_at: '2026-03-09T16:16:12Z'
   tool: code2llm
   stats:
     files: 34
-    lines: 7148
+    lines: 7167
     functions: 252
     classes: 56
 health:
@@ -88,12 +88,12 @@ health:
     limit: 10
     severity: error
   - type: high_fan_out
-    target: ArchitectureGenerator.generate
+    target: _run_generate
     value: 16
     limit: 10
     severity: error
   - type: high_fan_out
-    target: _run_generate
+    target: ArchitectureGenerator.generate
     value: 16
     limit: 10
     severity: error
@@ -697,6 +697,12 @@ modules:
   methods: 0
   cc_max: 0
   inbound_deps: 0
+- path: project.sh
+  lines: 19
+  classes: 0
+  methods: 0
+  cc_max: 0
+  inbound_deps: 0
 hotspots:
 - name: _run_check
   fan_out: 24
@@ -734,6 +740,10 @@ hotspots:
   note: Render a single module's detail section.
 refactoring:
   priorities:
+  - action: Split ReadmeGenerator._extract_project_metadata (CC=29 → target CC<10)
+    impact: high
+    effort: low
+    module: readme_gen.py
   - action: Split ModuleDocsGenerator._render_module_detail (CC=25 → target CC<10)
     impact: high
     effort: low
@@ -742,10 +752,6 @@ refactoring:
     impact: high
     effort: low
     module: api_reference_gen.py
-  - action: Split ReadmeGenerator._extract_project_metadata (CC=29 → target CC<10)
-    impact: high
-    effort: low
-    module: readme_gen.py
   - action: Split GettingStartedGenerator._render_first_usage (CC=15 → target CC<10)
     impact: medium
     effort: low
@@ -791,4 +797,9 @@ evolution:
   cc_avg: 4.2
   critical: 25
   lines: 7148
+  note: Automated analysis
+- date: '2026-03-09'
+  cc_avg: 4.2
+  critical: 25
+  lines: 7167
   note: Automated analysis

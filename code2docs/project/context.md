@@ -418,30 +418,6 @@ Filters out:
 ### cli.DefaultGroup.parse_args
 - **Output to**: None.parse_args, super
 
-### analyzers.endpoint_detector.EndpointDetector._parse_decorator
-> Try to parse a route decorator string.
-- **Output to**: self.FASTAPI_PATTERNS.search, self.FLASK_PATTERNS.search, Endpoint, Endpoint, None.upper
-
-### analyzers.dependency_scanner.DependencyScanner._parse_pyproject
-> Parse pyproject.toml for dependencies.
-- **Output to**: ProjectDependencies, data.get, project.get, project.get, project.get
-
-### analyzers.dependency_scanner.DependencyScanner._parse_pyproject_regex
-> Fallback regex-based pyproject.toml parser.
-- **Output to**: ProjectDependencies, path.read_text, re.search, re.search, re.findall
-
-### analyzers.dependency_scanner.DependencyScanner._parse_setup_py
-> Parse setup.py for dependencies (regex-based, no exec).
-- **Output to**: ProjectDependencies, path.read_text, re.search, re.search, re.findall
-
-### analyzers.dependency_scanner.DependencyScanner._parse_requirements_txt
-> Parse requirements.txt.
-- **Output to**: ProjectDependencies, None.splitlines, line.strip, deps.dependencies.append, path.read_text
-
-### analyzers.dependency_scanner.DependencyScanner._parse_dep_string
-> Parse a dependency string like 'package>=1.0'.
-- **Output to**: re.match, DependencyInfo, dep_str.strip, DependencyInfo, dep_str.strip
-
 ### analyzers.docstring_extractor.DocstringExtractor.parse
 > Parse a docstring into structured sections (orchestrator).
 - **Output to**: None.splitlines, DocstringInfo, self._extract_summary, self._parse_sections, DocstringInfo
@@ -464,6 +440,30 @@ Filters out:
 ### analyzers.docstring_extractor.DocstringExtractor._parse_examples_line
 > Parse an examples line.
 - **Output to**: info.examples.append
+
+### analyzers.dependency_scanner.DependencyScanner._parse_pyproject
+> Parse pyproject.toml for dependencies.
+- **Output to**: ProjectDependencies, data.get, project.get, project.get, project.get
+
+### analyzers.dependency_scanner.DependencyScanner._parse_pyproject_regex
+> Fallback regex-based pyproject.toml parser.
+- **Output to**: ProjectDependencies, path.read_text, re.search, re.search, re.findall
+
+### analyzers.dependency_scanner.DependencyScanner._parse_setup_py
+> Parse setup.py for dependencies (regex-based, no exec).
+- **Output to**: ProjectDependencies, path.read_text, re.search, re.search, re.findall
+
+### analyzers.dependency_scanner.DependencyScanner._parse_requirements_txt
+> Parse requirements.txt.
+- **Output to**: ProjectDependencies, None.splitlines, line.strip, deps.dependencies.append, path.read_text
+
+### analyzers.dependency_scanner.DependencyScanner._parse_dep_string
+> Parse a dependency string like 'package>=1.0'.
+- **Output to**: re.match, DependencyInfo, dep_str.strip, DependencyInfo, dep_str.strip
+
+### analyzers.endpoint_detector.EndpointDetector._parse_decorator
+> Try to parse a route decorator string.
+- **Output to**: self.FASTAPI_PATTERNS.search, self.FLASK_PATTERNS.search, Endpoint, Endpoint, None.upper
 
 ## Behavioral Patterns
 
@@ -499,22 +499,22 @@ Functions exposed as public API (no underscore prefix):
 - `generators.readme_gen.ReadmeGenerator.write` - 9 calls
 - `config.LLMConfig.from_env` - 9 calls
 - `formatters.markdown.MarkdownFormatter.table` - 8 calls
-- `generators.depgraph_gen.DepGraphGenerator.generate` - 8 calls
 - `generators.getting_started_gen.GettingStartedGenerator.generate` - 8 calls
+- `generators.depgraph_gen.DepGraphGenerator.generate` - 8 calls
 - `generators.code2llm_gen.Code2LlmGenerator.generate_all` - 8 calls
 - `generators.org_readme_gen.OrgReadmeGenerator.generate` - 8 calls
 - `cli.sync` - 8 calls
 - `analyzers.dependency_scanner.DependencyScanner.scan` - 8 calls
 - `generators._registry_adapters.Code2LlmAdapter.run` - 7 calls
+- `generators.contributing_gen.ContributingGenerator.generate` - 7 calls
 - `cli.watch` - 7 calls
 - `cli.check` - 7 calls
-- `generators.contributing_gen.ContributingGenerator.generate` - 7 calls
 - `llm_helper.LLMHelper.complete` - 6 calls
 - `generators.readme_gen.generate_readme` - 6 calls
 - `generators._registry_adapters.ApiChangelogAdapter.run` - 6 calls
 - `generators._registry_adapters.ExamplesAdapter.run` - 6 calls
-- `cli.diff` - 6 calls
 - `generators.api_changelog_gen.ApiChangelogGenerator.generate` - 6 calls
+- `cli.diff` - 6 calls
 - `analyzers.docstring_extractor.DocstringExtractor.parse` - 6 calls
 - `analyzers.docstring_extractor.DocstringExtractor.coverage_report` - 6 calls
 - `sync.differ.Differ.save_state` - 5 calls
