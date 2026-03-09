@@ -2,48 +2,25 @@
 
 ## Overview
 
-- **Project**: /home/tom/github/wronai/code2docs/tests
-- **Analysis Mode**: static
-- **Total Functions**: 0
-- **Total Classes**: 0
-- **Modules**: 0
-- **Entry Points**: 0
+- **Project**: tests
+- **Language**: unknown
+- **Files**: 0
+- **Lines**: 1775
+- **Functions**: 0
+- **Classes**: 0
+- **Avg CC**: 0.0
+- **Critical (CC≥10)**: 0
 
-## Architecture by Module
+## Architecture
 
-## Key Entry Points
+## Key Exports
 
-Main execution flows into the system:
-
-## Process Flows
-
-Key execution flows identified:
-
-## Data Transformation Functions
-
-Key functions that process and transform data:
-
-## Public API Surface
-
-Functions exposed as public API (no underscore prefix):
-
-
-## System Interactions
-
-How components interact:
-
-```mermaid
-graph TD
-```
-
-## Reverse Engineering Guidelines
-
-1. **Entry Points**: Start analysis from the entry points listed above
-2. **Core Logic**: Focus on classes with many methods
-3. **Data Flow**: Follow data transformation functions
-4. **Process Flows**: Use the flow diagrams for execution paths
-5. **API Surface**: Public API functions reveal the interface
 
 ## Context for LLM
 
-Maintain the identified architectural patterns and public API surface when suggesting changes.
+When suggesting changes:
+1. Start from hotspots and high-CC functions
+2. Follow refactoring priorities above
+3. Maintain public API surface — keep backward compatibility
+4. Prefer minimal, incremental changes
+
