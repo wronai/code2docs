@@ -1,4 +1,4 @@
-"""Scan project dependencies from requirements.txt, pyproject.toml, setup.py."""
+"""Scan project dependencies from requirements.txt, pyproject.toml, setup.py, package.json, Cargo.toml, go.mod."""
 
 import re
 from dataclasses import dataclass, field
@@ -26,7 +26,9 @@ class DependencyInfo:
 @dataclass
 class ProjectDependencies:
     """All detected project dependencies."""
+    language: str = "python"
     python_version: str = ""
+    runtime_version: str = ""
     dependencies: List[DependencyInfo] = field(default_factory=list)
     dev_dependencies: List[DependencyInfo] = field(default_factory=list)
     optional_groups: Dict[str, List[DependencyInfo]] = field(default_factory=dict)
@@ -47,7 +49,31 @@ class DependencyScanner:
         project = Path(project_path)
         deps = ProjectDependencies()
 
-        # Priority: pyproject.toml > setup.py > requirements.txt
+        # Detect language from dependency files
+        # Priority: pyproject.toml > setup.py > requirements.txt (Python)
+        #           package.json (JS/TS) > Cargo.toml (Rust) > go.mod (Go)
+        package_json = project / "package.json"
+        if package_json.exists():
+            deps = self._parse_package_json(package_json)
+            deps.source_file = "package.json"
+            # Detect TypeScript
+            tsconfig = project / "tsconfig.json"
+            if tsconfig.exists():
+                deps.language = "typescript"
+            return deps
+
+        cargo_toml = project / "Cargo.toml"
+        if cargo_toml.exists():
+            deps = self._parse_cargo_toml(cargo_toml)
+            deps.source_file = "Cargo.toml"
+            return deps
+
+        go_mod = project / "go.mod"
+        if go_mod.exists():
+            deps = self._parse_go_mod(go_mod)
+            deps.source_file = "go.mod"
+            return deps
+
         pyproject = project / "pyproject.toml"
         if pyproject.exists():
             deps = self._parse_pyproject(pyproject)
@@ -157,6 +183,108 @@ class DependencyScanner:
             deps.dependencies.append(self._parse_dep_string(line))
 
         deps.install_command = "pip install -r requirements.txt"
+        return deps
+
+    def _parse_package_json(self, path: Path) -> ProjectDependencies:
+        """Parse package.json for dependencies."""
+        import json
+        deps = ProjectDependencies(language="javascript")
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            return deps
+
+        deps.version = data.get("version", "")
+        name = data.get("name", "")
+
+        # Node engine version
+        engines = data.get("engines", {})
+        deps.runtime_version = engines.get("node", "")
+
+        for dep_name, ver in data.get("dependencies", {}).items():
+            deps.dependencies.append(DependencyInfo(name=dep_name, version_spec=ver))
+
+        for dep_name, ver in data.get("devDependencies", {}).items():
+            deps.dev_dependencies.append(DependencyInfo(name=dep_name, version_spec=ver, group="dev"))
+
+        # Detect install command
+        lock_yarn = path.parent / "yarn.lock"
+        lock_pnpm = path.parent / "pnpm-lock.yaml"
+        if lock_pnpm.exists():
+            deps.install_command = "pnpm install"
+        elif lock_yarn.exists():
+            deps.install_command = "yarn install"
+        else:
+            deps.install_command = "npm install"
+
+        if name:
+            deps.keywords = data.get("keywords", [])
+
+        return deps
+
+    def _parse_cargo_toml(self, path: Path) -> ProjectDependencies:
+        """Parse Cargo.toml for Rust dependencies."""
+        deps = ProjectDependencies(language="rust")
+        content = path.read_text(encoding="utf-8")
+
+        # Version
+        ver_match = re.search(r'^version\s*=\s*"([^"]+)"', content, re.MULTILINE)
+        if ver_match:
+            deps.version = ver_match.group(1)
+
+        # Dependencies section
+        in_deps = False
+        in_dev_deps = False
+        for line in content.splitlines():
+            stripped = line.strip()
+            if stripped == "[dependencies]":
+                in_deps, in_dev_deps = True, False
+                continue
+            elif stripped == "[dev-dependencies]":
+                in_deps, in_dev_deps = False, True
+                continue
+            elif stripped.startswith("["):
+                in_deps, in_dev_deps = False, False
+                continue
+
+            dep_match = re.match(r'^([a-zA-Z0-9_-]+)\s*=\s*"?([^"\s]+)"?', stripped)
+            if dep_match:
+                info = DependencyInfo(name=dep_match.group(1), version_spec=dep_match.group(2))
+                if in_dev_deps:
+                    info.group = "dev"
+                    deps.dev_dependencies.append(info)
+                elif in_deps:
+                    deps.dependencies.append(info)
+
+        deps.install_command = "cargo build"
+        return deps
+
+    def _parse_go_mod(self, path: Path) -> ProjectDependencies:
+        """Parse go.mod for Go dependencies."""
+        deps = ProjectDependencies(language="go")
+        content = path.read_text(encoding="utf-8")
+
+        # Go version
+        go_ver = re.search(r'^go\s+(\S+)', content, re.MULTILINE)
+        if go_ver:
+            deps.runtime_version = go_ver.group(1)
+
+        # Require block
+        require_block = re.search(r'require\s*\((.*?)\)', content, re.DOTALL)
+        if require_block:
+            for line in require_block.group(1).splitlines():
+                line = line.strip()
+                if not line or line.startswith("//"):
+                    continue
+                parts = line.split()
+                if len(parts) >= 2:
+                    deps.dependencies.append(DependencyInfo(name=parts[0], version_spec=parts[1]))
+
+        # Single-line requires
+        for match in re.finditer(r'^require\s+(\S+)\s+(\S+)', content, re.MULTILINE):
+            deps.dependencies.append(DependencyInfo(name=match.group(1), version_spec=match.group(2)))
+
+        deps.install_command = "go mod download"
         return deps
 
     @staticmethod

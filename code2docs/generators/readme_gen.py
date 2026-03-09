@@ -371,7 +371,16 @@ class ReadmeGenerator:
         if not deps or not deps.install_command:
             return ""
         parts = ["## Installation\n", f"```bash\n{deps.install_command}\n```\n"]
-        if deps.python_version:
+        lang = getattr(deps, 'language', 'python')
+        if lang in ('javascript', 'typescript'):
+            runtime_ver = getattr(deps, 'runtime_version', '')
+            if runtime_ver:
+                parts.append(f"Requires Node.js {runtime_ver}\n")
+        elif lang == 'go':
+            runtime_ver = getattr(deps, 'runtime_version', '')
+            if runtime_ver:
+                parts.append(f"Requires Go {runtime_ver}\n")
+        elif deps.python_version:
             parts.append(f"Requires Python {deps.python_version}\n")
         return "\n".join(parts)
 
@@ -381,8 +390,13 @@ class ReadmeGenerator:
         parts = ["## Quick Start\n"]
         entry_points = context.get("entry_points", [])
         if entry_points:
-            parts.append("```python")
-            parts.append(f"# Entry points: {', '.join(entry_points[:3])}")
+            deps = context.get("dependencies")
+            lang = getattr(deps, 'language', 'python') if deps else 'python'
+            lang_map = {'python': 'python', 'javascript': 'javascript', 'typescript': 'typescript',
+                        'rust': 'rust', 'go': 'go'}
+            code_lang = lang_map.get(lang, lang)
+            parts.append(f"```{code_lang}")
+            parts.append(f"// Entry points: {', '.join(entry_points[:3])}")
             parts.append("```\n")
         return "\n".join(parts)
 

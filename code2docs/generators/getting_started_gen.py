@@ -44,12 +44,29 @@ class GettingStartedGenerator:
         """Render prerequisites section."""
         dep_scanner = DependencyScanner()
         deps = dep_scanner.scan(self.result.project_path)
-        py_ver = deps.python_version or ">=3.9"
-        lines = [
-            "## Prerequisites\n",
-            f"- Python {py_ver}",
-            "- pip (or your preferred package manager)",
-        ]
+        lines = ["## Prerequisites\n"]
+
+        lang = deps.language
+        if lang in ("javascript", "typescript"):
+            node_ver = deps.runtime_version or ">=18"
+            lines.append(f"- Node.js {node_ver}")
+            if "pnpm" in deps.install_command:
+                lines.append("- pnpm")
+            elif "yarn" in deps.install_command:
+                lines.append("- yarn")
+            else:
+                lines.append("- npm")
+        elif lang == "rust":
+            lines.append("- Rust toolchain (rustup)")
+            lines.append("- cargo")
+        elif lang == "go":
+            go_ver = deps.runtime_version or ">=1.21"
+            lines.append(f"- Go {go_ver}")
+        else:
+            py_ver = deps.python_version or ">=3.9"
+            lines.append(f"- Python {py_ver}")
+            lines.append("- pip (or your preferred package manager)")
+
         if deps.dependencies:
             lines.append(f"- {len(deps.dependencies)} dependencies (installed automatically)")
         return "\n".join(lines)
@@ -60,6 +77,9 @@ class GettingStartedGenerator:
         deps = dep_scanner.scan(self.result.project_path)
         cmd = deps.install_command or f"pip install {self.config.project_name or '.'}"
         repo_url = self.config.repo_url or "<repository-url>"
+        project = self.config.project_name or "project"
+        lang = deps.language
+
         lines = [
             "## Installation\n",
             "```bash",
@@ -68,10 +88,19 @@ class GettingStartedGenerator:
             "To install from source:\n",
             "```bash",
             f"git clone {repo_url}",
-            f"cd {self.config.project_name or 'project'}",
-            "pip install -e .",
-            "```",
+            f"cd {project}",
         ]
+
+        if lang in ("javascript", "typescript"):
+            lines.append(cmd)
+        elif lang == "rust":
+            lines.append("cargo build --release")
+        elif lang == "go":
+            lines.append("go build ./...")
+        else:
+            lines.append("pip install -e .")
+
+        lines.append("```")
         return "\n".join(lines)
 
     def _render_first_usage(self) -> str:
