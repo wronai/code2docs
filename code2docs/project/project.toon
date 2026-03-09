@@ -1,4 +1,4 @@
-# code2docs | 40f 5553L | python:40
+# code2docs | 40f 5818L | python:40
 # Keys: M=modules, D=details, i=imports, c=classes, f=functions, m=methods
 M[40]:
   config.py,252
@@ -18,11 +18,11 @@ M[40]:
   formatters/badges.py,38
   formatters/toc.py,47
   formatters/__init__.py,5
-  generators/readme_gen.py,381
+  generators/readme_gen.py,395
   generators/coverage_gen.py,91
   generators/_source_links.py,60
   generators/depgraph_gen.py,121
-  generators/getting_started_gen.py,147
+  generators/getting_started_gen.py,171
   generators/config_docs_gen.py,109
   generators/changelog_gen.py,98
   generators/__init__.py,48
@@ -35,8 +35,8 @@ M[40]:
   generators/_registry_adapters.py,217
   generators/api_changelog_gen.py,165
   generators/architecture_gen.py,243
-  generators/contributing_gen.py,124
-  analyzers/dependency_scanner.py,145
+  generators/contributing_gen.py,211
+  analyzers/dependency_scanner.py,242
   analyzers/__init__.py,11
   analyzers/docstring_extractor.py,114
   analyzers/endpoint_detector.py,91

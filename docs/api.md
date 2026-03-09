@@ -1,6 +1,6 @@
 # code2docs — API Reference
 
-> 40 modules | 252 functions | 56 classes
+> 40 modules | 255 functions | 56 classes
 
 ## Contents
 
@@ -17,7 +17,7 @@
 | Class | Methods | Description | Source |
 |-------|---------|-------------|--------|
 | `DependencyInfo` | 0 | Information about a project dependency. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L18) |
-| `DependencyScanner` | 1 | Scan and parse project dependency files. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L42) |
+| `DependencyScanner` | 1 | Scan and parse project dependency files. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L44) |
 | `ProjectDependencies` | 0 | All detected project dependencies. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L27) |
 | `DocstringExtractor` | 3 | Extract and parse docstrings from AnalysisResult. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/docstring_extractor.py#L23) |
 | `DocstringInfo` | 0 | Parsed docstring with sections. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/docstring_extractor.py#L12) |
@@ -254,7 +254,7 @@
 | `generate_code2llm_analysis` | `generate_code2llm_analysis(project_path, config)` | 2 | Convenience function to generate code2llm analysis. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/code2llm_gen.py#L188) |
 | `parse_gitignore` | `parse_gitignore(project_path)` | 15 ⚠️ | Parse .gitignore file and return list of patterns to exclude. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/code2llm_gen.py#L12) |
 | `generate_docs` | `generate_docs(project_path, config)` | 5 | High-level function to generate all documentation. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/__init__.py#L35) |
-| `generate_readme` | `generate_readme(project_path, output, sections, sync_markers, ...)` | 3 | Convenience function to generate a README. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/readme_gen.py#L446) |
+| `generate_readme` | `generate_readme(project_path, output, sections, sync_markers, ...)` | 3 | Convenience function to generate a README. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/readme_gen.py#L460) |
 
 ### `llm_helper` [source](https://github.com/wronai/code2docs/blob/main/code2docs/llm_helper.py)
 
@@ -306,7 +306,7 @@
 | Class | Methods | Description | Source |
 |-------|---------|-------------|--------|
 | `DependencyInfo` | 0 | Information about a project dependency. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L18) |
-| `DependencyScanner` | 1 | Scan and parse project dependency files. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L42) |
+| `DependencyScanner` | 1 | Scan and parse project dependency files. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L44) |
 | `ProjectDependencies` | 0 | All detected project dependencies. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L27) |
 
 ### `analyzers.docstring_extractor` [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/docstring_extractor.py)
@@ -606,7 +606,7 @@
 
 | Function | Signature | CC | Description | Source |
 |----------|-----------|----|-----------  |--------|
-| `generate_readme` | `generate_readme(project_path, output, sections, sync_markers, ...)` | 3 | Convenience function to generate a README. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/readme_gen.py#L446) |
+| `generate_readme` | `generate_readme(project_path, output, sections, sync_markers, ...)` | 3 | Convenience function to generate a README. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/readme_gen.py#L460) |
 
 ## sync
 

@@ -1,10 +1,13 @@
 flowchart TD
     subgraph analyzers_dependency_scanner
-        analyzers__scan["scan"]
+        analyzers__scan("scan CC=8")
         analyzers___parse_pyproject("_parse_pyproject CC=8")
         analyzers___parse_pyproject_regex["_parse_pyproject_regex"]
         analyzers___parse_setup_py["_parse_setup_py"]
         analyzers___parse_requirements_txt["_parse_requirements_txt"]
+        analyzers___parse_package_json["_parse_package_json"]
+        analyzers___parse_cargo_toml("_parse_cargo_toml CC=9")
+        analyzers___parse_go_mod("_parse_go_mod CC=8")
         analyzers___parse_dep_string["_parse_dep_string"]
         analyzers___detect_version["_detect_version"]
     end
@@ -192,7 +195,7 @@ flowchart TD
         generators___render_setup["_render_setup"]
         generators___render_development["_render_development"]
         generators___render_testing["_render_testing"]
-        generators___render_code_style("_render_code_style CC=8")
+        generators___render_code_style{{_render_code_style CC=16}}
         generators___render_pull_request["_render_pull_request"]
     end
     subgraph generators_coverage_gen
@@ -235,8 +238,8 @@ flowchart TD
     subgraph generators_getting_started_gen
         generators____init__["__init__"]
         generators__generate["generate"]
-        generators___render_prerequisites["_render_prerequisites"]
-        generators___render_installation["_render_installation"]
+        generators___render_prerequisites("_render_prerequisites CC=10")
+        generators___render_installation("_render_installation CC=8")
         generators___render_first_usage{{_render_first_usage CC=15}}
         generators___generate_intro{{_generate_intro CC=16}}
         generators___render_next_steps["_render_next_steps"]
@@ -284,7 +287,7 @@ flowchart TD
         generators___extract_extras["_extract_extras"]
         generators___build_manual["_build_manual"]
         generators___build_overview_section["_build_overview_section"]
-        generators___build_install_section["_build_install_section"]
+        generators___build_install_section("_build_install_section CC=8")
         generators___build_quickstart_section["_build_quickstart_section"]
         generators___build_api_section["_build_api_section"]
         generators___build_structure_section["_build_structure_section"]
@@ -346,5 +349,5 @@ flowchart TD
 
     classDef highCC fill:#ff6b6b,stroke:#c92a2a,color:#fff
     classDef medCC fill:#ffd43b,stroke:#f08c00,color:#000
-    class generators___extract_project_metadata,generators___render_first_usage,generators___generate_intro,generators__code2llm_gen__parse_gitignore,generators___run_code2llm,generators__generate,generators___render_module_detail,generators___extract_description,generators___render_module_section,generators___generate_advanced highCC
-    class formatters__badges___make_badge,generators___build_context,generators___extract_project_description,generators___collect_module_stats,generators___render_undocumented,generators___render_matrix,generators___render_section,generators___truncate_description,generators__generate,generators___has_content,generators___generate_quickstart,generators___build_realistic_args,generators___example_from_type,generators___diff_functions,generators___diff_classes,generators___render,generators___render_code_style,generators__generate,generators___get_public_entry_points,generators___generate_module_graph,generators___generate_class_diagram,generators___detect_layers,cli___run_check,config__Code2DocsConfig__from_yaml,analyzers___parse_sections,analyzers__coverage_report,analyzers___parse_pyproject medCC
+    class generators___extract_project_metadata,generators___render_first_usage,generators___generate_intro,generators__code2llm_gen__parse_gitignore,generators___run_code2llm,generators__generate,generators___render_module_detail,generators___extract_description,generators___render_module_section,generators___generate_advanced,generators___render_code_style highCC
+    class formatters__badges___make_badge,generators___build_context,generators___extract_project_description,generators___build_install_section,generators___collect_module_stats,generators___render_undocumented,generators___render_matrix,generators___render_prerequisites,generators___render_installation,generators___render_section,generators___truncate_description,generators__generate,generators___has_content,generators___generate_quickstart,generators___build_realistic_args,generators___example_from_type,generators___diff_functions,generators___diff_classes,generators___render,generators__generate,generators___get_public_entry_points,generators___generate_module_graph,generators___generate_class_diagram,generators___detect_layers,config__Code2DocsConfig__from_yaml,cli___run_check,analyzers___parse_sections,analyzers__coverage_report,analyzers__scan,analyzers___parse_pyproject medCC

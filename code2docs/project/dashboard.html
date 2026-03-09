@@ -22,7 +22,7 @@
   body { font-family: 'Segoe UI',system-ui,sans-serif; background:var(--bg); color:var(--text); padding:2rem; }
   h1 { font-size:1.5rem; margin-bottom:.5rem; }
   h2 { font-size:1.1rem; color:var(--muted); margin:1.5rem 0 .75rem; border-bottom:1px solid var(--border); padding-bottom:.25rem; }
-  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1rem; margin:1rem 0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:1rem; margin:1rem 0; }
   .card { background:var(--surface); border:1px solid var(--border); border-radius:.5rem; padding:1rem; }
   .card .value { font-size:1.8rem; font-weight:700; }
   .card .label { color:var(--muted); font-size:.8rem; text-transform:uppercase; }
@@ -43,10 +43,12 @@
   tr.warning td { background:rgba(234,179,8,.05); }
   .health-indicator { display:inline-block; width:12px; height:12px; border-radius:50%; margin-right:.5rem; }
   .two-col { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  .three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; }
   .evo-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:.75rem; }
   .evo-cards .card { text-align:center; }
   .trend { font-size:.75rem; color:var(--muted); }
-  @media (max-width:768px) { .two-col { grid-template-columns:1fr; } }
+  .lang-tag { display:inline-block; padding:.1rem .4rem; border-radius:.2rem; font-size:.7rem; font-weight:600; margin-right:.25rem; color:#fff; }
+  @media (max-width:768px) { .two-col,.three-col { grid-template-columns:1fr; } }
   footer { margin-top:2rem; color:var(--muted); font-size:.75rem; text-align:center; }
 </style>
 </head>
@@ -57,32 +59,215 @@
 </h1>
 <p style="color:var(--muted);font-size:.85rem;">
   Analyzed 2026-03-09 by code2llm
+  &nbsp;·&nbsp; Primary language: <strong>python</strong>
+  &nbsp;·&nbsp; Python: 38
 </p>
 
 <div class="grid">
-  <div class="card"><div class="value">4.2</div><div class="label">Avg CC</div></div>
-  <div class="card"><div class="value">25</div><div class="label">Critical (CC≥10)</div></div>
-  <div class="card"><div class="value">252</div><div class="label">Functions</div></div>
+  <div class="card"><div class="value">255</div><div class="label">Functions</div></div>
   <div class="card"><div class="value">56</div><div class="label">Classes</div></div>
   <div class="card"><div class="value">34</div><div class="label">Files</div></div>
-  <div class="card"><div class="value">5373</div><div class="label">Lines</div></div>
+  <div class="card"><div class="value">5,638</div><div class="label">Lines</div></div>
+  <div class="card"><div class="value">1</div><div class="label">Languages</div></div>
+  <div class="card"><div class="value">4.4</div><div class="label">Avg CC</div></div>
+  <div class="card"><div class="value">27</div><div class="label">Critical (CC≥10)</div></div>
   <div class="card"><div class="value">0</div><div class="label">Duplicates</div></div>
   <div class="card"><div class="value">1</div><div class="label">Cycles</div></div>
+</div>
+
+<div class="three-col">
+  <div class="chart-container">
+    <h2 style="border:none;margin:0 0 .5rem;">Language Distribution</h2>
+    <canvas id="langChart" height="200"></canvas>
+  </div>
+  <div class="chart-container">
+    <h2 style="border:none;margin:0 0 .5rem;">Largest Modules (lines)</h2>
+    <canvas id="modLinesChart" height="200"></canvas>
+  </div>
+  <div class="chart-container">
+    <h2 style="border:none;margin:0 0 .5rem;">Most Complex Modules (functions)</h2>
+    <canvas id="modFuncsChart" height="200"></canvas>
+  </div>
 </div>
 
 <div class="two-col">
   <div class="chart-container">
     <h2 style="border:none;margin:0 0 .5rem;">Evolution (2026-03-09)</h2>
     <div class="evo-cards">
-      <div class="card"><div class="value">4.2</div><div class="label">CC̄ →</div></div>
-      <div class="card"><div class="value">25</div><div class="label">Critical →</div></div>
-      <div class="card"><div class="value">5373</div><div class="label">Lines</div></div>
+      <div class="card"><div class="value">4.4</div><div class="label">CC̄ ↑</div></div>
+      <div class="card"><div class="value">27</div><div class="label">Critical ↑</div></div>
+      <div class="card"><div class="value">5638</div><div class="label">Lines</div></div>
     </div>
     <p class="trend" style="margin-top:.5rem;">Run analysis multiple times to build a trend chart (≥3 data points needed).</p>
   </div>
-  <div class="chart-container">
-    <h2 style="border:none;margin:0 0 .5rem;">Module CC (top 15)</h2>
-    <canvas id="modChart" height="200"></canvas>
+  <div>
+    <h2>Top Modules (38)</h2>
+    <div class="card"><div class="table-wrap">
+    <table>
+      <thead><tr><th>Module</th><th>Path</th><th style="text-align:right">Lines</th><th style="text-align:right">Funcs</th><th style="text-align:right">Classes</th><th style="text-align:right">CC max</th></tr></thead>
+      <tbody>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>readme_gen.py</td>
+                <td style="color:var(--muted);font-size:.75rem">generators</td>
+                <td style="text-align:right">477</td>
+                <td style="text-align:right">18</td>
+                <td style="text-align:right">1</td>
+                <td style="text-align:right">29</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>examples_gen.py</td>
+                <td style="color:var(--muted);font-size:.75rem">generators</td>
+                <td style="text-align:right">443</td>
+                <td style="text-align:right">15</td>
+                <td style="text-align:right">1</td>
+                <td style="text-align:right">22</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>dependency_scanner.py</td>
+                <td style="color:var(--muted);font-size:.75rem">analyzers</td>
+                <td style="text-align:right">325</td>
+                <td style="text-align:right">10</td>
+                <td style="text-align:right">3</td>
+                <td style="text-align:right">9</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>cli.py</td>
+                <td style="color:var(--muted);font-size:.75rem">.</td>
+                <td style="text-align:right">319</td>
+                <td style="text-align:right">14</td>
+                <td style="text-align:right">1</td>
+                <td style="text-align:right">10</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>config.py</td>
+                <td style="color:var(--muted);font-size:.75rem">.</td>
+                <td style="text-align:right">297</td>
+                <td style="text-align:right">5</td>
+                <td style="text-align:right">7</td>
+                <td style="text-align:right">10</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>architecture_gen.py</td>
+                <td style="color:var(--muted);font-size:.75rem">generators</td>
+                <td style="text-align:right">294</td>
+                <td style="text-align:right">10</td>
+                <td style="text-align:right">1</td>
+                <td style="text-align:right">13</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>_registry_adapters.py</td>
+                <td style="color:var(--muted);font-size:.75rem">generators</td>
+                <td style="text-align:right">287</td>
+                <td style="text-align:right">28</td>
+                <td style="text-align:right">14</td>
+                <td style="text-align:right">7</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>contributing_gen.py</td>
+                <td style="color:var(--muted);font-size:.75rem">generators</td>
+                <td style="text-align:right">231</td>
+                <td style="text-align:right">8</td>
+                <td style="text-align:right">1</td>
+                <td style="text-align:right">16</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>org_readme_gen.py</td>
+                <td style="color:var(--muted);font-size:.75rem">generators</td>
+                <td style="text-align:right">227</td>
+                <td style="text-align:right">10</td>
+                <td style="text-align:right">1</td>
+                <td style="text-align:right">17</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>code2llm_gen.py</td>
+                <td style="color:var(--muted);font-size:.75rem">generators</td>
+                <td style="text-align:right">206</td>
+                <td style="text-align:right">6</td>
+                <td style="text-align:right">1</td>
+                <td style="text-align:right">17</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>module_docs_gen.py</td>
+                <td style="color:var(--muted);font-size:.75rem">generators</td>
+                <td style="text-align:right">198</td>
+                <td style="text-align:right">9</td>
+                <td style="text-align:right">1</td>
+                <td style="text-align:right">25</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>getting_started_gen.py</td>
+                <td style="color:var(--muted);font-size:.75rem">generators</td>
+                <td style="text-align:right">196</td>
+                <td style="text-align:right">8</td>
+                <td style="text-align:right">1</td>
+                <td style="text-align:right">16</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>api_changelog_gen.py</td>
+                <td style="color:var(--muted);font-size:.75rem">generators</td>
+                <td style="text-align:right">196</td>
+                <td style="text-align:right">9</td>
+                <td style="text-align:right">2</td>
+                <td style="text-align:right">14</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>api_reference_gen.py</td>
+                <td style="color:var(--muted);font-size:.75rem">generators</td>
+                <td style="text-align:right">163</td>
+                <td style="text-align:right">7</td>
+                <td style="text-align:right">1</td>
+                <td style="text-align:right">25</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>llm_helper.py</td>
+                <td style="color:var(--muted);font-size:.75rem">.</td>
+                <td style="text-align:right">161</td>
+                <td style="text-align:right">7</td>
+                <td style="text-align:right">1</td>
+                <td style="text-align:right">7</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>depgraph_gen.py</td>
+                <td style="color:var(--muted);font-size:.75rem">generators</td>
+                <td style="text-align:right">140</td>
+                <td style="text-align:right">9</td>
+                <td style="text-align:right">1</td>
+                <td style="text-align:right">9</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>docstring_extractor.py</td>
+                <td style="color:var(--muted);font-size:.75rem">analyzers</td>
+                <td style="text-align:right">140</td>
+                <td style="text-align:right">10</td>
+                <td style="text-align:right">2</td>
+                <td style="text-align:right">8</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>config_docs_gen.py</td>
+                <td style="color:var(--muted);font-size:.75rem">generators</td>
+                <td style="text-align:right">125</td>
+                <td style="text-align:right">4</td>
+                <td style="text-align:right">1</td>
+                <td style="text-align:right">10</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>differ.py</td>
+                <td style="color:var(--muted);font-size:.75rem">sync</td>
+                <td style="text-align:right">125</td>
+                <td style="text-align:right">7</td>
+                <td style="text-align:right">2</td>
+                <td style="text-align:right">6</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>changelog_gen.py</td>
+                <td style="color:var(--muted);font-size:.75rem">generators</td>
+                <td style="text-align:right">121</td>
+                <td style="text-align:right">6</td>
+                <td style="text-align:right">2</td>
+                <td style="text-align:right">6</td>
+            </tr></tbody>
+    </table>
+    </div></div>
   </div>
 </div>
 
@@ -263,7 +448,7 @@ Requires watchdog</td>
 </div>
 
 <div>
-<h2>Refactoring Priorities (14)</h2>
+<h2>Refactoring Priorities (15)</h2>
 <div class="card"><div class="table-wrap">
 <table>
   <thead><tr><th>#</th><th>Action</th><th>Impact</th><th>Effort</th></tr></thead>
@@ -327,24 +512,95 @@ Requires watchdog</td>
                 <td>Split ExamplesGenerator._generate_advanced (CC=22 → target CC<10)</td>
                 <td><span class="badge medium">medium</span></td>
                 <td>low</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>Split ContributingGenerator._render_code_style (CC=16 → target CC<10)</td>
+                <td><span class="badge medium">medium</span></td>
+                <td>low</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>Break circular dependency: analyzers.project_scanner.ProjectScanner.analyze</td>
+                <td><span class="badge medium">medium</span></td>
+                <td>low</td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>Reduce _run_check fan-out (currently 24)</td>
+                <td><span class="badge medium">medium</span></td>
+                <td>medium</td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>Reduce ReadmeGenerator._extract_project_metadata fan-out (currently 23)</td>
+                <td><span class="badge medium">medium</span></td>
+                <td>medium</td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>Reduce start_watcher fan-out (currently 22)</td>
+                <td><span class="badge medium">medium</span></td>
+                <td>medium</td>
             </tr></tbody>
 </table>
 </div></div>
 </div>
 </div>
 
-<footer>Generated by code2llm on 2026-03-09 16:15</footer>
+<footer>Generated by code2llm on 2026-03-09 18:54</footer>
 
 <script>
 // Evolution chart disabled — fewer than 3 data points
 
-const modCtx = document.getElementById('modChart').getContext('2d');
-new Chart(modCtx, {
+// Language distribution pie chart
+const langCtx = document.getElementById('langChart').getContext('2d');
+new Chart(langCtx, {
+  type: 'doughnut',
+  data: {
+    labels: ['Python'],
+    datasets: [{
+      data: [38],
+      backgroundColor: ['#3572A5'],
+      borderColor: 'var(--border)', borderWidth: 1
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { position: 'right', labels: { color: '#e2e8f0', font: {size: 11} } }
+    }
+  }
+});
+
+// Module lines bar chart
+const modLinesCtx = document.getElementById('modLinesChart').getContext('2d');
+new Chart(modLinesCtx, {
   type: 'bar',
   data: {
-    labels: ['readme_gen.py', 'api_reference_gen.py', 'module_docs_gen.py', 'examples_gen.py', 'code2llm_gen.py', 'org_readme_gen.py', 'getting_started_gen.py', 'api_changelog_gen.py', 'architecture_gen.py', 'coverage_gen.py', 'badges.py', 'cli.py', 'config.py', 'config_docs_gen.py', 'depgraph_gen.py'],
-    datasets: [{ label: 'Max CC', data: [29, 25, 25, 22, 17, 17, 16, 14, 13, 12, 11, 10, 10, 10, 9],
-      backgroundColor: [29, 25, 25, 22, 17, 17, 16, 14, 13, 12, 11, 10, 10, 10, 9].map(v => v >= 15 ? '#ef4444' : v >= 10 ? '#eab308' : '#22c55e')
+    labels: ['readme_gen.py', 'examples_gen.py', 'dependency_scanner.py', 'cli.py', 'config.py', 'architecture_gen.py', '_registry_adapters.py', 'contributing_gen.py', 'org_readme_gen.py', 'code2llm_gen.py', 'module_docs_gen.py', 'getting_started_gen.py', 'api_changelog_gen.py', 'api_reference_gen.py', 'llm_helper.py'],
+    datasets: [{ label: 'Lines', data: [477, 443, 325, 319, 297, 294, 287, 231, 227, 206, 198, 196, 196, 163, 161],
+      backgroundColor: '#3b82f6'
+    }]
+  },
+  options: {
+    responsive: true, indexAxis: 'y',
+    scales: {
+      x: { grid:{color:'#334155'}, ticks:{color:'#94a3b8'} },
+      y: { grid:{color:'#334155'}, ticks:{color:'#94a3b8',font:{size:10}} }
+    },
+    plugins: { legend: { display:false } }
+  }
+});
+
+// Module functions bar chart
+const modFuncsCtx = document.getElementById('modFuncsChart').getContext('2d');
+new Chart(modFuncsCtx, {
+  type: 'bar',
+  data: {
+    labels: ['_registry_adapters.py', 'readme_gen.py', 'examples_gen.py', 'cli.py', 'markdown.py', 'org_readme_gen.py', 'architecture_gen.py', 'dependency_scanner.py', 'docstring_extractor.py', 'module_docs_gen.py', 'api_changelog_gen.py', 'depgraph_gen.py', 'contributing_gen.py', 'getting_started_gen.py', 'api_reference_gen.py'],
+    datasets: [{ label: 'Functions', data: [28, 18, 15, 14, 13, 10, 10, 10, 10, 9, 9, 9, 8, 8, 7],
+      backgroundColor: '#22c55e'
     }]
   },
   options: {

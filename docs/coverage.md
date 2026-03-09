@@ -1,10 +1,10 @@
 # code2docs — Docstring Coverage
 
-🟡 **Overall coverage: 78.9%**
+🟡 **Overall coverage: 79.1%**
 
 | Category | Documented | Total | Coverage |
 |----------|-----------|-------|----------|
-| Functions | 199 | 252 | 79.0% |
+| Functions | 202 | 255 | 79.2% |
 | Classes | 44 | 56 | 78.6% |
 
 ## Per-Module Breakdown

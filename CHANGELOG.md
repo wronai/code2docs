@@ -7,6 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.17] - 2026-03-09
+
+### Docs
+- Update code2docs/project/README.md
+- Update code2docs/project/context.md
+- Update docs/README.md
+- Update docs/api-changelog.md
+- Update docs/api.md
+- Update docs/architecture.md
+- Update docs/coverage.md
+- Update docs/modules.md
+- Update project/README.md
+- Update project/context.md
+
+### Other
+- Update code2docs/project/analysis.json
+- Update code2docs/project/analysis.toon
+- Update code2docs/project/analysis.yaml
+- Update code2docs/project/calls.mmd
+- Update code2docs/project/dashboard.html
+- Update code2docs/project/evolution.toon
+- Update code2docs/project/flow.mmd
+- Update code2docs/project/flow.toon
+- Update code2docs/project/map.toon
+- Update code2docs/project/project.toon
+- ... and 15 more files
+
 ## [3.0.16] - 2026-03-09
 
 ### Docs

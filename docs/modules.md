@@ -1,12 +1,12 @@
 # code2docs — Module Reference
 
-> 40 modules | 252 functions | 56 classes
+> 40 modules | 255 functions | 56 classes
 
 ## Module Overview
 
 | Module | Lines | Functions | Classes | CC avg | Description | Source |
 |--------|-------|-----------|---------|--------|-------------|--------|
-| `analyzers.dependency_scanner` | 197 | 0 | 3 | 4.6 | Scan project dependencies from requirements.txt, pyproject.t | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py) |
+| `analyzers.dependency_scanner` | 325 | 0 | 3 | 6.0 | Scan project dependencies from requirements.txt, pyproject.t | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py) |
 | `analyzers.docstring_extractor` | 140 | 0 | 2 | 3.5 | Extract and analyze docstrings from source code. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/docstring_extractor.py) |
 | `analyzers.endpoint_detector` | 113 | 0 | 2 | 4.0 | Detect web framework endpoints (Flask, FastAPI, Django) from | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/endpoint_detector.py) |
 | `analyzers.project_scanner` | 42 | 1 | 1 | 1.2 | Wrapper around code2llm's ProjectAnalyzer for documentation  | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/project_scanner.py) |
@@ -26,15 +26,15 @@
 | `generators.changelog_gen` | 121 | 0 | 2 | 3.5 | Changelog generator from git log and API diff. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/changelog_gen.py) |
 | `generators.code2llm_gen` | 206 | 2 | 1 | 7.0 | code2llm integration generator — produces analysis files in  | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/code2llm_gen.py) |
 | `generators.config_docs_gen` | 125 | 0 | 1 | 4.2 | Configuration documentation generator. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/config_docs_gen.py) |
-| `generators.contributing_gen` | 137 | 0 | 1 | 2.6 | CONTRIBUTING.md generator from project tooling detection. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/contributing_gen.py) |
+| `generators.contributing_gen` | 231 | 0 | 1 | 4.6 | CONTRIBUTING.md generator from project tooling detection. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/contributing_gen.py) |
 | `generators.coverage_gen` | 104 | 0 | 1 | 4.4 | Docstring coverage report generator. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/coverage_gen.py) |
 | `generators.depgraph_gen` | 140 | 0 | 1 | 3.9 | Dependency graph generator — Mermaid diagram from coupling m | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/depgraph_gen.py) |
 | `generators.examples_gen` | 443 | 0 | 1 | 6.1 | Auto-generate usage examples from public signatures and entr | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/examples_gen.py) |
-| `generators.getting_started_gen` | 167 | 0 | 1 | 5.9 | Getting Started guide generator. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/getting_started_gen.py) |
+| `generators.getting_started_gen` | 196 | 0 | 1 | 7.1 | Getting Started guide generator. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/getting_started_gen.py) |
 | `generators.mkdocs_gen` | 110 | 0 | 1 | 3.2 | MkDocs configuration generator — auto-generate mkdocs.yml fr | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/mkdocs_gen.py) |
 | `generators.module_docs_gen` | 198 | 0 | 1 | 8.0 | Module documentation generator — single consolidated modules | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/module_docs_gen.py) |
 | `generators.org_readme_gen` | 227 | 0 | 1 | 5.2 | Organization README generator - generates overview of multip | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/org_readme_gen.py) |
-| `generators.readme_gen` | 463 | 1 | 1 | 5.7 | README.md generator from AnalysisResult. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/readme_gen.py) |
+| `generators.readme_gen` | 477 | 1 | 1 | 6.0 | README.md generator from AnalysisResult. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/readme_gen.py) |
 | `llm_helper` | 161 | 1 | 1 | 2.3 | LLM helper — optional LLM-assisted documentation generation  | [source](https://github.com/wronai/code2docs/blob/main/code2docs/llm_helper.py) |
 | `registry` | 39 | 0 | 1 | 2.5 | Generator registry — pluggable generator system. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/registry.py) |
 | `sync.differ` | 125 | 0 | 2 | 3.6 | Detect changes in source code for selective documentation re | [source](https://github.com/wronai/code2docs/blob/main/code2docs/sync/differ.py) |
@@ -149,17 +149,17 @@ Generator registry — pluggable generator system.
 
 ### `analyzers.dependency_scanner` [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py)
 
-Scan project dependencies from requirements.txt, pyproject.toml, setup.py.
+Scan project dependencies from requirements.txt, pyproject.toml, setup.py, package.json, Cargo.toml, go.mod.
 
 **`DependencyInfo`** [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L18)
 : Information about a project dependency.
 
-**`DependencyScanner`** [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L42)
+**`DependencyScanner`** [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L44)
 : Scan and parse project dependency files.
 
 | Method | Args | Returns | CC |
 |--------|------|---------|----|
-| `scan` | `project_path` | `—` | 4 |
+| `scan` | `project_path` | `—` | 8 |
 
 **`ProjectDependencies`** [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L27)
 : All detected project dependencies.
@@ -542,7 +542,7 @@ README.md generator from AnalysisResult.
 | `generate` | `` | `—` | 3 |
 | `write` | `path, content` | `—` | 4 |
 
-- `generate_readme(project_path, output, sections, sync_markers, config)` — Convenience function to generate a README. [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/readme_gen.py#L446)
+- `generate_readme(project_path, output, sections, sync_markers, config)` — Convenience function to generate a README. [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/readme_gen.py#L460)
 
 ## sync
 

@@ -1,6 +1,6 @@
 # code2docs — Architecture
 
-> 40 modules | 252 functions | 56 classes
+> 40 modules | 255 functions | 56 classes
 
 ## How It Works
 
@@ -175,6 +175,17 @@ classDiagram
         -_generate_class_diagram(self) None
         ... +2 more
     }
+    class DependencyScanner {
+        +scan(self, project_path) None
+        -_parse_pyproject(self, path) None
+        -_parse_pyproject_regex(self, path) None
+        -_parse_setup_py(self, path) None
+        -_parse_requirements_txt(self, path) None
+        -_parse_package_json(self, path) None
+        -_parse_cargo_toml(self, path) None
+        -_parse_go_mod(self, path) None
+        ... +2 more
+    }
     class DocstringExtractor {
         +extract_all(self, result) None
         +parse(self, docstring) None
@@ -266,15 +277,6 @@ classDiagram
         -_get_public_methods(self, cls_info) None
         -_format_signature(func) None
     }
-    class DependencyScanner {
-        +scan(self, project_path) None
-        -_parse_pyproject(self, path) None
-        -_parse_pyproject_regex(self, path) None
-        -_parse_setup_py(self, path) None
-        -_parse_requirements_txt(self, path) None
-        -_parse_dep_string(dep_str) None
-        -_detect_version(self, project_path, pyproject_version) None
-    }
 ```
 
 ## Detected Patterns
@@ -302,9 +304,9 @@ classDiagram
 | Metric | Value |
 |--------|-------|
 | Modules | 40 |
-| Functions | 252 |
+| Functions | 255 |
 | Classes | 56 |
-| CFG Nodes | 1499 |
+| CFG Nodes | 1606 |
 | Patterns | 2 |
-| Avg Complexity | 4.2 |
-| Analysis Time | 1.1s |
+| Avg Complexity | 4.4 |
+| Analysis Time | 1.42s |
