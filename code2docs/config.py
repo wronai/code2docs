@@ -62,7 +62,7 @@ class Code2LlmConfig:
     output_dir: str = "project"  # Relative to project root
     chunk: bool = False  # Enable chunking for large repos
     no_png: bool = True  # Skip PNG generation (faster)
-    max_depth: int = 3  # Maximum directory depth to scan (default 3 levels)
+    max_depth: int = 6  # Maximum directory depth to scan (default 6 levels)
     exclude_patterns: List[str] = field(default_factory=lambda: [
         "venv", ".venv", "env", ".env",
         "node_modules", "bower_components",
