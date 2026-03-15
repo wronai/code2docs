@@ -60,6 +60,8 @@ flowchart TD
         code2docs__config__Code2DocsConfig__to_yaml["to_yaml"]
     end
     subgraph code2docs_formatters
+        code2docs__formatters__badges__generate_badges["generate_badges"]
+        code2docs__formatters__badges___make_badge("_make_badge CC=11")
         code2docs____init__["__init__"]
         code2docs__heading["heading"]
         code2docs__paragraph["paragraph"]
@@ -73,8 +75,6 @@ flowchart TD
         code2docs__separator["separator"]
         code2docs__blank["blank"]
         code2docs__render["render"]
-        code2docs__formatters__badges__generate_badges["generate_badges"]
-        code2docs__formatters__badges___make_badge("_make_badge CC=11")
         code2docs__formatters__toc__generate_toc["generate_toc"]
         code2docs__formatters__toc__extract_headings["extract_headings"]
         code2docs__formatters__toc___slugify["_slugify"]
@@ -261,5 +261,5 @@ flowchart TD
 
     classDef highCC fill:#ff6b6b,stroke:#c92a2a,color:#fff
     classDef medCC fill:#ffd43b,stroke:#f08c00,color:#000
-    class code2docs___render_first_usage,code2docs___generate_intro,code2docs__parse_gitignore,code2docs___run_code2llm,code2docs__generate,code2docs___render_module_detail,code2docs___extract_description,code2docs___render_module_section,code2docs___generate_advanced,code2docs___render_code_style,code2docs___extract_project_metadata highCC
+    class code2docs___render_first_usage,code2docs___generate_intro,code2docs__parse_gitignore,code2docs___run_code2llm,code2docs__generate,code2docs___render_module_detail,code2docs___extract_description,code2docs___render_module_section,code2docs___generate_advanced,code2docs___generate_html,code2docs___render_code_style,code2docs___extract_project_metadata highCC
     class examples__generate,examples__generate_api_docs_from_endpoints,code2docs__formatters__badges___make_badge,code2docs___collect_module_stats,code2docs___render_undocumented,code2docs___render_matrix,code2docs___render_prerequisites,code2docs___render_installation,code2docs___render_section,code2docs___truncate_description,code2docs__generate,code2docs___has_content,code2docs___generate_quickstart,code2docs___build_realistic_args,code2docs___example_from_type,code2docs__config__Code2DocsConfig__from_yaml,code2docs___diff_functions,code2docs___diff_classes,code2docs___render,code2docs__generate,code2docs___get_public_entry_points,code2docs___generate_module_graph,code2docs___generate_class_diagram,code2docs___detect_layers,code2docs__scan,code2docs___parse_pyproject,code2docs___parse_cargo_toml,code2docs___parse_go_mod,code2docs___build_context,code2docs___extract_project_description medCC

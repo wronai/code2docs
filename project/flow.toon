@@ -1,4 +1,4 @@
-# code2docs/flow | 295 func | 12 pipelines | 7 hub-types | 2026-03-09
+# code2docs/flow | 298 func | 12 pipelines | 7 hub-types | 2026-03-15
 
 PIPELINES[12] (Analysis:2, Core:4, Export:2, IO:3, Unknown:1):
   Code2docs [IO]: ? → str
@@ -321,14 +321,14 @@ CONTRACTS:
       SIDE-EFFECT: global(_litellm)
 
 
-DATA_TYPES (by cross-function usage) [290 annotated, 0 inferred / 295 functions]:
-  str                  consumed:144 produced:120  !! HUB-TYPE → split interface
+DATA_TYPES (by cross-function usage) [293 annotated, 0 inferred / 298 functions]:
+  str                  consumed:144 produced:122  !! HUB-TYPE → split interface
   Code2DocsConfig      consumed:31  produced:5    !! HUB-TYPE → split interface
   AnalysisResult       consumed:24  produced:2    !! HUB-TYPE → split interface
-  bool                 consumed:6   produced:19 
+  bool                 consumed:6   produced:20 
   Dict                 consumed:17  produced:7    !! HUB-TYPE → split interface
   Path                 consumed:21  produced:1    !! HUB-TYPE → split interface
-  GenerateContext      consumed:17  produced:0    !! HUB-TYPE → split interface
+  GenerateContext      consumed:19  produced:0    !! HUB-TYPE → split interface
   int                  consumed:10  produced:1    !! HUB-TYPE → split interface
   str, str             consumed:4   produced:6  
   FunctionInfo         consumed:4   produced:5  
@@ -336,12 +336,12 @@ DATA_TYPES (by cross-function usage) [290 annotated, 0 inferred / 295 functions]
   ProjectDependencies  consumed:0   produced:8    output-heavy
   DocstringInfo        consumed:5   produced:1    input-heavy (read-only flow)
   ClassInfo            consumed:3   produced:3  
-  str, bool            consumed:4   produced:1  
   str, List[str]       consumed:1   produced:4  
+  str, bool            consumed:4   produced:1  
   str, int             consumed:3   produced:1    narrow scope
   ApiChange            consumed:3   produced:1    narrow scope
-  ChangeInfo           consumed:1   produced:2    narrow scope
-  Endpoint             consumed:0   produced:3    narrow scope
+  ModuleInfo           consumed:3   produced:0    narrow scope
+  dict                 consumed:0   produced:3    narrow scope
 
   HUB TYPES (consumed ≥10):
     str → 144 consumers → split into:
@@ -356,7 +356,7 @@ DATA_TYPES (by cross-function usage) [290 annotated, 0 inferred / 295 functions]
       - (analyze consumers to suggest sub-interfaces)
     Path → 21 consumers → split into:
       - (analyze consumers to suggest sub-interfaces)
-    GenerateContext → 17 consumers → split into:
+    GenerateContext → 19 consumers → split into:
       - (analyze consumers to suggest sub-interfaces)
     int → 10 consumers → split into:
       - (analyze consumers to suggest sub-interfaces)

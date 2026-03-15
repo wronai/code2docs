@@ -1,4 +1,4 @@
-# code2docs | 54f 7365L | python:53,shell:1
+# code2docs | 54f 7518L | python:53,shell:1
 # Keys: M=modules, D=details, i=imports, c=classes, f=functions, m=methods
 M[54]:
   code2docs/__init__.py,32
@@ -18,7 +18,7 @@ M[54]:
   code2docs/formatters/markdown.py,73
   code2docs/formatters/toc.py,63
   code2docs/generators/__init__.py,59
-  code2docs/generators/_registry_adapters.py,287
+  code2docs/generators/_registry_adapters.py,441
   code2docs/generators/_source_links.py,76
   code2docs/generators/api_changelog_gen.py,196
   code2docs/generators/api_reference_gen.py,163
@@ -54,7 +54,7 @@ M[54]:
   examples/class_examples.py,39
   examples/entry_points.py,29
   examples/quickstart.py,50
-  project.sh,19
+  project.sh,18
 D:
   code2docs/generators/readme_gen.py:
     e: ReadmeGenerator,generate_readme
@@ -85,6 +85,23 @@ Thi...
   code2docs/generators/contributing_gen.py:
     e: ContributingGenerator
     ContributingGenerator: __init__(2),generate(0),_detect_dev_tools(0),_render_setup(1),_render_development(0),_render_testing(0),_render_code_style(0),_render_pull_request(-1)  # Generate CONTRIBUTING.md by detecting dev tools from pyproje...
+  code2docs/generators/_registry_adapters.py:
+    e: ReadmeGeneratorAdapter,ApiReferenceAdapter,ModuleDocsAdapter,ArchitectureAdapter,DepGraphAdapter,CoverageAdapter,ApiChangelogAdapter,ExamplesAdapter,MkDocsAdapter,GettingStartedAdapter,ConfigDocsAdapter,ContributingAdapter,Code2LlmAdapter,OrgReadmeAdapter,IndexHtmlAdapter
+    ReadmeGeneratorAdapter(BaseGenerator): should_run(0),run(1)
+    ApiReferenceAdapter(BaseGenerator): should_run(0),run(1)
+    ModuleDocsAdapter(BaseGenerator): should_run(0),run(1)
+    ArchitectureAdapter(BaseGenerator): should_run(0),run(1)
+    DepGraphAdapter(BaseGenerator): should_run(0),run(1)
+    CoverageAdapter(BaseGenerator): should_run(0),run(1)
+    ApiChangelogAdapter(BaseGenerator): should_run(0),run(1)
+    ExamplesAdapter(BaseGenerator): should_run(0),run(1)
+    MkDocsAdapter(BaseGenerator): should_run(0),run(1)
+    GettingStartedAdapter(BaseGenerator): should_run(0),run(1)
+    ConfigDocsAdapter(BaseGenerator): should_run(0),run(1)
+    ContributingAdapter(BaseGenerator): should_run(0),run(1)
+    Code2LlmAdapter(BaseGenerator): should_run(0),run(1)  # Adapter for code2llm analysis generation...
+    OrgReadmeAdapter(BaseGenerator): should_run(0),run(1)  # Adapter for organization README generation...
+    IndexHtmlAdapter(BaseGenerator): should_run(0),run(1),_generate_html(1)  # Adapter for generating index.html for GitHub Pages browsing...
   code2docs/generators/api_changelog_gen.py:
     e: ApiChange,ApiChangelogGenerator
     ApiChange:  # A single API change between two analysis snapshots...
@@ -158,22 +175,6 @@ Thi...
 
 I...
     _get_litellm()
-  code2docs/generators/_registry_adapters.py:
-    e: ReadmeGeneratorAdapter,ApiReferenceAdapter,ModuleDocsAdapter,ArchitectureAdapter,DepGraphAdapter,CoverageAdapter,ApiChangelogAdapter,ExamplesAdapter,MkDocsAdapter,GettingStartedAdapter,ConfigDocsAdapter,ContributingAdapter,Code2LlmAdapter,OrgReadmeAdapter
-    ReadmeGeneratorAdapter(BaseGenerator): should_run(0),run(1)
-    ApiReferenceAdapter(BaseGenerator): should_run(0),run(1)
-    ModuleDocsAdapter(BaseGenerator): should_run(0),run(1)
-    ArchitectureAdapter(BaseGenerator): should_run(0),run(1)
-    DepGraphAdapter(BaseGenerator): should_run(0),run(1)
-    CoverageAdapter(BaseGenerator): should_run(0),run(1)
-    ApiChangelogAdapter(BaseGenerator): should_run(0),run(1)
-    ExamplesAdapter(BaseGenerator): should_run(0),run(1)
-    MkDocsAdapter(BaseGenerator): should_run(0),run(1)
-    GettingStartedAdapter(BaseGenerator): should_run(0),run(1)
-    ConfigDocsAdapter(BaseGenerator): should_run(0),run(1)
-    ContributingAdapter(BaseGenerator): should_run(0),run(1)
-    Code2LlmAdapter(BaseGenerator): should_run(0),run(1)  # Adapter for code2llm analysis generation...
-    OrgReadmeAdapter(BaseGenerator): should_run(0),run(1)  # Adapter for organization README generation...
   code2docs/sync/differ.py:
     e: ChangeInfo,Differ
     ChangeInfo: __str__(0)  # Describes a detected change...

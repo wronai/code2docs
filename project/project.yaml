@@ -3,16 +3,16 @@ project:
   name: code2docs
   repo: /home/tom/github/wronai/code2docs
   language: python
-  analyzed_at: '2026-03-09T21:34:36Z'
+  analyzed_at: '2026-03-15T11:10:40Z'
   tool: code2llm
   stats:
     files: 34
-    lines: 7432
-    functions: 255
-    classes: 56
+    lines: 7585
+    functions: 258
+    classes: 57
 health:
   cc_avg: 4.4
-  critical_count: 27
+  critical_count: 28
   critical_limit: 10
   duplicates: 0
   cycles: 1
@@ -271,6 +271,62 @@ modules:
     - name: _generate_intro
       cc: 16
       flag: split
+- path: code2docs/generators/_registry_adapters.py
+  lines: 441
+  classes: 15
+  methods: 31
+  cc_max: 15
+  inbound_deps: 0
+  exports:
+  - name: ReadmeGeneratorAdapter
+    type: class
+    cc_avg: 2.5
+  - name: ApiReferenceAdapter
+    type: class
+    cc_avg: 2.0
+  - name: ModuleDocsAdapter
+    type: class
+    cc_avg: 2.0
+  - name: ArchitectureAdapter
+    type: class
+    cc_avg: 2.0
+  - name: DepGraphAdapter
+    type: class
+    cc_avg: 1.5
+  - name: CoverageAdapter
+    type: class
+    cc_avg: 1.5
+  - name: ApiChangelogAdapter
+    type: class
+    cc_avg: 1.5
+  - name: ExamplesAdapter
+    type: class
+    cc_avg: 2.0
+  - name: MkDocsAdapter
+    type: class
+    cc_avg: 1.5
+  - name: GettingStartedAdapter
+    type: class
+    cc_avg: 1.5
+  - name: ConfigDocsAdapter
+    type: class
+    cc_avg: 1.5
+  - name: ContributingAdapter
+    type: class
+    cc_avg: 1.5
+  - name: Code2LlmAdapter
+    type: class
+    cc_avg: 4.0
+  - name: OrgReadmeAdapter
+    type: class
+    cc_avg: 3.0
+  - name: IndexHtmlAdapter
+    type: class
+    cc_avg: 6.0
+    methods:
+    - name: _generate_html
+      cc: 15
+      flag: split
 - path: code2docs/generators/api_changelog_gen.py
   lines: 196
   classes: 2
@@ -464,55 +520,6 @@ modules:
   - name: DocstringExtractor
     type: class
     cc_avg: 3.5
-- path: code2docs/generators/_registry_adapters.py
-  lines: 287
-  classes: 14
-  methods: 28
-  cc_max: 7
-  inbound_deps: 0
-  exports:
-  - name: ReadmeGeneratorAdapter
-    type: class
-    cc_avg: 2.5
-  - name: ApiReferenceAdapter
-    type: class
-    cc_avg: 2.0
-  - name: ModuleDocsAdapter
-    type: class
-    cc_avg: 2.0
-  - name: ArchitectureAdapter
-    type: class
-    cc_avg: 2.0
-  - name: DepGraphAdapter
-    type: class
-    cc_avg: 1.5
-  - name: CoverageAdapter
-    type: class
-    cc_avg: 1.5
-  - name: ApiChangelogAdapter
-    type: class
-    cc_avg: 1.5
-  - name: ExamplesAdapter
-    type: class
-    cc_avg: 2.0
-  - name: MkDocsAdapter
-    type: class
-    cc_avg: 1.5
-  - name: GettingStartedAdapter
-    type: class
-    cc_avg: 1.5
-  - name: ConfigDocsAdapter
-    type: class
-    cc_avg: 1.5
-  - name: ContributingAdapter
-    type: class
-    cc_avg: 1.5
-  - name: Code2LlmAdapter
-    type: class
-    cc_avg: 4.0
-  - name: OrgReadmeAdapter
-    type: class
-    cc_avg: 3.0
 - path: code2docs/llm_helper.py
   lines: 161
   classes: 1
@@ -716,7 +723,7 @@ modules:
   cc_max: 0
   inbound_deps: 0
 - path: project.sh
-  lines: 19
+  lines: 18
   classes: 0
   methods: 0
   cc_max: 0
@@ -798,6 +805,10 @@ refactoring:
     impact: medium
     effort: low
     module: examples_gen.py
+  - action: Split IndexHtmlAdapter._generate_html (CC=15 → target CC<10)
+    impact: medium
+    effort: low
+    module: _registry_adapters.py
   - action: Split ContributingGenerator._render_code_style (CC=16 → target CC<10)
     impact: medium
     effort: low
@@ -811,9 +822,6 @@ refactoring:
   - action: Reduce ReadmeGenerator._extract_project_metadata fan-out (currently 23)
     impact: medium
     effort: medium
-  - action: Reduce start_watcher fan-out (currently 22)
-    impact: medium
-    effort: medium
 evolution:
 - date: '2026-03-08'
   cc_avg: 4.2
@@ -824,4 +832,9 @@ evolution:
   cc_avg: 4.4
   critical: 27
   lines: 7432
+  note: Automated analysis
+- date: '2026-03-15'
+  cc_avg: 4.4
+  critical: 28
+  lines: 7585
   note: Automated analysis

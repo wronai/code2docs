@@ -5,11 +5,11 @@
 - **Project**: code2docs
 - **Language**: python
 - **Files**: 34
-- **Lines**: 7432
-- **Functions**: 255
-- **Classes**: 56
+- **Lines**: 7585
+- **Functions**: 258
+- **Classes**: 57
 - **Avg CC**: 4.4
-- **Critical (CC≥10)**: 27
+- **Critical (CC≥10)**: 28
 
 ## Architecture
 
@@ -37,7 +37,7 @@
 - `markdown.py` — 73L, 13 methods, CC↑4
 - `__init__.py` — 7L, 0 methods, CC↑0
 
-### code2docs/generators/ (18 files, 3653L, 166 functions)
+### code2docs/generators/ (18 files, 3807L, 169 functions)
 
 - `readme_gen.py` — 477L, 18 methods, CC↑29
 - `api_reference_gen.py` — 163L, 7 methods, CC↑25
@@ -53,9 +53,9 @@
 - `updater.py` — 51L, 2 methods, CC↑4
 - `__init__.py` — 6L, 0 methods, CC↑0
 
-### root/ (1 files, 19L, 0 functions)
+### root/ (1 files, 18L, 0 functions)
 
-- `project.sh` — 19L, 0 methods, CC↑0
+- `project.sh` — 18L, 0 methods, CC↑0
 
 ## Key Exports
 
@@ -78,6 +78,8 @@
 - **GettingStartedGenerator** (class, CC̄=7.1)
   - `_render_first_usage` CC=15 ⚠ split
   - `_generate_intro` CC=16 ⚠ split
+- **IndexHtmlAdapter** (class, CC̄=6.0)
+  - `_generate_html` CC=15 ⚠ split
 - **ApiChangelogGenerator** (class, CC̄=5.4)
 - **ArchitectureGenerator** (class, CC̄=6.9)
 - **DependencyScanner** (class, CC̄=6.0)

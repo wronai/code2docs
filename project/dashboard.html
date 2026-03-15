@@ -58,19 +58,19 @@
   code2docs — Good
 </h1>
 <p style="color:var(--muted);font-size:.85rem;">
-  Analyzed 2026-03-09 by code2llm
+  Analyzed 2026-03-15 by code2llm
   &nbsp;·&nbsp; Primary language: <strong>python</strong>
   &nbsp;·&nbsp; Python: 38, Shell: 1
 </p>
 
 <div class="grid">
-  <div class="card"><div class="value">255</div><div class="label">Functions</div></div>
-  <div class="card"><div class="value">56</div><div class="label">Classes</div></div>
+  <div class="card"><div class="value">258</div><div class="label">Functions</div></div>
+  <div class="card"><div class="value">57</div><div class="label">Classes</div></div>
   <div class="card"><div class="value">34</div><div class="label">Files</div></div>
-  <div class="card"><div class="value">7,432</div><div class="label">Lines</div></div>
+  <div class="card"><div class="value">7,585</div><div class="label">Lines</div></div>
   <div class="card"><div class="value">2</div><div class="label">Languages</div></div>
   <div class="card"><div class="value">4.4</div><div class="label">Avg CC</div></div>
-  <div class="card"><div class="value">27</div><div class="label">Critical (CC≥10)</div></div>
+  <div class="card"><div class="value">28</div><div class="label">Critical (CC≥10)</div></div>
   <div class="card"><div class="value">0</div><div class="label">Duplicates</div></div>
   <div class="card"><div class="value">1</div><div class="label">Cycles</div></div>
 </div>
@@ -92,13 +92,8 @@
 
 <div class="two-col">
   <div class="chart-container">
-    <h2 style="border:none;margin:0 0 .5rem;">Evolution (2026-03-09)</h2>
-    <div class="evo-cards">
-      <div class="card"><div class="value">4.4</div><div class="label">CC̄ ↑</div></div>
-      <div class="card"><div class="value">27</div><div class="label">Critical ↑</div></div>
-      <div class="card"><div class="value">7432</div><div class="label">Lines</div></div>
-    </div>
-    <p class="trend" style="margin-top:.5rem;">Run analysis multiple times to build a trend chart (≥3 data points needed).</p>
+    <h2 style="border:none;margin:0 0 .5rem;">Evolution</h2>
+    <canvas id="evoChart" height="200"></canvas>
   </div>
   <div>
     <h2>Top Modules (39)</h2>
@@ -121,6 +116,14 @@
                 <td style="text-align:right">15</td>
                 <td style="text-align:right">1</td>
                 <td style="text-align:right">22</td>
+            </tr>
+            <tr>
+                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>_registry_adapters.py</td>
+                <td style="color:var(--muted);font-size:.75rem">code2docs/generators</td>
+                <td style="text-align:right">441</td>
+                <td style="text-align:right">31</td>
+                <td style="text-align:right">15</td>
+                <td style="text-align:right">15</td>
             </tr>
             <tr>
                 <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>dependency_scanner.py</td>
@@ -153,14 +156,6 @@
                 <td style="text-align:right">10</td>
                 <td style="text-align:right">1</td>
                 <td style="text-align:right">13</td>
-            </tr>
-            <tr>
-                <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>_registry_adapters.py</td>
-                <td style="color:var(--muted);font-size:.75rem">code2docs/generators</td>
-                <td style="text-align:right">287</td>
-                <td style="text-align:right">28</td>
-                <td style="text-align:right">14</td>
-                <td style="text-align:right">7</td>
             </tr>
             <tr>
                 <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3572A5;margin-right:6px"></span>contributing_gen.py</td>
@@ -515,31 +510,31 @@ Requires watchdog</td>
             </tr>
             <tr>
                 <td>11</td>
-                <td>Split ContributingGenerator._render_code_style (CC=16 → target CC<10)</td>
+                <td>Split IndexHtmlAdapter._generate_html (CC=15 → target CC<10)</td>
                 <td><span class="badge medium">medium</span></td>
                 <td>low</td>
             </tr>
             <tr>
                 <td>12</td>
-                <td>Break circular dependency: code2docs.analyzers.project_scanner.ProjectScanner.analyze</td>
+                <td>Split ContributingGenerator._render_code_style (CC=16 → target CC<10)</td>
                 <td><span class="badge medium">medium</span></td>
                 <td>low</td>
             </tr>
             <tr>
                 <td>13</td>
+                <td>Break circular dependency: code2docs.analyzers.project_scanner.ProjectScanner.analyze</td>
+                <td><span class="badge medium">medium</span></td>
+                <td>low</td>
+            </tr>
+            <tr>
+                <td>14</td>
                 <td>Reduce _run_check fan-out (currently 24)</td>
                 <td><span class="badge medium">medium</span></td>
                 <td>medium</td>
             </tr>
             <tr>
-                <td>14</td>
-                <td>Reduce ReadmeGenerator._extract_project_metadata fan-out (currently 23)</td>
-                <td><span class="badge medium">medium</span></td>
-                <td>medium</td>
-            </tr>
-            <tr>
                 <td>15</td>
-                <td>Reduce start_watcher fan-out (currently 22)</td>
+                <td>Reduce ReadmeGenerator._extract_project_metadata fan-out (currently 23)</td>
                 <td><span class="badge medium">medium</span></td>
                 <td>medium</td>
             </tr></tbody>
@@ -548,10 +543,29 @@ Requires watchdog</td>
 </div>
 </div>
 
-<footer>Generated by code2llm on 2026-03-09 21:34</footer>
+<footer>Generated by code2llm on 2026-03-15 11:10</footer>
 
 <script>
-// Evolution chart disabled — fewer than 3 data points
+const evoCtx = document.getElementById('evoChart').getContext('2d');
+new Chart(evoCtx, {
+  type: 'line',
+  data: {
+    labels: ['2026-03-08', '2026-03-09', '2026-03-15'],
+    datasets: [
+      { label: 'CC avg', data: [4.2, 4.4, 4.4], borderColor: '#3b82f6', tension: .3, yAxisID: 'y' },
+      { label: 'Critical', data: [25, 27, 28], borderColor: '#ef4444', tension: .3, yAxisID: 'y1' }
+    ]
+  },
+  options: {
+    responsive: true,
+    scales: {
+      y: { position:'left', grid:{color:'#334155'}, ticks:{color:'#94a3b8'} },
+      y1: { position:'right', grid:{drawOnChartArea:false}, ticks:{color:'#94a3b8'} },
+      x: { ticks:{color:'#94a3b8'}, grid:{color:'#334155'} }
+    },
+    plugins: { legend: { labels: { color:'#e2e8f0' } } }
+  }
+});
 
 // Language distribution pie chart
 const langCtx = document.getElementById('langChart').getContext('2d');
@@ -578,8 +592,8 @@ const modLinesCtx = document.getElementById('modLinesChart').getContext('2d');
 new Chart(modLinesCtx, {
   type: 'bar',
   data: {
-    labels: ['readme_gen.py', 'examples_gen.py', 'dependency_scanner.py', 'cli.py', 'config.py', 'architecture_gen.py', '_registry_adapters.py', 'contributing_gen.py', 'org_readme_gen.py', 'code2llm_gen.py', 'module_docs_gen.py', 'getting_started_gen.py', 'api_changelog_gen.py', 'api_reference_gen.py', 'llm_helper.py'],
-    datasets: [{ label: 'Lines', data: [477, 443, 325, 319, 297, 294, 287, 231, 227, 206, 198, 196, 196, 163, 161],
+    labels: ['readme_gen.py', 'examples_gen.py', '_registry_adapters.py', 'dependency_scanner.py', 'cli.py', 'config.py', 'architecture_gen.py', 'contributing_gen.py', 'org_readme_gen.py', 'code2llm_gen.py', 'module_docs_gen.py', 'getting_started_gen.py', 'api_changelog_gen.py', 'api_reference_gen.py', 'llm_helper.py'],
+    datasets: [{ label: 'Lines', data: [477, 443, 441, 325, 319, 297, 294, 231, 227, 206, 198, 196, 196, 163, 161],
       backgroundColor: '#3b82f6'
     }]
   },
@@ -599,7 +613,7 @@ new Chart(modFuncsCtx, {
   type: 'bar',
   data: {
     labels: ['_registry_adapters.py', 'readme_gen.py', 'examples_gen.py', 'cli.py', 'markdown.py', 'org_readme_gen.py', 'architecture_gen.py', 'dependency_scanner.py', 'docstring_extractor.py', 'module_docs_gen.py', 'api_changelog_gen.py', 'depgraph_gen.py', 'contributing_gen.py', 'getting_started_gen.py', 'api_reference_gen.py'],
-    datasets: [{ label: 'Functions', data: [28, 18, 15, 14, 13, 10, 10, 10, 10, 9, 9, 9, 8, 8, 7],
+    datasets: [{ label: 'Functions', data: [31, 18, 15, 14, 13, 10, 10, 10, 10, 9, 9, 9, 8, 8, 7],
       backgroundColor: '#22c55e'
     }]
   },

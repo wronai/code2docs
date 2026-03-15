@@ -1,4 +1,4 @@
-# code2docs | 64f 9275L | python:64
+# code2docs | 64f 9429L | python:64
 # Keys: M=modules, D=details, i=imports, c=classes, f=functions, m=methods
 M[64]:
   code2docs/__init__.py,26
@@ -18,7 +18,7 @@ M[64]:
   code2docs/formatters/markdown.py,57
   code2docs/formatters/toc.py,47
   code2docs/generators/__init__.py,48
-  code2docs/generators/_registry_adapters.py,217
+  code2docs/generators/_registry_adapters.py,360
   code2docs/generators/_source_links.py,60
   code2docs/generators/api_changelog_gen.py,165
   code2docs/generators/api_reference_gen.py,136
