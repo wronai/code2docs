@@ -440,18 +440,6 @@ Filters out:
 > Parse an examples line.
 - **Output to**: info.examples.append
 
-### code2docs.analyzers.endpoint_detector.EndpointDetector._parse_decorator
-> Try to parse a route decorator string.
-- **Output to**: self.FASTAPI_PATTERNS.search, self.FLASK_PATTERNS.search, Endpoint, Endpoint, None.upper
-
-### examples.05_custom_generators.MetricsReportGenerator._format_stats_table
-> Format statistics as markdown table.
-- **Output to**: stats.items, None.join, lines.append
-
-### examples.06_formatters.markdown_formatting_examples
-> Demonstrate markdown formatting utilities.
-- **Output to**: MarkdownFormatter, print, print, print, print
-
 ### code2docs.analyzers.dependency_scanner.DependencyScanner._parse_pyproject
 > Parse pyproject.toml for dependencies.
 - **Output to**: ProjectDependencies, data.get, project.get, project.get, project.get
@@ -483,6 +471,18 @@ Filters out:
 ### code2docs.analyzers.dependency_scanner.DependencyScanner._parse_dep_string
 > Parse a dependency string like 'package>=1.0'.
 - **Output to**: re.match, DependencyInfo, dep_str.strip, DependencyInfo, dep_str.strip
+
+### code2docs.analyzers.endpoint_detector.EndpointDetector._parse_decorator
+> Try to parse a route decorator string.
+- **Output to**: self.FASTAPI_PATTERNS.search, self.FLASK_PATTERNS.search, Endpoint, Endpoint, None.upper
+
+### examples.05_custom_generators.MetricsReportGenerator._format_stats_table
+> Format statistics as markdown table.
+- **Output to**: stats.items, None.join, lines.append
+
+### examples.06_formatters.markdown_formatting_examples
+> Demonstrate markdown formatting utilities.
+- **Output to**: MarkdownFormatter, print, print, print, print
 
 ## Behavioral Patterns
 
@@ -539,7 +539,7 @@ Functions exposed as public API (no underscore prefix):
 - `code2docs.generators.org_readme_gen.OrgReadmeGenerator.generate` - 8 calls
 - `code2docs.cli.sync` - 8 calls
 - `examples.03_programmatic_api.custom_documentation_pipeline` - 8 calls
-- `code2docs.generators._registry_adapters.Code2LlmAdapter.run` - 7 calls
+- `code2docs.cli.watch` - 7 calls
 
 ## System Interactions
 

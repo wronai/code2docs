@@ -43,9 +43,9 @@ Requires watchdog
   ★ OrgReadmeGenerator._extract_description fan=20  // Extract short description from project (max 5 lines).
 
 REFACTOR[15]:
-  [1] H/L Split ReadmeGenerator._extract_project_metadata (CC=29 → target CC<10)
-  [2] H/L Split ModuleDocsGenerator._render_module_detail (CC=25 → target CC<10)
-  [3] H/L Split ApiReferenceGenerator._render_module_section (CC=25 → target CC<10)
+  [1] H/L Split ModuleDocsGenerator._render_module_detail (CC=25 → target CC<10)
+  [2] H/L Split ApiReferenceGenerator._render_module_section (CC=25 → target CC<10)
+  [3] H/L Split ReadmeGenerator._extract_project_metadata (CC=29 → target CC<10)
   [4] M/L Split GettingStartedGenerator._render_first_usage (CC=15 → target CC<10)
   [5] M/L Split GettingStartedGenerator._generate_intro (CC=16 → target CC<10)
 

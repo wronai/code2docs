@@ -2,7 +2,6 @@
 # CC̄=4.4 | critical:12/298 | dups:0 | cycles:1
 
 HEALTH[12]:
-  🟡 CC    _extract_project_metadata CC=29 (limit:15)
   🟡 CC    _render_first_usage CC=15 (limit:15)
   🟡 CC    _generate_intro CC=16 (limit:15)
   🟡 CC    parse_gitignore CC=15 (limit:15)
@@ -11,9 +10,10 @@ HEALTH[12]:
   🟡 CC    _render_module_detail CC=25 (limit:15)
   🟡 CC    _extract_description CC=17 (limit:15)
   🟡 CC    _render_module_section CC=25 (limit:15)
+  🟡 CC    _extract_project_metadata CC=29 (limit:15)
   🟡 CC    _generate_advanced CC=22 (limit:15)
-  🟡 CC    _generate_html CC=15 (limit:15)
   🟡 CC    _render_code_style CC=16 (limit:15)
+  🟡 CC    _generate_html CC=15 (limit:15)
 
 REFACTOR[2]:
   1. split 12 high-CC methods  (CC>15)

@@ -127,6 +127,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.25] - 2026-03-31
+
+### Docs
+- Update project/context.md
+
+### Other
+- Update project/analysis.toon.yaml
+- Update project/calls.mmd
+- Update project/compact_flow.mmd
+- Update project/index.html
+- Update project/project.toon.yaml
+
 ## [3.0.24] - 2026-03-31
 
 ### Docs
