@@ -1,0 +1,75 @@
+# code2llm/evolution | 258 func | 34f | 2026-03-31
+
+NEXT[9] (ranked by impact):
+  [1] !! SPLIT-FUNC      ReadmeGenerator._extract_project_metadata  CC=29  fan=23
+      WHY: CC=29 exceeds 15
+      EFFORT: ~1h  IMPACT: 667
+
+  [2] !! SPLIT-FUNC      ApiReferenceGenerator._render_module_section  CC=25  fan=21
+      WHY: CC=25 exceeds 15
+      EFFORT: ~1h  IMPACT: 525
+
+  [3] !! SPLIT-FUNC      ModuleDocsGenerator._render_module_detail  CC=25  fan=16
+      WHY: CC=25 exceeds 15
+      EFFORT: ~1h  IMPACT: 400
+
+  [4] !  SPLIT-FUNC      ModuleDocsGenerator.generate  CC=18  fan=19
+      WHY: CC=18 exceeds 15
+      EFFORT: ~1h  IMPACT: 342
+
+  [5] !  SPLIT-FUNC      OrgReadmeGenerator._extract_description  CC=17  fan=20
+      WHY: CC=17 exceeds 15
+      EFFORT: ~1h  IMPACT: 340
+
+  [6] !  SPLIT-FUNC      ExamplesGenerator._generate_advanced  CC=22  fan=11
+      WHY: CC=22 exceeds 15
+      EFFORT: ~1h  IMPACT: 242
+
+  [7] !  SPLIT-FUNC      Code2LlmGenerator._run_code2llm  CC=17  fan=9
+      WHY: CC=17 exceeds 15
+      EFFORT: ~1h  IMPACT: 153
+
+  [8] !  SPLIT-FUNC      parse_gitignore  CC=15  fan=10
+      WHY: CC=15 exceeds 15
+      EFFORT: ~1h  IMPACT: 150
+
+  [9] !  SPLIT-FUNC      GettingStartedGenerator._render_first_usage  CC=15  fan=8
+      WHY: CC=15 exceeds 15
+      EFFORT: ~1h  IMPACT: 120
+
+
+RISKS[0]: none
+
+METRICS-TARGET:
+  CC̄:          4.4 → ≤3.1
+  max-CC:      29 → ≤14
+  god-modules: 0 → 0
+  high-CC(≥15): 12 → ≤6
+  hub-types:   0 → ≤0
+
+PATTERNS (language parser shared logic):
+  _extract_declarations() in base.py — unified extraction for:
+    - TypeScript: interfaces, types, classes, functions, arrow funcs
+    - PHP: namespaces, traits, classes, functions, includes
+    - Ruby: modules, classes, methods, requires
+    - C++: classes, structs, functions, #includes
+    - C#: classes, interfaces, methods, usings
+    - Java: classes, interfaces, methods, imports
+    - Go: packages, functions, structs
+    - Rust: modules, functions, traits, use statements
+
+  Shared regex patterns per language:
+    - import: language-specific import/require/using patterns
+    - class: class/struct/trait declarations with inheritance
+    - function: function/method signatures with visibility
+    - brace_tracking: for C-family languages ({ })
+    - end_keyword_tracking: for Ruby (module/class/def...end)
+
+  Benefits:
+    - Consistent extraction logic across all languages
+    - Reduced code duplication (~70% reduction in parser LOC)
+    - Easier maintenance: fix once, apply everywhere
+    - Standardized FunctionInfo/ClassInfo models
+
+HISTORY:
+  prev CC̄=4.4 → now CC̄=4.4

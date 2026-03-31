@@ -20,8 +20,9 @@ from code2docs.generators.depgraph_gen import DepGraphGenerator
 
 # Step 1: Analyze the project
 config = Code2DocsConfig(project_name="my-project")
+project_name_adv = config.project_name
 scanner = ProjectScanner(config)
-result = scanner.analyze(f"./${project_name_adv}") if project_name_adv != "." else result = scanner.analyze("./")
+result = scanner.analyze(f"./{project_name_adv}") if project_name_adv != "." else scanner.analyze("./")
 
 # Step 2: Generate with ReadmeGenerator
 readme_gen = ReadmeGenerator(config, result)

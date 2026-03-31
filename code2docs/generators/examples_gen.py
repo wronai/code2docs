@@ -233,8 +233,9 @@ class ExamplesGenerator:
             lines.append("")
             lines.append("# Step 1: Analyze the project")
             lines.append("config = Code2DocsConfig(project_name=\"my-project\")")
+            lines.append("project_name_adv = config.project_name")
             lines.append("scanner = ProjectScanner(config)")
-            lines.append('result = scanner.analyze(f"./${project_name_adv}") if project_name_adv != "." else result = scanner.analyze("./")')
+            lines.append('result = scanner.analyze(f"./{project_name_adv}") if project_name_adv != "." else scanner.analyze("./")')
             lines.append("")
 
             for i, cls in enumerate(gen_classes[:4], start=2):

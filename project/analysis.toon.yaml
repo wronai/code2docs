@@ -1,0 +1,89 @@
+# code2llm | 39f 5810L | python:38,shell:1 | 2026-03-31
+# CC̄=4.4 | critical:12/298 | dups:0 | cycles:1
+
+HEALTH[12]:
+  🟡 CC    _extract_project_metadata CC=29 (limit:15)
+  🟡 CC    _render_first_usage CC=15 (limit:15)
+  🟡 CC    _generate_intro CC=16 (limit:15)
+  🟡 CC    parse_gitignore CC=15 (limit:15)
+  🟡 CC    _run_code2llm CC=17 (limit:15)
+  🟡 CC    generate CC=18 (limit:15)
+  🟡 CC    _render_module_detail CC=25 (limit:15)
+  🟡 CC    _extract_description CC=17 (limit:15)
+  🟡 CC    _generate_advanced CC=22 (limit:15)
+  🟡 CC    _render_module_section CC=25 (limit:15)
+  🟡 CC    _generate_html CC=15 (limit:15)
+  🟡 CC    _render_code_style CC=16 (limit:15)
+
+REFACTOR[2]:
+  1. split 12 high-CC methods  (CC>15)
+  2. break 1 circular dependencies
+
+PIPELINES[247]:
+  [1] Src [add]: add
+      PURITY: 100% pure
+  [2] Src [run_all]: run_all
+      PURITY: 100% pure
+  [3] Src [run_only]: run_only
+      PURITY: 100% pure
+  [4] Src [__getattr__]: __getattr__
+      PURITY: 100% pure
+  [5] Src [__init__]: __init__
+      PURITY: 100% pure
+
+LAYERS:
+  code2docs/                      CC̄=4.4    ←in:0  →out:1
+  │ !! readme_gen                 477L  1C   18m  CC=29     ←1
+  │ !! examples_gen               443L  1C   15m  CC=22     ←0
+  │ !! _registry_adapters         441L  15C   31m  CC=15     ←0
+  │ dependency_scanner         325L  3C   10m  CC=9      ←0
+  │ cli                        319L  1C   14m  CC=10     ←0
+  │ config                     297L  7C    5m  CC=10     ←2
+  │ architecture_gen           294L  1C   10m  CC=13     ←0
+  │ !! contributing_gen           231L  1C    8m  CC=16     ←0
+  │ !! org_readme_gen             227L  1C   10m  CC=17     ←0
+  │ !! code2llm_gen               206L  1C    6m  CC=17     ←0
+  │ !! module_docs_gen            198L  1C    9m  CC=25     ←0
+  │ !! getting_started_gen        196L  1C    8m  CC=16     ←0
+  │ api_changelog_gen          196L  2C    9m  CC=14     ←0
+  │ !! api_reference_gen          163L  1C    7m  CC=25     ←0
+  │ llm_helper                 161L  1C    7m  CC=7      ←0
+  │ depgraph_gen               140L  1C    9m  CC=9      ←0
+  │ docstring_extractor        140L  2C   10m  CC=8      ←0
+  │ differ                     125L  2C    7m  CC=6      ←0
+  │ config_docs_gen            125L  1C    4m  CC=10     ←0
+  │ changelog_gen              121L  2C    6m  CC=6      ←0
+  │ endpoint_detector          113L  2C    3m  CC=5      ←0
+  │ mkdocs_gen                 110L  1C    5m  CC=5      ←0
+  │ coverage_gen               104L  1C    7m  CC=12     ←0
+  │ _source_links               76L  1C    6m  CC=5      ←0
+  │ watcher                     75L  0C    1m  CC=5      ←2
+  │ markdown                    73L  1C   13m  CC=4      ←0
+  │ toc                         63L  0C    3m  CC=6      ←1
+  │ __init__                    59L  0C    1m  CC=5      ←0
+  │ badges                      52L  0C    2m  CC=11     ←2
+  │ updater                     51L  1C    2m  CC=4      ←0
+  │ base                        46L  2C    3m  CC=1      ←0
+  │ project_scanner             42L  1C    4m  CC=2      ←3
+  │ registry                    39L  1C    4m  CC=4      ←0
+  │ __init__                    32L  0C    1m  CC=4      ←0
+  │ __init__                    13L  0C    0m  CC=0.0    ←0
+  │ __init__                     7L  0C    0m  CC=0.0    ←0
+  │ __main__                     6L  0C    0m  CC=0.0    ←0
+  │ __init__                     6L  0C    0m  CC=0.0    ←0
+  │
+  ./                              CC̄=0.0    ←in:0  →out:0
+  │ project.sh                  18L  0C    0m  CC=0.0    ←0
+  │
+
+COUPLING:
+                                   code2docs  code2docs.formatters  code2docs.generators        code2docs.sync
+             code2docs                    ──                                                                 1
+  code2docs.formatters                                          ──                    ←1                      
+  code2docs.generators                                           1                    ──                      
+        code2docs.sync                    ←1                                                                ──
+  CYCLES: 1
+
+EXTERNAL:
+  validation: run `vallm batch .` → validation.toon
+  duplication: run `redup scan .` → duplication.toon

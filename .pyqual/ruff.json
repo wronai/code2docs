@@ -1,0 +1,3478 @@
+[
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 40,
+      "row": 6
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/analyzers/dependency_scanner.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import Dict, List",
+          "end_location": {
+            "column": 40,
+            "row": 6
+          },
+          "location": {
+            "column": 1,
+            "row": 6
+          }
+        }
+      ],
+      "message": "Remove unused import: `typing.Optional`"
+    },
+    "location": {
+      "column": 32,
+      "row": 6
+    },
+    "message": "`typing.Optional` imported but unused",
+    "noqa_row": 6,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 11,
+      "row": 3
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/analyzers/docstring_extractor.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 4
+          },
+          "location": {
+            "column": 1,
+            "row": 3
+          }
+        }
+      ],
+      "message": "Remove unused import: `ast`"
+    },
+    "location": {
+      "column": 8,
+      "row": 3
+    },
+    "message": "`ast` imported but unused",
+    "noqa_row": 3,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 25,
+      "row": 5
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/analyzers/docstring_extractor.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 6
+          },
+          "location": {
+            "column": 1,
+            "row": 5
+          }
+        }
+      ],
+      "message": "Remove unused import: `pathlib.Path`"
+    },
+    "location": {
+      "column": 21,
+      "row": 5
+    },
+    "message": "`pathlib.Path` imported but unused",
+    "noqa_row": 5,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 47,
+      "row": 6
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/analyzers/docstring_extractor.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import Dict, List, Optional",
+          "end_location": {
+            "column": 47,
+            "row": 6
+          },
+          "location": {
+            "column": 1,
+            "row": 6
+          }
+        }
+      ],
+      "message": "Remove unused import: `typing.Tuple`"
+    },
+    "location": {
+      "column": 42,
+      "row": 6
+    },
+    "message": "`typing.Tuple` imported but unused",
+    "noqa_row": 6,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 54,
+      "row": 8
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/analyzers/docstring_extractor.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from code2llm.api import AnalysisResult",
+          "end_location": {
+            "column": 65,
+            "row": 8
+          },
+          "location": {
+            "column": 1,
+            "row": 8
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 42,
+      "row": 8
+    },
+    "message": "`code2llm.api.FunctionInfo` imported but unused",
+    "noqa_row": 8,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 65,
+      "row": 8
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/analyzers/docstring_extractor.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from code2llm.api import AnalysisResult",
+          "end_location": {
+            "column": 65,
+            "row": 8
+          },
+          "location": {
+            "column": 1,
+            "row": 8
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 56,
+      "row": 8
+    },
+    "message": "`code2llm.api.ClassInfo` imported but unused",
+    "noqa_row": 8,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 11,
+      "row": 3
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/analyzers/endpoint_detector.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 4
+          },
+          "location": {
+            "column": 1,
+            "row": 3
+          }
+        }
+      ],
+      "message": "Remove unused import: `ast`"
+    },
+    "location": {
+      "column": 8,
+      "row": 3
+    },
+    "message": "`ast` imported but unused",
+    "noqa_row": 3,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 24,
+      "row": 7
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/analyzers/endpoint_detector.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import List, Optional",
+          "end_location": {
+            "column": 40,
+            "row": 7
+          },
+          "location": {
+            "column": 1,
+            "row": 7
+          }
+        }
+      ],
+      "message": "Remove unused import: `typing.Dict`"
+    },
+    "location": {
+      "column": 20,
+      "row": 7
+    },
+    "message": "`typing.Dict` imported but unused",
+    "noqa_row": 7,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 25,
+      "row": 3
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/analyzers/project_scanner.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 4
+          },
+          "location": {
+            "column": 1,
+            "row": 3
+          }
+        }
+      ],
+      "message": "Remove unused import: `pathlib.Path`"
+    },
+    "location": {
+      "column": 21,
+      "row": 3
+    },
+    "message": "`pathlib.Path` imported but unused",
+    "noqa_row": 3,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 45,
+      "row": 6
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/analyzers/project_scanner.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from code2llm.api import Config, AnalysisResult, analyze",
+          "end_location": {
+            "column": 70,
+            "row": 6
+          },
+          "location": {
+            "column": 1,
+            "row": 6
+          }
+        }
+      ],
+      "message": "Remove unused import: `code2llm.api.FAST_CONFIG`"
+    },
+    "location": {
+      "column": 34,
+      "row": 6
+    },
+    "message": "`code2llm.api.FAST_CONFIG` imported but unused",
+    "noqa_row": 6,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 29,
+      "row": 10
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/cli.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 11
+          },
+          "location": {
+            "column": 1,
+            "row": 10
+          }
+        }
+      ],
+      "message": "Remove unused import: `rich.panel.Panel`"
+    },
+    "location": {
+      "column": 24,
+      "row": 10
+    },
+    "message": "`rich.panel.Panel` imported but unused",
+    "noqa_row": 10,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F841",
+    "end_location": {
+      "column": 74,
+      "row": 158
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/cli.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 74,
+            "row": 158
+          },
+          "location": {
+            "column": 64,
+            "row": 158
+          }
+        }
+      ],
+      "message": "Remove assignment to unused variable `status`"
+    },
+    "location": {
+      "column": 68,
+      "row": 158
+    },
+    "message": "Local variable `status` is assigned to but never used",
+    "noqa_row": 158,
+    "url": "https://docs.astral.sh/ruff/rules/unused-variable"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 24,
+      "row": 7
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/config.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import List",
+          "end_location": {
+            "column": 40,
+            "row": 7
+          },
+          "location": {
+            "column": 1,
+            "row": 7
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 20,
+      "row": 7
+    },
+    "message": "`typing.Dict` imported but unused",
+    "noqa_row": 7,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 40,
+      "row": 7
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/config.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import List",
+          "end_location": {
+            "column": 40,
+            "row": 7
+          },
+          "location": {
+            "column": 1,
+            "row": 7
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 32,
+      "row": 7
+    },
+    "message": "`typing.Optional` imported but unused",
+    "noqa_row": 7,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 25,
+      "row": 8
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/examples/advanced_usage.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 9
+          },
+          "location": {
+            "column": 1,
+            "row": 8
+          }
+        }
+      ],
+      "message": "Remove unused import: `pathlib.Path`"
+    },
+    "location": {
+      "column": 21,
+      "row": 8
+    },
+    "message": "`pathlib.Path` imported but unused",
+    "noqa_row": 8,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 56,
+      "row": 51
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/examples/advanced_usage.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 51
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 51,
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 50,
+      "row": 52
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/examples/advanced_usage.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 52
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 52,
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 41,
+      "row": 73
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/examples/advanced_usage.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 73
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 73,
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 43,
+      "row": 74
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/examples/advanced_usage.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 74
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 74,
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 25,
+      "row": 8
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/examples/quickstart.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 9
+          },
+          "location": {
+            "column": 1,
+            "row": 8
+          }
+        }
+      ],
+      "message": "Remove unused import: `pathlib.Path`"
+    },
+    "location": {
+      "column": 21,
+      "row": 8
+    },
+    "message": "`pathlib.Path` imported but unused",
+    "noqa_row": 8,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 43,
+      "row": 11
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/examples/quickstart.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 12
+          },
+          "location": {
+            "column": 1,
+            "row": 11
+          }
+        }
+      ],
+      "message": "Remove unused import: `code2docs.analyze_and_document`"
+    },
+    "location": {
+      "column": 23,
+      "row": 11
+    },
+    "message": "`code2docs.analyze_and_document` imported but unused",
+    "noqa_row": 11,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 63,
+      "row": 43
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/examples/quickstart.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 43
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 43,
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "F841",
+    "end_location": {
+      "column": 9,
+      "row": 24
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/formatters/badges.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 12,
+            "row": 24
+          },
+          "location": {
+            "column": 5,
+            "row": 24
+          }
+        }
+      ],
+      "message": "Remove assignment to unused variable `name`"
+    },
+    "location": {
+      "column": 5,
+      "row": 24
+    },
+    "message": "Local variable `name` is assigned to but never used",
+    "noqa_row": 24,
+    "url": "https://docs.astral.sh/ruff/rules/unused-variable"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 78,
+      "row": 27
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/formatters/badges.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"![version](https://img.shields.io/badge/version-0.1.0-blue)\"",
+          "end_location": {
+            "column": 78,
+            "row": 27
+          },
+          "location": {
+            "column": 16,
+            "row": 27
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 16,
+      "row": 27
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 27,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 87,
+      "row": 38
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/formatters/badges.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"![coverage](https://img.shields.io/badge/coverage-unknown-lightgrey)\"",
+          "end_location": {
+            "column": 87,
+            "row": 38
+          },
+          "location": {
+            "column": 16,
+            "row": 38
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 16,
+      "row": 38
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 38,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 86,
+      "row": 47
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/formatters/badges.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"![license](https://img.shields.io/badge/license-Apache%202.0-green)\"",
+          "end_location": {
+            "column": 86,
+            "row": 47
+          },
+          "location": {
+            "column": 16,
+            "row": 47
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 16,
+      "row": 47
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 47,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 88,
+      "row": 50
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/formatters/badges.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"![docs](https://img.shields.io/badge/docs-auto--generated-blueviolet)\"",
+          "end_location": {
+            "column": 88,
+            "row": 50
+          },
+          "location": {
+            "column": 16,
+            "row": 50
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 16,
+      "row": 50
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 50,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 24,
+      "row": 3
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/formatters/markdown.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import List",
+          "end_location": {
+            "column": 40,
+            "row": 3
+          },
+          "location": {
+            "column": 1,
+            "row": 3
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 20,
+      "row": 3
+    },
+    "message": "`typing.Dict` imported but unused",
+    "noqa_row": 3,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 40,
+      "row": 3
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/formatters/markdown.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import List",
+          "end_location": {
+            "column": 40,
+            "row": 3
+          },
+          "location": {
+            "column": 1,
+            "row": 3
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 32,
+      "row": 3
+    },
+    "message": "`typing.Optional` imported but unused",
+    "noqa_row": 3,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 37,
+      "row": 9
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/_registry_adapters.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 10
+          },
+          "location": {
+            "column": 1,
+            "row": 9
+          }
+        }
+      ],
+      "message": "Remove unused import: `..config.Code2DocsConfig`"
+    },
+    "location": {
+      "column": 22,
+      "row": 9
+    },
+    "message": "`..config.Code2DocsConfig` imported but unused",
+    "noqa_row": 9,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 40,
+      "row": 10
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/_registry_adapters.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 11
+          },
+          "location": {
+            "column": 1,
+            "row": 10
+          }
+        }
+      ],
+      "message": "Remove unused import: `code2llm.api.AnalysisResult`"
+    },
+    "location": {
+      "column": 26,
+      "row": 10
+    },
+    "message": "`code2llm.api.AnalysisResult` imported but unused",
+    "noqa_row": 10,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 41,
+      "row": 4
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/api_changelog_gen.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from dataclasses import dataclass",
+          "end_location": {
+            "column": 41,
+            "row": 4
+          },
+          "location": {
+            "column": 1,
+            "row": 4
+          }
+        }
+      ],
+      "message": "Remove unused import: `dataclasses.field`"
+    },
+    "location": {
+      "column": 36,
+      "row": 4
+    },
+    "message": "`dataclasses.field` imported but unused",
+    "noqa_row": 4,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 47,
+      "row": 6
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/api_changelog_gen.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import Dict, List, Optional",
+          "end_location": {
+            "column": 47,
+            "row": 6
+          },
+          "location": {
+            "column": 1,
+            "row": 6
+          }
+        }
+      ],
+      "message": "Remove unused import: `typing.Tuple`"
+    },
+    "location": {
+      "column": 42,
+      "row": 6
+    },
+    "message": "`typing.Tuple` imported but unused",
+    "noqa_row": 6,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 40,
+      "row": 5
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/api_reference_gen.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import Dict, List",
+          "end_location": {
+            "column": 40,
+            "row": 5
+          },
+          "location": {
+            "column": 1,
+            "row": 5
+          }
+        }
+      ],
+      "message": "Remove unused import: `typing.Optional`"
+    },
+    "location": {
+      "column": 32,
+      "row": 5
+    },
+    "message": "`typing.Optional` imported but unused",
+    "noqa_row": 5,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 52,
+      "row": 6
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/architecture_gen.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from code2llm.api import AnalysisResult",
+          "end_location": {
+            "column": 52,
+            "row": 6
+          },
+          "location": {
+            "column": 1,
+            "row": 6
+          }
+        }
+      ],
+      "message": "Remove unused import: `code2llm.api.ModuleInfo`"
+    },
+    "location": {
+      "column": 42,
+      "row": 6
+    },
+    "message": "`code2llm.api.ModuleInfo` imported but unused",
+    "noqa_row": 6,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "E741",
+    "end_location": {
+      "column": 65,
+      "row": 133
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/architecture_gen.py",
+    "fix": null,
+    "location": {
+      "column": 64,
+      "row": 133
+    },
+    "message": "Ambiguous variable name: `l`",
+    "noqa_row": 133,
+    "url": "https://docs.astral.sh/ruff/rules/ambiguous-variable-name"
+  },
+  {
+    "cell": null,
+    "code": "F841",
+    "end_location": {
+      "column": 14,
+      "row": 166
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/architecture_gen.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 167
+          },
+          "location": {
+            "column": 1,
+            "row": 166
+          }
+        }
+      ],
+      "message": "Remove assignment to unused variable `stats`"
+    },
+    "location": {
+      "column": 9,
+      "row": 166
+    },
+    "message": "Local variable `stats` is assigned to but never used",
+    "noqa_row": 166,
+    "url": "https://docs.astral.sh/ruff/rules/unused-variable"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 41,
+      "row": 4
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/changelog_gen.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from dataclasses import dataclass",
+          "end_location": {
+            "column": 41,
+            "row": 4
+          },
+          "location": {
+            "column": 1,
+            "row": 4
+          }
+        }
+      ],
+      "message": "Remove unused import: `dataclasses.field`"
+    },
+    "location": {
+      "column": 36,
+      "row": 4
+    },
+    "message": "`dataclasses.field` imported but unused",
+    "noqa_row": 4,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 45,
+      "row": 5
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/code2llm_gen.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import List, Optional, Dict",
+          "end_location": {
+            "column": 45,
+            "row": 5
+          },
+          "location": {
+            "column": 1,
+            "row": 5
+          }
+        }
+      ],
+      "message": "Remove unused import: `typing.Set`"
+    },
+    "location": {
+      "column": 42,
+      "row": 5
+    },
+    "message": "`typing.Set` imported but unused",
+    "noqa_row": 5,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 23,
+      "row": 4
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/config_docs_gen.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 5
+          },
+          "location": {
+            "column": 1,
+            "row": 4
+          }
+        }
+      ],
+      "message": "Remove unused import: `typing.Any`"
+    },
+    "location": {
+      "column": 20,
+      "row": 4
+    },
+    "message": "`typing.Any` imported but unused",
+    "noqa_row": 4,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 30,
+      "row": 3
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/contributing_gen.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import Dict",
+          "end_location": {
+            "column": 30,
+            "row": 3
+          },
+          "location": {
+            "column": 1,
+            "row": 3
+          }
+        }
+      ],
+      "message": "Remove unused import: `typing.List`"
+    },
+    "location": {
+      "column": 26,
+      "row": 3
+    },
+    "message": "`typing.List` imported but unused",
+    "noqa_row": 3,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 52,
+      "row": 7
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/depgraph_gen.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from code2llm.api import AnalysisResult",
+          "end_location": {
+            "column": 52,
+            "row": 7
+          },
+          "location": {
+            "column": 1,
+            "row": 7
+          }
+        }
+      ],
+      "message": "Remove unused import: `code2llm.api.ModuleInfo`"
+    },
+    "location": {
+      "column": 42,
+      "row": 7
+    },
+    "message": "`code2llm.api.ModuleInfo` imported but unused",
+    "noqa_row": 7,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 19,
+      "row": 113
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/examples_gen.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "'\"\"\"'",
+          "end_location": {
+            "column": 19,
+            "row": 113
+          },
+          "location": {
+            "column": 13,
+            "row": 113
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 13,
+      "row": 113
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 113,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 16,
+      "row": 115
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/examples_gen.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"\"",
+          "end_location": {
+            "column": 16,
+            "row": 115
+          },
+          "location": {
+            "column": 13,
+            "row": 115
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 13,
+      "row": 115
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 115,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 71,
+      "row": 116
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/examples_gen.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"Minimal working examples for the most common use cases.\"",
+          "end_location": {
+            "column": 71,
+            "row": 116
+          },
+          "location": {
+            "column": 13,
+            "row": 116
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 13,
+      "row": 116
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 116,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 50,
+      "row": 117
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/examples_gen.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"Run: python examples/quickstart.py\"",
+          "end_location": {
+            "column": 50,
+            "row": 117
+          },
+          "location": {
+            "column": 13,
+            "row": 117
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 13,
+      "row": 117
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 117,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 19,
+      "row": 118
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/examples_gen.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "'\"\"\"'",
+          "end_location": {
+            "column": 19,
+            "row": 118
+          },
+          "location": {
+            "column": 13,
+            "row": 118
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 13,
+      "row": 118
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 118,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 19,
+      "row": 208
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/examples_gen.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "'\"\"\"'",
+          "end_location": {
+            "column": 19,
+            "row": 208
+          },
+          "location": {
+            "column": 13,
+            "row": 208
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 13,
+      "row": 208
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 208,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 16,
+      "row": 210
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/examples_gen.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"\"",
+          "end_location": {
+            "column": 16,
+            "row": 210
+          },
+          "location": {
+            "column": 13,
+            "row": 210
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 13,
+      "row": 210
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 210,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 77,
+      "row": 211
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/examples_gen.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"Shows how to use individual generators, sync, and formatters.\"",
+          "end_location": {
+            "column": 77,
+            "row": 211
+          },
+          "location": {
+            "column": 13,
+            "row": 211
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 13,
+      "row": 211
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 211,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 54,
+      "row": 212
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/examples_gen.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"Run: python examples/advanced_usage.py\"",
+          "end_location": {
+            "column": 54,
+            "row": 212
+          },
+          "location": {
+            "column": 13,
+            "row": 212
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 13,
+      "row": 212
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 212,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 19,
+      "row": 213
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/examples_gen.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "'\"\"\"'",
+          "end_location": {
+            "column": 19,
+            "row": 213
+          },
+          "location": {
+            "column": 13,
+            "row": 213
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 13,
+      "row": 213
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 213,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 34,
+      "row": 3
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/getting_started_gen.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import List",
+          "end_location": {
+            "column": 34,
+            "row": 3
+          },
+          "location": {
+            "column": 1,
+            "row": 3
+          }
+        }
+      ],
+      "message": "Remove unused import: `typing.Optional`"
+    },
+    "location": {
+      "column": 26,
+      "row": 3
+    },
+    "message": "`typing.Optional` imported but unused",
+    "noqa_row": 3,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 62,
+      "row": 113
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/getting_started_gen.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"# Generate full documentation for your project\"",
+          "end_location": {
+            "column": 62,
+            "row": 113
+          },
+          "location": {
+            "column": 13,
+            "row": 113
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 13,
+      "row": 113
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 113,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 66,
+      "row": 116
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/getting_started_gen.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"# Preview what would be generated (no file writes)\"",
+          "end_location": {
+            "column": 66,
+            "row": 116
+          },
+          "location": {
+            "column": 13,
+            "row": 116
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 13,
+      "row": 116
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 116,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 40,
+      "row": 119
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/getting_started_gen.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"# Only regenerate README\"",
+          "end_location": {
+            "column": 40,
+            "row": 119
+          },
+          "location": {
+            "column": 13,
+            "row": 119
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 13,
+      "row": 119
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 119,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 30,
+      "row": 4
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/org_readme_gen.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import Dict, Optional",
+          "end_location": {
+            "column": 40,
+            "row": 4
+          },
+          "location": {
+            "column": 1,
+            "row": 4
+          }
+        }
+      ],
+      "message": "Remove unused import: `typing.List`"
+    },
+    "location": {
+      "column": 26,
+      "row": 4
+    },
+    "message": "`typing.List` imported but unused",
+    "noqa_row": 4,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "E741",
+    "end_location": {
+      "column": 41,
+      "row": 136
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/org_readme_gen.py",
+    "fix": null,
+    "location": {
+      "column": 40,
+      "row": 136
+    },
+    "message": "Ambiguous variable name: `l`",
+    "noqa_row": 136,
+    "url": "https://docs.astral.sh/ruff/rules/ambiguous-variable-name"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 54,
+      "row": 9
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/readme_gen.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from code2llm.api import AnalysisResult",
+          "end_location": {
+            "column": 65,
+            "row": 9
+          },
+          "location": {
+            "column": 1,
+            "row": 9
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 42,
+      "row": 9
+    },
+    "message": "`code2llm.api.FunctionInfo` imported but unused",
+    "noqa_row": 9,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 65,
+      "row": 9
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/readme_gen.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from code2llm.api import AnalysisResult",
+          "end_location": {
+            "column": 65,
+            "row": 9
+          },
+          "location": {
+            "column": 1,
+            "row": 9
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 56,
+      "row": 9
+    },
+    "message": "`code2llm.api.ClassInfo` imported but unused",
+    "noqa_row": 9,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 42,
+      "row": 15
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/generators/readme_gen.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 16
+          },
+          "location": {
+            "column": 1,
+            "row": 15
+          }
+        }
+      ],
+      "message": "Remove unused import: `..formatters.toc.generate_toc`"
+    },
+    "location": {
+      "column": 30,
+      "row": 15
+    },
+    "message": "`..formatters.toc.generate_toc` imported but unused",
+    "noqa_row": 15,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 24,
+      "row": 3
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/registry.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import List",
+          "end_location": {
+            "column": 46,
+            "row": 3
+          },
+          "location": {
+            "column": 1,
+            "row": 3
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 20,
+      "row": 3
+    },
+    "message": "`typing.Dict` imported but unused",
+    "noqa_row": 3,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 40,
+      "row": 3
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/registry.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import List",
+          "end_location": {
+            "column": 46,
+            "row": 3
+          },
+          "location": {
+            "column": 1,
+            "row": 3
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 32,
+      "row": 3
+    },
+    "message": "`typing.Optional` imported but unused",
+    "noqa_row": 3,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 46,
+      "row": 3
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/registry.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import List",
+          "end_location": {
+            "column": 46,
+            "row": 3
+          },
+          "location": {
+            "column": 1,
+            "row": 3
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 42,
+      "row": 3
+    },
+    "message": "`typing.Type` imported but unused",
+    "noqa_row": 3,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 41,
+      "row": 5
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/sync/differ.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from dataclasses import dataclass",
+          "end_location": {
+            "column": 41,
+            "row": 5
+          },
+          "location": {
+            "column": 1,
+            "row": 5
+          }
+        }
+      ],
+      "message": "Remove unused import: `dataclasses.field`"
+    },
+    "location": {
+      "column": 36,
+      "row": 5
+    },
+    "message": "`dataclasses.field` imported but unused",
+    "noqa_row": 5,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F841",
+    "end_location": {
+      "column": 24,
+      "row": 29
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/sync/updater.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 27,
+            "row": 29
+          },
+          "location": {
+            "column": 9,
+            "row": 29
+          }
+        }
+      ],
+      "message": "Remove assignment to unused variable `changed_modules`"
+    },
+    "location": {
+      "column": 9,
+      "row": 29
+    },
+    "message": "Local variable `changed_modules` is assigned to but never used",
+    "noqa_row": 29,
+    "url": "https://docs.astral.sh/ruff/rules/unused-variable"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 78,
+      "row": 17
+    },
+    "filename": "/home/tom/github/wronai/code2docs/code2docs/sync/watcher.py",
+    "fix": null,
+    "location": {
+      "column": 61,
+      "row": 17
+    },
+    "message": "`watchdog.events.FileModifiedEvent` imported but unused; consider using `importlib.util.find_spec` to test for availability",
+    "noqa_row": 17,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "invalid-syntax",
+    "end_location": {
+      "column": 90,
+      "row": 24
+    },
+    "filename": "/home/tom/github/wronai/code2docs/docs/examples/advanced_usage.py",
+    "fix": null,
+    "location": {
+      "column": 10,
+      "row": 24
+    },
+    "message": "Invalid assignment target",
+    "noqa_row": null,
+    "url": null
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 25,
+      "row": 8
+    },
+    "filename": "/home/tom/github/wronai/code2docs/docs/examples/quickstart.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 9
+          },
+          "location": {
+            "column": 1,
+            "row": 8
+          }
+        }
+      ],
+      "message": "Remove unused import: `pathlib.Path`"
+    },
+    "location": {
+      "column": 21,
+      "row": 8
+    },
+    "message": "`pathlib.Path` imported but unused",
+    "noqa_row": 8,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 43,
+      "row": 11
+    },
+    "filename": "/home/tom/github/wronai/code2docs/docs/examples/quickstart.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 12
+          },
+          "location": {
+            "column": 1,
+            "row": 11
+          }
+        }
+      ],
+      "message": "Remove unused import: `code2docs.analyze_and_document`"
+    },
+    "location": {
+      "column": 23,
+      "row": 11
+    },
+    "message": "`code2docs.analyze_and_document` imported but unused",
+    "noqa_row": 11,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 63,
+      "row": 43
+    },
+    "filename": "/home/tom/github/wronai/code2docs/docs/examples/quickstart.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 43
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 43,
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 25,
+      "row": 7
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/03_programmatic_api.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 8
+          },
+          "location": {
+            "column": 1,
+            "row": 7
+          }
+        }
+      ],
+      "message": "Remove unused import: `pathlib.Path`"
+    },
+    "location": {
+      "column": 21,
+      "row": 7
+    },
+    "message": "`pathlib.Path` imported but unused",
+    "noqa_row": 7,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F841",
+    "end_location": {
+      "column": 11,
+      "row": 23
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/03_programmatic_api.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 14,
+            "row": 23
+          },
+          "location": {
+            "column": 5,
+            "row": 23
+          }
+        }
+      ],
+      "message": "Remove assignment to unused variable `result`"
+    },
+    "location": {
+      "column": 5,
+      "row": 23
+    },
+    "message": "Local variable `result` is assigned to but never used",
+    "noqa_row": 23,
+    "url": "https://docs.astral.sh/ruff/rules/unused-variable"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 46,
+      "row": 61
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/03_programmatic_api.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"Generated documentation in docs/\"",
+          "end_location": {
+            "column": 46,
+            "row": 61
+          },
+          "location": {
+            "column": 11,
+            "row": 61
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 11,
+      "row": 61
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 61,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F841",
+    "end_location": {
+      "column": 15,
+      "row": 140
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/03_programmatic_api.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 18,
+            "row": 140
+          },
+          "location": {
+            "column": 9,
+            "row": 140
+          }
+        }
+      ],
+      "message": "Remove assignment to unused variable `result`"
+    },
+    "location": {
+      "column": 9,
+      "row": 140
+    },
+    "message": "Local variable `result` is assigned to but never used",
+    "noqa_row": 140,
+    "url": "https://docs.astral.sh/ruff/rules/unused-variable"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 31,
+      "row": 24
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/04_sync_and_watch.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"Changes detected:\"",
+          "end_location": {
+            "column": 31,
+            "row": 24
+          },
+          "location": {
+            "column": 11,
+            "row": 24
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 11,
+      "row": 24
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 24,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 34,
+      "row": 104
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/04_sync_and_watch.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"Press Ctrl+C to stop\"",
+          "end_location": {
+            "column": 34,
+            "row": 104
+          },
+          "location": {
+            "column": 11,
+            "row": 104
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 11,
+      "row": 104
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 104,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 14,
+      "row": 123
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/04_sync_and_watch.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 124
+          },
+          "location": {
+            "column": 1,
+            "row": 123
+          }
+        }
+      ],
+      "message": "Remove unused import: `os`"
+    },
+    "location": {
+      "column": 12,
+      "row": 123
+    },
+    "message": "`os` imported but unused",
+    "noqa_row": 123,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 34,
+      "row": 8
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/05_custom_generators.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 9
+          },
+          "location": {
+            "column": 1,
+            "row": 8
+          }
+        }
+      ],
+      "message": "Remove unused import: `dataclasses.dataclass`"
+    },
+    "location": {
+      "column": 25,
+      "row": 8
+    },
+    "message": "`dataclasses.dataclass` imported but unused",
+    "noqa_row": 8,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F821",
+    "end_location": {
+      "column": 9,
+      "row": 194
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/05_custom_generators.py",
+    "fix": null,
+    "location": {
+      "column": 5,
+      "row": 194
+    },
+    "message": "Undefined name `Path`",
+    "noqa_row": 194,
+    "url": "https://docs.astral.sh/ruff/rules/undefined-name"
+  },
+  {
+    "cell": null,
+    "code": "F821",
+    "end_location": {
+      "column": 9,
+      "row": 195
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/05_custom_generators.py",
+    "fix": null,
+    "location": {
+      "column": 5,
+      "row": 195
+    },
+    "message": "Undefined name `Path`",
+    "noqa_row": 195,
+    "url": "https://docs.astral.sh/ruff/rules/undefined-name"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 52,
+      "row": 203
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/05_custom_generators.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 203
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 203,
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "F841",
+    "end_location": {
+      "column": 10,
+      "row": 38
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/06_formatters.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 39
+          },
+          "location": {
+            "column": 1,
+            "row": 38
+          }
+        }
+      ],
+      "message": "Remove assignment to unused variable `items`"
+    },
+    "location": {
+      "column": 5,
+      "row": 38
+    },
+    "message": "Local variable `items` is assigned to but never used",
+    "noqa_row": 38,
+    "url": "https://docs.astral.sh/ruff/rules/unused-variable"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 73,
+      "row": 114
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/06_formatters.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 115
+          },
+          "location": {
+            "column": 1,
+            "row": 114
+          }
+        }
+      ],
+      "message": "Remove unused import: `code2docs.analyzers.dependency_scanner.DependencyScanner`"
+    },
+    "location": {
+      "column": 56,
+      "row": 114
+    },
+    "message": "`code2docs.analyzers.dependency_scanner.DependencyScanner` imported but unused",
+    "noqa_row": 114,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 42,
+      "row": 179
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/07_web_frameworks.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from code2docs import Code2DocsConfig",
+          "end_location": {
+            "column": 59,
+            "row": 179
+          },
+          "location": {
+            "column": 5,
+            "row": 179
+          }
+        }
+      ],
+      "message": "Remove unused import: `code2docs.generate_readme`"
+    },
+    "location": {
+      "column": 27,
+      "row": 179
+    },
+    "message": "`code2docs.generate_readme` imported but unused",
+    "noqa_row": 179,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F841",
+    "end_location": {
+      "column": 11,
+      "row": 190
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/07_web_frameworks.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 14,
+            "row": 190
+          },
+          "location": {
+            "column": 5,
+            "row": 190
+          }
+        }
+      ],
+      "message": "Remove assignment to unused variable `config`"
+    },
+    "location": {
+      "column": 5,
+      "row": 190
+    },
+    "message": "Local variable `config` is assigned to but never used",
+    "noqa_row": 190,
+    "url": "https://docs.astral.sh/ruff/rules/unused-variable"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 25,
+      "row": 8
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/advanced_usage.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 9
+          },
+          "location": {
+            "column": 1,
+            "row": 8
+          }
+        }
+      ],
+      "message": "Remove unused import: `pathlib.Path`"
+    },
+    "location": {
+      "column": 21,
+      "row": 8
+    },
+    "message": "`pathlib.Path` imported but unused",
+    "noqa_row": 8,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 56,
+      "row": 51
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/advanced_usage.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 51
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 51,
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 50,
+      "row": 52
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/advanced_usage.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 52
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 52,
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 41,
+      "row": 73
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/advanced_usage.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 73
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 73,
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 43,
+      "row": 74
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/advanced_usage.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 74
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 74,
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 60,
+      "row": 4
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/basic_usage.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 5
+          },
+          "location": {
+            "column": 1,
+            "row": 4
+          }
+        }
+      ],
+      "message": "Remove unused import: `code2docs.formatters.markdown.MarkdownFormatter`"
+    },
+    "location": {
+      "column": 43,
+      "row": 4
+    },
+    "message": "`code2docs.formatters.markdown.MarkdownFormatter` imported but unused",
+    "noqa_row": 4,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 60,
+      "row": 5
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/basic_usage.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 6
+          },
+          "location": {
+            "column": 1,
+            "row": 5
+          }
+        }
+      ],
+      "message": "Remove unused import: `code2docs.generators.readme_gen.ReadmeGenerator`"
+    },
+    "location": {
+      "column": 45,
+      "row": 5
+    },
+    "message": "`code2docs.generators.readme_gen.ReadmeGenerator` imported but unused",
+    "noqa_row": 5,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 45,
+      "row": 6
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/basic_usage.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 7
+          },
+          "location": {
+            "column": 1,
+            "row": 6
+          }
+        }
+      ],
+      "message": "Remove unused import: `code2docs.sync.differ.ChangeInfo`"
+    },
+    "location": {
+      "column": 35,
+      "row": 6
+    },
+    "message": "`code2docs.sync.differ.ChangeInfo` imported but unused",
+    "noqa_row": 6,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 41,
+      "row": 7
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/basic_usage.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 8
+          },
+          "location": {
+            "column": 1,
+            "row": 7
+          }
+        }
+      ],
+      "message": "Remove unused import: `code2docs.sync.differ.Differ`"
+    },
+    "location": {
+      "column": 35,
+      "row": 7
+    },
+    "message": "`code2docs.sync.differ.Differ` imported but unused",
+    "noqa_row": 7,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 44,
+      "row": 9
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/entry_points.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 9
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 9,
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 41,
+      "row": 14
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/entry_points.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 14
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 14,
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 51,
+      "row": 20
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/entry_points.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 20
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 20,
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 50,
+      "row": 25
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/entry_points.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 25
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 25,
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 25,
+      "row": 8
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/quickstart.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 9
+          },
+          "location": {
+            "column": 1,
+            "row": 8
+          }
+        }
+      ],
+      "message": "Remove unused import: `pathlib.Path`"
+    },
+    "location": {
+      "column": 21,
+      "row": 8
+    },
+    "message": "`pathlib.Path` imported but unused",
+    "noqa_row": 8,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 43,
+      "row": 11
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/quickstart.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 12
+          },
+          "location": {
+            "column": 1,
+            "row": 11
+          }
+        }
+      ],
+      "message": "Remove unused import: `code2docs.analyze_and_document`"
+    },
+    "location": {
+      "column": 23,
+      "row": 11
+    },
+    "message": "`code2docs.analyze_and_document` imported but unused",
+    "noqa_row": 11,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 63,
+      "row": 43
+    },
+    "filename": "/home/tom/github/wronai/code2docs/examples/quickstart.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 43
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 43,
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 86,
+      "row": 8
+    },
+    "filename": "/home/tom/github/wronai/code2docs/tests/test_analyzers.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from code2docs.analyzers.docstring_extractor import DocstringExtractor",
+          "end_location": {
+            "column": 86,
+            "row": 8
+          },
+          "location": {
+            "column": 1,
+            "row": 8
+          }
+        }
+      ],
+      "message": "Remove unused import: `code2docs.analyzers.docstring_extractor.DocstringInfo`"
+    },
+    "location": {
+      "column": 73,
+      "row": 8
+    },
+    "message": "`code2docs.analyzers.docstring_extractor.DocstringInfo` imported but unused",
+    "noqa_row": 8,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 77,
+      "row": 10
+    },
+    "filename": "/home/tom/github/wronai/code2docs/tests/test_analyzers.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from code2docs.analyzers.endpoint_detector import EndpointDetector",
+          "end_location": {
+            "column": 77,
+            "row": 10
+          },
+          "location": {
+            "column": 1,
+            "row": 10
+          }
+        }
+      ],
+      "message": "Remove unused import: `code2docs.analyzers.endpoint_detector.Endpoint`"
+    },
+    "location": {
+      "column": 69,
+      "row": 10
+    },
+    "message": "`code2docs.analyzers.endpoint_detector.Endpoint` imported but unused",
+    "noqa_row": 10,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 14,
+      "row": 6
+    },
+    "filename": "/home/tom/github/wronai/code2docs/tests/test_config.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 7
+          },
+          "location": {
+            "column": 1,
+            "row": 6
+          }
+        }
+      ],
+      "message": "Remove unused import: `pytest`"
+    },
+    "location": {
+      "column": 8,
+      "row": 6
+    },
+    "message": "`pytest` imported but unused",
+    "noqa_row": 6,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 59,
+      "row": 8
+    },
+    "filename": "/home/tom/github/wronai/code2docs/tests/test_config.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from code2docs.config import Code2DocsConfig",
+          "end_location": {
+            "column": 83,
+            "row": 8
+          },
+          "location": {
+            "column": 1,
+            "row": 8
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 47,
+      "row": 8
+    },
+    "message": "`code2docs.config.ReadmeConfig` imported but unused",
+    "noqa_row": 8,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 71,
+      "row": 8
+    },
+    "filename": "/home/tom/github/wronai/code2docs/tests/test_config.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from code2docs.config import Code2DocsConfig",
+          "end_location": {
+            "column": 83,
+            "row": 8
+          },
+          "location": {
+            "column": 1,
+            "row": 8
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 61,
+      "row": 8
+    },
+    "message": "`code2docs.config.DocsConfig` imported but unused",
+    "noqa_row": 8,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 83,
+      "row": 8
+    },
+    "filename": "/home/tom/github/wronai/code2docs/tests/test_config.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from code2docs.config import Code2DocsConfig",
+          "end_location": {
+            "column": 83,
+            "row": 8
+          },
+          "location": {
+            "column": 1,
+            "row": 8
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 73,
+      "row": 8
+    },
+    "message": "`code2docs.config.SyncConfig` imported but unused",
+    "noqa_row": 8,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 14,
+      "row": 3
+    },
+    "filename": "/home/tom/github/wronai/code2docs/tests/test_formatters.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 4
+          },
+          "location": {
+            "column": 1,
+            "row": 3
+          }
+        }
+      ],
+      "message": "Remove unused import: `pytest`"
+    },
+    "location": {
+      "column": 8,
+      "row": 3
+    },
+    "message": "`pytest` imported but unused",
+    "noqa_row": 3,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 14,
+      "row": 6
+    },
+    "filename": "/home/tom/github/wronai/code2docs/tests/test_generators.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 7
+          },
+          "location": {
+            "column": 1,
+            "row": 6
+          }
+        }
+      ],
+      "message": "Remove unused import: `pytest`"
+    },
+    "location": {
+      "column": 8,
+      "row": 6
+    },
+    "message": "`pytest` imported but unused",
+    "noqa_row": 6,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 14,
+      "row": 5
+    },
+    "filename": "/home/tom/github/wronai/code2docs/tests/test_llm_helper.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 6
+          },
+          "location": {
+            "column": 1,
+            "row": 5
+          }
+        }
+      ],
+      "message": "Remove unused import: `pytest`"
+    },
+    "location": {
+      "column": 8,
+      "row": 5
+    },
+    "message": "`pytest` imported but unused",
+    "noqa_row": 5,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 57,
+      "row": 8
+    },
+    "filename": "/home/tom/github/wronai/code2docs/tests/test_llm_helper.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from code2docs.llm_helper import LLMHelper",
+          "end_location": {
+            "column": 57,
+            "row": 8
+          },
+          "location": {
+            "column": 1,
+            "row": 8
+          }
+        }
+      ],
+      "message": "Remove unused import: `code2docs.llm_helper._get_litellm`"
+    },
+    "location": {
+      "column": 45,
+      "row": 8
+    },
+    "message": "`code2docs.llm_helper._get_litellm` imported but unused",
+    "noqa_row": 8,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 16,
+      "row": 3
+    },
+    "filename": "/home/tom/github/wronai/code2docs/tests/test_registry.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 4
+          },
+          "location": {
+            "column": 1,
+            "row": 3
+          }
+        }
+      ],
+      "message": "Remove unused import: `tempfile`"
+    },
+    "location": {
+      "column": 8,
+      "row": 3
+    },
+    "message": "`tempfile` imported but unused",
+    "noqa_row": 3,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 28,
+      "row": 5
+    },
+    "filename": "/home/tom/github/wronai/code2docs/tests/test_registry.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 6
+          },
+          "location": {
+            "column": 1,
+            "row": 5
+          }
+        }
+      ],
+      "message": "Remove unused import: `typing.Optional`"
+    },
+    "location": {
+      "column": 20,
+      "row": 5
+    },
+    "message": "`typing.Optional` imported but unused",
+    "noqa_row": 5,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 14,
+      "row": 7
+    },
+    "filename": "/home/tom/github/wronai/code2docs/tests/test_registry.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 8
+          },
+          "location": {
+            "column": 1,
+            "row": 7
+          }
+        }
+      ],
+      "message": "Remove unused import: `pytest`"
+    },
+    "location": {
+      "column": 8,
+      "row": 7
+    },
+    "message": "`pytest` imported but unused",
+    "noqa_row": 7,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 14,
+      "row": 6
+    },
+    "filename": "/home/tom/github/wronai/code2docs/tests/test_sync.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 7
+          },
+          "location": {
+            "column": 1,
+            "row": 6
+          }
+        }
+      ],
+      "message": "Remove unused import: `pytest`"
+    },
+    "location": {
+      "column": 8,
+      "row": 6
+    },
+    "message": "`pytest` imported but unused",
+    "noqa_row": 6,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  }
+]

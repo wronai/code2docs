@@ -1,0 +1,194 @@
+# vallm batch | 135f | 44✓ 1⚠ 34✗ | 2026-03-31
+
+SUMMARY:
+  scanned: 135  passed: 44 (32.6%)  warnings: 1  errors: 34  unsupported: 57
+
+WARNINGS[1]{path,score}:
+  tests/test_generators.py,0.98
+    issues[1]{rule,severity,message,line}:
+      complexity.maintainability,warning,Low maintainability index: 13.4 (threshold: 20),
+
+ERRORS[34]{path,score}:
+  code2docs/project/analysis.yaml,0.00
+    issues[1]{rule,severity,message,line}:
+      syntax.tree_sitter,error,tree-sitter found 1 parse error(s) in yaml,
+  docs/examples/advanced_usage.py,0.00
+    issues[1]{rule,severity,message,line}:
+      syntax.parse,error,SyntaxError: invalid syntax. Maybe you meant '==' or ':=' instead of '='?,24
+  code2docs/__init__.py,0.57
+    issues[4]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'config' not found,11
+      python.import.resolvable,error,Module 'generators.readme_gen' not found,24
+      python.import.resolvable,error,Module 'generators' not found,27
+      python.import.resolvable,error,Module 'analyzers.project_scanner' not found,30
+  code2docs/__main__.py,0.57
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'cli' not found,3
+  code2docs/analyzers/__init__.py,0.57
+    issues[4]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'project_scanner' not found,3
+      python.import.resolvable,error,Module 'endpoint_detector' not found,4
+      python.import.resolvable,error,Module 'docstring_extractor' not found,5
+      python.import.resolvable,error,Module 'dependency_scanner' not found,6
+  code2docs/formatters/__init__.py,0.57
+    issues[3]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'markdown' not found,3
+      python.import.resolvable,error,Module 'badges' not found,4
+      python.import.resolvable,error,Module 'toc' not found,5
+  code2docs/generators/__init__.py,0.57
+    issues[15]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'readme_gen' not found,3
+      python.import.resolvable,error,Module 'api_reference_gen' not found,4
+      python.import.resolvable,error,Module 'module_docs_gen' not found,5
+      python.import.resolvable,error,Module 'examples_gen' not found,6
+      python.import.resolvable,error,Module 'architecture_gen' not found,7
+      python.import.resolvable,error,Module 'changelog_gen' not found,8
+      python.import.resolvable,error,Module 'depgraph_gen' not found,9
+      python.import.resolvable,error,Module 'coverage_gen' not found,10
+      python.import.resolvable,error,Module 'mkdocs_gen' not found,11
+      python.import.resolvable,error,Module 'api_changelog_gen' not found,12
+      python.import.resolvable,error,Module 'getting_started_gen' not found,13
+      python.import.resolvable,error,Module 'config_docs_gen' not found,14
+      python.import.resolvable,error,Module 'contributing_gen' not found,15
+      python.import.resolvable,error,Module 'analyzers.project_scanner' not found,37
+      python.import.resolvable,error,Module 'config' not found,38
+  code2docs/sync/__init__.py,0.57
+    issues[2]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'differ' not found,3
+      python.import.resolvable,error,Module 'updater' not found,4
+  code2docs/generators/_registry_adapters.py,0.66
+    issues[16]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'base' not found,8
+      python.import.resolvable,error,Module 'config' not found,9
+      python.import.resolvable,error,Module 'readme_gen' not found,20
+      python.import.resolvable,error,Module 'api_reference_gen' not found,45
+      python.import.resolvable,error,Module 'module_docs_gen' not found,62
+      python.import.resolvable,error,Module 'architecture_gen' not found,79
+      python.import.resolvable,error,Module 'depgraph_gen' not found,95
+      python.import.resolvable,error,Module 'coverage_gen' not found,111
+      python.import.resolvable,error,Module 'api_changelog_gen' not found,127
+      python.import.resolvable,error,Module 'examples_gen' not found,144
+      python.import.resolvable,error,Module 'mkdocs_gen' not found,161
+      python.import.resolvable,error,Module 'getting_started_gen' not found,177
+      python.import.resolvable,error,Module 'config_docs_gen' not found,194
+      python.import.resolvable,error,Module 'contributing_gen' not found,211
+      python.import.resolvable,error,Module 'code2llm_gen' not found,229
+      python.import.resolvable,error,Module 'org_readme_gen' not found,252
+  code2docs/sync/updater.py,0.68
+    issues[6]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'config' not found,6
+      python.import.resolvable,error,Module 'differ' not found,7
+      python.import.resolvable,error,Module 'analyzers.project_scanner' not found,18
+      python.import.resolvable,error,Module 'generators.readme_gen' not found,19
+      python.import.resolvable,error,Module 'generators.api_reference_gen' not found,20
+      python.import.resolvable,error,Module 'generators.module_docs_gen' not found,21
+  code2docs/cli.py,0.71
+    issues[14]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'config' not found,12
+      python.import.resolvable,error,Module 'analyzers.project_scanner' not found,145
+      python.import.resolvable,error,Module 'base' not found,146
+      python.import.resolvable,error,Module 'registry' not found,147
+      python.import.resolvable,error,Module 'generators._registry_adapters' not found,148
+      python.import.resolvable,error,Module 'sync.differ' not found,191
+      python.import.resolvable,error,Module 'sync.updater' not found,192
+      python.import.resolvable,error,Module 'analyzers.project_scanner' not found,231
+      python.import.resolvable,error,Module 'analyzers.docstring_extractor' not found,232
+      python.import.resolvable,error,Module 'analyzers.project_scanner' not found,301
+      python.import.resolvable,error,Module 'base' not found,302
+      python.import.resolvable,error,Module 'registry' not found,303
+      python.import.resolvable,error,Module 'generators._registry_adapters' not found,304
+      python.import.resolvable,error,Module 'sync.watcher' not found,219
+  code2docs/sync/watcher.py,0.73
+    issues[5]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'config' not found,7
+      python.import.resolvable,error,Module 'watchdog.observers' not found,16
+      python.import.resolvable,error,Module 'watchdog.events' not found,17
+      python.import.resolvable,error,Module 'differ' not found,52
+      python.import.resolvable,error,Module 'updater' not found,53
+  code2docs/generators/getting_started_gen.py,0.74
+    issues[3]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'config' not found,7
+      python.import.resolvable,error,Module 'analyzers.dependency_scanner' not found,8
+      python.import.resolvable,error,Module 'llm_helper' not found,9
+  code2docs/generators/contributing_gen.py,0.79
+    issues[2]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'config' not found,7
+      python.import.resolvable,error,Module 'analyzers.dependency_scanner' not found,8
+  code2docs/generators/coverage_gen.py,0.79
+    issues[2]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'config' not found,7
+      python.import.resolvable,error,Module 'analyzers.docstring_extractor' not found,8
+  code2docs/generators/readme_gen.py,0.81
+    issues[7]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'config' not found,11
+      python.import.resolvable,error,Module 'analyzers.dependency_scanner' not found,12
+      python.import.resolvable,error,Module 'analyzers.endpoint_detector' not found,13
+      python.import.resolvable,error,Module 'formatters.badges' not found,14
+      python.import.resolvable,error,Module 'formatters.toc' not found,15
+      python.import.resolvable,error,Module 'llm_helper' not found,16
+      python.import.resolvable,error,Module 'analyzers.project_scanner' not found,464
+  code2docs/generators/architecture_gen.py,0.83
+    issues[2]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'config' not found,8
+      python.import.resolvable,error,Module 'llm_helper' not found,9
+  code2docs/generators/api_reference_gen.py,0.86
+    issues[2]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'config' not found,9
+      python.import.resolvable,error,Module '_source_links' not found,10
+  code2docs/generators/code2llm_gen.py,0.86
+    issues[2]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'config' not found,9
+      python.import.resolvable,error,Module 'analyzers.project_scanner' not found,199
+  code2docs/registry.py,0.86
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'base' not found,7
+  code2docs/generators/module_docs_gen.py,0.88
+    issues[2]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'config' not found,10
+      python.import.resolvable,error,Module '_source_links' not found,11
+  code2docs/analyzers/project_scanner.py,0.89
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'config' not found,8
+  code2docs/generators/config_docs_gen.py,0.89
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'config' not found,8
+  code2docs/llm_helper.py,0.89
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'config' not found,10
+  code2docs/generators/org_readme_gen.py,0.90
+    issues[2]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'config' not found,8
+      python.import.resolvable,error,Module 'analyzers.project_scanner' not found,9
+  code2docs/generators/_source_links.py,0.91
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'config' not found,8
+  code2docs/generators/depgraph_gen.py,0.91
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'config' not found,9
+  code2docs/generators/examples_gen.py,0.91
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'config' not found,8
+  code2docs/base.py,0.93
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'config' not found,10
+  code2docs/generators/api_changelog_gen.py,0.93
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'config' not found,10
+  code2docs/generators/changelog_gen.py,0.93
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'config' not found,10
+  code2docs/generators/mkdocs_gen.py,0.93
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'config' not found,10
+  code2docs/sync/differ.py,0.93
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'config' not found,9
+  code2docs/analyzers/dependency_scanner.py,0.95
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'tomli' not found,12
+
+UNSUPPORTED[4]{bucket,count}:
+  *.md,31
+  *.txt,3
+  *.example,1
+  other,22
