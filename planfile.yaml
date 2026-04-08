@@ -1525,3 +1525,198 @@ sprints:
     model_hints:
       planning: balanced
       implementation: balanced
+  - id: ticket-cb5f86b0
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in code2docs/__init__.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - code2docs/__init__.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-8ae734a8
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in code2docs/analyzers/dependency_scanner.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - code2docs/analyzers/dependency_scanner.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-1dd176a9
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in code2docs/config.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - code2docs/config.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-5a079f34
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in code2docs/generators/_registry_adapters.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - code2docs/generators/_registry_adapters.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-b54b9d04
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in code2docs/generators/examples_gen.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - code2docs/generators/examples_gen.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-f372291f
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in docs/examples/advanced_usage.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - docs/examples/advanced_usage.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-49a3dc0c
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in examples/advanced_usage.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - examples/advanced_usage.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-bf5ba093
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in examples/quickstart.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - examples/quickstart.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-5bffe6eb
+    name: Fix outdated-dependency issues
+    description: Resolve 1 outdated-dependency issues in pyproject.toml
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - pyproject.toml
+    rule_id: outdated-dependency
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-bd039bac
+    name: Fix wildcard-imports issues
+    description: Resolve 1 wildcard-imports issues in code2docs/analyzers/dependency_scanner.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - code2docs/analyzers/dependency_scanner.py
+    rule_id: wildcard-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-c9e8e515
+    name: Fix wildcard-imports issues
+    description: Resolve 5 wildcard-imports issues in code2docs/config.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - code2docs/config.py
+    rule_id: wildcard-imports
+    count: 5
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-89710224
+    name: Fix wildcard-imports issues
+    description: Resolve 1 wildcard-imports issues in code2docs/generators/_registry_adapters.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - code2docs/generators/_registry_adapters.py
+    rule_id: wildcard-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-35cb8925
+    name: Fix wildcard-imports issues
+    description: Resolve 4 wildcard-imports issues in examples/advanced_usage.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - examples/advanced_usage.py
+    rule_id: wildcard-imports
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-5cdcca6d
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in examples/basic_usage.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - examples/basic_usage.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-ba92f7f4
+    name: Fix wildcard-imports issues
+    description: Resolve 2 wildcard-imports issues in examples/quickstart.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - examples/quickstart.py
+    rule_id: wildcard-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced

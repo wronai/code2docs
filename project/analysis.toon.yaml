@@ -1,7 +1,8 @@
-# code2llm | 39f 5811L | python:38,shell:1 | 2026-03-31
-# CC̄=4.4 | critical:12/298 | dups:0 | cycles:1
+# code2llm | 36f 4525L | python:35,shell:1 | 2026-04-08
+# CC̄=4.7 | critical:11/252 | dups:0 | cycles:1
 
-HEALTH[12]:
+HEALTH[11]:
+  🟡 CC    _extract_project_metadata CC=29 (limit:15)
   🟡 CC    _render_first_usage CC=15 (limit:15)
   🟡 CC    _generate_intro CC=16 (limit:15)
   🟡 CC    parse_gitignore CC=15 (limit:15)
@@ -10,16 +11,14 @@ HEALTH[12]:
   🟡 CC    _render_module_detail CC=25 (limit:15)
   🟡 CC    _extract_description CC=17 (limit:15)
   🟡 CC    _render_module_section CC=25 (limit:15)
-  🟡 CC    _extract_project_metadata CC=29 (limit:15)
   🟡 CC    _generate_advanced CC=22 (limit:15)
   🟡 CC    _render_code_style CC=16 (limit:15)
-  🟡 CC    _generate_html CC=15 (limit:15)
 
 REFACTOR[2]:
-  1. split 12 high-CC methods  (CC>15)
+  1. split 11 high-CC methods  (CC>15)
   2. break 1 circular dependencies
 
-PIPELINES[247]:
+PIPELINES[214]:
   [1] Src [add]: add
       PURITY: 100% pure
   [2] Src [run_all]: run_all
@@ -32,14 +31,11 @@ PIPELINES[247]:
       PURITY: 100% pure
 
 LAYERS:
-  code2docs/                      CC̄=4.4    ←in:0  →out:1
-  │ !! readme_gen                 477L  1C   18m  CC=29     ←1
-  │ !! examples_gen               444L  1C   15m  CC=22     ←0
-  │ !! _registry_adapters         441L  15C   31m  CC=15     ←0
-  │ dependency_scanner         325L  3C   10m  CC=9      ←0
-  │ cli                        319L  1C   14m  CC=10     ←0
-  │ config                     297L  7C    5m  CC=10     ←2
+  code2docs/                      CC̄=4.7    ←in:0  →out:1
+  │ !! examples_gen               456L  1C   15m  CC=22     ←0
+  │ !! readme_gen                 322L  1C   18m  CC=29     ←1
   │ architecture_gen           294L  1C   10m  CC=13     ←0
+  │ cli                        244L  1C   14m  CC=10     ←0
   │ !! contributing_gen           231L  1C    8m  CC=16     ←0
   │ !! org_readme_gen             227L  1C   10m  CC=17     ←0
   │ !! code2llm_gen               206L  1C    6m  CC=17     ←0
@@ -65,15 +61,15 @@ LAYERS:
   │ updater                     51L  1C    2m  CC=4      ←0
   │ base                        46L  2C    3m  CC=1      ←0
   │ project_scanner             42L  1C    4m  CC=2      ←3
-  │ registry                    39L  1C    4m  CC=4      ←0
-  │ __init__                    32L  0C    1m  CC=4      ←0
+  │ registry                    35L  1C    4m  CC=4      ←0
+  │ __init__                    24L  0C    1m  CC=4      ←0
   │ __init__                    13L  0C    0m  CC=0.0    ←0
   │ __init__                     7L  0C    0m  CC=0.0    ←0
   │ __main__                     6L  0C    0m  CC=0.0    ←0
   │ __init__                     6L  0C    0m  CC=0.0    ←0
   │
   ./                              CC̄=0.0    ←in:0  →out:0
-  │ project.sh                  18L  0C    0m  CC=0.0    ←0
+  │ project.sh                  25L  0C    0m  CC=0.0    ←0
   │
 
 COUPLING:

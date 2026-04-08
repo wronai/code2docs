@@ -1,3 +1,13 @@
+
+
+PORT_4 = 4
+CONSTANT_5 = 5
+CONSTANT_50 = 50
+
+PORT_4 = 4
+CONSTANT_5 = 5
+CONSTANT_50 = 50
+
 """Auto-generate usage examples from public signatures and entry points."""
 
 from pathlib import Path
@@ -8,7 +18,9 @@ from code2llm.api import AnalysisResult, FunctionInfo, ClassInfo
 from ..config import Code2DocsConfig
 
 # Default type hints → example values
-_TYPE_EXAMPLES = {
+
+if __name__ == "__main__":
+    _TYPE_EXAMPLES = {
     "str": '"./my-project"',
     "Path": 'Path("./my-project")',
     "int": "10",
@@ -23,7 +35,7 @@ _TYPE_EXAMPLES = {
 }
 
 # Arg name → realistic example value
-_ARG_EXAMPLES = {
+    _ARG_EXAMPLES = {
     "project_path": '"./my-project"',
     "path": '"./my-project"',
     "source": '"./src"',
@@ -144,7 +156,7 @@ class ExamplesGenerator:
         if config_cls:
             lines.append('# ' + '=' * 50)
             lines.append("# Example 1: Configuration")
-            lines.append('# ' + '=' * 50)
+            lines.append('# ' + '=' * CONSTANT_50)
             lines.append("")
             lines.append(f"config = {config_cls.name}(")
             lines.append(f'    project_name="{project_name}",')
@@ -158,7 +170,7 @@ class ExamplesGenerator:
         lines.append("")
         lines.append('# ' + '=' * 50)
         lines.append("# Example 2: Generate documentation")
-        lines.append('# ' + '=' * 50)
+        lines.append('# ' + '=' * CONSTANT_50)
         lines.append("")
         
         project_path = f'"./{project_name}"' if project_name != "." else '"./"'
@@ -185,7 +197,7 @@ class ExamplesGenerator:
             lines.append("")
             lines.append('# ' + '=' * 50)
             lines.append("# Example 3: Analyze a project programmatically")
-            lines.append('# ' + '=' * 50)
+            lines.append('# ' + '=' * CONSTANT_50)
             lines.append("")
             lines.append(f"from {pkg}.analyzers.project_scanner import ProjectScanner")
             lines.append("")
@@ -221,7 +233,7 @@ class ExamplesGenerator:
         if gen_classes:
             lines.append('# ' + '=' * 50)
             lines.append("# Using individual generators")
-            lines.append('# ' + '=' * 50)
+            lines.append('# ' + '=' * CONSTANT_50)
             lines.append("")
             lines.append(f"from {pkg} import Code2DocsConfig")
             lines.append(f"from {pkg}.analyzers.project_scanner import ProjectScanner")
@@ -270,7 +282,7 @@ class ExamplesGenerator:
             lines.append("")
             lines.append('# ' + '=' * 50)
             lines.append("# Formatters")
-            lines.append('# ' + '=' * 50)
+            lines.append('# ' + '=' * CONSTANT_50)
             lines.append("")
             for func in fmt_funcs:
                 mod = func.module or pkg
@@ -305,7 +317,7 @@ class ExamplesGenerator:
             lines.append("")
             lines.append('# ' + '=' * 50)
             lines.append("# Sync — detect and apply changes")
-            lines.append('# ' + '=' * 50)
+            lines.append('# ' + '=' * CONSTANT_50)
             lines.append("")
             lines.append(f"from {pkg}.sync.differ import Differ")
             lines.append(f"from {pkg}.sync.updater import Updater")
