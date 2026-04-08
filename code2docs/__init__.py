@@ -5,10 +5,10 @@ Uses code2llm's AnalysisResult to produce human-readable documentation:
 README.md, API references, module docs, examples, and architecture diagrams.
 """
 
-if __name__ == "__main__":
-    __version__ = '3.0.25'
-    __author__ = 'Tom Sapletta'
-    __all__ = ['Code2DocsConfig', 'generate_readme', 'generate_docs', 'analyze_and_document']
+__version__ = '3.0.25'
+__author__ = 'Tom Sapletta'
+__all__ = ['Code2DocsConfig', 'generate_readme', 'generate_docs', 'analyze_and_document']
+
 
 def __getattr__(name):
     """Lazy import heavy modules on first access."""

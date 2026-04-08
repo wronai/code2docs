@@ -19,7 +19,7 @@ from code2docs import generate_readme
 config = Code2DocsConfig(
     project_name="code2docs",
     source="./",
-    output="../docs/",
+    output="./docs/",
     verbose=True,
 )
 

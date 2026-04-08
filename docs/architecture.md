@@ -1,6 +1,6 @@
 # code2docs — Architecture
 
-> 40 modules | 255 functions | 56 classes
+> 55 modules | 298 functions | 60 classes
 
 ## How It Works
 
@@ -38,12 +38,12 @@ Source files  ──►  code2llm (tree-sitter + AST)  ──►  AnalysisResult
 
 ```mermaid
 graph TD
-    Other["Other<br/>25 modules"]
+    Other["Other<br/>36 modules"]
     Analysis["Analysis<br/>5 modules"]
     Core["Core<br/>1 modules"]
-    API___CLI["API / CLI<br/>3 modules"]
-    Config["Config<br/>2 modules"]
-    Export___Output["Export / Output<br/>4 modules"]
+    API___CLI["API / CLI<br/>5 modules"]
+    Config["Config<br/>3 modules"]
+    Export___Output["Export / Output<br/>5 modules"]
     Other --> Analysis
     Analysis --> Core
     Core --> API___CLI
@@ -53,61 +53,76 @@ graph TD
 
 ### Other
 
-- `__main__`
 - `code2docs`
+- `code2docs.__main__`
+- `code2docs.examples.advanced_usage`
+- `code2docs.examples.quickstart`
+- `code2docs.generators`
+- `code2docs.generators._registry_adapters`
+- `code2docs.generators._source_links`
+- `code2docs.generators.architecture_gen`
+- `code2docs.generators.changelog_gen`
+- `code2docs.generators.code2llm_gen`
+- `code2docs.generators.contributing_gen`
+- `code2docs.generators.coverage_gen`
+- `code2docs.generators.depgraph_gen`
+- `code2docs.generators.examples_gen`
+- `code2docs.generators.getting_started_gen`
+- `code2docs.generators.mkdocs_gen`
+- `code2docs.generators.module_docs_gen`
+- `code2docs.generators.org_readme_gen`
+- `code2docs.generators.readme_gen`
+- `code2docs.llm_helper`
+- `code2docs.registry`
+- `code2docs.sync`
+- `code2docs.sync.differ`
+- `code2docs.sync.updater`
+- `code2docs.sync.watcher`
+- `docs.examples.advanced_usage`
+- `docs.examples.quickstart`
+- `examples.04_sync_and_watch`
+- `examples.05_custom_generators`
+- `examples.07_web_frameworks`
 - `examples.advanced_usage`
+- `examples.basic_usage`
+- `examples.class_examples`
+- `examples.entry_points`
 - `examples.quickstart`
-- `generators`
-- `generators._registry_adapters`
-- `generators._source_links`
-- `generators.architecture_gen`
-- `generators.changelog_gen`
-- `generators.code2llm_gen`
-- `generators.contributing_gen`
-- `generators.coverage_gen`
-- `generators.depgraph_gen`
-- `generators.examples_gen`
-- `generators.getting_started_gen`
-- `generators.mkdocs_gen`
-- `generators.module_docs_gen`
-- `generators.org_readme_gen`
-- `generators.readme_gen`
-- `llm_helper`
-- `registry`
-- `sync`
-- `sync.differ`
-- `sync.updater`
-- `sync.watcher`
+- `project`
 
 ### Analysis
 
-- `analyzers`
-- `analyzers.dependency_scanner`
-- `analyzers.docstring_extractor`
-- `analyzers.endpoint_detector`
-- `analyzers.project_scanner`
+- `code2docs.analyzers`
+- `code2docs.analyzers.dependency_scanner`
+- `code2docs.analyzers.docstring_extractor`
+- `code2docs.analyzers.endpoint_detector`
+- `code2docs.analyzers.project_scanner`
 
 ### Core
 
-- `base`
+- `code2docs.base`
 
 ### API / CLI
 
-- `cli`
-- `generators.api_changelog_gen`
-- `generators.api_reference_gen`
+- `code2docs.cli`
+- `code2docs.generators.api_changelog_gen`
+- `code2docs.generators.api_reference_gen`
+- `examples.01_cli_usage`
+- `examples.03_programmatic_api`
 
 ### Config
 
-- `config`
-- `generators.config_docs_gen`
+- `code2docs.config`
+- `code2docs.generators.config_docs_gen`
+- `examples.02_configuration`
 
 ### Export / Output
 
-- `formatters`
-- `formatters.badges`
-- `formatters.markdown`
-- `formatters.toc`
+- `code2docs.formatters`
+- `code2docs.formatters.badges`
+- `code2docs.formatters.markdown`
+- `code2docs.formatters.toc`
+- `examples.06_formatters`
 
 ## Module Dependency Graph
 
@@ -250,15 +265,6 @@ classDiagram
         -_render_code_style(tools) None
         -_render_pull_request() None
     }
-    class LLMHelper {
-        -__init__(self, config) None
-        +llm_helper.LLMHelper.available()
-        +complete(self, prompt, system) None
-        +generate_project_description(self, project_name, modules_summary) None
-        +generate_architecture_summary(self, project_name, layers) None
-        +generate_getting_started_summary(self, project_name, cli_commands) None
-        +enhance_module_docstring(self, module_name, functions) None
-    }
     class CoverageGenerator {
         -__init__(self, config, result) None
         +generate(self) None
@@ -277,36 +283,70 @@ classDiagram
         -_get_public_methods(self, cls_info) None
         -_format_signature(func) None
     }
+    class LLMHelper {
+        -__init__(self, config) None
+        +code2docs.llm_helper.LLMHelper.available()
+        +complete(self, prompt, system) None
+        +generate_project_description(self, project_name, modules_summary) None
+        +generate_architecture_summary(self, project_name, layers) None
+        +generate_getting_started_summary(self, project_name, cli_commands) None
+        +enhance_module_docstring(self, module_name, functions) None
+    }
 ```
 
 ## Detected Patterns
 
-- **recursion_analyze** (recursion) — confidence: 90%, functions: `analyzers.project_scanner.ProjectScanner.analyze`
-- **state_machine_Differ** (state_machine) — confidence: 70%, functions: `sync.differ.Differ.__init__`, `sync.differ.Differ.detect_changes`, `sync.differ.Differ.save_state`, `sync.differ.Differ._load_state`, `sync.differ.Differ._compute_state`
+- **recursion_analyze** (recursion) — confidence: 90%, functions: `code2docs.analyzers.project_scanner.ProjectScanner.analyze`
+- **state_machine_Differ** (state_machine) — confidence: 70%, functions: `code2docs.sync.differ.Differ.__init__`, `code2docs.sync.differ.Differ.detect_changes`, `code2docs.sync.differ.Differ.save_state`, `code2docs.sync.differ.Differ._load_state`, `code2docs.sync.differ.Differ._compute_state`
 
 ## Public Entry Points
 
-- `formatters.toc.generate_toc` — Generate a table of contents from Markdown headings.
-- `generators.readme_gen.generate_readme` — Convenience function to generate a README.
-- `generators.generate_docs` — High-level function to generate all documentation.
-- `generators.code2llm_gen.generate_code2llm_analysis` — Convenience function to generate code2llm analysis.
-- `cli.main` — code2docs — Auto-generate project documentation from source code.
-- `cli.generate` — Generate documentation (default command).
-- `cli.sync` — Synchronize documentation with source code changes.
-- `cli.watch` — Watch for file changes and auto-regenerate docs.
-- `cli.init` — Initialize code2docs.yaml configuration file.
-- `cli.check` — Health check — verify documentation completeness.
-- `cli.diff` — Preview what would change without writing anything.
-- `analyzers.project_scanner.analyze_and_document` — Convenience function: analyze a project in one call.
+- `code2docs.cli.main` — code2docs — Auto-generate project documentation from source code.
+- `code2docs.cli.generate` — Generate documentation (default command).
+- `code2docs.cli.sync` — Synchronize documentation with source code changes.
+- `code2docs.cli.watch` — Watch for file changes and auto-regenerate docs.
+- `code2docs.cli.init` — Initialize code2docs.yaml configuration file.
+- `code2docs.cli.check` — Health check — verify documentation completeness.
+- `code2docs.cli.diff` — Preview what would change without writing anything.
+- `code2docs.generators.generate_docs` — High-level function to generate all documentation.
+- `code2docs.generators.code2llm_gen.generate_code2llm_analysis` — Convenience function to generate code2llm analysis.
+- `code2docs.analyzers.project_scanner.analyze_and_document` — Convenience function: analyze a project in one call.
+- `examples.04_sync_and_watch.detect_changes_example` — Detect what files have changed since last documentation generation.
+- `examples.04_sync_and_watch.update_docs_incrementally` — Update only the parts of docs that need changing.
+- `examples.04_sync_and_watch.force_full_regeneration` — Force full regeneration of all documentation.
+- `examples.04_sync_and_watch.watch_and_auto_regenerate` — Watch for file changes and auto-regenerate documentation.
+- `examples.04_sync_and_watch.custom_watcher_with_hooks` — Set up a custom watcher with pre/post generation hooks.
+- `examples.04_sync_and_watch.sync_with_git_changes` — Only regenerate docs for files changed in git.
+- `examples.05_custom_generators.generate_custom_report` — Generate a custom metrics report.
+- `examples.06_formatters.markdown_formatting_examples` — Demonstrate markdown formatting utilities.
+- `examples.06_formatters.generate_complex_document` — Generate a complex markdown document using the formatter.
+- `examples.06_formatters.badge_examples` — Generate various badge examples.
+- `examples.06_formatters.toc_examples` — Demonstrate table of contents generation.
+- `examples.06_formatters.build_custom_readme` — Build a custom README using formatters.
+- `examples.03_programmatic_api.generate_readme_simple` — Generate README.md content from a project.
+- `examples.03_programmatic_api.generate_full_documentation` — Generate complete documentation for a project.
+- `examples.03_programmatic_api.custom_documentation_pipeline` — Create a custom documentation pipeline.
+- `examples.03_programmatic_api.inspect_project_structure` — Inspect project structure from analysis.
+- `examples.03_programmatic_api.generate_docs_if_needed` — Only generate docs if code has changed.
+- `examples.07_web_frameworks.detect_flask_endpoints` — Detect Flask endpoints in a project.
+- `examples.07_web_frameworks.detect_fastapi_endpoints` — Detect FastAPI endpoints in a project.
+- `examples.07_web_frameworks.create_example_web_apps` — Create example Flask and FastAPI apps for testing.
+- `examples.07_web_frameworks.document_web_project` — Complete workflow: detect endpoints and generate docs.
+- `examples.01_cli_usage.run_cli_basic` — Run code2docs CLI programmatically.
+- `examples.01_cli_usage.run_cli_with_config` — Run with custom configuration.
+- `examples.02_configuration.create_basic_config` — Create a basic configuration.
+- `examples.02_configuration.create_advanced_config` — Create advanced configuration with all options.
+- `examples.02_configuration.save_yaml_config_example` — Save example YAML config to file.
+- `examples.02_configuration.load_config_from_yaml` — Load configuration from YAML file.
 
 ## Metrics Summary
 
 | Metric | Value |
 |--------|-------|
-| Modules | 40 |
-| Functions | 255 |
-| Classes | 56 |
-| CFG Nodes | 1606 |
+| Modules | 55 |
+| Functions | 298 |
+| Classes | 60 |
+| CFG Nodes | 1792 |
 | Patterns | 2 |
-| Avg Complexity | 4.4 |
-| Analysis Time | 1.09s |
+| Avg Complexity | 4.1 |
+| Analysis Time | 4.3s |

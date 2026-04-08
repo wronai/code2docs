@@ -4,11 +4,12 @@
 
 - Python >=3.9
 - pip (or your preferred package manager)
+- 5 dependencies (installed automatically)
 
 ## Installation
 
 ```bash
-pip install .
+pip install code2docs
 ```
 
 To install from source:
@@ -37,7 +38,7 @@ code2docs ./path/to/your/project --readme-only
 ### Python API
 
 ```python
-from analyzers.project_scanner import analyze_and_document
+from code2docs.analyzers.project_scanner import analyze_and_document
 
 # Convenience function: analyze a project in one call.
 result = analyze_and_document("project_path", config=...)

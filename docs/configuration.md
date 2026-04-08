@@ -83,7 +83,7 @@
 ```yaml
 project_name: code2docs
 source: ./
-output: ../docs/
+output: ./docs/
 readme_output: ./README.md
 verbose: false
 

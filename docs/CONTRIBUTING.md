@@ -21,12 +21,21 @@ pip install -e ".[dev]"
 ## Testing
 
 ```bash
-python -m unittest discover tests/
+# Run all tests
+pytest
+
+# Run with coverage
+pytest --cov --cov-report=term-missing
+
+# Run a specific test file
+pytest tests/test_specific.py -v
 ```
 
 ## Code Style
 
-Follow PEP 8 conventions.
+- **Formatting:** [Black](https://black.readthedocs.io/) — `black .`
+- **Linting:** [Ruff](https://docs.astral.sh/ruff/) — `ruff check .`
+- **Type checking:** [mypy](https://mypy.readthedocs.io/) — `mypy .`
 
 ## Pull Request Guidelines
 
