@@ -2,7 +2,7 @@
 # stats: 311 func | 0 cls | 39 mod | CC̄=3.8 | critical:0 | cycles:0
 # alerts[5]: fan-out _run_check=24; fan-out start_watcher=22; fan-out Code2DocsConfig.from_yaml=19; fan-out ReadmeGenerator._build_context=17; fan-out ArchitectureGenerator.generate=16
 # hotspots[5]: _run_check fan=24; start_watcher fan=22; Code2DocsConfig.from_yaml fan=19; ReadmeGenerator._build_context fan=17; Updater.apply fan=16
-# evolution: CC̄ 4.2→3.8 (improved -0.4)
+# evolution: CC̄ 3.8→3.8 (flat 0.0)
 # Keys: M=modules, D=details, i=imports, e=exports, c=classes, f=functions, m=methods
 M[39]:
   code2docs/__init__.py,24
