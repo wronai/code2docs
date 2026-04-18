@@ -39,8 +39,6 @@
 | `sync.updater` | 51 | 0 | 1 | 3.0 | Selectively regenerate documentation for changed modules. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/sync/updater.py) |
 | `sync.watcher` | 75 | 1 | 0 | 5.0 | File watcher for auto-resync on source changes (requires wat | [source](https://github.com/wronai/code2docs/blob/main/code2docs/sync/watcher.py) |
 
-## Core
-
 ### `base` [source](https://github.com/wronai/code2docs/blob/main/code2docs/base.py)
 
 Base generator interface and generation context.
@@ -140,8 +138,6 @@ Generator registry — pluggable generator system.
 | `run_all` | `ctx` | `—` | 4 |
 | `run_only` | `name, ctx` | `—` | 4 |
 
-## analyzers
-
 ### `analyzers.dependency_scanner` [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py)
 
 Scan project dependencies from requirements.txt, pyproject.toml, setup.py.
@@ -202,8 +198,6 @@ Wrapper around code2llm's ProjectAnalyzer for documentation purposes.
 
 - `analyze_and_document(project_path, config)` — Convenience function: analyze a project in one call. [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/project_scanner.py#L39)
 
-## formatters
-
 ### `formatters.badges` [source](https://github.com/wronai/code2docs/blob/main/code2docs/formatters/badges.py)
 
 Badge generation using shields.io URLs.
@@ -231,15 +225,6 @@ Markdown formatting utilities.
 | `separator` | `` | `—` | 1 |
 | `blank` | `` | `—` | 1 |
 | `render` | `` | `—` | 1 |
-
-### `formatters.toc` [source](https://github.com/wronai/code2docs/blob/main/code2docs/formatters/toc.py)
-
-Table of contents generator from Markdown headings.
-
-- `extract_headings(content, max_depth)` — Extract headings from Markdown content. [source](https://github.com/wronai/code2docs/blob/main/code2docs/formatters/toc.py#L30)
-- `generate_toc(markdown_content, max_depth)` — Generate a table of contents from Markdown headings. [source](https://github.com/wronai/code2docs/blob/main/code2docs/formatters/toc.py#L7)
-
-## generators
 
 ### `generators._registry_adapters` [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py)
 
@@ -471,17 +456,6 @@ MkDocs configuration generator — auto-generate mkdocs.yml from docs tree.
 | `generate` | `docs_dir` | `—` | 2 |
 | `write` | `output_path, content` | `—` | 1 |
 
-### `generators.module_docs_gen` [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/module_docs_gen.py)
-
-Module documentation generator — single consolidated modules.md.
-
-**`ModuleDocsGenerator`** [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/module_docs_gen.py#L14)
-: Generate docs/modules.md — consolidated module documentation.
-
-| Method | Args | Returns | CC |
-|--------|------|---------|----|
-| `generate` | `` | `—` | 18 |
-
 ### `generators.readme_gen` [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/readme_gen.py)
 
 README.md generator from AnalysisResult.
@@ -495,8 +469,6 @@ README.md generator from AnalysisResult.
 | `write` | `path, content` | `—` | 4 |
 
 - `generate_readme(project_path, output, sections, sync_markers, config)` — Convenience function to generate a README. [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/readme_gen.py#L446)
-
-## sync
 
 ### `sync.differ` [source](https://github.com/wronai/code2docs/blob/main/code2docs/sync/differ.py)
 

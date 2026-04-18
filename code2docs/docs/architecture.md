@@ -85,10 +85,6 @@ graph TD
 - `analyzers.endpoint_detector`
 - `analyzers.project_scanner`
 
-### Core
-
-- `base`
-
 ### API / CLI
 
 - `cli`

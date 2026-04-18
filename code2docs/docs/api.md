@@ -10,8 +10,6 @@
 - [generators](#generators) (15 modules)
 - [sync](#sync) (3 modules)
 
-## Core
-
 ### `analyzers` [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/__init__.py)
 
 | Class | Methods | Description | Source |
@@ -272,8 +270,6 @@
 |----------|-----------|----|-----------  |--------|
 | `start_watcher` | `start_watcher(project_path, config)` | 5 | Start watching project for file changes and auto-resync docs. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/sync/watcher.py#L10) |
 
-## analyzers
-
 ### `analyzers.dependency_scanner` [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py)
 
 | Class | Methods | Description | Source |
@@ -312,8 +308,6 @@
 |----------|-----------|----|-----------  |--------|
 | `analyze_and_document` | `analyze_and_document(project_path, config)` | 1 | Convenience function: analyze a project in one call. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/project_scanner.py#L39) |
 
-## formatters
-
 ### `formatters.badges` [source](https://github.com/wronai/code2docs/blob/main/code2docs/formatters/badges.py)
 
 | Function | Signature | CC | Description | Source |
@@ -347,8 +341,6 @@
 |----------|-----------|----|-----------  |--------|
 | `extract_headings` | `extract_headings(content, max_depth)` | 6 | Extract headings from Markdown content. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/formatters/toc.py#L30) |
 | `generate_toc` | `generate_toc(markdown_content, max_depth)` | 3 | Generate a table of contents from Markdown headings. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/formatters/toc.py#L7) |
-
-## generators
 
 ### `generators._registry_adapters` [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_registry_adapters.py)
 
@@ -541,8 +533,6 @@
 | Function | Signature | CC | Description | Source |
 |----------|-----------|----|-----------  |--------|
 | `generate_readme` | `generate_readme(project_path, output, sections, sync_markers, ...)` | 3 | Convenience function to generate a README. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/readme_gen.py#L446) |
-
-## sync
 
 ### `sync.differ` [source](https://github.com/wronai/code2docs/blob/main/code2docs/sync/differ.py)
 

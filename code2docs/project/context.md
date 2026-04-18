@@ -1,5 +1,3 @@
-# System Architecture Analysis
-
 ## Overview
 
 - **Project**: code2docs
@@ -10,8 +8,6 @@
 - **Classes**: 56
 - **Avg CC**: 4.4
 - **Critical (CC≥10)**: 27
-
-## Architecture
 
 ### analyzers/ (5 files, 633L, 27 functions)
 

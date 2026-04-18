@@ -1,5 +1,3 @@
-# Getting Started with code2docs
-
 ## Prerequisites
 
 - Python >=3.9
@@ -19,11 +17,6 @@ cd code2docs
 pip install -e .
 ```
 
-## Quick Start
-
-### Command Line
-
-```bash
 # Generate full documentation for your project
 code2docs ./path/to/your/project
 
