@@ -1,5 +1,3 @@
-# Getting Started with code2docs
-
 ## Prerequisites
 
 - Python >=3.9
@@ -20,11 +18,6 @@ cd code2docs
 pip install -e .
 ```
 
-## Quick Start
-
-### Command Line
-
-```bash
 # Generate full documentation for your project
 code2docs ./path/to/your/project
 
@@ -44,9 +37,3 @@ from code2docs.analyzers.project_scanner import analyze_and_document
 result = analyze_and_document("project_path", config=...)
 ```
 
-## What's Next
-
-- 📖 [API Reference](api.md) — Full function and class documentation
-- 🏗️ [Architecture](architecture.md) — System design and module relationships
-- 📊 [Coverage Report](coverage.md) — Docstring coverage analysis
-- 🔗 [Dependency Graph](dependency-graph.md) — Module dependency visualization

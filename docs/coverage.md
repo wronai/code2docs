@@ -1,12 +1,3 @@
-# code2docs — Docstring Coverage
-
-🟢 **Overall coverage: 80.4%**
-
-| Category | Documented | Total | Coverage |
-|----------|-----------|-------|----------|
-| Functions | 240 | 298 | 80.5% |
-| Classes | 48 | 60 | 80.0% |
-
 ## Per-Module Breakdown
 
 | Module | Functions | Classes | Coverage |
@@ -67,17 +58,3 @@
 | `examples.quickstart` | 0/0 | 0/0 | 🟢 100% |
 | `project` | 0/0 | 0/0 | 🟢 100% |
 
-## Undocumented Items
-
-- `code2docs.generators._registry_adapters.ApiChangelogAdapter` (/home/tom/github/semcod/code2docs/code2docs/generators/_registry_adapters.py:111)
-- `code2docs.generators._registry_adapters.ApiReferenceAdapter` (/home/tom/github/semcod/code2docs/code2docs/generators/_registry_adapters.py:34)
-- `code2docs.generators._registry_adapters.ArchitectureAdapter` (/home/tom/github/semcod/code2docs/code2docs/generators/_registry_adapters.py:66)
-- `code2docs.generators._registry_adapters.ConfigDocsAdapter` (/home/tom/github/semcod/code2docs/code2docs/generators/_registry_adapters.py:174)
-- `code2docs.generators._registry_adapters.ContributingAdapter` (/home/tom/github/semcod/code2docs/code2docs/generators/_registry_adapters.py:190)
-- `code2docs.generators._registry_adapters.CoverageAdapter` (/home/tom/github/semcod/code2docs/code2docs/generators/_registry_adapters.py:96)
-- `code2docs.generators._registry_adapters.DepGraphAdapter` (/home/tom/github/semcod/code2docs/code2docs/generators/_registry_adapters.py:81)
-- `code2docs.generators._registry_adapters.ExamplesAdapter` (/home/tom/github/semcod/code2docs/code2docs/generators/_registry_adapters.py:127)
-- `code2docs.generators._registry_adapters.GettingStartedAdapter` (/home/tom/github/semcod/code2docs/code2docs/generators/_registry_adapters.py:158)
-- `code2docs.generators._registry_adapters.MkDocsAdapter` (/home/tom/github/semcod/code2docs/code2docs/generators/_registry_adapters.py:143)
-- `code2docs.generators._registry_adapters.ModuleDocsAdapter` (/home/tom/github/semcod/code2docs/code2docs/generators/_registry_adapters.py:50)
-- `code2docs.generators._registry_adapters.ReadmeGeneratorAdapter` (/home/tom/github/semcod/code2docs/code2docs/generators/_registry_adapters.py:11)

@@ -1,5 +1,3 @@
-# Contributing to code2docs
-
 ## Development Setup
 
 ```bash
@@ -18,12 +16,6 @@ pip install -e ".[dev]"
 4. Run the test suite
 5. Submit a pull request
 
-## Testing
-
-```bash
-# Run all tests
-pytest
-
 # Run with coverage
 pytest --cov --cov-report=term-missing
 
@@ -37,10 +29,3 @@ pytest tests/test_specific.py -v
 - **Linting:** [Ruff](https://docs.astral.sh/ruff/) — `ruff check .`
 - **Type checking:** [mypy](https://mypy.readthedocs.io/) — `mypy .`
 
-## Pull Request Guidelines
-
-- Keep PRs focused — one feature or fix per PR
-- Include tests for new functionality
-- Update documentation if needed
-- Ensure all tests pass before submitting
-- Use descriptive commit messages

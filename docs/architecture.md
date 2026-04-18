@@ -2,55 +2,6 @@
 
 > 55 modules | 298 functions | 60 classes
 
-## How It Works
-
-`code2docs` analyzes source code via a multi-stage pipeline:
-
-```
-Source files  ──►  code2llm (tree-sitter + AST)  ──►  AnalysisResult
-                                                          │
-              ┌───────────────────────────────────────────┘
-              ▼
-    ┌─────────────────────┐
-    │   12 Generators     │
-    │  ─────────────────  │
-    │  README.md          │
-    │  docs/api/          │
-    │  docs/modules/      │
-    │  docs/architecture   │
-    │  docs/coverage      │
-    │  examples/          │
-    │  mkdocs.yml         │
-    │  CONTRIBUTING.md    │
-    └─────────────────────┘
-```
-
-**Analysis algorithms:**
-
-1. **AST parsing** — language-specific parsers (tree-sitter) extract syntax trees
-2. **Cyclomatic complexity** — counts independent code paths per function
-3. **Fan-in / fan-out** — measures module coupling (how many modules import/are imported by each)
-4. **Docstring extraction** — parses Google/NumPy/Sphinx-style docstrings into structured data
-5. **Pattern detection** — identifies design patterns (Factory, Singleton, Observer, etc.)
-6. **Dependency scanning** — reads pyproject.toml / requirements.txt / setup.py
-
-## Architecture Layers
-
-```mermaid
-graph TD
-    Other["Other<br/>36 modules"]
-    Analysis["Analysis<br/>5 modules"]
-    Core["Core<br/>1 modules"]
-    API___CLI["API / CLI<br/>5 modules"]
-    Config["Config<br/>3 modules"]
-    Export___Output["Export / Output<br/>5 modules"]
-    Other --> Analysis
-    Analysis --> Core
-    Core --> API___CLI
-    API___CLI --> Config
-    Config --> Export___Output
-```
-
 ### Other
 
 - `code2docs`
@@ -97,10 +48,6 @@ graph TD
 - `code2docs.analyzers.docstring_extractor`
 - `code2docs.analyzers.endpoint_detector`
 - `code2docs.analyzers.project_scanner`
-
-### Core
-
-- `code2docs.base`
 
 ### API / CLI
 
@@ -339,14 +286,3 @@ classDiagram
 - `examples.02_configuration.load_config_from_yaml` — Load configuration from YAML file.
 - `code2docs.analyzers.project_scanner.analyze_and_document` — Convenience function: analyze a project in one call.
 
-## Metrics Summary
-
-| Metric | Value |
-|--------|-------|
-| Modules | 55 |
-| Functions | 298 |
-| Classes | 60 |
-| CFG Nodes | 1792 |
-| Patterns | 2 |
-| Avg Complexity | 4.1 |
-| Analysis Time | 4.31s |

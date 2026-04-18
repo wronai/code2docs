@@ -1,5 +1,3 @@
-# Contributing to code2docs
-
 ## Development Setup
 
 ```bash
@@ -17,12 +15,6 @@ pip install -e ".[dev]"
 3. Add or update tests
 4. Run the test suite
 5. Submit a pull request
-
-## Testing
-
-```bash
-# Run all tests
-pytest
 
 # Run with coverage
 pytest --cov --cov-report=term-missing

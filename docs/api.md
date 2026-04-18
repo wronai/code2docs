@@ -8,8 +8,6 @@
 - [code2docs](#code2docs) (36 modules)
 - [examples](#examples) (7 modules)
 
-## Core
-
 ### `code2docs` [source](https://github.com/wronai/code2docs/blob/main/code2docs/__init__.py)
 
 | Class | Methods | Description | Source |
@@ -251,81 +249,6 @@
 | `generate_readme` | `generate_readme(project_path, output, sections, sync_markers, ...)` | 3 | Convenience function to generate a README. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/readme_gen.py#L310) |
 | `start_watcher` | `start_watcher(project_path, config)` | 5 | Start watching project for file changes and auto-resync docs. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/sync/watcher.py#L10) |
 
-## code2docs
-
-### `code2docs.analyzers` [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/__init__.py)
-
-| Class | Methods | Description | Source |
-|-------|---------|-------------|--------|
-| `DependencyInfo` | 0 | Information about a project dependency. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L15) |
-| `DependencyScanner` | 1 | Scan and parse project dependency files. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L38) |
-| `ProjectDependencies` | 0 | All detected project dependencies. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L23) |
-| `DocstringExtractor` | 3 | Extract and parse docstrings from AnalysisResult. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/docstring_extractor.py#L23) |
-| `DocstringInfo` | 0 | Parsed docstring with sections. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/docstring_extractor.py#L12) |
-| `Endpoint` | 0 | Represents a detected web endpoint. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/endpoint_detector.py#L13) |
-| `EndpointDetector` | 1 | Detects web endpoints from decorator patterns in source code. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/endpoint_detector.py#L26) |
-| `ProjectScanner` | 1 | Wraps code2llm's ProjectAnalyzer with code2docs-specific defaults. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/project_scanner.py#L11) |
-
-**`DocstringExtractor` methods:**
-
-- `extract_all(result)` — Extract docstrings for all functions and classes.
-- `parse(docstring)` — Parse a docstring into structured sections (orchestrator).
-- `coverage_report(result)` — Calculate docstring coverage statistics.
-
-| Function | Signature | CC | Description | Source |
-|----------|-----------|----|-----------  |--------|
-| `analyze_and_document` | `analyze_and_document(project_path, config)` | 1 | Convenience function: analyze a project in one call. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/project_scanner.py#L39) |
-
-### `code2docs.analyzers.dependency_scanner` [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py)
-
-| Class | Methods | Description | Source |
-|-------|---------|-------------|--------|
-| `DependencyInfo` | 0 | Information about a project dependency. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L15) |
-| `DependencyScanner` | 1 | Scan and parse project dependency files. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L38) |
-| `ProjectDependencies` | 0 | All detected project dependencies. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/dependency_scanner.py#L23) |
-
-### `code2docs.analyzers.docstring_extractor` [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/docstring_extractor.py)
-
-| Class | Methods | Description | Source |
-|-------|---------|-------------|--------|
-| `DocstringExtractor` | 3 | Extract and parse docstrings from AnalysisResult. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/docstring_extractor.py#L23) |
-| `DocstringInfo` | 0 | Parsed docstring with sections. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/docstring_extractor.py#L12) |
-
-**`DocstringExtractor` methods:**
-
-- `extract_all(result)` — Extract docstrings for all functions and classes.
-- `parse(docstring)` — Parse a docstring into structured sections (orchestrator).
-- `coverage_report(result)` — Calculate docstring coverage statistics.
-
-### `code2docs.analyzers.endpoint_detector` [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/endpoint_detector.py)
-
-| Class | Methods | Description | Source |
-|-------|---------|-------------|--------|
-| `Endpoint` | 0 | Represents a detected web endpoint. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/endpoint_detector.py#L13) |
-| `EndpointDetector` | 1 | Detects web endpoints from decorator patterns in source code. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/endpoint_detector.py#L26) |
-
-### `code2docs.analyzers.project_scanner` [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/project_scanner.py)
-
-| Class | Methods | Description | Source |
-|-------|---------|-------------|--------|
-| `ProjectScanner` | 1 | Wraps code2llm's ProjectAnalyzer with code2docs-specific defaults. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/project_scanner.py#L11) |
-
-| Function | Signature | CC | Description | Source |
-|----------|-----------|----|-----------  |--------|
-| `analyze_and_document` | `analyze_and_document(project_path, config)` | 1 | Convenience function: analyze a project in one call. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/analyzers/project_scanner.py#L39) |
-
-### `code2docs.base` [source](https://github.com/wronai/code2docs/blob/main/code2docs/base.py)
-
-| Class | Methods | Description | Source |
-|-------|---------|-------------|--------|
-| `BaseGenerator` | 2 | Abstract base for all documentation generators. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/base.py#L22) |
-| `GenerateContext` | 0 | Shared context passed to all generators during a run. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/base.py#L14) |
-
-**`BaseGenerator` methods:**
-
-- `should_run()` — Return True if this generator should execute.
-- `run(ctx)` — Execute generation and write output.
-
 ### `code2docs.cli` [source](https://github.com/wronai/code2docs/blob/main/code2docs/cli.py)
 
 | Class | Methods | Description | Source |
@@ -358,67 +281,6 @@
 
 - `from_yaml(cls, path)` — Load configuration from code2docs.yaml.
 - `to_yaml(path)` — Save configuration to YAML file.
-
-### `code2docs.formatters` [source](https://github.com/wronai/code2docs/blob/main/code2docs/formatters/__init__.py)
-
-| Class | Methods | Description | Source |
-|-------|---------|-------------|--------|
-| `MarkdownFormatter` | 12 | Helper for constructing Markdown documents. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/formatters/markdown.py#L6) |
-
-**`MarkdownFormatter` methods:**
-
-- `heading(text, level)` — Add a heading.
-- `paragraph(text)` — Add a paragraph.
-- `blockquote(text)` — Add a blockquote.
-- `code_block(code, language)` — Add a fenced code block.
-- `inline_code(text)` — Return inline code string.
-- `bold(text)` — Return bold string.
-- `link(text, url)` — Return a Markdown link.
-- `list_item(text, indent)` — Add a list item.
-- `table(headers, rows)` — Add a Markdown table.
-- `separator()` — Add a horizontal rule.
-- `blank()` — Add a blank line.
-- `render()` — Render accumulated Markdown to string.
-
-| Function | Signature | CC | Description | Source |
-|----------|-----------|----|-----------  |--------|
-| `generate_badges` | `generate_badges(project_name, badge_types, stats, deps)` | 4 | Generate shields.io badge Markdown strings. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/formatters/badges.py#L7) |
-| `extract_headings` | `extract_headings(content, max_depth)` | 6 | Extract headings from Markdown content. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/formatters/toc.py#L30) |
-| `generate_toc` | `generate_toc(markdown_content, max_depth)` | 3 | Generate a table of contents from Markdown headings. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/formatters/toc.py#L7) |
-
-### `code2docs.formatters.badges` [source](https://github.com/wronai/code2docs/blob/main/code2docs/formatters/badges.py)
-
-| Function | Signature | CC | Description | Source |
-|----------|-----------|----|-----------  |--------|
-| `generate_badges` | `generate_badges(project_name, badge_types, stats, deps)` | 4 | Generate shields.io badge Markdown strings. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/formatters/badges.py#L7) |
-
-### `code2docs.formatters.markdown` [source](https://github.com/wronai/code2docs/blob/main/code2docs/formatters/markdown.py)
-
-| Class | Methods | Description | Source |
-|-------|---------|-------------|--------|
-| `MarkdownFormatter` | 12 | Helper for constructing Markdown documents. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/formatters/markdown.py#L6) |
-
-**`MarkdownFormatter` methods:**
-
-- `heading(text, level)` — Add a heading.
-- `paragraph(text)` — Add a paragraph.
-- `blockquote(text)` — Add a blockquote.
-- `code_block(code, language)` — Add a fenced code block.
-- `inline_code(text)` — Return inline code string.
-- `bold(text)` — Return bold string.
-- `link(text, url)` — Return a Markdown link.
-- `list_item(text, indent)` — Add a list item.
-- `table(headers, rows)` — Add a Markdown table.
-- `separator()` — Add a horizontal rule.
-- `blank()` — Add a blank line.
-- `render()` — Render accumulated Markdown to string.
-
-### `code2docs.formatters.toc` [source](https://github.com/wronai/code2docs/blob/main/code2docs/formatters/toc.py)
-
-| Function | Signature | CC | Description | Source |
-|----------|-----------|----|-----------  |--------|
-| `extract_headings` | `extract_headings(content, max_depth)` | 6 | Extract headings from Markdown content. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/formatters/toc.py#L30) |
-| `generate_toc` | `generate_toc(markdown_content, max_depth)` | 3 | Generate a table of contents from Markdown headings. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/formatters/toc.py#L7) |
 
 ### `code2docs.generators` [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/__init__.py)
 
@@ -670,29 +532,6 @@
 - `should_run()`
 - `run(ctx)`
 
-### `code2docs.generators._source_links` [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_source_links.py)
-
-| Class | Methods | Description | Source |
-|-------|---------|-------------|--------|
-| `SourceLinker` | 2 | Build source-code links (relative paths + optional GitHub/GitLab URLs). | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/_source_links.py#L11) |
-
-**`SourceLinker` methods:**
-
-- `source_link(file, line)` — Return a Markdown link to source, or empty string if unavailable.
-- `file_link(file)` — Return a Markdown link to a file (no line number).
-
-### `code2docs.generators.api_changelog_gen` [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/api_changelog_gen.py)
-
-| Class | Methods | Description | Source |
-|-------|---------|-------------|--------|
-| `ApiChange` | 1 | A single API change between two analysis snapshots. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/api_changelog_gen.py#L16) |
-| `ApiChangelogGenerator` | 2 | Generate API changelog by diffing current analysis with a saved snapshot. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/api_changelog_gen.py#L30) |
-
-**`ApiChangelogGenerator` methods:**
-
-- `generate(project_path)` — Generate api-changelog.md by comparing with previous snapshot.
-- `save_snapshot(project_path)` — Save current API state as snapshot for future diffs.
-
 ### `code2docs.generators.api_reference_gen` [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/api_reference_gen.py)
 
 | Class | Methods | Description | Source |
@@ -704,13 +543,6 @@
 | Class | Methods | Description | Source |
 |-------|---------|-------------|--------|
 | `ArchitectureGenerator` | 1 | Generate docs/architecture.md — architecture overview with diagrams. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/architecture_gen.py#L12) |
-
-### `code2docs.generators.changelog_gen` [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/changelog_gen.py)
-
-| Class | Methods | Description | Source |
-|-------|---------|-------------|--------|
-| `ChangelogEntry` | 0 | A single changelog entry. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/changelog_gen.py#L14) |
-| `ChangelogGenerator` | 1 | Generate CHANGELOG.md from git log and analysis diff. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/changelog_gen.py#L23) |
 
 ### `code2docs.generators.code2llm_gen` [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/code2llm_gen.py)
 
@@ -752,33 +584,11 @@
 |-------|---------|-------------|--------|
 | `DepGraphGenerator` | 1 | Generate docs/dependency-graph.md with Mermaid diagrams. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/depgraph_gen.py#L12) |
 
-### `code2docs.generators.examples_gen` [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/examples_gen.py)
-
-| Class | Methods | Description | Source |
-|-------|---------|-------------|--------|
-| `ExamplesGenerator` | 2 | Generate examples/ — usage examples from public API signatures. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/examples_gen.py#L66) |
-
-**`ExamplesGenerator` methods:**
-
-- `generate_all()` — Generate all example files. Returns {filename: content}.
-- `write_all(output_dir, files)` — Write all generated example files.
-
 ### `code2docs.generators.getting_started_gen` [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/getting_started_gen.py)
 
 | Class | Methods | Description | Source |
 |-------|---------|-------------|--------|
 | `GettingStartedGenerator` | 1 | Generate docs/getting-started.md from entry points and dependencies. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/getting_started_gen.py#L12) |
-
-### `code2docs.generators.mkdocs_gen` [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/mkdocs_gen.py)
-
-| Class | Methods | Description | Source |
-|-------|---------|-------------|--------|
-| `MkDocsGenerator` | 2 | Generate mkdocs.yml from the docs/ directory structure. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/mkdocs_gen.py#L13) |
-
-**`MkDocsGenerator` methods:**
-
-- `generate(docs_dir)` — Generate mkdocs.yml content.
-- `write(output_path, content)` — Write mkdocs.yml file.
 
 ### `code2docs.generators.module_docs_gen` [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/module_docs_gen.py)
 
@@ -797,89 +607,11 @@
 - `generate()` — Generate organization README content.
 - `write(output_path, content)` — Write README to output path.
 
-### `code2docs.generators.readme_gen` [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/readme_gen.py)
-
-| Class | Methods | Description | Source |
-|-------|---------|-------------|--------|
-| `ReadmeGenerator` | 2 | Generate README.md from AnalysisResult. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/readme_gen.py#L24) |
-
-**`ReadmeGenerator` methods:**
-
-- `generate()` — Generate full README content.
-- `write(path, content)` — Write README, respecting sync markers if existing file has them.
-
-| Function | Signature | CC | Description | Source |
-|----------|-----------|----|-----------  |--------|
-| `generate_readme` | `generate_readme(project_path, output, sections, sync_markers, ...)` | 3 | Convenience function to generate a README. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/generators/readme_gen.py#L310) |
-
-### `code2docs.llm_helper` [source](https://github.com/wronai/code2docs/blob/main/code2docs/llm_helper.py)
-
-| Class | Methods | Description | Source |
-|-------|---------|-------------|--------|
-| `LLMHelper` | 6 | Thin wrapper around litellm for documentation generation. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/llm_helper.py#L31) |
-
-**`LLMHelper` methods:**
-
-- `complete(prompt, system)` — Send a completion request. Returns None on any failure.
-- `generate_project_description(project_name, modules_summary, entry_points)` — Generate a concise project description from analysis data.
-- `generate_architecture_summary(project_name, layers, patterns, metrics)` — Generate a natural-language architecture overview.
-- `generate_getting_started_summary(project_name, cli_commands, public_api)` — Generate a getting-started introduction.
-- `enhance_module_docstring(module_name, functions, classes)` — Generate a module-level summary from its contents.
-
-### `code2docs.registry` [source](https://github.com/wronai/code2docs/blob/main/code2docs/registry.py)
-
-| Class | Methods | Description | Source |
-|-------|---------|-------------|--------|
-| `GeneratorRegistry` | 3 | Registry of documentation generators. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/registry.py#L6) |
-
-**`GeneratorRegistry` methods:**
-
-- `add(generator)` — Add a generator instance to the registry.
-- `run_all(ctx)` — Run every registered generator that should execute.
-- `run_only(name, ctx)` — Run a single generator by name.
-
-### `code2docs.sync` [source](https://github.com/wronai/code2docs/blob/main/code2docs/sync/__init__.py)
-
-| Class | Methods | Description | Source |
-|-------|---------|-------------|--------|
-| `ChangeInfo` | 0 | Describes a detected change. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/sync/differ.py#L15) |
-| `Differ` | 2 | Detect changes between current source and previous state. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/sync/differ.py#L27) |
-| `Updater` | 1 | Apply selective documentation updates based on detected changes. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/sync/updater.py#L10) |
-
-**`Differ` methods:**
-
-- `detect_changes(project_path)` — Compare current file hashes with saved state. Return list of changes.
-- `save_state(project_path)` — Save current file hashes as state.
-
-| Function | Signature | CC | Description | Source |
-|----------|-----------|----|-----------  |--------|
-| `start_watcher` | `start_watcher(project_path, config)` | 5 | Start watching project for file changes and auto-resync docs. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/sync/watcher.py#L10) |
-
-### `code2docs.sync.differ` [source](https://github.com/wronai/code2docs/blob/main/code2docs/sync/differ.py)
-
-| Class | Methods | Description | Source |
-|-------|---------|-------------|--------|
-| `ChangeInfo` | 0 | Describes a detected change. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/sync/differ.py#L15) |
-| `Differ` | 2 | Detect changes between current source and previous state. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/sync/differ.py#L27) |
-
-**`Differ` methods:**
-
-- `detect_changes(project_path)` — Compare current file hashes with saved state. Return list of changes.
-- `save_state(project_path)` — Save current file hashes as state.
-
 ### `code2docs.sync.updater` [source](https://github.com/wronai/code2docs/blob/main/code2docs/sync/updater.py)
 
 | Class | Methods | Description | Source |
 |-------|---------|-------------|--------|
 | `Updater` | 1 | Apply selective documentation updates based on detected changes. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/sync/updater.py#L10) |
-
-### `code2docs.sync.watcher` [source](https://github.com/wronai/code2docs/blob/main/code2docs/sync/watcher.py)
-
-| Function | Signature | CC | Description | Source |
-|----------|-----------|----|-----------  |--------|
-| `start_watcher` | `start_watcher(project_path, config)` | 5 | Start watching project for file changes and auto-resync docs. | [source](https://github.com/wronai/code2docs/blob/main/code2docs/sync/watcher.py#L10) |
-
-## examples
 
 ### `examples.01_cli_usage` [source](https://github.com/wronai/code2docs/blob/main/examples/01_cli_usage.py)
 

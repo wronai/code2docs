@@ -2,17 +2,9 @@
 
 This directory contains runnable examples demonstrating various features of code2docs.
 
-## Quick Start
-
-```bash
 # Run any example
 python examples/01_cli_usage.py
 python examples/02_configuration.py
-# etc.
-```
-
-## Examples Overview
-
 ### 01_cli_usage.py - CLI Usage
 Learn how to use code2docs from the command line:
 - Basic documentation generation

@@ -5,8 +5,6 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.1.10] - 2026-04-07
-
 ### Fixed
 - Fix wildcard-imports issues (ticket-bd039bac)
 - Fix wildcard-imports issues (ticket-c9e8e515)
@@ -14,8 +12,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix wildcard-imports issues (ticket-35cb8925)
 - Fix ai-boilerplate issues (ticket-5cdcca6d)
 - Fix wildcard-imports issues (ticket-ba92f7f4)
-
-## [0.1.10] - 2026-03-30
 
 ### Fixed
 - Fix relative-imports issues (ticket-2a6fc9ae)
@@ -135,10 +131,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix unused-imports issues (ticket-74662e84)
 - Fix relative-imports issues (ticket-d9884e57)
 
-## [Unreleased]
-
-## [3.0.27] - 2026-04-09
-
 ### Docs
 - Update docs/README.md
 - Update docs/examples/advanced_usage.py
@@ -168,13 +160,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update code2docs/generators/code2llm_gen.py
 - ... and 23 more files
 
-## [3.0.26] - 2026-04-08
-
-### Docs
-- Update README.md
-
-## [3.0.25] - 2026-03-31
-
 ### Docs
 - Update project/context.md
 
@@ -184,8 +169,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update project/compact_flow.mmd
 - Update project/index.html
 - Update project/project.toon.yaml
-
-## [3.0.24] - 2026-03-31
 
 ### Docs
 - Update project/README.md
@@ -199,8 +182,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update project/map.toon.yaml
 - Update project/project.toon.yaml
 - Update project/prompt.txt
-
-## [3.0.23] - 2026-03-31
 
 ### Docs
 - Update CHANGELOG.md
@@ -224,8 +205,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update project/calls.png
 - ... and 11 more files
 
-## [3.0.22] - 2026-03-15
-
 ### Docs
 - Update project/context.md
 
@@ -240,8 +219,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update project/map.toon
 - Update project/project.toon
 - Update project/project.yaml
-
-## [3.0.21] - 2026-03-15
 
 ### Docs
 - Update project/context.md
@@ -263,8 +240,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update project/map.toon
 - ... and 2 more files
 
-## [3.0.20] - 2026-03-09
-
 ### Docs
 - Update docs/README.md
 - Update docs/architecture.md
@@ -285,8 +260,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update project/analysis.toon
 - Update project/calls.mmd
 - ... and 7 more files
-
-## [3.0.19] - 2026-03-09
 
 ### Docs
 - Update docs/README.md
@@ -311,8 +284,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update code2docs/project/project.yaml
 - ... and 12 more files
 
-## [3.0.18] - 2026-03-09
-
 ### Docs
 - Update project/context.md
 
@@ -323,20 +294,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update tests/project/dashboard.html
 - Update tests/project/project.yaml
 - Update tests/project/prompt.txt
-
-### Other
-- Update project/analysis.json
-- Update project/analysis.toon
-- Update project/analysis.yaml
-- Update project/calls.mmd
-- Update project/dashboard.html
-- Update project/flow.mmd
-- Update project/flow.toon
-- Update project/map.toon
-- Update project/project.yaml
-- Update project/prompt.txt
-
-## [3.0.17] - 2026-03-09
 
 ### Docs
 - Update code2docs/project/README.md
@@ -350,21 +307,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update project/README.md
 - Update project/context.md
 
-### Other
-- Update code2docs/project/analysis.json
-- Update code2docs/project/analysis.toon
-- Update code2docs/project/analysis.yaml
-- Update code2docs/project/calls.mmd
-- Update code2docs/project/dashboard.html
-- Update code2docs/project/evolution.toon
-- Update code2docs/project/flow.mmd
-- Update code2docs/project/flow.toon
-- Update code2docs/project/map.toon
-- Update code2docs/project/project.toon
-- ... and 15 more files
-
-## [3.0.16] - 2026-03-09
-
 ### Docs
 - Update project/context.md
 
@@ -382,8 +324,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update project/flow.toon
 - Update project/project.yaml
 
-## [3.0.15] - 2026-03-09
-
 ### Docs
 - Update project/context.md
 
@@ -400,8 +340,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update project/flow.mmd
 - Update project/flow.toon
 - Update project/project.yaml
-
-## [3.0.14] - 2026-03-09
 
 ### Docs
 - Update project/README.md
@@ -424,8 +362,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update project/map.toon
 - ... and 3 more files
 
-## [3.0.13] - 2026-03-09
-
 ### Docs
 - Update project/context.md
 
@@ -446,8 +382,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update project/flow.mmd
 - ... and 4 more files
 
-## [3.0.12] - 2026-03-09
-
 ### Docs
 - Update code2docs/project/README.md
 - Update code2docs/project/context.md
@@ -467,24 +401,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update tests/project/project.yaml
 
 ### Other
-- Update code2docs/project/analysis.json
-- Update code2docs/project/analysis.toon
-- Update code2docs/project/analysis.yaml
-- Update code2docs/project/calls.mmd
-- Update code2docs/project/dashboard.html
-- Update code2docs/project/evolution.toon
-- Update code2docs/project/flow.mmd
-- Update code2docs/project/flow.toon
-- Update code2docs/project/map.toon
-- Update code2docs/project/project.yaml
-- ... and 13 more files
-
-## [3.0.11] - 2026-03-09
-
-### Other
 - Update code2docs/config.py
-
-## [3.0.10] - 2026-03-08
 
 ### Docs
 - Update project/context.md
@@ -503,8 +420,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update project/flow.toon
 - Update project/map.toon
 - Update project/project.yaml
-
-## [3.0.9] - 2026-03-08
 
 ### Docs
 - Update project/context.md
@@ -523,8 +438,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update project/flow.toon
 - Update project/project.yaml
 
-## [3.0.8] - 2026-03-08
-
 ### Docs
 - Update project/context.md
 
@@ -542,8 +455,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update project/flow.toon
 - Update project/map.toon
 - Update project/project.yaml
-
-## [3.0.7] - 2026-03-08
 
 ### Docs
 - Update project/context.md
@@ -553,21 +464,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update tests/project/project.toon
 - Update tests/project/project.yaml
 - Update tests/test_cli.py
-
-### Other
-- Update project/analysis.json
-- Update project/analysis.toon
-- Update project/analysis.yaml
-- Update project/calls.mmd
-- Update project/dashboard.html
-- Update project/flow.mmd
-- Update project/flow.toon
-- Update project/map.toon
-- Update project/project.toon
-- Update project/project.yaml
-- ... and 1 more files
-
-## [3.0.6] - 2026-03-08
 
 ### Docs
 - Update code2docs/project/README.md
@@ -585,21 +481,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Test
 - Update tests/project/dashboard.html
 - Update tests/project/project.yaml
-
-### Other
-- Update code2docs/project/analysis.json
-- Update code2docs/project/analysis.toon
-- Update code2docs/project/analysis.yaml
-- Update code2docs/project/calls.mmd
-- Update code2docs/project/dashboard.html
-- Update code2docs/project/evolution.toon
-- Update code2docs/project/flow.mmd
-- Update code2docs/project/flow.toon
-- Update code2docs/project/map.toon
-- Update code2docs/project/project.toon
-- ... and 17 more files
-
-## [3.0.5] - 2026-03-08
 
 ### Docs
 - Update project/README.md
@@ -622,8 +503,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update project/dashboard.html
 - ... and 7 more files
 
-## [3.0.4] - 2026-03-08
-
 ### Docs
 - Update project/README.md
 - Update project/context.md
@@ -644,8 +523,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update project/dashboard.html
 - Update project/evolution.toon
 - ... and 5 more files
-
-## [3.0.3] - 2026-03-08
 
 ### Docs
 - Update code2docs/README.md
@@ -670,29 +547,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update code2docs/project/flow.toon
 - ... and 11 more files
 
-## [3.0.2] - 2026-03-08
-
 ### Docs
 - Update project/context.md
 
 ### Test
 - Update tests/project/dashboard.html
 - Update tests/project/project.yaml
-
-### Other
-- Update VERSION
-- Update code2docs/__init__.py
-- Update project/analysis.json
-- Update project/analysis.toon
-- Update project/analysis.yaml
-- Update project/calls.mmd
-- Update project/dashboard.html
-- Update project/flow.mmd
-- Update project/flow.toon
-- Update project/map.toon
-- ... and 1 more files
-
-## [0.2.11] - 2026-03-08
 
 ### Docs
 - Update project/context.md
@@ -709,20 +569,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update tests/project/evolution.toon
 - Update tests/project/flow.mmd
 - ... and 5 more files
-
-### Other
-- Update project/analysis.json
-- Update project/analysis.toon
-- Update project/analysis.yaml
-- Update project/calls.mmd
-- Update project/dashboard.html
-- Update project/flow.mmd
-- Update project/flow.toon
-- Update project/map.toon
-- Update project/project.yaml
-- Update project/prompt.txt
-
-## [0.2.10] - 2026-03-08
 
 ### Docs
 - Update CONTRIBUTING.md
@@ -750,17 +596,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update code2docs/project/flow.mmd
 - ... and 23 more files
 
-## [0.2.9] - 2026-03-07
-
-## [0.2.8] - 2026-03-07
-
 ### Docs
 - Update code2docs/README.md
 - Update code2docs/docs/api.md
 - Update code2docs/docs/architecture.md
 - Update code2docs/docs/modules.md
-
-## [0.2.7] - 2026-03-07
 
 ### Docs
 - Update code2docs/README.md
@@ -772,15 +612,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Other
 - Update code2docs/generators/readme_gen.py
 
-## [0.2.6] - 2026-03-07
-
 ### Test
 - Update tests/test_llm_helper.py
 
 ### Other
 - Update code2docs/generators/readme_gen.py
-
-## [0.2.5] - 2026-03-07
 
 ### Docs
 - Update code2docs/README.md
@@ -793,8 +629,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Other
 - Update code2docs/config.py
 - Update code2docs/templates/readme.md.j2
-
-## [0.2.4] - 2026-03-07
 
 ### Docs
 - Update code2docs/README.md
@@ -812,8 +646,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update code2docs/generators/readme_gen.py
 - Update code2docs/templates/readme.md.j2
 - Update project.sh
-
-## [0.2.3] - 2026-03-07
 
 ### Docs
 - Update code2docs/README.md
@@ -844,8 +676,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update code2docs/generators/contributing_gen.py
 - Update code2docs/generators/getting_started_gen.py
 
-## [0.2.2] - 2026-03-07
-
 ### Other
 - Update .gitignore
 - Update code2docs/generators/api_reference_gen.py
@@ -853,8 +683,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update code2docs/generators/module_docs_gen.py
 - Update code2docs/generators/readme_gen.py
 - Update code2docs/templates/module_doc.md.j2
-
-## [0.2.1] - 2026-03-07
 
 ### Docs
 - Update project/README.md
@@ -873,15 +701,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update project/flow.mmd
 - ... and 6 more files
 
-## [0.1.7] - 2026-03-07
-
 ### Test
 - Update tests/test_cli.py
 
 ### Other
 - Update code2docs/generators/depgraph_gen.py
-
-## [0.1.6] - 2026-03-07
 
 ### Docs
 - Update README.md
@@ -905,8 +729,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update examples/entry_points.py
 - Update mkdocs.yml
 
-## [0.1.5] - 2026-03-07
-
 ### Other
 - Update .gitignore
 - Update code2docs/cli.py
@@ -914,14 +736,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update code2docs/generators/api_changelog_gen.py
 - Update code2docs/templates/module_doc.md.j2
 
-## [0.1.4] - 2026-03-07
-
 ### Other
 - Update code2docs/generators/coverage_gen.py
 - Update code2docs/generators/depgraph_gen.py
 - Update code2docs/generators/mkdocs_gen.py
-
-## [0.1.3] - 2026-03-07
 
 ### Docs
 - Update project/README.md
@@ -943,26 +761,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update code2docs/generators/readme_gen.py
 - ... and 14 more files
 
-## [0.1.2] - 2026-03-07
-
 ### Docs
 - Update project/README.md
 - Update project/context.md
-
-### Other
-- Update code2docs/analyzers/endpoint_detector.py
-- Update project/analysis.toon
-- Update project/calls.mmd
-- Update project/calls.png
-- Update project/compact_flow.mmd
-- Update project/compact_flow.png
-- Update project/dashboard.html
-- Update project/evolution.toon
-- Update project/flow.mmd
-- Update project/flow.png
-- ... and 5 more files
-
-## [0.1.1] - 2026-03-07
 
 ### Docs
 - Update README.md
@@ -988,8 +789,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update code2docs/generators/changelog_gen.py
 - Update code2docs/generators/examples_gen.py
 - ... and 25 more files
-
-## [2.1.93] - 2026-03-07
 
 ### Test
 - Update tests/test_code2docs.py
