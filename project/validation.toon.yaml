@@ -1,7 +1,7 @@
-# vallm batch | 140f | 79✓ 3⚠ 2✗ | 2026-04-13
+# vallm batch | 138f | 79✓ 3⚠ 2✗ | 2026-04-18
 
 SUMMARY:
-  scanned: 140  passed: 79 (56.4%)  warnings: 3  errors: 2  unsupported: 59
+  scanned: 138  passed: 79 (57.2%)  warnings: 3  errors: 2  unsupported: 57
 
 WARNINGS[3]{path,score}:
   code2docs/generators/_registry_adapters.py,0.98
@@ -22,7 +22,8 @@ ERRORS[2]{path,score}:
     issues[1]{rule,severity,message,line}:
       syntax.parse,error,SyntaxError: unexpected indent,21
 
-UNSUPPORTED[3]{bucket,count}:
-  *.md,31
+UNSUPPORTED[4]{bucket,count}:
+  *.md,27
   *.txt,3
-  other,25
+  *.yml,1
+  other,26

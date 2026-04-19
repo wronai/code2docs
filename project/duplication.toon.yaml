@@ -1,4 +1,4 @@
-# redup/duplication | 6 groups | 54f 6761L | 2026-04-13
+# redup/duplication | 6 groups | 54f 6761L | 2026-04-18
 
 SUMMARY:
   files_scanned: 54
@@ -6,7 +6,16 @@ SUMMARY:
   dup_groups:    6
   dup_fragments: 19
   saved_lines:   69
-  scan_ms:       3805
+  scan_ms:       3972
+
+HOTSPOTS[7] (files with most duplication):
+  examples/07_web_frameworks.py  dup=30L  groups=1  frags=2  (0.4%)
+  code2docs/generators/api_reference_gen.py  dup=26L  groups=3  frags=3  (0.4%)
+  code2docs/generators/module_docs_gen.py  dup=26L  groups=3  frags=3  (0.4%)
+  code2docs/generators/architecture_gen.py  dup=4L  groups=1  frags=1  (0.1%)
+  code2docs/generators/getting_started_gen.py  dup=4L  groups=1  frags=1  (0.1%)
+  code2docs/base.py  dup=3L  groups=1  frags=1  (0.0%)
+  code2docs/generators/api_changelog_gen.py  dup=3L  groups=1  frags=1  (0.0%)
 
 DUPLICATES[6] (ranked by impact):
   [88c0cfa6561a3637]   EXAC  __init__  L=3 N=9 saved=24 sim=1.00
@@ -54,6 +63,32 @@ REFACTOR[6] (ranked by priority):
   [6] ○ extract_function   → code2docs/generators/utils/__init__.py
       WHY: 2 occurrences of 4-line block across 2 files — saves 4 lines
       FILES: code2docs/generators/architecture_gen.py, code2docs/generators/getting_started_gen.py
+
+QUICK_WINS[4] (low risk, high savings — do first):
+  [1] extract_function   saved=24L  → utils/__init__.py
+      FILES: base.py, api_changelog_gen.py, changelog_gen.py +6
+  [2] extract_function   saved=15L  → examples/utils/detect_flask_endpoints.py
+      FILES: 07_web_frameworks.py
+  [3] extract_function   saved=12L  → code2docs/generators/utils/_get_public_methods.py
+      FILES: api_reference_gen.py, module_docs_gen.py
+  [4] extract_function   saved=10L  → code2docs/generators/utils/_group_modules.py
+      FILES: api_reference_gen.py, module_docs_gen.py
+
+DEPENDENCY_RISK[1] (duplicates spanning multiple packages):
+  __init__  packages=2  files=9
+      code2docs/base.py
+      code2docs/generators/api_changelog_gen.py
+      code2docs/generators/changelog_gen.py
+      code2docs/generators/code2llm_gen.py
+      +5 more
+
+EFFORT_ESTIMATE (total ≈ 3.1h):
+  hard   __init__                            saved=24L  ~96min
+  medium detect_flask_endpoints              saved=15L  ~30min
+  easy   _get_public_methods                 saved=12L  ~24min
+  easy   _group_modules                      saved=10L  ~20min
+  easy   __init__                            saved=4L  ~8min
+  easy   __init__                            saved=4L  ~8min
 
 METRICS-TARGET:
   dup_groups:  6 → 0

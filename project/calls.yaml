@@ -1,0 +1,857 @@
+project: /home/tom/github/semcod/code2docs
+generated_from: code2llm call graph analysis
+stats:
+  total_nodes: 47
+  total_edges: 42
+  modules_count: 16
+nodes:
+  examples.03_programmatic_api.custom_documentation_pipeline:
+    name: custom_documentation_pipeline
+    module: examples.03_programmatic_api
+    line: 34
+    cyclomatic_complexity: 1
+    calls_out: 8
+    calls_in: 0
+  code2docs.generators.code2llm_gen._extract_patterns:
+    name: _extract_patterns
+    module: code2docs.generators.code2llm_gen
+    line: 34
+    cyclomatic_complexity: 3
+    calls_out: 3
+    calls_in: 1
+  examples.03_programmatic_api.inspect_project_structure:
+    name: inspect_project_structure
+    module: examples.03_programmatic_api
+    line: 50
+    cyclomatic_complexity: 5
+    calls_out: 16
+    calls_in: 0
+  code2docs.cli._run_sync:
+    name: _run_sync
+    module: code2docs.cli
+    line: 147
+    cyclomatic_complexity: 4
+    calls_out: 14
+    calls_in: 1
+  examples.07_web_frameworks.document_web_project:
+    name: document_web_project
+    module: examples.07_web_frameworks
+    line: 177
+    cyclomatic_complexity: 3
+    calls_out: 9
+    calls_in: 0
+  code2docs.generators.contributing_gen.ContributingGenerator._get_python_style_lines:
+    name: _get_python_style_lines
+    module: code2docs.generators.contributing_gen
+    line: 218
+    cyclomatic_complexity: 7
+    calls_out: 11
+    calls_in: 1
+  examples.06_formatters.badge_examples:
+    name: badge_examples
+    module: examples.06_formatters
+    line: 53
+    cyclomatic_complexity: 2
+    calls_out: 4
+    calls_in: 0
+  code2docs.cli._run_check:
+    name: _run_check
+    module: code2docs.cli
+    line: 178
+    cyclomatic_complexity: 10
+    calls_out: 34
+    calls_in: 1
+  code2docs.cli.diff:
+    name: diff
+    module: code2docs.cli
+    line: 99
+    cyclomatic_complexity: 1
+    calls_out: 6
+    calls_in: 0
+  code2docs.llm_helper._get_litellm:
+    name: _get_litellm
+    module: code2docs.llm_helper
+    line: 18
+    cyclomatic_complexity: 4
+    calls_out: 0
+    calls_in: 1
+  code2docs.cli._run_watch:
+    name: _run_watch
+    module: code2docs.cli
+    line: 167
+    cyclomatic_complexity: 2
+    calls_out: 7
+    calls_in: 1
+  code2docs.cli._load_config:
+    name: _load_config
+    module: code2docs.cli
+    line: 104
+    cyclomatic_complexity: 4
+    calls_out: 7
+    calls_in: 5
+  examples.05_custom_generators.generate_custom_report:
+    name: generate_custom_report
+    module: examples.05_custom_generators
+    line: 119
+    cyclomatic_complexity: 1
+    calls_out: 9
+    calls_in: 0
+  code2docs.generators.contributing_gen.ContributingGenerator._render_code_style:
+    name: _render_code_style
+    module: code2docs.generators.contributing_gen
+    line: 185
+    cyclomatic_complexity: 1
+    calls_out: 4
+    calls_in: 0
+  code2docs.generators.code2llm_gen.parse_gitignore:
+    name: parse_gitignore
+    module: code2docs.generators.code2llm_gen
+    line: 12
+    cyclomatic_complexity: 3
+    calls_out: 3
+    calls_in: 1
+  code2docs.generators.contributing_gen.ContributingGenerator._get_jsts_style_lines:
+    name: _get_jsts_style_lines
+    module: code2docs.generators.contributing_gen
+    line: 204
+    cyclomatic_complexity: 5
+    calls_out: 7
+    calls_in: 1
+  examples.03_programmatic_api.generate_docs_if_needed:
+    name: generate_docs_if_needed
+    module: examples.03_programmatic_api
+    line: 68
+    cyclomatic_complexity: 3
+    calls_out: 10
+    calls_in: 0
+  code2docs.generators.code2llm_gen._should_skip_line:
+    name: _should_skip_line
+    module: code2docs.generators.code2llm_gen
+    line: 57
+    cyclomatic_complexity: 7
+    calls_out: 2
+    calls_in: 1
+  code2docs.generators.code2llm_gen._is_valid_pattern:
+    name: _is_valid_pattern
+    module: code2docs.generators.code2llm_gen
+    line: 78
+    cyclomatic_complexity: 5
+    calls_out: 2
+    calls_in: 1
+  code2docs.cli._run_diff:
+    name: _run_diff
+    module: code2docs.cli
+    line: 230
+    cyclomatic_complexity: 2
+    calls_out: 11
+    calls_in: 1
+  examples.06_formatters.toc_examples:
+    name: toc_examples
+    module: examples.06_formatters
+    line: 60
+    cyclomatic_complexity: 2
+    calls_out: 6
+    calls_in: 0
+  code2docs.generators.code2llm_gen._clean_pattern:
+    name: _clean_pattern
+    module: code2docs.generators.code2llm_gen
+    line: 70
+    cyclomatic_complexity: 2
+    calls_out: 2
+    calls_in: 1
+  code2docs.config.Code2DocsConfig.from_yaml:
+    name: from_yaml
+    module: code2docs.config
+    line: 112
+    cyclomatic_complexity: 10
+    calls_out: 53
+    calls_in: 2
+  examples.02_configuration.load_config_from_yaml:
+    name: load_config_from_yaml
+    module: examples.02_configuration
+    line: 142
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 0
+  code2docs.generators.readme_gen.ReadmeGenerator._build_context:
+    name: _build_context
+    module: code2docs.generators.readme_gen
+    line: 45
+    cyclomatic_complexity: 12
+    calls_out: 21
+    calls_in: 0
+  examples.07_web_frameworks.generate_api_docs_from_endpoints:
+    name: generate_api_docs_from_endpoints
+    module: examples.07_web_frameworks
+    line: 55
+    cyclomatic_complexity: 9
+    calls_out: 27
+    calls_in: 1
+  examples.03_programmatic_api.generate_readme_simple:
+    name: generate_readme_simple
+    module: examples.03_programmatic_api
+    line: 12
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 0
+  examples.04_sync_and_watch.watch_and_auto_regenerate:
+    name: watch_and_auto_regenerate
+    module: examples.04_sync_and_watch
+    line: 54
+    cyclomatic_complexity: 2
+    calls_out: 5
+    calls_in: 0
+  code2docs.formatters.toc._slugify:
+    name: _slugify
+    module: code2docs.formatters.toc
+    line: 57
+    cyclomatic_complexity: 1
+    calls_out: 4
+    calls_in: 1
+  code2docs.analyzers.project_scanner.ProjectScanner.analyze:
+    name: analyze
+    module: code2docs.analyzers.project_scanner
+    line: 33
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 11
+  code2docs.formatters.toc.extract_headings:
+    name: extract_headings
+    module: code2docs.formatters.toc
+    line: 30
+    cyclomatic_complexity: 6
+    calls_out: 10
+    calls_in: 2
+  code2docs.formatters.badges._make_badge:
+    name: _make_badge
+    module: code2docs.formatters.badges
+    line: 21
+    cyclomatic_complexity: 11
+    calls_out: 4
+    calls_in: 1
+  code2docs.cli.sync:
+    name: sync
+    module: code2docs.cli
+    line: 58
+    cyclomatic_complexity: 2
+    calls_out: 8
+    calls_in: 0
+  code2docs.generators.contributing_gen.ContributingGenerator._get_style_lines:
+    name: _get_style_lines
+    module: code2docs.generators.contributing_gen
+    line: 193
+    cyclomatic_complexity: 4
+    calls_out: 2
+    calls_in: 1
+  code2docs.cli.check:
+    name: check
+    module: code2docs.cli
+    line: 91
+    cyclomatic_complexity: 1
+    calls_out: 7
+    calls_in: 0
+  code2docs.formatters.toc.generate_toc:
+    name: generate_toc
+    module: code2docs.formatters.toc
+    line: 7
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 2
+  examples.06_formatters.build_custom_readme:
+    name: build_custom_readme
+    module: examples.06_formatters
+    line: 71
+    cyclomatic_complexity: 2
+    calls_out: 27
+    calls_in: 0
+  code2docs.generators.readme_gen.generate_readme:
+    name: generate_readme
+    module: code2docs.generators.readme_gen
+    line: 327
+    cyclomatic_complexity: 3
+    calls_out: 6
+    calls_in: 1
+  code2docs.formatters.badges.generate_badges:
+    name: generate_badges
+    module: code2docs.formatters.badges
+    line: 7
+    cyclomatic_complexity: 4
+    calls_out: 3
+    calls_in: 3
+  examples.03_programmatic_api.generate_full_documentation:
+    name: generate_full_documentation
+    module: examples.03_programmatic_api
+    line: 19
+    cyclomatic_complexity: 2
+    calls_out: 12
+    calls_in: 0
+  examples.07_web_frameworks.detect_fastapi_endpoints:
+    name: detect_fastapi_endpoints
+    module: examples.07_web_frameworks
+    line: 33
+    cyclomatic_complexity: 4
+    calls_out: 6
+    calls_in: 0
+  code2docs.generators.code2llm_gen._process_line:
+    name: _process_line
+    module: code2docs.generators.code2llm_gen
+    line: 44
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 1
+  code2docs.llm_helper.LLMHelper.complete:
+    name: complete
+    module: code2docs.llm_helper
+    line: 59
+    cyclomatic_complexity: 7
+    calls_out: 6
+    calls_in: 0
+  code2docs.generators.code2llm_gen.Code2LlmGenerator._add_exclude_patterns:
+    name: _add_exclude_patterns
+    module: code2docs.generators.code2llm_gen
+    line: 178
+    cyclomatic_complexity: 2
+    calls_out: 5
+    calls_in: 0
+  code2docs.sync.watcher.start_watcher:
+    name: start_watcher
+    module: code2docs.sync.watcher
+    line: 10
+    cyclomatic_complexity: 5
+    calls_out: 29
+    calls_in: 2
+  examples.07_web_frameworks.detect_flask_endpoints:
+    name: detect_flask_endpoints
+    module: examples.07_web_frameworks
+    line: 16
+    cyclomatic_complexity: 4
+    calls_out: 6
+    calls_in: 0
+  code2docs.cli.watch:
+    name: watch
+    module: code2docs.cli
+    line: 69
+    cyclomatic_complexity: 2
+    calls_out: 7
+    calls_in: 0
+edges:
+- caller: code2docs.formatters.badges.generate_badges
+  callee: code2docs.formatters.badges._make_badge
+  call_type: resolved
+- caller: code2docs.formatters.toc.generate_toc
+  callee: code2docs.formatters.toc.extract_headings
+  call_type: resolved
+- caller: code2docs.formatters.toc.extract_headings
+  callee: code2docs.formatters.toc._slugify
+  call_type: resolved
+- caller: code2docs.generators.readme_gen.ReadmeGenerator._build_context
+  callee: code2docs.formatters.badges.generate_badges
+  call_type: resolved
+- caller: code2docs.cli.sync
+  callee: code2docs.cli._load_config
+  call_type: resolved
+- caller: code2docs.cli.sync
+  callee: code2docs.cli._run_sync
+  call_type: resolved
+- caller: code2docs.cli.watch
+  callee: code2docs.cli._load_config
+  call_type: resolved
+- caller: code2docs.cli.watch
+  callee: code2docs.cli._run_watch
+  call_type: resolved
+- caller: code2docs.cli.check
+  callee: code2docs.cli._load_config
+  call_type: resolved
+- caller: code2docs.cli.check
+  callee: code2docs.cli._run_check
+  call_type: resolved
+- caller: code2docs.cli.diff
+  callee: code2docs.cli._load_config
+  call_type: resolved
+- caller: code2docs.cli.diff
+  callee: code2docs.cli._run_diff
+  call_type: resolved
+- caller: code2docs.cli._load_config
+  callee: code2docs.config.Code2DocsConfig.from_yaml
+  call_type: resolved
+- caller: code2docs.cli._run_watch
+  callee: code2docs.sync.watcher.start_watcher
+  call_type: resolved
+- caller: code2docs.generators.code2llm_gen.parse_gitignore
+  callee: code2docs.generators.code2llm_gen._extract_patterns
+  call_type: resolved
+- caller: code2docs.generators.code2llm_gen._extract_patterns
+  callee: code2docs.generators.code2llm_gen._process_line
+  call_type: resolved
+- caller: code2docs.generators.code2llm_gen._process_line
+  callee: code2docs.generators.code2llm_gen._should_skip_line
+  call_type: resolved
+- caller: code2docs.generators.code2llm_gen._process_line
+  callee: code2docs.generators.code2llm_gen._clean_pattern
+  call_type: resolved
+- caller: code2docs.generators.code2llm_gen._process_line
+  callee: code2docs.generators.code2llm_gen._is_valid_pattern
+  call_type: resolved
+- caller: code2docs.generators.code2llm_gen.Code2LlmGenerator._add_exclude_patterns
+  callee: code2docs.generators.code2llm_gen.parse_gitignore
+  call_type: resolved
+- caller: code2docs.generators.contributing_gen.ContributingGenerator._render_code_style
+  callee: code2docs.generators.contributing_gen.ContributingGenerator._get_style_lines
+  call_type: resolved
+- caller: code2docs.generators.contributing_gen.ContributingGenerator._get_style_lines
+  callee: code2docs.generators.contributing_gen.ContributingGenerator._get_python_style_lines
+  call_type: resolved
+- caller: code2docs.generators.contributing_gen.ContributingGenerator._get_style_lines
+  callee: code2docs.generators.contributing_gen.ContributingGenerator._get_jsts_style_lines
+  call_type: resolved
+- caller: examples.04_sync_and_watch.watch_and_auto_regenerate
+  callee: code2docs.sync.watcher.start_watcher
+  call_type: resolved
+- caller: examples.05_custom_generators.generate_custom_report
+  callee: code2docs.analyzers.project_scanner.ProjectScanner.analyze
+  call_type: resolved
+- caller: examples.06_formatters.badge_examples
+  callee: code2docs.formatters.badges.generate_badges
+  call_type: resolved
+- caller: examples.06_formatters.toc_examples
+  callee: code2docs.formatters.toc.generate_toc
+  call_type: resolved
+- caller: examples.06_formatters.toc_examples
+  callee: code2docs.formatters.toc.extract_headings
+  call_type: resolved
+- caller: examples.06_formatters.build_custom_readme
+  callee: code2docs.formatters.toc.generate_toc
+  call_type: resolved
+- caller: examples.03_programmatic_api.generate_readme_simple
+  callee: code2docs.analyzers.project_scanner.ProjectScanner.analyze
+  call_type: resolved
+- caller: examples.03_programmatic_api.generate_readme_simple
+  callee: code2docs.generators.readme_gen.generate_readme
+  call_type: resolved
+- caller: examples.03_programmatic_api.generate_full_documentation
+  callee: code2docs.analyzers.project_scanner.ProjectScanner.analyze
+  call_type: resolved
+- caller: examples.03_programmatic_api.custom_documentation_pipeline
+  callee: code2docs.analyzers.project_scanner.ProjectScanner.analyze
+  call_type: resolved
+- caller: examples.03_programmatic_api.inspect_project_structure
+  callee: code2docs.analyzers.project_scanner.ProjectScanner.analyze
+  call_type: resolved
+- caller: examples.03_programmatic_api.generate_docs_if_needed
+  callee: code2docs.analyzers.project_scanner.ProjectScanner.analyze
+  call_type: resolved
+- caller: examples.07_web_frameworks.detect_flask_endpoints
+  callee: code2docs.analyzers.project_scanner.ProjectScanner.analyze
+  call_type: resolved
+- caller: examples.07_web_frameworks.detect_fastapi_endpoints
+  callee: code2docs.analyzers.project_scanner.ProjectScanner.analyze
+  call_type: resolved
+- caller: examples.07_web_frameworks.generate_api_docs_from_endpoints
+  callee: code2docs.analyzers.project_scanner.ProjectScanner.analyze
+  call_type: resolved
+- caller: examples.07_web_frameworks.document_web_project
+  callee: code2docs.analyzers.project_scanner.ProjectScanner.analyze
+  call_type: resolved
+- caller: examples.07_web_frameworks.document_web_project
+  callee: examples.07_web_frameworks.generate_api_docs_from_endpoints
+  call_type: resolved
+- caller: examples.02_configuration.load_config_from_yaml
+  callee: code2docs.config.Code2DocsConfig.from_yaml
+  call_type: resolved
+- caller: code2docs.llm_helper.LLMHelper.complete
+  callee: code2docs.llm_helper._get_litellm
+  call_type: resolved
+modules:
+  code2docs.analyzers.project_scanner:
+  - code2docs.analyzers.project_scanner.ProjectScanner.analyze
+  code2docs.cli:
+  - code2docs.cli._load_config
+  - code2docs.cli._run_check
+  - code2docs.cli._run_diff
+  - code2docs.cli._run_sync
+  - code2docs.cli._run_watch
+  - code2docs.cli.check
+  - code2docs.cli.diff
+  - code2docs.cli.sync
+  - code2docs.cli.watch
+  code2docs.config:
+  - code2docs.config.Code2DocsConfig.from_yaml
+  code2docs.formatters.badges:
+  - code2docs.formatters.badges._make_badge
+  - code2docs.formatters.badges.generate_badges
+  code2docs.formatters.toc:
+  - code2docs.formatters.toc._slugify
+  - code2docs.formatters.toc.extract_headings
+  - code2docs.formatters.toc.generate_toc
+  code2docs.generators.code2llm_gen:
+  - code2docs.generators.code2llm_gen.Code2LlmGenerator._add_exclude_patterns
+  - code2docs.generators.code2llm_gen._clean_pattern
+  - code2docs.generators.code2llm_gen._extract_patterns
+  - code2docs.generators.code2llm_gen._is_valid_pattern
+  - code2docs.generators.code2llm_gen._process_line
+  - code2docs.generators.code2llm_gen._should_skip_line
+  - code2docs.generators.code2llm_gen.parse_gitignore
+  code2docs.generators.contributing_gen:
+  - code2docs.generators.contributing_gen.ContributingGenerator._get_jsts_style_lines
+  - code2docs.generators.contributing_gen.ContributingGenerator._get_python_style_lines
+  - code2docs.generators.contributing_gen.ContributingGenerator._get_style_lines
+  - code2docs.generators.contributing_gen.ContributingGenerator._render_code_style
+  code2docs.generators.readme_gen:
+  - code2docs.generators.readme_gen.ReadmeGenerator._build_context
+  - code2docs.generators.readme_gen.generate_readme
+  code2docs.llm_helper:
+  - code2docs.llm_helper.LLMHelper.complete
+  - code2docs.llm_helper._get_litellm
+  code2docs.sync.watcher:
+  - code2docs.sync.watcher.start_watcher
+  examples.02_configuration:
+  - examples.02_configuration.load_config_from_yaml
+  examples.03_programmatic_api:
+  - examples.03_programmatic_api.custom_documentation_pipeline
+  - examples.03_programmatic_api.generate_docs_if_needed
+  - examples.03_programmatic_api.generate_full_documentation
+  - examples.03_programmatic_api.generate_readme_simple
+  - examples.03_programmatic_api.inspect_project_structure
+  examples.04_sync_and_watch:
+  - examples.04_sync_and_watch.watch_and_auto_regenerate
+  examples.05_custom_generators:
+  - examples.05_custom_generators.generate_custom_report
+  examples.06_formatters:
+  - examples.06_formatters.badge_examples
+  - examples.06_formatters.build_custom_readme
+  - examples.06_formatters.toc_examples
+  examples.07_web_frameworks:
+  - examples.07_web_frameworks.detect_fastapi_endpoints
+  - examples.07_web_frameworks.detect_flask_endpoints
+  - examples.07_web_frameworks.document_web_project
+  - examples.07_web_frameworks.generate_api_docs_from_endpoints
+entry_points:
+- code2docs.__getattr__
+- code2docs.analyzers.dependency_scanner.DependencyScanner._detect_version
+- code2docs.analyzers.dependency_scanner.DependencyScanner._parse_cargo_toml
+- code2docs.analyzers.dependency_scanner.DependencyScanner._parse_dep_string
+- code2docs.analyzers.dependency_scanner.DependencyScanner._parse_go_mod
+- code2docs.analyzers.dependency_scanner.DependencyScanner._parse_package_json
+- code2docs.analyzers.dependency_scanner.DependencyScanner._parse_pyproject
+- code2docs.analyzers.dependency_scanner.DependencyScanner._parse_pyproject_regex
+- code2docs.analyzers.dependency_scanner.DependencyScanner._parse_requirements_txt
+- code2docs.analyzers.dependency_scanner.DependencyScanner._parse_setup_py
+- code2docs.analyzers.dependency_scanner.DependencyScanner.scan
+- code2docs.analyzers.docstring_extractor.DocstringExtractor._classify_section
+- code2docs.analyzers.docstring_extractor.DocstringExtractor._extract_summary
+- code2docs.analyzers.docstring_extractor.DocstringExtractor._parse_examples_line
+- code2docs.analyzers.docstring_extractor.DocstringExtractor._parse_param_line
+- code2docs.analyzers.docstring_extractor.DocstringExtractor._parse_raises_line
+- code2docs.analyzers.docstring_extractor.DocstringExtractor._parse_returns_line
+- code2docs.analyzers.docstring_extractor.DocstringExtractor._parse_sections
+- code2docs.analyzers.docstring_extractor.DocstringExtractor.coverage_report
+- code2docs.analyzers.docstring_extractor.DocstringExtractor.extract_all
+- code2docs.analyzers.docstring_extractor.DocstringExtractor.parse
+- code2docs.analyzers.endpoint_detector.EndpointDetector._parse_decorator
+- code2docs.analyzers.endpoint_detector.EndpointDetector._scan_django_urls
+- code2docs.analyzers.endpoint_detector.EndpointDetector.detect
+- code2docs.analyzers.project_scanner.ProjectScanner.__init__
+- code2docs.analyzers.project_scanner.ProjectScanner._build_llm_config
+- code2docs.analyzers.project_scanner.analyze_and_document
+- code2docs.base.BaseGenerator.__init__
+- code2docs.base.BaseGenerator.run
+- code2docs.base.BaseGenerator.should_run
+- code2docs.cli.DefaultGroup.parse_args
+- code2docs.cli.check
+- code2docs.cli.diff
+- code2docs.cli.generate
+- code2docs.cli.init
+- code2docs.cli.main
+- code2docs.cli.sync
+- code2docs.cli.watch
+- code2docs.config.Code2DocsConfig.__post_init__
+- code2docs.config.Code2DocsConfig._detect_repo_url
+- code2docs.config.Code2DocsConfig.from_yaml
+- code2docs.config.Code2DocsConfig.to_yaml
+- code2docs.config.LLMConfig.from_env
+- code2docs.formatters.markdown.MarkdownFormatter.__init__
+- code2docs.formatters.markdown.MarkdownFormatter.blank
+- code2docs.formatters.markdown.MarkdownFormatter.blockquote
+- code2docs.formatters.markdown.MarkdownFormatter.bold
+- code2docs.formatters.markdown.MarkdownFormatter.code_block
+- code2docs.formatters.markdown.MarkdownFormatter.heading
+- code2docs.formatters.markdown.MarkdownFormatter.inline_code
+- code2docs.formatters.markdown.MarkdownFormatter.link
+- code2docs.formatters.markdown.MarkdownFormatter.list_item
+- code2docs.formatters.markdown.MarkdownFormatter.paragraph
+- code2docs.formatters.markdown.MarkdownFormatter.render
+- code2docs.formatters.markdown.MarkdownFormatter.separator
+- code2docs.formatters.markdown.MarkdownFormatter.table
+- code2docs.generators._registry_adapters.ApiChangelogAdapter.run
+- code2docs.generators._registry_adapters.ApiChangelogAdapter.should_run
+- code2docs.generators._registry_adapters.ApiReferenceAdapter.run
+- code2docs.generators._registry_adapters.ApiReferenceAdapter.should_run
+- code2docs.generators._registry_adapters.ArchitectureAdapter.run
+- code2docs.generators._registry_adapters.ArchitectureAdapter.should_run
+- code2docs.generators._registry_adapters.Code2LlmAdapter.run
+- code2docs.generators._registry_adapters.Code2LlmAdapter.should_run
+- code2docs.generators._registry_adapters.ConfigDocsAdapter.run
+- code2docs.generators._registry_adapters.ConfigDocsAdapter.should_run
+- code2docs.generators._registry_adapters.ContributingAdapter.run
+- code2docs.generators._registry_adapters.ContributingAdapter.should_run
+- code2docs.generators._registry_adapters.CoverageAdapter.run
+- code2docs.generators._registry_adapters.CoverageAdapter.should_run
+- code2docs.generators._registry_adapters.DepGraphAdapter.run
+- code2docs.generators._registry_adapters.DepGraphAdapter.should_run
+- code2docs.generators._registry_adapters.ExamplesAdapter.run
+- code2docs.generators._registry_adapters.ExamplesAdapter.should_run
+- code2docs.generators._registry_adapters.GettingStartedAdapter.run
+- code2docs.generators._registry_adapters.GettingStartedAdapter.should_run
+- code2docs.generators._registry_adapters.IndexHtmlAdapter._build_files_html
+- code2docs.generators._registry_adapters.IndexHtmlAdapter._build_github_link
+- code2docs.generators._registry_adapters.IndexHtmlAdapter._build_html_template
+- code2docs.generators._registry_adapters.IndexHtmlAdapter._collect_doc_files
+- code2docs.generators._registry_adapters.IndexHtmlAdapter._generate_html
+- code2docs.generators._registry_adapters.IndexHtmlAdapter.run
+- code2docs.generators._registry_adapters.IndexHtmlAdapter.should_run
+- code2docs.generators._registry_adapters.MkDocsAdapter.run
+- code2docs.generators._registry_adapters.MkDocsAdapter.should_run
+- code2docs.generators._registry_adapters.ModuleDocsAdapter.run
+- code2docs.generators._registry_adapters.ModuleDocsAdapter.should_run
+- code2docs.generators._registry_adapters.OrgReadmeAdapter.run
+- code2docs.generators._registry_adapters.OrgReadmeAdapter.should_run
+- code2docs.generators._registry_adapters.ReadmeGeneratorAdapter.run
+- code2docs.generators._registry_adapters.ReadmeGeneratorAdapter.should_run
+- code2docs.generators._source_links.SourceLinker.__init__
+- code2docs.generators._source_links.SourceLinker._detect_branch
+- code2docs.generators._source_links.SourceLinker._find_git_root
+- code2docs.generators._source_links.SourceLinker._relative_path
+- code2docs.generators._source_links.SourceLinker.file_link
+- code2docs.generators._source_links.SourceLinker.source_link
+- code2docs.generators.api_changelog_gen.ApiChangelogGenerator.__init__
+- code2docs.generators.api_changelog_gen.ApiChangelogGenerator._build_snapshot
+- code2docs.generators.api_changelog_gen.ApiChangelogGenerator._diff
+- code2docs.generators.api_changelog_gen.ApiChangelogGenerator._diff_classes
+- code2docs.generators.api_changelog_gen.ApiChangelogGenerator._diff_functions
+- code2docs.generators.api_changelog_gen.ApiChangelogGenerator._load_snapshot
+- code2docs.generators.api_changelog_gen.ApiChangelogGenerator._render
+- code2docs.generators.api_changelog_gen.ApiChangelogGenerator.generate
+- code2docs.generators.api_changelog_gen.ApiChangelogGenerator.save_snapshot
+- code2docs.generators.api_reference_gen.ApiReferenceGenerator.__init__
+- code2docs.generators.api_reference_gen.ApiReferenceGenerator._format_signature
+- code2docs.generators.api_reference_gen.ApiReferenceGenerator._get_module_classes
+- code2docs.generators.api_reference_gen.ApiReferenceGenerator._get_module_functions
+- code2docs.generators.api_reference_gen.ApiReferenceGenerator._get_public_methods
+- code2docs.generators.api_reference_gen.ApiReferenceGenerator._group_modules
+- code2docs.generators.api_reference_gen.ApiReferenceGenerator._has_content
+- code2docs.generators.api_reference_gen.ApiReferenceGenerator._render_class_methods
+- code2docs.generators.api_reference_gen.ApiReferenceGenerator._render_classes_table
+- code2docs.generators.api_reference_gen.ApiReferenceGenerator._render_functions_table
+- code2docs.generators.api_reference_gen.ApiReferenceGenerator._render_module_section
+- code2docs.generators.api_reference_gen.ApiReferenceGenerator.generate
+- code2docs.generators.architecture_gen.ArchitectureGenerator.__init__
+- code2docs.generators.architecture_gen.ArchitectureGenerator._detect_layers
+- code2docs.generators.architecture_gen.ArchitectureGenerator._generate_class_diagram
+- code2docs.generators.architecture_gen.ArchitectureGenerator._generate_layer_diagram
+- code2docs.generators.architecture_gen.ArchitectureGenerator._generate_llm_summary
+- code2docs.generators.architecture_gen.ArchitectureGenerator._generate_metrics_table
+- code2docs.generators.architecture_gen.ArchitectureGenerator._generate_module_graph
+- code2docs.generators.architecture_gen.ArchitectureGenerator._generate_pipeline_overview
+- code2docs.generators.architecture_gen.ArchitectureGenerator._get_public_entry_points
+- code2docs.generators.architecture_gen.ArchitectureGenerator.generate
+- code2docs.generators.changelog_gen.ChangelogGenerator.__init__
+- code2docs.generators.changelog_gen.ChangelogGenerator._classify_message
+- code2docs.generators.changelog_gen.ChangelogGenerator._get_git_log
+- code2docs.generators.changelog_gen.ChangelogGenerator._group_by_type
+- code2docs.generators.changelog_gen.ChangelogGenerator._render
+- code2docs.generators.changelog_gen.ChangelogGenerator.generate
+- code2docs.generators.code2llm_gen.Code2LlmGenerator.__init__
+- code2docs.generators.code2llm_gen.Code2LlmGenerator._add_config_options
+- code2docs.generators.code2llm_gen.Code2LlmGenerator._add_exclude_patterns
+- code2docs.generators.code2llm_gen.Code2LlmGenerator._build_base_cmd
+- code2docs.generators.code2llm_gen.Code2LlmGenerator._execute_command
+- code2docs.generators.code2llm_gen.Code2LlmGenerator._get_config_skip_dirs
+- code2docs.generators.code2llm_gen.Code2LlmGenerator._merge_patterns
+- code2docs.generators.code2llm_gen.Code2LlmGenerator._run_code2llm
+- code2docs.generators.code2llm_gen.Code2LlmGenerator.generate_all
+- code2docs.generators.code2llm_gen.Code2LlmGenerator.get_analysis_summary
+- code2docs.generators.code2llm_gen.generate_code2llm_analysis
+- code2docs.generators.config_docs_gen.ConfigDocsGenerator.__init__
+- code2docs.generators.config_docs_gen.ConfigDocsGenerator._render_example
+- code2docs.generators.config_docs_gen.ConfigDocsGenerator._render_section
+- code2docs.generators.config_docs_gen.ConfigDocsGenerator.generate
+- code2docs.generators.contributing_gen.ContributingGenerator.__init__
+- code2docs.generators.contributing_gen.ContributingGenerator._detect_dev_tools
+- code2docs.generators.contributing_gen.ContributingGenerator._get_jsts_style_lines
+- code2docs.generators.contributing_gen.ContributingGenerator._get_python_style_lines
+- code2docs.generators.contributing_gen.ContributingGenerator._get_style_lines
+- code2docs.generators.contributing_gen.ContributingGenerator._render_code_style
+- code2docs.generators.contributing_gen.ContributingGenerator._render_development
+- code2docs.generators.contributing_gen.ContributingGenerator._render_pull_request
+- code2docs.generators.contributing_gen.ContributingGenerator._render_setup
+- code2docs.generators.contributing_gen.ContributingGenerator._render_testing
+- code2docs.generators.contributing_gen.ContributingGenerator.generate
+- code2docs.generators.coverage_gen.CoverageGenerator.__init__
+- code2docs.generators.coverage_gen.CoverageGenerator._collect_module_stats
+- code2docs.generators.coverage_gen.CoverageGenerator._format_coverage_table
+- code2docs.generators.coverage_gen.CoverageGenerator._render_per_module
+- code2docs.generators.coverage_gen.CoverageGenerator._render_summary
+- code2docs.generators.coverage_gen.CoverageGenerator._render_undocumented
+- code2docs.generators.coverage_gen.CoverageGenerator.generate
+- code2docs.generators.depgraph_gen.DepGraphGenerator.__init__
+- code2docs.generators.depgraph_gen.DepGraphGenerator._calc_degrees
+- code2docs.generators.depgraph_gen.DepGraphGenerator._collect_edges
+- code2docs.generators.depgraph_gen.DepGraphGenerator._extract_imports_from_file
+- code2docs.generators.depgraph_gen.DepGraphGenerator._import_matches
+- code2docs.generators.depgraph_gen.DepGraphGenerator._render_degree_table
+- code2docs.generators.depgraph_gen.DepGraphGenerator._render_matrix
+- code2docs.generators.depgraph_gen.DepGraphGenerator._render_mermaid
+- code2docs.generators.depgraph_gen.DepGraphGenerator.generate
+- code2docs.generators.examples_gen.ExamplesGenerator.__init__
+- code2docs.generators.examples_gen.ExamplesGenerator._build_realistic_args
+- code2docs.generators.examples_gen.ExamplesGenerator._detect_package_name
+- code2docs.generators.examples_gen.ExamplesGenerator._example_from_type
+- code2docs.generators.examples_gen.ExamplesGenerator._find_api_classes
+- code2docs.generators.examples_gen.ExamplesGenerator._find_class_by_name
+- code2docs.generators.examples_gen.ExamplesGenerator._find_convenience_functions
+- code2docs.generators.examples_gen.ExamplesGenerator._find_formatter_functions
+- code2docs.generators.examples_gen.ExamplesGenerator._find_function_by_name
+- code2docs.generators.examples_gen.ExamplesGenerator._find_generator_classes
+- code2docs.generators.examples_gen.ExamplesGenerator._generate_advanced
+- code2docs.generators.examples_gen.ExamplesGenerator._generate_quickstart
+- code2docs.generators.examples_gen.ExamplesGenerator._get_example_value
+- code2docs.generators.examples_gen.ExamplesGenerator._get_public_methods
+- code2docs.generators.examples_gen.ExamplesGenerator._render_formatter_examples
+- code2docs.generators.examples_gen.ExamplesGenerator._render_generator_examples
+- code2docs.generators.examples_gen.ExamplesGenerator._render_sync_examples
+- code2docs.generators.examples_gen.ExamplesGenerator.generate_all
+- code2docs.generators.examples_gen.ExamplesGenerator.write_all
+- code2docs.generators.generate_docs
+- code2docs.generators.getting_started_gen.GettingStartedGenerator.__init__
+- code2docs.generators.getting_started_gen.GettingStartedGenerator._find_priority_public_function
+- code2docs.generators.getting_started_gen.GettingStartedGenerator._format_func_args
+- code2docs.generators.getting_started_gen.GettingStartedGenerator._gather_filtered_functions
+- code2docs.generators.getting_started_gen.GettingStartedGenerator._generate_intro
+- code2docs.generators.getting_started_gen.GettingStartedGenerator._get_matching_functions
+- code2docs.generators.getting_started_gen.GettingStartedGenerator._get_top_level_modules
+- code2docs.generators.getting_started_gen.GettingStartedGenerator._render_cli_example
+- code2docs.generators.getting_started_gen.GettingStartedGenerator._render_first_usage
+- code2docs.generators.getting_started_gen.GettingStartedGenerator._render_installation
+- code2docs.generators.getting_started_gen.GettingStartedGenerator._render_next_steps
+- code2docs.generators.getting_started_gen.GettingStartedGenerator._render_prerequisites
+- code2docs.generators.getting_started_gen.GettingStartedGenerator._render_python_api_example
+- code2docs.generators.getting_started_gen.GettingStartedGenerator.generate
+- code2docs.generators.mkdocs_gen.MkDocsGenerator.__init__
+- code2docs.generators.mkdocs_gen.MkDocsGenerator._build_nav
+- code2docs.generators.mkdocs_gen.MkDocsGenerator._read_pyproject_mkdocs
+- code2docs.generators.mkdocs_gen.MkDocsGenerator.generate
+- code2docs.generators.mkdocs_gen.MkDocsGenerator.write
+- code2docs.generators.module_docs_gen.ModuleDocsGenerator.__init__
+- code2docs.generators.module_docs_gen.ModuleDocsGenerator._build_detail_sections
+- code2docs.generators.module_docs_gen.ModuleDocsGenerator._build_group_section
+- code2docs.generators.module_docs_gen.ModuleDocsGenerator._build_header
+- code2docs.generators.module_docs_gen.ModuleDocsGenerator._build_module_row
+- code2docs.generators.module_docs_gen.ModuleDocsGenerator._build_overview_table
+- code2docs.generators.module_docs_gen.ModuleDocsGenerator._calc_module_avg_cc
+- code2docs.generators.module_docs_gen.ModuleDocsGenerator._count_file_lines
+- code2docs.generators.module_docs_gen.ModuleDocsGenerator._count_module_classes
+- code2docs.generators.module_docs_gen.ModuleDocsGenerator._count_module_functions
+- code2docs.generators.module_docs_gen.ModuleDocsGenerator._get_module_classes
+- code2docs.generators.module_docs_gen.ModuleDocsGenerator._get_module_docstring
+- code2docs.generators.module_docs_gen.ModuleDocsGenerator._get_module_functions
+- code2docs.generators.module_docs_gen.ModuleDocsGenerator._get_public_methods
+- code2docs.generators.module_docs_gen.ModuleDocsGenerator._group_modules
+- code2docs.generators.module_docs_gen.ModuleDocsGenerator._has_content
+- code2docs.generators.module_docs_gen.ModuleDocsGenerator._render_classes_detail
+- code2docs.generators.module_docs_gen.ModuleDocsGenerator._render_functions_detail
+- code2docs.generators.module_docs_gen.ModuleDocsGenerator._render_module_detail
+- code2docs.generators.module_docs_gen.ModuleDocsGenerator.generate
+- code2docs.generators.org_readme_gen.OrgReadmeGenerator.__init__
+- code2docs.generators.org_readme_gen.OrgReadmeGenerator._analyze_project
+- code2docs.generators.org_readme_gen.OrgReadmeGenerator._collect_description_lines
+- code2docs.generators.org_readme_gen.OrgReadmeGenerator._discover_projects
+- code2docs.generators.org_readme_gen.OrgReadmeGenerator._extract_description
+- code2docs.generators.org_readme_gen.OrgReadmeGenerator._extract_from_readme_content
+- code2docs.generators.org_readme_gen.OrgReadmeGenerator._get_repo_url
+- code2docs.generators.org_readme_gen.OrgReadmeGenerator._get_version
+- code2docs.generators.org_readme_gen.OrgReadmeGenerator._render_project_section
+- code2docs.generators.org_readme_gen.OrgReadmeGenerator._truncate_description
+- code2docs.generators.org_readme_gen.OrgReadmeGenerator._try_module_docstring
+- code2docs.generators.org_readme_gen.OrgReadmeGenerator._try_pyproject_description
+- code2docs.generators.org_readme_gen.OrgReadmeGenerator._try_readme_description
+- code2docs.generators.org_readme_gen.OrgReadmeGenerator.generate
+- code2docs.generators.org_readme_gen.OrgReadmeGenerator.write
+- code2docs.generators.readme_gen.ReadmeGenerator.__init__
+- code2docs.generators.readme_gen.ReadmeGenerator._build_api_section
+- code2docs.generators.readme_gen.ReadmeGenerator._build_context
+- code2docs.generators.readme_gen.ReadmeGenerator._build_endpoints_section
+- code2docs.generators.readme_gen.ReadmeGenerator._build_install_section
+- code2docs.generators.readme_gen.ReadmeGenerator._build_manual
+- code2docs.generators.readme_gen.ReadmeGenerator._build_module_tree
+- code2docs.generators.readme_gen.ReadmeGenerator._build_overview_section
+- code2docs.generators.readme_gen.ReadmeGenerator._build_quickstart_section
+- code2docs.generators.readme_gen.ReadmeGenerator._build_structure_section
+- code2docs.generators.readme_gen.ReadmeGenerator._calc_avg_complexity
+- code2docs.generators.readme_gen.ReadmeGenerator._detect_license
+- code2docs.generators.readme_gen.ReadmeGenerator._extract_author_from_git
+- code2docs.generators.readme_gen.ReadmeGenerator._extract_contributors_from_git
+- code2docs.generators.readme_gen.ReadmeGenerator._extract_extras
+- code2docs.generators.readme_gen.ReadmeGenerator._extract_from_pyproject
+- code2docs.generators.readme_gen.ReadmeGenerator._extract_project_description
+- code2docs.generators.readme_gen.ReadmeGenerator._extract_project_metadata
+- code2docs.generators.readme_gen.ReadmeGenerator._generate_description
+- code2docs.generators.readme_gen.ReadmeGenerator.generate
+- code2docs.generators.readme_gen.ReadmeGenerator.write
+- code2docs.llm_helper.LLMHelper.__init__
+- code2docs.llm_helper.LLMHelper.complete
+- code2docs.llm_helper.LLMHelper.enhance_module_docstring
+- code2docs.llm_helper.LLMHelper.generate_architecture_summary
+- code2docs.llm_helper.LLMHelper.generate_getting_started_summary
+- code2docs.llm_helper.LLMHelper.generate_project_description
+- code2docs.registry.GeneratorRegistry.__init__
+- code2docs.registry.GeneratorRegistry.add
+- code2docs.registry.GeneratorRegistry.run_all
+- code2docs.registry.GeneratorRegistry.run_only
+- code2docs.sync.differ.ChangeInfo.__str__
+- code2docs.sync.differ.Differ.__init__
+- code2docs.sync.differ.Differ._compute_state
+- code2docs.sync.differ.Differ._file_to_module
+- code2docs.sync.differ.Differ._load_state
+- code2docs.sync.differ.Differ.detect_changes
+- code2docs.sync.differ.Differ.save_state
+- code2docs.sync.updater.Updater.__init__
+- code2docs.sync.updater.Updater.apply
+- examples.01_cli_usage.run_cli_basic
+- examples.01_cli_usage.run_cli_with_config
+- examples.02_configuration.create_advanced_config
+- examples.02_configuration.create_basic_config
+- examples.02_configuration.load_config_from_yaml
+- examples.02_configuration.save_yaml_config_example
+- examples.03_programmatic_api.custom_documentation_pipeline
+- examples.03_programmatic_api.generate_docs_if_needed
+- examples.03_programmatic_api.generate_full_documentation
+- examples.03_programmatic_api.generate_readme_simple
+- examples.03_programmatic_api.inspect_project_structure
+- examples.04_sync_and_watch.custom_watcher_with_hooks
+- examples.04_sync_and_watch.detect_changes_example
+- examples.04_sync_and_watch.force_full_regeneration
+- examples.04_sync_and_watch.sync_with_git_changes
+- examples.04_sync_and_watch.update_docs_incrementally
+- examples.04_sync_and_watch.watch_and_auto_regenerate
+- examples.05_custom_generators.APIChangelogGenerator.__init__
+- examples.05_custom_generators.APIChangelogGenerator._compare_apis
+- examples.05_custom_generators.APIChangelogGenerator._list_new_apis
+- examples.05_custom_generators.APIChangelogGenerator.generate
+- examples.05_custom_generators.CustomGenerator.generate
+- examples.05_custom_generators.CustomGenerator.write
+- examples.05_custom_generators.MetricsReportGenerator.__init__
+- examples.05_custom_generators.MetricsReportGenerator._analyze_functions
+- examples.05_custom_generators.MetricsReportGenerator._calculate_stats
+- examples.05_custom_generators.MetricsReportGenerator._format_stats_table
+- examples.05_custom_generators.MetricsReportGenerator._list_largest_files
+- examples.05_custom_generators.MetricsReportGenerator.generate
+- examples.05_custom_generators.generate_custom_report
+- examples.06_formatters.badge_examples
+- examples.06_formatters.build_custom_readme
+- examples.06_formatters.generate_complex_document
+- examples.06_formatters.markdown_formatting_examples
+- examples.06_formatters.toc_examples
+- examples.07_web_frameworks.create_example_web_apps
+- examples.07_web_frameworks.detect_fastapi_endpoints
+- examples.07_web_frameworks.detect_flask_endpoints
+- examples.07_web_frameworks.document_web_project

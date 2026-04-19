@@ -1,3 +1,5 @@
+# System Architecture Analysis
+
 ## Overview
 
 - **Project**: /home/tom/github/semcod/code2docs
@@ -8,6 +10,8 @@
 - **Total Classes**: 60
 - **Modules**: 54
 - **Entry Points**: 329
+
+## Architecture by Module
 
 ### code2docs.generators._registry_adapters
 - **Functions**: 35
@@ -113,13 +117,13 @@
 
 Main execution flows into the system:
 
-### code2docs.generators.examples_gen.ExamplesGenerator._generate_quickstart
-> Generate quickstart.py — minimal working example.
-- **Calls**: self._find_convenience_functions, self._find_api_classes, set, lines.extend, lines.append, self._find_class_by_name, lines.append, lines.append
-
 ### code2docs.config.Code2DocsConfig.from_yaml
 > Load configuration from code2docs.yaml.
 - **Calls**: Path, cls, data.get, project.get, project.get, project.get, project.get, project.get
+
+### code2docs.generators.examples_gen.ExamplesGenerator._generate_quickstart
+> Generate quickstart.py — minimal working example.
+- **Calls**: self._find_convenience_functions, self._find_api_classes, set, lines.extend, lines.append, self._find_class_by_name, lines.append, lines.append
 
 ### code2docs.generators.architecture_gen.ArchitectureGenerator.generate
 > Generate architecture documentation.
@@ -237,14 +241,14 @@ Main execution flows into the system:
 
 Key execution flows identified:
 
-### Flow 1: _generate_quickstart
-```
-_generate_quickstart [code2docs.generators.examples_gen.ExamplesGenerator]
-```
-
-### Flow 2: from_yaml
+### Flow 1: from_yaml
 ```
 from_yaml [code2docs.config.Code2DocsConfig]
+```
+
+### Flow 2: _generate_quickstart
+```
+_generate_quickstart [code2docs.generators.examples_gen.ExamplesGenerator]
 ```
 
 ### Flow 3: generate
@@ -286,6 +290,8 @@ _render_formatter_examples [code2docs.generators.examples_gen.ExamplesGenerator]
 ```
 _render_sync_examples [code2docs.generators.examples_gen.ExamplesGenerator]
 ```
+
+## Key Classes
 
 ### code2docs.generators.readme_gen.ReadmeGenerator
 > Generate README.md from AnalysisResult.
@@ -396,16 +402,12 @@ If LLM is unavailable or disabled, every
 
 Key functions that process and transform data:
 
-### code2docs.generators.coverage_gen.CoverageGenerator._format_coverage_table
-> Format coverage stats as a Markdown table.
-- **Output to**: None.join, lines.append
-
 ### code2docs.cli.DefaultGroup.parse_args
 - **Output to**: None.parse_args, super
 
-### code2docs.generators.getting_started_gen.GettingStartedGenerator._format_func_args
-> Format function arguments for example code.
-- **Output to**: None.join, enumerate
+### code2docs.generators.coverage_gen.CoverageGenerator._format_coverage_table
+> Format coverage stats as a Markdown table.
+- **Output to**: None.join, lines.append
 
 ### code2docs.generators.code2llm_gen.parse_gitignore
 > Parse .gitignore file and return list of patterns to exclude.
@@ -418,6 +420,10 @@ Filters out:
 ### code2docs.generators.code2llm_gen._process_line
 > Process a single gitignore line, returning valid pattern or empty string.
 - **Output to**: line.strip, code2docs.generators.code2llm_gen._should_skip_line, code2docs.generators.code2llm_gen._clean_pattern, code2docs.generators.code2llm_gen._is_valid_pattern
+
+### code2docs.generators.getting_started_gen.GettingStartedGenerator._format_func_args
+> Format function arguments for example code.
+- **Output to**: None.join, enumerate
 
 ### code2docs.generators.api_reference_gen.ApiReferenceGenerator._format_signature
 > Format a function signature string.
@@ -462,10 +468,6 @@ Filters out:
 > Demonstrate markdown formatting utilities.
 - **Output to**: MarkdownFormatter, print, print, print, print
 
-### code2docs.analyzers.endpoint_detector.EndpointDetector._parse_decorator
-> Try to parse a route decorator string.
-- **Output to**: self.FASTAPI_PATTERNS.search, self.FLASK_PATTERNS.search, Endpoint, Endpoint, None.upper
-
 ### code2docs.analyzers.dependency_scanner.DependencyScanner._parse_pyproject
 > Parse pyproject.toml for dependencies.
 - **Output to**: ProjectDependencies, data.get, project.get, project.get, project.get
@@ -497,6 +499,12 @@ Filters out:
 ### code2docs.analyzers.dependency_scanner.DependencyScanner._parse_dep_string
 > Parse a dependency string like 'package>=1.0'.
 - **Output to**: re.match, DependencyInfo, dep_str.strip, DependencyInfo, dep_str.strip
+
+### code2docs.analyzers.endpoint_detector.EndpointDetector._parse_decorator
+> Try to parse a route decorator string.
+- **Output to**: self.FASTAPI_PATTERNS.search, self.FLASK_PATTERNS.search, Endpoint, Endpoint, None.upper
+
+## Behavioral Patterns
 
 ### recursion_analyze
 - **Type**: recursion
@@ -542,10 +550,10 @@ Functions exposed as public API (no underscore prefix):
 - `examples.05_custom_generators.generate_custom_report` - 9 calls
 - `examples.07_web_frameworks.document_web_project` - 9 calls
 - `code2docs.formatters.markdown.MarkdownFormatter.table` - 8 calls
-- `code2docs.generators.depgraph_gen.DepGraphGenerator.generate` - 8 calls
 - `code2docs.cli.sync` - 8 calls
-- `code2docs.generators.getting_started_gen.GettingStartedGenerator.generate` - 8 calls
+- `code2docs.generators.depgraph_gen.DepGraphGenerator.generate` - 8 calls
 - `code2docs.generators.code2llm_gen.Code2LlmGenerator.generate_all` - 8 calls
+- `code2docs.generators.getting_started_gen.GettingStartedGenerator.generate` - 8 calls
 - `code2docs.generators.org_readme_gen.OrgReadmeGenerator.generate` - 8 calls
 - `examples.03_programmatic_api.custom_documentation_pipeline` - 8 calls
 - `code2docs.cli.watch` - 7 calls
@@ -559,14 +567,14 @@ How components interact:
 
 ```mermaid
 graph TD
+    from_yaml --> Path
+    from_yaml --> cls
+    from_yaml --> get
     _generate_quickstart --> _find_convenience_fu
     _generate_quickstart --> _find_api_classes
     _generate_quickstart --> set
     _generate_quickstart --> extend
     _generate_quickstart --> append
-    from_yaml --> Path
-    from_yaml --> cls
-    from_yaml --> get
     generate --> append
     generate --> _generate_llm_summar
     generate --> _detect_layers
