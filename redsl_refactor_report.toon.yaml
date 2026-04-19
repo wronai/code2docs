@@ -1,0 +1,29 @@
+# redsl | refactor | 2026-04-19
+# mode=executed | files=67 | lines=8541
+# CC̄=7.5 | critical=5 | decisions=2
+
+STATUS[partial]
+
+DECISIONS[2]:
+  1. split_module → tests/test_generators.py (score=1.62) God module — zbyt duży plik z za dużą liczbą funkcji
+  2. split_module → code2docs/generators/examples_gen.py (score=1.17) God module — zbyt duży plik z za dużą liczbą funkcji
+
+EXECUTION[applied=0, rejected=0, rate=0.0]:
+
+ERRORS[2]:
+  ! split_god_module: Model google/gemini-3.1-flash-lite-preview rejected: unknown: only 1 source(s) provided date, need 2
+  ! split_god_module: Model google/gemini-3.1-flash-lite-preview rejected: unknown: only 1 source(s) provided date, need 2
+
+METRICS[10]:
+  🟡 code2docs/config.py::from_yaml CC=11 LOC=155
+  🟡 code2docs/config.py::None CC=11 LOC=155
+  🟢 code2docs/base.py::None CC=2 LOC=46
+  🟡 code2docs/cli.py::None CC=10 LOC=245
+  🟢 code2docs/registry.py::None CC=4 LOC=35
+  🟢 code2docs/llm_helper.py::None CC=7 LOC=161
+  🟢 code2docs/__init__.py::None CC=4 LOC=24
+  🟢 code2docs/__main__.py::None CC=0 LOC=6
+  🟢 examples/04_sync_and_watch.py::None CC=4 LOC=120
+  🟢 examples/05_custom_generators.py::None CC=8 LOC=144
+
+LOG: logs/redsl_20260419_175934.log
