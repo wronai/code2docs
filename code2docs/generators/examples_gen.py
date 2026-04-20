@@ -1,33 +1,3 @@
-
-PORT_4 = 4
-CONSTANT_5 = 5
-CONSTANT_50 = 50
-
-
-PORT_4 = PORT_4
-CONSTANT_5 = CONSTANT_5
-CONSTANT_50 = CONSTANT_50
-
-
-PORT_4 = PORT_4
-CONSTANT_5 = CONSTANT_5
-CONSTANT_50 = CONSTANT_50
-
-
-PORT_4 = PORT_4
-CONSTANT_5 = CONSTANT_5
-CONSTANT_50 = CONSTANT_50
-
-
-
-PORT_4 = PORT_4
-CONSTANT_5 = CONSTANT_5
-CONSTANT_50 = CONSTANT_50
-
-PORT_4 = PORT_4
-CONSTANT_5 = CONSTANT_5
-CONSTANT_50 = CONSTANT_50
-
 """Auto-generate usage examples from public signatures and entry points."""
 
 from pathlib import Path
@@ -37,10 +7,12 @@ from code2llm.api import AnalysisResult, FunctionInfo, ClassInfo
 
 from ..config import Code2DocsConfig
 
-# Default type hints → example values
+PORT_4 = 4
+CONSTANT_5 = 5
+CONSTANT_50 = 50
 
-if __name__ == "__main__":
-    _TYPE_EXAMPLES = {
+# Default type hints → example values
+_TYPE_EXAMPLES = {
     "str": '"./my-project"',
     "Path": 'Path("./my-project")',
     "int": "10",
@@ -55,7 +27,7 @@ if __name__ == "__main__":
 }
 
 # Arg name → realistic example value
-    _ARG_EXAMPLES = {
+_ARG_EXAMPLES = {
     "project_path": '"./my-project"',
     "path": '"./my-project"',
     "source": '"./src"',

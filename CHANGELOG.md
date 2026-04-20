@@ -2,6 +2,17 @@
 
 ## [Unreleased]
 
+## [3.0.32] - 2026-04-20
+
+### Docs
+- Update README.md
+- Update docs/README.md
+
+### Other
+- Update code2docs/generators/examples_gen.py
+- Update examples/class_examples.py
+- Update project/duplication.toon.yaml
+
 ## [3.0.31] - 2026-04-20
 
 ### Docs

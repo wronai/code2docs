@@ -126,59 +126,60 @@ docs = generate_docs("./my-project", config=config)
 ```
 code2docs/
 ├── project
-        ├── updater
+        ├── advanced_usage
         ├── badges
         ├── toc
     ├── formatters/
-        ├── quickstart
-        ├── advanced_usage
-    ├── sync/
+    ├── registry
         ├── coverage_gen
         ├── _source_links
-        ├── watcher
-    ├── __main__
-        ├── depgraph_gen
-        ├── config_docs_gen
-        ├── getting_started_gen
         ├── readme_gen
+    ├── __main__
+        ├── watcher
+        ├── depgraph_gen
     ├── generators/
-        ├── advanced_usage
-        ├── quickstart
-        ├── code2llm_gen
-        ├── mkdocs_gen
-        ├── differ
-        ├── api_reference_gen
-        ├── org_readme_gen
-├── code2docs/
-    ├── analyzers/
+        ├── getting_started_gen
+        ├── config_docs_gen
         ├── module_docs_gen
-        ├── contributing_gen
-        ├── architecture_gen
+        ├── org_readme_gen
+        ├── code2llm_gen
+├── code2docs/
+        ├── api_reference_gen
         ├── changelog_gen
-    ├── registry
-    ├── quickstart
+        ├── mkdocs_gen
+        ├── advanced_usage
+        ├── contributing_gen
+        ├── updater
+    ├── analyzers/
+        ├── architecture_gen
         ├── _registry_adapters
-    ├── 04_sync_and_watch
-    ├── advanced_usage
-    ├── 05_custom_generators
-    ├── entry_points
-    ├── 06_formatters
-        ├── examples_gen
-    ├── basic_usage
-    ├── 01_cli_usage
-    ├── 03_programmatic_api
-    ├── 02_configuration
-    ├── 07_web_frameworks
         ├── api_changelog_gen
+    ├── 04_sync_and_watch
+        ├── quickstart
+    ├── quickstart
+    ├── 05_custom_generators
+    ├── advanced_usage
+    ├── 06_formatters
+    ├── 03_programmatic_api
+    ├── entry_points
+    ├── class_examples
+    ├── basic_usage
+    ├── 07_web_frameworks
+    ├── 01_cli_usage
+    ├── 02_configuration
+        ├── examples_gen
+        ├── differ
         ├── markdown
+    ├── sync/
+        ├── quickstart
     ├── base
-    ├── cli
-        ├── docstring_extractor
         ├── markdown_validator
+    ├── cli
         ├── endpoint_detector
-        ├── dependency_scanner
         ├── project_scanner
+        ├── dependency_scanner
     ├── config
+        ├── docstring_extractor
     ├── llm_helper
 ```
 
@@ -186,25 +187,23 @@ code2docs/
 
 ### Classes
 
-- **`Updater`** — Apply selective documentation updates based on detected changes.
+- **`GeneratorRegistry`** — Registry of documentation generators.
 - **`CoverageGenerator`** — Generate docs/coverage.md — docstring coverage report.
 - **`SourceLinker`** — Build source-code links (relative paths + optional GitHub/GitLab URLs).
-- **`DepGraphGenerator`** — Generate docs/dependency-graph.md with Mermaid diagrams.
-- **`ConfigDocsGenerator`** — Generate docs/configuration.md from Code2DocsConfig dataclass.
-- **`GettingStartedGenerator`** — Generate docs/getting-started.md from entry points and dependencies.
 - **`ReadmeGenerator`** — Generate README.md from AnalysisResult.
-- **`Code2LlmGenerator`** — Generate code2llm analysis files in project/ directory.
-- **`MkDocsGenerator`** — Generate mkdocs.yml from the docs/ directory structure.
-- **`ChangeInfo`** — Describes a detected change.
-- **`Differ`** — Detect changes between current source and previous state.
-- **`ApiReferenceGenerator`** — Generate docs/api.md — consolidated API reference.
-- **`OrgReadmeGenerator`** — Generate organization README with list of projects and brief descriptions.
+- **`DepGraphGenerator`** — Generate docs/dependency-graph.md with Mermaid diagrams.
+- **`GettingStartedGenerator`** — Generate docs/getting-started.md from entry points and dependencies.
+- **`ConfigDocsGenerator`** — Generate docs/configuration.md from Code2DocsConfig dataclass.
 - **`ModuleDocsGenerator`** — Generate docs/modules.md — consolidated module documentation.
-- **`ContributingGenerator`** — Generate CONTRIBUTING.md by detecting dev tools from pyproject.toml.
-- **`ArchitectureGenerator`** — Generate docs/architecture.md — architecture overview with diagrams.
+- **`OrgReadmeGenerator`** — Generate organization README with list of projects and brief descriptions.
+- **`Code2LlmGenerator`** — Generate code2llm analysis files in project/ directory.
+- **`ApiReferenceGenerator`** — Generate docs/api.md — consolidated API reference.
 - **`ChangelogEntry`** — A single changelog entry.
 - **`ChangelogGenerator`** — Generate CHANGELOG.md from git log and analysis diff.
-- **`GeneratorRegistry`** — Registry of documentation generators.
+- **`MkDocsGenerator`** — Generate mkdocs.yml from the docs/ directory structure.
+- **`ContributingGenerator`** — Generate CONTRIBUTING.md by detecting dev tools from pyproject.toml.
+- **`Updater`** — Apply selective documentation updates based on detected changes.
+- **`ArchitectureGenerator`** — Generate docs/architecture.md — architecture overview with diagrams.
 - **`ReadmeGeneratorAdapter`** — —
 - **`ApiReferenceAdapter`** — —
 - **`ModuleDocsAdapter`** — —
@@ -220,26 +219,26 @@ code2docs/
 - **`Code2LlmAdapter`** — Adapter for code2llm analysis generation.
 - **`OrgReadmeAdapter`** — Adapter for organization README generation.
 - **`IndexHtmlAdapter`** — Adapter for generating index.html for GitHub Pages browsing.
+- **`ApiChange`** — A single API change between two analysis snapshots.
+- **`ApiChangelogGenerator`** — Generate API changelog by diffing current analysis with a saved snapshot.
 - **`MetricsReportGenerator`** — Generate a metrics report from code analysis.
 - **`APIChangelogGenerator`** — Generate changelog based on API changes.
 - **`CustomGenerator`** — Example of extending the base generator class.
 - **`ExamplesGenerator`** — Generate examples/ — usage examples from public API signatures.
-- **`ApiChange`** — A single API change between two analysis snapshots.
-- **`ApiChangelogGenerator`** — Generate API changelog by diffing current analysis with a saved snapshot.
+- **`ChangeInfo`** — Describes a detected change.
+- **`Differ`** — Detect changes between current source and previous state.
 - **`MarkdownFormatter`** — Helper for constructing Markdown documents.
 - **`GenerateContext`** — Shared context passed to all generators during a run.
 - **`BaseGenerator`** — Abstract base for all documentation generators.
-- **`DefaultGroup`** — Click Group that routes unknown subcommands to 'generate'.
-- **`DocstringInfo`** — Parsed docstring with sections.
-- **`DocstringExtractor`** — Extract and parse docstrings from AnalysisResult.
 - **`MarkdownIssue`** — A single validation issue in a markdown file.
 - **`ValidationReport`** — Aggregate result of markdown validation.
+- **`DefaultGroup`** — Click Group that routes unknown subcommands to 'generate'.
 - **`Endpoint`** — Represents a detected web endpoint.
 - **`EndpointDetector`** — Detects web endpoints from decorator patterns in source code.
+- **`ProjectScanner`** — Wraps code2llm's ProjectAnalyzer with code2docs-specific defaults.
 - **`DependencyInfo`** — Information about a project dependency.
 - **`ProjectDependencies`** — All detected project dependencies.
 - **`DependencyScanner`** — Scan and parse project dependency files.
-- **`ProjectScanner`** — Wraps code2llm's ProjectAnalyzer with code2docs-specific defaults.
 - **`ReadmeConfig`** — Configuration for README generation.
 - **`DocsConfig`** — Configuration for docs/ generation.
 - **`ExamplesConfig`** — Configuration for examples/ generation.
@@ -247,6 +246,8 @@ code2docs/
 - **`Code2LlmConfig`** — Configuration for code2llm analysis generation.
 - **`LLMConfig`** — Configuration for optional LLM-assisted documentation generation.
 - **`Code2DocsConfig`** — Main configuration for code2docs.
+- **`DocstringInfo`** — Parsed docstring with sections.
+- **`DocstringExtractor`** — Extract and parse docstrings from AnalysisResult.
 - **`LLMHelper`** — Thin wrapper around litellm for documentation generation.
 
 ### Functions
@@ -254,8 +255,8 @@ code2docs/
 - `generate_badges(project_name, badge_types, stats, deps)` — Generate shields.io badge Markdown strings.
 - `generate_toc(markdown_content, max_depth)` — Generate a table of contents from Markdown headings.
 - `extract_headings(content, max_depth)` — Extract headings from Markdown content.
-- `start_watcher(project_path, config)` — Start watching project for file changes and auto-resync docs.
 - `generate_readme(project_path, output, sections, sync_markers)` — Convenience function to generate a README.
+- `start_watcher(project_path, config)` — Start watching project for file changes and auto-resync docs.
 - `generate_docs(project_path, config)` — High-level function to generate all documentation.
 - `parse_gitignore(project_path)` — Parse .gitignore file and return list of patterns to exclude.
 - `generate_code2llm_analysis(project_path, config)` — Convenience function to generate code2llm analysis.
@@ -271,22 +272,24 @@ code2docs/
 - `badge_examples()` — Generate various badge examples.
 - `toc_examples()` — Demonstrate table of contents generation.
 - `build_custom_readme()` — Build a custom README using formatters.
-- `run_cli_basic(project_path)` — Run code2docs CLI programmatically.
-- `run_cli_with_config(project_path, config_path)` — Run with custom configuration.
 - `generate_readme_simple(project_path)` — Generate README.md content from a project.
 - `generate_full_documentation(project_path)` — Generate complete documentation for a project.
 - `custom_documentation_pipeline(project_path)` — Create a custom documentation pipeline.
 - `inspect_project_structure(project_path)` — Inspect project structure from analysis.
 - `generate_docs_if_needed(project_path, force)` — Only generate docs if code has changed.
-- `create_basic_config()` — Create a basic configuration.
-- `create_advanced_config()` — Create advanced configuration with all options.
-- `save_yaml_config_example(path)` — Save example YAML config to file.
-- `load_config_from_yaml(path)` — Load configuration from YAML file.
 - `detect_flask_endpoints(project_path)` — Detect Flask endpoints in a project.
 - `detect_fastapi_endpoints(project_path)` — Detect FastAPI endpoints in a project.
 - `generate_api_docs_from_endpoints(project_path, output_dir)` — Generate API documentation from detected endpoints.
 - `create_example_web_apps(target_dir)` — Create example Flask and FastAPI apps for testing.
 - `document_web_project(project_path)` — Complete workflow: detect endpoints and generate docs.
+- `run_cli_basic(project_path)` — Run code2docs CLI programmatically.
+- `run_cli_with_config(project_path, config_path)` — Run with custom configuration.
+- `create_basic_config()` — Create a basic configuration.
+- `create_advanced_config()` — Create advanced configuration with all options.
+- `save_yaml_config_example(path)` — Save example YAML config to file.
+- `load_config_from_yaml(path)` — Load configuration from YAML file.
+- `validate_markdown_file(md_path, project_root)` — Validate a single markdown file.
+- `validate_markdown_tree(root, patterns, ignore)` — Validate every markdown file under ``root`` matching ``patterns``.
 - `main()` — code2docs — Auto-generate project documentation from source code.
 - `generate(project_path, config_path, readme_only, sections)` — Generate documentation (default command).
 - `sync(project_path, config_path, verbose, dry_run)` — Synchronize documentation with source code changes.
@@ -295,8 +298,6 @@ code2docs/
 - `check(project_path, config_path, target)` — Health check — verify documentation completeness.
 - `validate(project_path, pattern, strict)` — Validate generated markdown: broken links, table shape, duplicate headings.
 - `diff(project_path, config_path)` — Preview what would change without writing anything.
-- `validate_markdown_file(md_path, project_root)` — Validate a single markdown file.
-- `validate_markdown_tree(root, patterns, ignore)` — Validate every markdown file under ``root`` matching ``patterns``.
 - `analyze_and_document(project_path, config)` — Convenience function: analyze a project in one call.
 
 
@@ -354,6 +355,7 @@ code2docs/
 📄 `examples.07_web_frameworks` (5 functions)
 📄 `examples.advanced_usage`
 📄 `examples.basic_usage`
+📄 `examples.class_examples`
 📄 `examples.entry_points`
 📄 `examples.quickstart`
 📄 `project`
