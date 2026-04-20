@@ -95,6 +95,36 @@ def check(project_path, config_path, target) -> None:
 
 @main.command()
 @click.argument('project_path', default='.', type=click.Path(exists=True))
+@click.option('--pattern', multiple=True, default=('*.md',), show_default=True,
+              help='Glob pattern(s) of markdown files to validate.')
+@click.option('--strict', is_flag=True, help='Exit with non-zero status if any issues are found.')
+def validate(project_path, pattern, strict) -> None:
+    """Validate generated markdown: broken links, table shape, duplicate headings."""
+    from .analyzers.markdown_validator import validate_markdown_tree
+    project = Path(project_path).resolve()
+    console.print(f'[bold blue]🔎 code2docs validate:[/] {project.name}')
+    report = validate_markdown_tree(project, patterns=pattern)
+    if report.ok:
+        console.print(f'[green]{report.summary()}[/]')
+        return
+    table = Table(title='Markdown Issues', show_lines=False)
+    table.add_column('File', style='cyan', overflow='fold')
+    table.add_column('Line', justify='right')
+    table.add_column('Kind', style='magenta')
+    table.add_column('Message', style='dim', overflow='fold')
+    for issue in report.issues:
+        try:
+            rel = Path(issue.file).relative_to(project)
+        except ValueError:
+            rel = Path(issue.file)
+        table.add_row(str(rel), str(issue.line), issue.kind, issue.message)
+    console.print(table)
+    console.print(f'[yellow]{report.summary()}[/]')
+    if strict:
+        sys.exit(1)
+
+@main.command()
+@click.argument('project_path', default='.', type=click.Path(exists=True))
 @click.option('--config', '-c', 'config_path', default=None, help='Path to code2docs.yaml')
 def diff(project_path, config_path) -> None:
     """Preview what would change without writing anything."""

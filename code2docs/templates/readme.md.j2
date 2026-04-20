@@ -316,7 +316,7 @@ Content outside the markers is preserved when regenerating. Enable this with `sy
 {% endfor %}
 {% endif %}
 
-We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+{% if has_contributing %}We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.{% else %}We welcome contributions! Open an issue or pull request to get started.{% endif %}
 
 ### Development Setup
 
@@ -353,38 +353,23 @@ pytest
 ```
 {% endif %}
 
-{% if "docs_nav" in sections %}
+{% if "docs_nav" in sections and docs_nav_items %}
 ## Documentation
 
-{% if repo_url %}
-- 📖 [Full Documentation]({{ repo_url }}/tree/main/docs) — API reference, module docs, architecture
-- 🚀 [Getting Started]({{ repo_url }}/blob/main/docs/getting-started.md) — Quick start guide
-- 📚 [API Reference]({{ repo_url }}/blob/main/docs/api.md) — Complete API documentation
-- 🔧 [Configuration]({{ repo_url }}/blob/main/docs/configuration.md) — Configuration options
-{% else %}
-- 📖 [Full Documentation](./docs) — API reference, module docs, architecture
-- 🚀 [Getting Started](./docs/getting-started.md) — Quick start guide
-- 📚 [API Reference](./docs/api.md) — Complete API documentation
-- 🔧 [Configuration](./docs/configuration.md) — Configuration options
-{% endif %}
-- 💡 [Examples](./examples) — Usage examples and code samples
+{% for item in docs_nav_items %}
+- {{ item.icon }} [{{ item.title }}]({{ item.path }}) — {{ item.description }}
+{% endfor %}
 
+{% if generated_files %}
 ### Generated Files
 
 | Output | Description | Link |
 |--------|-------------|------|
 | `README.md` | Project overview (this file) | — |
-| `docs/api.md` | Consolidated API reference | [View](./docs/api.md) |
-| `docs/modules.md` | Module reference with metrics | [View](./docs/modules.md) |
-| `docs/architecture.md` | Architecture with diagrams | [View](./docs/architecture.md) |
-| `docs/dependency-graph.md` | Dependency graphs | [View](./docs/dependency-graph.md) |
-| `docs/coverage.md` | Docstring coverage report | [View](./docs/coverage.md) |
-| `docs/getting-started.md` | Getting started guide | [View](./docs/getting-started.md) |
-| `docs/configuration.md` | Configuration reference | [View](./docs/configuration.md) |
-| `docs/api-changelog.md` | API change tracking | [View](./docs/api-changelog.md) |
-| `CONTRIBUTING.md` | Contribution guidelines | [View](./CONTRIBUTING.md) |
-| `examples/` | Usage examples | [Browse](./examples) |
-| `mkdocs.yml` | MkDocs configuration | — |
+{% for file in generated_files %}
+| `{{ file.output }}` | {{ file.description }} | [View]({{ file.link }}) |
+{% endfor %}
+{% endif %}
 {% endif %}
 
 {% if sync_markers %}<!-- code2docs:end -->{% endif %}

@@ -2,6 +2,23 @@
 
 ## [Unreleased]
 
+## [3.0.31] - 2026-04-20
+
+### Docs
+- Update README.md
+- Update docs/README.md
+
+### Test
+- Update tests/test_markdown_validator.py
+
+### Other
+- Update code2docs/analyzers/__init__.py
+- Update code2docs/analyzers/markdown_validator.py
+- Update code2docs/cli.py
+- Update code2docs/generators/readme_gen.py
+- Update code2docs/templates/readme.md.j2
+- Update project/duplication.toon.yaml
+
 ## [3.0.30] - 2026-04-20
 
 ### Docs

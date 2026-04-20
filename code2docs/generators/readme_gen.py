@@ -58,7 +58,37 @@ class ReadmeGenerator:
         metadata = self._extract_project_metadata()
         extras = self._extract_extras()
         lang = getattr(deps, 'language', 'python') or 'python'
-        return {'project_name': project_name, 'project_path': self.result.project_path, 'project_description': project_description, 'badges': generate_badges(project_name, self.config.readme.badges, stats, deps), 'stats': stats, 'avg_complexity': avg_complexity, 'dependencies': deps, 'language': lang, 'endpoints': endpoints, 'public_functions': public_functions, 'public_classes': public_classes, 'entry_points': entry_points, 'module_tree': module_tree, 'modules': self.result.modules, 'sync_markers': self.config.readme.sync_markers, 'author': metadata.get('author', ''), 'license': metadata.get('license', ''), 'license_file': metadata.get('license_file', ''), 'contributors': metadata.get('contributors', []), 'repo_url': self.config.repo_url, 'version': metadata.get('version', '0.1.0'), 'extras': extras}
+        docs_nav_items, generated_files = self._collect_existing_docs()
+        has_contributing = (Path(self.result.project_path) / 'CONTRIBUTING.md').exists()
+        return {'docs_nav_items': docs_nav_items, 'generated_files': generated_files, 'has_contributing': has_contributing, 'project_name': project_name, 'project_path': self.result.project_path, 'project_description': project_description, 'badges': generate_badges(project_name, self.config.readme.badges, stats, deps), 'stats': stats, 'avg_complexity': avg_complexity, 'dependencies': deps, 'language': lang, 'endpoints': endpoints, 'public_functions': public_functions, 'public_classes': public_classes, 'entry_points': entry_points, 'module_tree': module_tree, 'modules': self.result.modules, 'sync_markers': self.config.readme.sync_markers, 'author': metadata.get('author', ''), 'license': metadata.get('license', ''), 'license_file': metadata.get('license_file', ''), 'contributors': metadata.get('contributors', []), 'repo_url': self.config.repo_url, 'version': metadata.get('version', '0.1.0'), 'extras': extras}
+
+    _DOC_FILE_SPECS = [
+        ('docs/getting-started.md', 'Getting Started', '🚀', 'Quick start guide'),
+        ('docs/api.md', 'API Reference', '📚', 'Complete API documentation'),
+        ('docs/modules.md', 'Module Reference', '📦', 'Module reference with metrics'),
+        ('docs/architecture.md', 'Architecture', '🏛️', 'Architecture with diagrams'),
+        ('docs/dependency-graph.md', 'Dependency Graph', '🔗', 'Module dependency graphs'),
+        ('docs/coverage.md', 'Coverage', '📊', 'Docstring coverage report'),
+        ('docs/configuration.md', 'Configuration', '🔧', 'Configuration reference'),
+        ('docs/api-changelog.md', 'API Changelog', '📝', 'API change tracking'),
+        ('CONTRIBUTING.md', 'Contributing', '🤝', 'Contribution guidelines'),
+        ('examples', 'Examples', '💡', 'Usage examples and code samples'),
+        ('mkdocs.yml', 'MkDocs Config', '⚙️', 'MkDocs site configuration'),
+    ]
+
+    def _collect_existing_docs(self) -> tuple:
+        """Return (docs_nav_items, generated_files) only for files/dirs that exist."""
+        project = Path(self.result.project_path)
+        nav_items = []
+        generated = []
+        for rel_path, title, icon, description in self._DOC_FILE_SPECS:
+            target = project / rel_path
+            if not target.exists():
+                continue
+            link = f'./{rel_path}'
+            nav_items.append({'title': title, 'icon': icon, 'path': link, 'description': description})
+            generated.append({'output': rel_path, 'description': description, 'link': link})
+        return nav_items, generated
 
     def _calc_avg_complexity(self) -> float:
         """Calculate average cyclomatic complexity."""
@@ -180,14 +210,19 @@ class ReadmeGenerator:
             pass
 
     def _detect_license(self, metadata: Dict) -> None:
-        """Detect license type from LICENSE files."""
-        license_paths = [Path(self.result.project_path) / lf for lf in ['LICENSE', 'LICENSE.txt', 'LICENSE.md', 'COPYING']]
-        parent_path = Path(self.result.project_path).parent
-        if parent_path != Path(self.result.project_path):
-            license_paths += [parent_path / lf for lf in ['LICENSE', 'LICENSE.txt', 'LICENSE.md', 'COPYING']]
-        for license_path in license_paths:
+        """Detect license type from LICENSE files.
+
+        Only sets ``license_file`` (used as a link target) when the file lives
+        in the project root, so README links resolve correctly.
+        """
+        project_root = Path(self.result.project_path)
+        in_project = [project_root / lf for lf in ['LICENSE', 'LICENSE.txt', 'LICENSE.md', 'COPYING']]
+        parent = project_root.parent
+        in_parent = [parent / lf for lf in ['LICENSE', 'LICENSE.txt', 'LICENSE.md', 'COPYING']] if parent != project_root else []
+        for license_path in in_project + in_parent:
             if license_path.exists():
-                metadata['license_file'] = license_path.name
+                if license_path.parent == project_root:
+                    metadata['license_file'] = license_path.name
                 if not metadata['license']:
                     try:
                         content = license_path.read_text(encoding='utf-8').lower()
